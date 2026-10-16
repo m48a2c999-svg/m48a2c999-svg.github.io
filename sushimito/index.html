@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>스시미토 센터플레이스</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="스시미토 이전 신축 — 서울 중구 남대문로9길 40 센터플레이스 2층. 엘모컴퍼니 인테리어 디자인.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<style>
+/* Layout: long horizontal room → long vertical scroll. Dark render bands alternate with paper bands, the way the 13 m walk goes from dark entry to the lit counter. */
+:root{
+  --paper:#F4F0E8; --panel:#EAE3D6; --ink:#25211E; --ink2:#5D544B; --mute:#8C8274; --hair:#D5CBBB;
+  --brass:#B78340; --brass-ink:#875B22;
+  --night:#121110; --night2:#1B1917; --night-hair:#34302B; --cream:#EDE6D9; --cream2:#B4AA9C;
+  --f-disp:"Nanum Myeongjo","Noto Serif KR",serif;
+  --f-latin:"Cormorant Garamond","Times New Roman",serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px));
+  --gutr:max(16px, env(safe-area-inset-right, 0px));
+  --wrap:1240px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#161412; --panel:#201D1A; --ink:#ECE5D8; --ink2:#BBB0A1; --mute:#8D8375; --hair:#36312B;
+  --brass:#C9944D; --brass-ink:#D7A866; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#161412; --panel:#201D1A; --ink:#ECE5D8; --ink2:#BBB0A1; --mute:#8D8375; --hair:#36312B;
+  --brass:#C9944D; --brass-ink:#D7A866; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-weight:400;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--night);color:var(--cream);padding:8px 14px;z-index:99}
+.skip:focus{left:16px;top:16px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+
+.eyebrow{font-family:var(--f-body);font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+.latin-i{font-family:var(--f-latin);font-style:italic;font-weight:400;letter-spacing:.01em}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.4vw,40px);line-height:1.35}
+h3{font-size:clamp(20px,2.1vw,25px);line-height:1.45}
+p{margin:0}
+.lede{font-size:16.5px;color:var(--ink2);max-width:38em}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;margin-bottom:clamp(28px,4vw,48px)}
+.sec-no{font-family:var(--f-latin);font-size:15px;color:var(--brass-ink);letter-spacing:.08em;grid-row:span 2}
+.sec-head .eyebrow{color:var(--brass-ink)}
+@media (max-width:640px){.sec-head{grid-template-columns:auto 1fr}.sec-head h2{grid-column:1/-1}.sec-no{grid-row:auto}}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);border-bottom:1px solid var(--night-hair)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
+.logo{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.logo b{font-family:var(--f-latin);font-weight:500;font-size:19px;letter-spacing:.32em}
+.logo span{font-size:11px;color:var(--cream2);letter-spacing:.14em}
+.nav{display:flex;gap:clamp(14px,2vw,28px);list-style:none;margin:0;padding:0}
+.nav a{font-size:11px;letter-spacing:.2em;text-decoration:none;color:var(--cream2);transition:color .2s}
+.nav a:hover{color:var(--cream)}
+.menu-btn{display:none;background:none;border:1px solid var(--night-hair);color:var(--cream);font:500 11px/1 var(--f-body);letter-spacing:.2em;padding:9px 12px;cursor:pointer}
+@media (max-width:900px){
+  .menu-btn{display:block}
+  .nav{position:absolute;left:0;right:0;top:58px;flex-direction:column;gap:0;background:var(--night);border-bottom:1px solid var(--night-hair);padding:8px var(--gutr) 14px var(--gut)}
+  .nav a{display:block;padding:11px 0;font-size:12px;border-top:1px solid var(--night-hair)}
+  .top:not(.open) .nav{display:none}
+}
+
+/* hero */
+.hero{position:relative;background:var(--night);color:var(--cream);overflow:hidden}
+.hero img{width:100%;height:clamp(520px,80vh,860px);object-fit:cover;object-position:58% 50%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.15) 0%,rgba(18,17,16,0) 35%,rgba(18,17,16,.7) 62%,rgba(18,17,16,.96) 100%);pointer-events:none}
+.hero-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-block:0 clamp(28px,5vw,60px)}
+.hero-tag{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:18px}
+.hero-tag .eyebrow{color:var(--cream2)}
+.pill{border:1px solid rgba(237,230,217,.35);padding:4px 10px;font-size:10.5px;letter-spacing:.2em;color:var(--cream)}
+.hero h1{font-family:var(--f-latin);font-weight:300;font-size:clamp(52px,10vw,132px);letter-spacing:.14em;line-height:.95;margin-left:-.06em}
+.hero .kr{font-family:var(--f-disp);font-weight:400;font-size:clamp(18px,2.2vw,26px);line-height:1.6;margin-top:18px;max-width:24em;color:var(--cream)}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.scroll{font-size:11px;letter-spacing:.24em;text-decoration:none;color:var(--cream2);display:flex;align-items:center;gap:10px}
+.scroll::after{content:"";width:1px;height:38px;background:var(--cream2)}
+
+/* facts strip */
+.facts{background:var(--night);color:var(--cream);border-top:1px solid var(--night-hair)}
+.facts dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0;padding-block:22px 26px}
+.facts dl>div{padding:4px 18px;border-left:1px solid var(--night-hair)}
+.facts dl>div:first-child{border-left:0;padding-left:0}
+.facts dt{font-size:10.5px;letter-spacing:.2em;color:var(--cream2);text-transform:uppercase}
+.facts dd{margin:4px 0 0;font-family:var(--f-latin);font-size:22px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1.3}
+.facts dd small{font-family:var(--f-body);font-size:12px;color:var(--cream2);margin-left:4px}
+@media (max-width:860px){.facts dl{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.facts dl>div{border-left:0;padding-left:0}}
+
+section.band{padding-block:clamp(72px,10vw,130px)}
+section.dark{background:var(--night);color:var(--cream)}
+section.dark .lede,section.dark p{color:var(--cream2)}
+section.dark .sec-no,section.dark .sec-head .eyebrow{color:var(--brass)}
+section.panel{background:var(--panel)}
+
+/* 01 concept */
+.concept{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,6vw,90px);align-items:start}
+.concept .txt{display:grid;gap:22px}
+.concept figure{margin:0;position:sticky;top:90px}
+.concept figure img{width:100%;aspect-ratio:4/4.6;object-fit:cover}
+figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var(--mute);margin-top:10px;text-align:right}
+.then-now{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);margin-top:10px}
+.then-now div{padding:18px 18px 4px 0}
+.then-now div+div{padding-left:18px;border-left:1px solid var(--hair)}
+.then-now b{display:block;font-family:var(--f-latin);font-size:30px;font-weight:400;color:var(--brass-ink);line-height:1.1}
+.then-now span{font-size:13.5px;color:var(--ink2)}
+.rules{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--hair)}
+.rules li{display:grid;grid-template-columns:8.5em 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.rules strong{font-family:var(--f-disp);font-weight:700;font-size:16px}
+.rules span{color:var(--ink2);font-size:14.5px}
+@media (max-width:860px){.concept{grid-template-columns:1fr}.concept figure{position:static}.rules li{grid-template-columns:1fr;gap:2px}}
+
+/* 02 sequence */
+.seq{display:grid;gap:clamp(56px,8vw,110px)}
+.step{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.step:nth-child(even) .step-img{order:2}
+.step-img{margin:0}
+.step-img img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night)}
+.step-img.tall img{aspect-ratio:4/4.4;object-position:50% 40%}
+.step-txt{display:grid;gap:16px;max-width:30em}
+.step-k{display:flex;gap:14px;align-items:baseline}
+.step-k em{font-family:var(--f-latin);font-style:normal;font-size:44px;line-height:1;color:var(--brass-ink);font-weight:300}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;padding:0;list-style:none}
+.tags li{font-size:12px;border:1px solid var(--hair);padding:3px 10px;color:var(--ink2)}
+@media (max-width:860px){.step{grid-template-columns:1fr}.step:nth-child(even) .step-img{order:0}}
+.statement{margin-top:clamp(64px,9vw,120px);border-top:1px solid var(--hair);padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:end}
+.statement .big{font-family:var(--f-latin);font-weight:300;font-size:clamp(34px,5.4vw,72px);letter-spacing:.06em;line-height:1}
+.statement p{color:var(--ink2);max-width:32em}
+.cuts-head{margin-top:clamp(64px,9vw,110px);display:grid;gap:10px;max-width:40em}
+.cuts-head p{color:var(--ink2);font-size:14px}
+.cuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
+.cut{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px;align-content:start}
+.cut img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night);transition:transform .3s}
+.cut:hover img{transform:translateY(-3px)}
+.cut:first-child{grid-column:span 2}
+.cut:first-child img{aspect-ratio:8/3;object-position:50% 55%}
+.cut span{font-size:13.5px}
+.cut small{display:block;font-size:12px;color:var(--mute)}
+.cut small b{font-weight:500;color:var(--brass-ink)}
+@media (max-width:860px){.cuts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){.statement{grid-template-columns:1fr}}
+
+/* 03 hall */
+.hall-note{margin:0;font-size:13px;color:var(--cream2);letter-spacing:.02em;align-self:center}
+.hall-ctl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 24px;margin-bottom:18px}
+.seg{display:inline-flex;border:1px solid var(--night-hair)}
+.seg button{background:none;border:0;color:var(--cream2);font:400 13px/1 var(--f-body);padding:12px 16px;cursor:pointer;letter-spacing:.02em;transition:background .2s,color .2s}
+.seg button+button{border-left:1px solid var(--night-hair)}
+.seg button[aria-selected="true"]{background:var(--cream);color:var(--night)}
+.seg button small{display:block;font-size:10px;letter-spacing:.2em;margin-top:5px;opacity:.75}
+.views{display:flex;flex-wrap:wrap;gap:6px}
+.views button{background:none;border:1px solid var(--night-hair);color:var(--cream2);font:400 12.5px/1 var(--f-body);padding:10px 13px;cursor:pointer}
+.views button[aria-pressed="true"]{border-color:var(--brass);color:var(--cream)}
+.views button span{font-family:var(--f-latin);margin-right:6px;color:var(--brass)}
+.hall-stage{position:relative;background:#26282B;aspect-ratio:1604/981;overflow:hidden}
+.hall-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s ease}
+.hall-stage img.off{opacity:0}
+.hall-cap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px 48px;margin-top:22px;align-items:start}
+.hall-cap h3{color:var(--cream)}
+.hall-cap .fin{font-size:12.5px;color:var(--brass);letter-spacing:.06em;margin-top:8px}
+@media (max-width:860px){.hall-cap{grid-template-columns:1fr}.hall-ctl{flex-direction:column}}
+
+/* 04 light */
+.light{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,90px);align-items:start}
+.layers{list-style:none;margin:26px 0 0;padding:0;border-top:1px solid var(--hair)}
+.layers li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.layers .ic{width:28px;height:28px;margin-top:3px}
+.layers strong{display:block;font-weight:500;font-size:15px}
+.layers span{font-size:13.5px;color:var(--ink2)}
+.chart{background:var(--paper);border:1px solid var(--hair);padding:clamp(18px,3vw,30px)}
+.chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:22px}
+.chart .seg{border-color:var(--hair)}
+.chart .seg button{color:var(--ink2);font-size:12.5px;padding:10px 13px}
+.chart .seg button+button{border-left-color:var(--hair)}
+.chart .seg button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.bars{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:9.5em 1fr 4.6em;gap:12px;align-items:center;font-size:13px}
+.bar .lab{color:var(--ink2);line-height:1.35}
+.bar .track{position:relative;height:14px;background:linear-gradient(90deg,var(--hair) 0 1px,transparent 1px) 0 0/33.333% 100%}
+.bar .fill{position:absolute;left:0;top:2px;bottom:2px;background:var(--brass);transition:width .5s ease,opacity .5s}
+.bar .val{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-latin);font-size:17px}
+.axis{display:grid;grid-template-columns:9.5em 1fr 4.6em;gap:12px;margin-top:8px;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums}
+.axis .ticks{display:flex;justify-content:space-between}
+.chart-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid var(--hair);font-size:12.5px;color:var(--mute)}
+.chart-foot b{font-family:var(--f-latin);font-size:20px;color:var(--ink);font-weight:400;margin-left:6px}
+@media (max-width:860px){.light{grid-template-columns:1fr}}
+@media (max-width:520px){.bar,.axis{grid-template-columns:6.6em 1fr 3.8em}.bar{font-size:12px}}
+
+/* 05 material */
+.mats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,30px)}
+.mat{display:grid;gap:10px;align-content:start}
+.mat .sw{aspect-ratio:1;background-size:cover;background-position:center;border:1px solid var(--hair)}
+.mat .code{font-family:var(--f-latin);font-size:13px;color:var(--brass-ink);letter-spacing:.12em}
+.mat h3{font-size:17px;line-height:1.4}
+.mat p{font-size:13px;color:var(--ink2);line-height:1.6}
+.mat .where{font-size:12px;color:var(--mute);border-top:1px solid var(--hair);padding-top:8px}
+@media (max-width:960px){.mats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.note{margin-top:36px;font-size:13px;color:var(--mute)}
+
+/* 06 drawings */
+.plan{margin:0;background:#fff;border:1px solid var(--hair);padding:clamp(10px,2vw,22px)}
+.plan-scroll{overflow-x:auto}
+.plan img{width:100%;min-width:640px}
+.plan-specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:22px 0 clamp(40px,6vw,64px);border-top:1px solid var(--hair)}
+.plan-specs div{padding:14px 16px 0 0}
+.plan-specs dt{font-size:11px;letter-spacing:.18em;color:var(--mute)}
+.plan-specs dd{margin:4px 0 0;font-size:14px;font-variant-numeric:tabular-nums}
+@media (max-width:860px){.plan-specs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sheets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.sheet{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px}
+.sheet img{width:100%;aspect-ratio:1787/1263;object-fit:cover;background:#fff;border:1px solid var(--hair);transition:transform .3s}
+.sheet:hover img{transform:translateY(-3px)}
+.sheet span{font-size:13px}
+.sheet small{display:block;font-family:var(--f-latin);font-style:italic;font-size:13px;color:var(--mute)}
+@media (max-width:860px){.sheets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1500px);width:100%}
+dialog.lb::backdrop{background:rgba(10,9,8,.86)}
+.lb-in{position:relative;background:#fff}
+.lb-in img{width:100%;height:auto;max-height:84vh;object-fit:contain}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--night);color:var(--cream);padding:10px 14px;font-size:13px}
+.lb-bar button{background:none;border:1px solid var(--night-hair);color:var(--cream);font:inherit;padding:6px 12px;cursor:pointer}
+
+/* 07 schedule */
+.gantt-wrap{overflow-x:auto;border:1px solid var(--hair);background:var(--paper)}
+.gantt{min-width:860px;display:grid;grid-template-columns:15em repeat(31,minmax(0,1fr));font-size:12.5px;position:relative}
+.gantt .hd{font-size:10.5px;color:var(--mute);text-align:center;padding:10px 0 8px;border-bottom:1px solid var(--hair);font-variant-numeric:tabular-nums}
+.gantt .hd.we{color:var(--brass-ink)}
+.gantt .hd.first{text-align:left;padding-left:14px;letter-spacing:.18em}
+.gantt .nm{padding:9px 10px 9px 14px;border-bottom:1px solid var(--hair);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.gantt .nm i{font-style:normal;font-size:10.5px;letter-spacing:.06em;color:var(--mute);white-space:nowrap}
+.gantt .nm i.now{color:var(--brass-ink);font-weight:500}
+.gantt .cell{border-bottom:1px solid var(--hair);position:relative}
+.gantt .b{align-self:center;height:12px;margin:0 1px;background:var(--hair)}
+.gantt .b.done{background:var(--ink2)}
+.gantt .b.now{background:var(--brass)}
+.gantt .b.next{background:transparent;border:1px solid var(--ink2)}
+.gantt .today{position:absolute;top:0;bottom:0;width:0;border-left:1px dashed var(--brass);pointer-events:none}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;font-size:12.5px;color:var(--ink2)}
+.legend span::before{content:"";display:inline-block;width:18px;height:9px;margin-right:7px;vertical-align:1px;background:var(--ink2)}
+.legend .l-now::before{background:var(--brass)}
+.legend .l-next::before{background:transparent;border:1px solid var(--ink2)}
+.done-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:clamp(36px,5vw,56px)}
+.done-list div{border-top:1px solid var(--hair);padding-top:14px}
+.done-list b{display:block;font-family:var(--f-disp);font-size:16px;margin-bottom:6px}
+.done-list p{font-size:13.5px;color:var(--ink2)}
+@media (max-width:860px){.done-list{grid-template-columns:1fr}}
+
+/* closing */
+.closing{position:relative;background:var(--night);color:var(--cream);overflow:hidden}
+.closing img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.38}
+.closing .wrap{position:relative;padding-block:clamp(90px,14vw,170px)}
+.closing h2{font-size:clamp(28px,4.2vw,52px);max-width:16em}
+.closing .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.closing .links a{border:1px solid rgba(237,230,217,.4);padding:12px 18px;text-decoration:none;font-size:13px;letter-spacing:.04em}
+.closing .links a:hover{background:var(--cream);color:var(--night)}
+.closing .disc{margin-top:40px;font-size:12.5px;color:var(--cream2);max-width:46em}
+footer{background:var(--night);color:var(--cream2);border-top:1px solid var(--night-hair);font-size:12px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;padding-block:26px calc(26px + env(safe-area-inset-bottom,0px))}
+footer b{font-family:var(--f-latin);font-weight:500;letter-spacing:.3em;color:var(--cream);font-size:14px;margin-right:12px}
+footer nav{display:flex;flex-wrap:wrap;gap:16px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--cream)}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#concept">본문으로 건너뛰기</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#hero"><b>SUSHI MITO</b><span>스시미토</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">MENU</button>
+    <ul class="nav" id="nav">
+      <li><a href="#concept">CONCEPT</a></li>
+      <li><a href="#sequence">SEQUENCE</a></li>
+      <li><a href="#hall">HALL</a></li>
+      <li><a href="#light">LIGHT</a></li>
+      <li><a href="#material">MATERIAL</a></li>
+      <li><a href="#drawings">DRAWINGS</a></li>
+      <li><a href="#schedule">SCHEDULE</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="스시미토 표지">
+  <img src="img/hero.webp" alt="셰프 배면의 원형 후광 오브제와 ㄱ자 대리석 카운터, 등박스 테두리에서 내려오는 확산광" width="1355" height="810" fetchpriority="high">
+  <div class="hero-txt">
+    <div class="wrap">
+      <div class="hero-tag">
+        <span class="eyebrow">CENTER PLACE 2F · 남대문로9길 40</span>
+        <span class="pill">INTERIOR DESIGN 2026</span>
+      </div>
+      <div class="hero-row">
+        <div>
+          <h1>SUSHI MITO</h1>
+          <p class="kr">어두운 배면 위에 나무와 돌, 그리고 접시 위의 빛만 남긴다.</p>
+        </div>
+        <a class="scroll" href="#concept">SCROLL</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <dl>
+      <div><dt>Site</dt><dd>12,910 × 3,780<small>mm</small></dd></div>
+      <div><dt>Area</dt><dd>48.8<small>㎡ · 14.8평</small></dd></div>
+      <div><dt>Counter</dt><dd>10<small>석 · ㄱ자 7 + 3</small></dd></div>
+      <div><dt>Ceiling</dt><dd>4,170 × 1,850<small>등박스</small></dd></div>
+      <div><dt>Start</dt><dd>2026.10.01<small>착공</small></dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- 01 -->
+<section class="band" id="concept">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <span class="eyebrow">From 2015 to 2026</span>
+      <h2>같은 가게, 다른 방</h2>
+    </div>
+    <div class="concept">
+      <div class="txt">
+        <p class="lede">2015년 스시미토의 첫 매장은 엘모컴퍼니가 지었습니다. 밝은 나무와 천장 가득한 조명으로 방 전체가 주인공인 가게였습니다. 11년이 지나 스시미토가 센터플레이스 2층으로 자리를 옮기면서, 다시 그 공간을 맡았습니다.</p>
+        <p>새 자리는 폭 3.8m, 길이 12.9m의 긴 방입니다. 홀에는 창이 없고, 유일한 채광면인 커튼월은 주방 뒤에 있습니다. 이런 방을 밝게 마감하면 네 벽이 모두 드러나 실제보다 좁아 보입니다. 그래서 벽과 천장을 한 톤으로 어둡게 물리고, 손님 앞의 카운터와 셰프의 손에만 빛을 모았습니다.</p>
+        <div class="then-now">
+          <div><b>2015</b><span>밝은 나무 · 온 천장 조명<br>방이 주인공</span></div>
+          <div><b>2026</b><span>어두운 배면 · 숨긴 간접광<br>카운터와 접시가 주인공</span></div>
+        </div>
+        <ul class="rules">
+          <li><strong>한 톤의 배면</strong><span>벽은 모래 질감의 흑갈색 도장, 천장도 같은 색. 경계가 흐려지면 긴 방이 좁게 읽히지 않습니다.</span></li>
+          <li><strong>나무와 돌</strong><span>흑단 스테인 세로 루바, 블랙오크 가구, 검은 천연대리석 상판. 재료 수는 줄이고 결로 구분합니다.</span></li>
+          <li><strong>빛은 카운터에</strong><span>다찌 위 펜던트는 두지 않습니다. 등박스 테두리의 간접광과 상판을 겨눈 스폿이 접시를 가장 밝게 만듭니다.</span></li>
+          <li><strong>어둠에서 밝음으로</strong><span>입구, 복도, 전실을 지나 홀에 이를수록 조도가 올라가도록 순서를 짰습니다.</span></li>
+        </ul>
+      </div>
+      <figure>
+        <img src="img/hall-aisle.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구와 검정 천장, 등박스와 원형 오브제" width="1604" height="981" loading="lazy" style="aspect-ratio:auto;object-fit:contain;background:#26282B">
+        <figcaption>Hall Aisle · Render</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="band panel" id="sequence">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <span class="eyebrow">The Approach</span>
+      <h2>문에서 카운터까지, 세 번의 장면</h2>
+    </div>
+    <div class="seq">
+      <article class="step">
+        <figure class="step-img"><img src="img/entry-out.webp" alt="건물 공용 복도에서 본 입구. 월넛 솔리드 문, 천 가림막, 사각 벽등" width="1448" height="1086" loading="lazy"></figure>
+        <div class="step-txt">
+          <div class="step-k"><em>01</em><span class="eyebrow">Entrance</span></div>
+          <h3>공용 복도에 나무 문 한 장</h3>
+          <p>자동문과 그 위 고정판을 같은 월넛 결로 이어 한 장의 나무처럼 보이게 했습니다. 좌우 벽은 어두운 톤으로 정리하고, 문 옆에 작은 사각 조명과 천 가림막만 둡니다. 외부 돌출 간판은 두지 않습니다.</p>
+          <ul class="tags"><li>월넛 필름 자동문</li><li>문 높이 2,100</li><li>사각 벽등</li></ul>
+        </div>
+      </article>
+      <article class="step">
+        <figure class="step-img tall"><img src="img/entry-corridor.webp" alt="흑단 세로 루바 벽과 무광 타일 바닥의 내부 복도, 가지 하나와 사각 벽등" width="1122" height="1402" loading="lazy"></figure>
+        <div class="step-txt">
+          <div class="step-k"><em>02</em><span class="eyebrow">Corridor</span></div>
+          <h3>세로 결과 가지 하나</h3>
+          <p>문을 열면 짧은 복도가 이어집니다. 벽은 흑단색 세로 루바, 바닥은 무광 타일입니다. 빛은 사각 벽등 하나와 바닥의 작은 조경에만 둡니다. 눈이 어둠에 익숙해지는 구간입니다.</p>
+          <ul class="tags"><li>흑단 스테인 루바</li><li>무광 포세린</li><li>낮은 조도</li></ul>
+        </div>
+      </article>
+      <article class="step">
+        <figure class="step-img"><img src="img/entry-vestibule.webp" alt="전실 정면 조명 오브제와 오른쪽 홀로 이어지는 회전 동선" width="1448" height="1086" loading="lazy"></figure>
+        <div class="step-txt">
+          <div class="step-k"><em>03</em><span class="eyebrow">Vestibule</span></div>
+          <h3>빛나는 띠 하나, 그리고 오른쪽으로</h3>
+          <p>전실 정면에는 밝은 세로 띠와 둥근 돌 오브제가 서 있습니다. 바닥의 구형 조명을 지나 1,000mm 회전 동선을 따라 오른쪽으로 돌면, 그때 처음 홀의 카운터가 보입니다.</p>
+          <ul class="tags"><li>조명 오브제</li><li>회전 동선 1,000</li><li>전실 경사 바닥</li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="statement">
+      <span class="big">ONE COUNTER,<br>TEN SEATS</span>
+      <p>ㄱ자 카운터 긴 변 7석과 짧은 변 3석. 손님 열 명이 모두 셰프의 손을 정면에서 봅니다. <a href="#hall">홀 둘러보기 ↓</a></p>
+    </div>
+    <div class="cuts-head">
+      <span class="eyebrow">All Corridor Cuts</span>
+      <h3>복도 외부와 실내 복도 컷</h3>
+      <p>입구 외부부터 홀 통로까지 지금까지 만든 복도 렌더를 모두 모았습니다. 누르면 크게 볼 수 있습니다.</p>
+    </div>
+    <div class="cuts" id="cuts"></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="band dark" id="hall">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <span class="eyebrow">The Hall</span>
+      <h2>검정 가구, 검정 천장</h2>
+    </div>
+    <div class="hall-ctl">
+      <p class="hall-note" id="finB">최종안 · 블랙오크 가구와 흑단 루바, 등박스를 뺀 천장은 모두 어두운 톤</p>
+      <div class="views" aria-label="장면 선택">
+        <button aria-pressed="true" data-view="01"><span>i</span>홀 전체</button>
+        <button aria-pressed="false" data-view="02"><span>ii</span>손님 벽면</button>
+        <button aria-pressed="false" data-view="03"><span>iii</span>셰프 벽면</button>
+        <button aria-pressed="false" data-view="04"><span>iv</span>천장 쪽 시선</button>
+        <button aria-pressed="false" data-view="05"><span>v</span>홀 통로</button>
+      </div>
+    </div>
+    <div class="hall-stage" id="stage" role="tabpanel" aria-labelledby="finB">
+      <img id="stA" src="img/hall-B-01.webp" alt="" width="1604" height="981">
+      <img id="stB" class="off" src="img/hall-B-01.webp" alt="" width="1604" height="981" aria-hidden="true">
+    </div>
+    <div class="hall-cap" aria-live="polite">
+      <div><h3 id="capT">홀 전체</h3><p class="fin" id="capF"></p></div>
+      <p id="capD"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="band" id="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <span class="eyebrow">Light Order</span>
+      <h2>가장 밝은 곳은 상판 위</h2>
+    </div>
+    <div class="light">
+      <div>
+        <p class="lede">보이는 기구를 줄이고 빛의 서열을 정했습니다. 전실 바닥이 가장 어둡고, 통로와 백바를 지나 카운터 상판에서 가장 밝아집니다. 손님과 셰프의 얼굴에는 대화가 편한 정도의 빛만 닿습니다.</p>
+        <ul class="layers">
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="9" width="22" height="10" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><rect x="5" y="11" width="18" height="6" fill="var(--brass)" opacity=".55"/></svg><div><strong>등박스 테두리 간접광</strong><span>카운터 위 4,170 × 1,850 등박스, 테두리 홈 200에 숨긴 선형 조명. 영업 중 30–40%로 디밍합니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M9 5h10l-2 7h-6z" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><path d="M11 12 6 25h16l-5-13z" fill="var(--brass)" opacity=".45"/></svg><div><strong>카운터 스폿</strong><span>정면 7석은 의자 중심마다 한 개, 짧은 변은 3등분 위치에 두 개. 접시 위가 가장 밝습니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="8" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><circle cx="14" cy="14" r="10.5" fill="none" stroke="var(--brass)" stroke-width="1.6" opacity=".7"/></svg><div><strong>백바와 원형 오브제</strong><span>셰프 뒤 벽면의 원형 후광과 백바 조명 4개. 별도 회로로 60% 이하에서 씁니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 8h20M4 15h20M4 22h20" stroke="var(--ink2)" stroke-width="1.2"/><path d="M5 9.5h18M5 16.5h18" stroke="var(--brass)" stroke-width="2" opacity=".7"/></svg><div><strong>가구 간접 LED 3,000K</strong><span>옷장 걸이칸, 진열 선반 밑, 상부장 하부. 어두운 가구라 선반보다 진열한 병과 그릇이 빛납니다.</span></div></li>
+        </ul>
+      </div>
+      <div class="chart" role="group" aria-label="평가면별 조도">
+        <div class="chart-top">
+          <span class="eyebrow">평가면 조도 · lx</span>
+          <div class="seg" role="tablist" aria-label="점등 모드">
+            <button role="tab" aria-selected="true" data-mode="0">영업 풀점등</button>
+            <button role="tab" aria-selected="false" data-mode="1">저녁 무드</button>
+          </div>
+        </div>
+        <div class="bars" id="bars"></div>
+        <div class="axis" aria-hidden="true"><span></span><div class="ticks"><span>0</span><span>500</span><span>1,000</span><span>1,500</span></div><span></span></div>
+        <div class="chart-foot"><span>총 소비전력<b id="watt">657 W</b></span><span>주방 작업면 985 lx · 별도 회로</span></div>
+      </div>
+    </div>
+    <p class="note">조명 시뮬레이션 R3 (2026.10.15) 기준. 직접광과 상호반사를 계산해 렌더로 확인한 값이며, 일부 기구 위치와 광속은 가정값입니다. 발주 사양이 확정되면 다시 계산합니다.</p>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="band panel" id="material">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <span class="eyebrow">Materials</span>
+      <h2>여덟 가지 재료</h2>
+    </div>
+    <div class="mats">
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-wall.webp)" role="img" aria-label="흑갈색 모래 질감 도장"></div><span class="code">01 · WALL</span><h3>모래 질감 흑갈색 도장</h3><p>삼화 챠밍샌드월 무광, 지정색 SH S 8005-Y80R</p><p class="where">홀 · 전실 벽, 천장 (등박스 · 입구 · 주방 제외)</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-louver.webp)" role="img" aria-label="흑단색 세로 루바"></div><span class="code">02 · LOUVER</span><h3>빈티지 흑단 루바</h3><p>레드파인 루바 12 × 120 · 수성 스테인 흑단 · 무광 방염 클리어</p><p class="where">홀 · 복도 벽면</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-marble.webp)" role="img" aria-label="흰 결이 있는 검은 대리석"></div><span class="code">03 · STONE</span><h3>검은 천연대리석 상판</h3><p>신흥스톤 유니카프라 20T</p><p class="where">손님 카운터 상판 · 헌상대</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-oak.webp)" role="img" aria-label="블랙오크 무늬 판재"></div><span class="code">04 · JOINERY</span><h3>블랙오크 붙박이 가구</h3><p>블랙오크 LPM 18T · 합판 적층 무늬 엣지</p><p class="where">옷장 · 서비스장 · 셰프 뒤 수납 등 제작 가구</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-ivory.webp)" role="img" aria-label="아이보리 인조대리석"></div><span class="code">05 · WORKTOP</span><h3>아이보리 작업대</h3><p>현대L&amp;C 하넥스 H-아이보리 12T</p><p class="where">하부 냉장고 상부 · 셰프 작업대</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-tile.webp)" role="img" aria-label="밝은 아이보리 포세린 타일"></div><span class="code">06 · FLOOR</span><h3>밝은 아이보리 포세린</h3><p>맥스포인트 홀리 아이보리 600 × 1,200 무광</p><p class="where">홀 바닥</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-walnut.webp)" role="img" aria-label="월넛 세로 목결"></div><span class="code">07 · DOOR</span><h3>월넛 목결 필름</h3><p>LX 베니프 카리스 월넛 (방염)</p><p class="where">입구 자동문 · 문 위 고정판</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-white.webp)" role="img" aria-label="무광 백색 도장"></div><span class="code">08 · CEILING</span><h3>무광 백색 반사면</h3><p>삼화 수성 내부용 무광 백색</p><p class="where">등박스 · 입구 천장 (빛을 받아 되돌리는 면)</p></article>
+    </div>
+    <p class="note">스와치는 색과 질감의 방향을 보여주는 이미지입니다. 도장 색과 대리석 무늬는 현장 조명(3,000K) 아래 실물 샘플로 확정합니다.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="band" id="drawings">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">06</span>
+      <span class="eyebrow">Drawings</span>
+      <h2>평면과 입면</h2>
+    </div>
+    <figure class="plan">
+      <div class="plan-scroll"><img src="img/plan.webp" alt="스시미토 평면도. 왼쪽 전실에서 오른쪽으로 홀, ㄱ자 카운터, 주방 순" width="2000" height="892" loading="lazy"></div>
+    </figure>
+    <dl class="plan-specs">
+      <div><dt>외곽</dt><dd>12,910 × 3,780 mm</dd></div>
+      <div><dt>순서</dt><dd>전실 → 홀 → 카운터 → 주방</dd></div>
+      <div><dt>좌석</dt><dd>긴 변 7석 + 짧은 변 3석</dd></div>
+      <div><dt>바닥</dt><dd>홀 +150 · 주방 +200 · 전실 경사</dd></div>
+    </dl>
+    <div class="sheets" id="sheets"></div>
+    <p class="note">디자인 제안 R06 컬러 도면 (2026.09.16). 시공은 2026.09.20 확정 도면 9매(A3, 1/40)를 기준으로 합니다. 도면을 누르면 크게 볼 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="band panel" id="schedule">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">07</span>
+      <span class="eyebrow">October 2026</span>
+      <h2>한 달의 공사</h2>
+    </div>
+    <div class="gantt-wrap"><div class="gantt" id="gantt" role="table" aria-label="2026년 10월 공정표"></div></div>
+    <div class="legend"><span>완료</span><span class="l-now">진행 중</span><span class="l-next">예정</span></div>
+    <div class="done-list">
+      <div><b>천장과 골조를 먼저</b><p>보양·덕트로 시작해 에어컨, 스프링클러, 설비 배관, 금속 등박스, 경량 천장과 전기 베이스를 먼저 마쳤습니다.</p></div>
+      <div><b>목공 뒤에 바닥</b><p>방통은 목공 이후로 미뤄 주방 설비와 2차 방수를 함께 진행합니다. 홀은 +150, 주방은 +200 올립니다.</p></div>
+      <div><b>마감은 안에서 밖으로</b><p>도장, 타일, 조명 기구, 대리석 상판 순서로 들어가고 마지막에 가구와 사인을 설치합니다.</p></div>
+    </div>
+    <p class="note">2026.10.10 공정 기준. 현장 상황에 따라 날짜는 조정됩니다.</p>
+  </div>
+</section>
+
+<section class="closing" id="closing">
+  <img src="img/hall-B-04.webp" alt="" width="1604" height="981" loading="lazy">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--cream2)">Sushi Mito · Center Place 2F</span>
+    <h2 style="margin-top:14px">2026년 가을, 남대문로의 긴 방에 열 개의 자리가 놓입니다.</h2>
+    <div class="links">
+      <a href="#hero">처음으로 ↑</a>
+      <a href="#hall">홀 다시 보기</a>
+      <a href="#drawings">도면 보기</a>
+    </div>
+    <p class="disc">이 페이지의 이미지는 설계 검토용 렌더와 도면이며 실제 시공 사진이 아닙니다. 마감 색상과 대리석 무늬는 실물 샘플로 최종 확정합니다. 공사 금액은 별도 견적서로 안내합니다.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>ELMOCOMPANY</b>인테리어 설계 · 시공 · 서울특별시 동작구 상도로 410, 2층</div>
+    <nav aria-label="바닥글"><a href="#concept">Concept</a><a href="#hall">Hall</a><a href="#material">Material</a><a href="#schedule">Schedule</a><span>© 2026 ELMOCOMPANY</span></nav>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="크게 보기">
+  <div class="lb-in">
+    <img id="lbImg" src="" alt="">
+    <div class="lb-bar"><button id="lbPrev" aria-label="이전">←</button><span id="lbCap"></span><span><button id="lbNext" aria-label="다음">→</button> <button id="lbClose">닫기</button></span></div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  // menu
+  var top=document.getElementById('top'),mb=document.getElementById('menuBtn');
+  mb.addEventListener('click',function(){var o=top.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  document.querySelectorAll('.nav a').forEach(function(a){a.addEventListener('click',function(){top.classList.remove('open');mb.setAttribute('aria-expanded','false')})});
+
+  // hall
+  var VIEWS={
+    '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 검은 대리석 상판을 두르고, 그 안쪽에 밝은 아이보리 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
+    '02':{t:'손님 벽면',d:'좌석 뒤 벽입니다. 상부장 아래로 간접광 띠가 지나가고, 그 밑은 비워 같은 색 벽으로 이어집니다. 오른쪽에 옷장과 작은 진열 벽감을 두었습니다.'},
+    '03':{t:'셰프 벽면',d:'손님이 앉아서 보는 정면입니다. 등박스 테두리의 빛이 셰프 뒤 벽을 타고 내려오고, 원형 후광 오브제가 벽 한가운데에 걸립니다. 상판 위 접시에 빛이 가장 많이 모입니다.'},
+    '04':{t:'천장 쪽 시선',d:'입구 쪽에서 홀 깊이 방향으로 본 장면입니다. 카운터 위 등박스의 테두리 간접광, 오른쪽 원형 오브제, 끝의 선반 조명이 한 줄로 이어집니다. 등박스 밖 천장은 벽과 같은 어두운 톤입니다.'},
+    '05':{t:'홀 통로',d:'손님 좌석 뒤 통로에서 주방 쪽으로 본 장면입니다. 블랙오크 상부장 아래 간접광, 어두운 천장의 작은 스폿, 셰프 뒤 선반 조명이 보입니다.',src:'img/hall-aisle.webp'}
+  };
+  var FIN={B:'검정 가구 · 검정 천장 최종안 (2026.09.29 렌더)'};
+  var fin='B',view='01',front=document.getElementById('stA'),back=document.getElementById('stB');
+  var cT=document.getElementById('capT'),cF=document.getElementById('capF'),cD=document.getElementById('capD');
+  ['01','02','03','04'].forEach(function(v){var i=new Image();i.src='img/hall-B-'+v+'.webp'});(new Image()).src='img/hall-aisle.webp';
+  function show(){
+    var src=VIEWS[view].src||('img/hall-B-'+view+'.webp');
+    back.src=src;back.alt='검정 가구 최종안, '+VIEWS[view].t;
+    back.classList.remove('off');front.classList.add('off');
+    back.removeAttribute('aria-hidden');front.setAttribute('aria-hidden','true');
+    var t=front;front=back;back=t;
+    cT.textContent=VIEWS[view].t;cF.textContent=FIN[fin];cD.textContent=VIEWS[view].d;
+    
+  }
+  document.querySelectorAll('[data-view]').forEach(function(b){b.addEventListener('click',function(){
+    view=b.dataset.view;document.querySelectorAll('[data-view]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});show();})});
+  front.alt='검정 가구 최종안, 홀 전체';cT.textContent=VIEWS[view].t;cF.textContent=FIN[fin];cD.textContent=VIEWS[view].d;
+
+  // light chart (R3 simulation, lx)
+  var L=[['전실 바닥',292,196],['손님 얼굴 (수직)',459,325],['좌석 뒤 통로 바닥',654,487],['백바 앞 바닥',762,526],['조리대 (냉장고 상부)',1076,821],['카운터 상판 정면',1397,1202]];
+  var W=['657 W','483 W'],MAX=1500,bars=document.getElementById('bars');
+  bars.innerHTML=L.map(function(r){return '<div class="bar"><span class="lab">'+r[0]+'</span><div class="track"><div class="fill"></div></div><span class="val"></span></div>'}).join('');
+  function mode(m){
+    bars.querySelectorAll('.bar').forEach(function(el,i){var v=L[i][1+m];
+      var f=el.querySelector('.fill');f.style.width=(v/MAX*100)+'%';f.style.opacity=(0.35+0.65*v/MAX).toFixed(2);
+      el.querySelector('.val').textContent=v.toLocaleString('ko-KR');});
+    document.getElementById('watt').textContent=W[m];
+  }
+  document.querySelectorAll('[data-mode]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-mode]').forEach(function(x){x.setAttribute('aria-selected',x===b)});mode(+b.dataset.mode);})});
+  mode(0);
+
+  // drawings
+  var D=[['전체 평면','Floor plan'],['천장 평면','Ceiling plan'],['입구 정면과 배면','Entrance elevations'],['전실의 세 입면','Vestibule elevations'],['손님석 뒷벽과 옷장','Guest wall'],['셰프 배면과 주방','Chef wall & kitchen'],['카운터 정면','Counter elevation'],['카운터 단면과 서비스장','Counter section']];
+  var sh=document.getElementById('sheets');
+  sh.innerHTML=D.map(function(d,i){var n=('0'+(i+1)).slice(-2);return '<button class="sheet" data-i="'+i+'"><img src="img/dw-'+n+'.webp" alt="'+d[0]+' 도면" loading="lazy" width="1787" height="1263"><span>'+n+' '+d[0]+'<small>'+d[1]+'</small></span></button>'}).join('');
+  var DW=D.map(function(d,i){var n=('0'+(i+1)).slice(-2);return {src:'img/dw-'+n+'.webp',cap:n+' '+d[0],alt:d[0]+' 도면',bg:'#fff'}});
+  var CUTS=[
+    ['img/entry-out.webp','입구 외부','공용 복도 쪽 정면',1],
+    ['img/entry-corridor.webp','내부 복도','흑단 루바 · 타일 바닥 (R25 수정본)',1],
+    ['img/entry-vestibule.webp','전실 정면','조명 오브제 (R26 수정본)',1],
+    ['img/corridor-r25.webp','전실 정면 · 바닥 조경안','R25 수정 전 검토컷',0],
+    ['img/corridor-991.webp','전실 정면 · 초기안','조경 없는 검토컷',0],
+    ['img/hall-aisle.webp','홀 통로','좌석 뒤 통로에서 주방 방향',1],
+    ['img/hall-B-04.webp','홀 통로 · 천장 쪽','등박스와 어두운 천장',1]];
+  var CL=CUTS.map(function(c){return {src:c[0],cap:c[1]+' — '+c[2]+(c[3]?' · 최종':' · 검토컷'),alt:c[1],bg:'#121110'}});
+  document.getElementById('cuts').innerHTML=CUTS.map(function(c,i){return '<button class="cut" data-i="'+i+'"><img src="'+c[0]+'" alt="'+c[1]+'" loading="lazy" width="1448" height="1086"><span>'+c[1]+'<small>'+(c[3]?'<b>최종</b> · ':'검토컷 · ')+c[2]+'</small></span></button>'}).join('');
+  var lb=document.getElementById('lb'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap'),cur=0,LIST=DW;
+  function open(i,list){if(list)LIST=list;cur=(i+LIST.length)%LIST.length;var it=LIST[cur];li.src=it.src;li.alt=it.alt;li.style.background=it.bg;lc.textContent=it.cap;if(!lb.open){try{lb.showModal()}catch(e){lb.setAttribute('open','')}}}
+  sh.addEventListener('click',function(e){var b=e.target.closest('.sheet');if(b)open(+b.dataset.i,DW)});
+  document.getElementById('cuts').addEventListener('click',function(e){var b=e.target.closest('.cut');if(b)open(+b.dataset.i,CL)});
+  document.getElementById('lbPrev').onclick=function(){open(cur-1)};
+  document.getElementById('lbNext').onclick=function(){open(cur+1)};
+  document.getElementById('lbClose').onclick=function(){lb.close?lb.close():lb.removeAttribute('open')};
+  lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
+  lb.addEventListener('keydown',function(e){if(e.key==='ArrowRight')open(cur+1);if(e.key==='ArrowLeft')open(cur-1)});
+
+  // schedule (Oct 2026)
+  var S=[['보양 · 덕트',1,1],['에어컨 · 스프링클러',2,2],['설비 천장 배관',3,3],['금속 등박스',4,4],['경량 천장 · 전기',5,8],['목공 · 금속',9,14],['방통',15,16],['양생 · 2차 방수',17,18],['목공 · 도어 · 등 타공',19,19],['도장',20,23],['타일',24,26],['조명 기구 설치',27,27],['대리석 · 인조대리석',28,28],['가구 설치 · 사인',31,31]];
+  var now=new Date(),kst=new Date(now.getTime()+(now.getTimezoneOffset()+540)*60000);
+  var today=(kst.getFullYear()===2026&&kst.getMonth()===9)?kst.getDate():(kst<new Date(2026,9,1)?0:32);
+  var g=document.getElementById('gantt'),h='<div class="hd first" role="columnheader">공정</div>';
+  for(var d=1;d<=31;d++){var wd=new Date(2026,9,d).getDay();h+='<div class="hd'+((wd===0||wd===6)?' we':'')+'" role="columnheader">'+d+'</div>'}
+  S.forEach(function(s,r){
+    var st=s[2]<today?'done':(s[1]<=today?'now':'next'),lab={done:'완료',now:'진행 중',next:'예정'}[st];
+    var dt='10.'+s[1]+(s[2]>s[1]?'–'+s[2]:'');
+    h+='<div class="nm" role="rowheader" style="grid-column:1;grid-row:'+(r+2)+'">'+s[0]+' <i class="'+(st==='now'?'now':'')+'">'+dt+' · '+lab+'</i></div>';
+    h+='<div class="cell" style="grid-row:'+(r+2)+';grid-column:2/-1"></div>';
+    h+='<div class="b '+st+'" style="grid-row:'+(r+2)+';grid-column:'+(s[1]+1)+'/'+(s[2]+2)+'" aria-hidden="true"></div>';
+  });
+  g.innerHTML=h;
+  if(today>=1&&today<=31){var t=document.createElement('div');t.className='today';t.style.left='calc(15em + (100% - 15em) * '+((today-0.5)/31)+')';t.title='오늘 10.'+today;g.appendChild(t);
+    var gw=g.parentNode;requestAnimationFrame(function(){if(gw.scrollWidth>gw.clientWidth){gw.scrollLeft=Math.max(0,t.offsetLeft-gw.clientWidth*0.6)}})}
+})();
+</script>
+
+</body>
+</html>
