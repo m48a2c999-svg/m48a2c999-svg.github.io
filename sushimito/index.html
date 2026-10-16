@@ -136,7 +136,7 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 .statement p{color:var(--ink2);max-width:32em}
 .cuts-head{margin-top:clamp(64px,9vw,110px);display:grid;gap:10px;max-width:40em}
 .cuts-head p{color:var(--ink2);font-size:14px}
-.cuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
+.cuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
 .cut{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px;align-content:start}
 .cut img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night);transition:transform .3s}
 .cut:hover img{transform:translateY(-3px)}
@@ -203,6 +203,45 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 @media (max-width:960px){.mats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .note{margin-top:36px;font-size:13px;color:var(--mute)}
 
+/* film */
+.film{background:var(--night);color:var(--cream)}
+.film .wrap{padding-block:clamp(56px,8vw,96px)}
+.film-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 40px;margin-bottom:22px}
+.film-head .eyebrow{color:var(--brass)}
+.film-head h2{color:var(--cream)}
+.film-head p{color:var(--cream2);max-width:30em;font-size:14px}
+.film video{width:100%;aspect-ratio:16/9;background:#000;display:block}
+.sign{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.sign figure{margin:0}
+.sign .main img{width:100%;aspect-ratio:460/610;object-fit:cover;background:var(--night)}
+.sign-txt{display:grid;gap:18px}
+.old{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.old img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.old figcaption{text-align:left}
+@media (max-width:860px){.sign{grid-template-columns:1fr}}
+.fixtures{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:clamp(40px,6vw,64px);align-items:start}
+.fixtures figure{margin:0;background:#fff;border:1px solid var(--hair);padding:10px}
+.fixtures figure img{width:100%}
+.fx{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+.fx li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:14px}
+.fx li b{font-family:var(--f-latin);font-size:19px;font-weight:400;color:var(--brass-ink);white-space:nowrap}
+.fx li span small{display:block;color:var(--mute);font-size:12px}
+@media (max-width:860px){.fixtures{grid-template-columns:1fr}}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin-top:clamp(40px,6vw,64px)}
+.specs>div{min-width:0}
+.specs h3{font-size:18px;margin-bottom:12px}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:420px}
+.tbl th{text-align:left;font-weight:500;color:var(--mute);font-size:11px;letter-spacing:.12em;border-bottom:1px solid var(--ink2);padding:8px 8px 8px 0}
+.tbl td{border-bottom:1px solid var(--hair);padding:9px 8px 9px 0;vertical-align:top}
+.tbl td:first-child{font-family:var(--f-latin);font-size:16px;color:var(--brass-ink);white-space:nowrap}
+@media (max-width:960px){.specs{grid-template-columns:1fr}}
+.doc-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.doc-tabs button{background:none;border:1px solid var(--hair);color:var(--ink2);font:400 13px/1 var(--f-body);padding:10px 14px;cursor:pointer}
+.doc-tabs button small{font-size:11px;color:var(--mute);margin-left:6px}
+.doc-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.doc-tabs button[aria-selected="true"] small{color:var(--paper);opacity:.7}
+.logo i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8423A;margin-right:10px;vertical-align:3px}
 /* 06 drawings */
 .plan{margin:0;background:#fff;border:1px solid var(--hair);padding:clamp(10px,2vw,22px)}
 .plan-scroll{overflow-x:auto}
@@ -214,7 +253,7 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 @media (max-width:860px){.plan-specs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sheets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
 .sheet{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px}
-.sheet img{width:100%;aspect-ratio:1787/1263;object-fit:cover;background:#fff;border:1px solid var(--hair);transition:transform .3s}
+.sheet img{width:100%;aspect-ratio:1600/1131;object-fit:cover;background:#fff;border:1px solid var(--hair);transition:transform .3s}
 .sheet:hover img{transform:translateY(-3px)}
 .sheet span{font-size:13px}
 .sheet small{display:block;font-family:var(--f-latin);font-style:italic;font-size:13px;color:var(--mute)}
@@ -274,11 +313,13 @@ footer a:hover{color:var(--cream)}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#hero"><b>SUSHI MITO</b><span>스시미토</span></a>
+    <a class="logo" href="#hero"><b><i aria-hidden="true"></i>SUSHI MITO</b><span>스시미토</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">MENU</button>
     <ul class="nav" id="nav">
+      <li><a href="#film">FILM</a></li>
       <li><a href="#concept">CONCEPT</a></li>
       <li><a href="#sequence">SEQUENCE</a></li>
+      <li><a href="#sign">SIGN</a></li>
       <li><a href="#hall">HALL</a></li>
       <li><a href="#light">LIGHT</a></li>
       <li><a href="#material">MATERIAL</a></li>
@@ -290,7 +331,7 @@ footer a:hover{color:var(--cream)}
 
 <main>
 <section class="hero" id="hero" aria-label="스시미토 표지">
-  <img src="img/hero.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구와 대리석 카운터, 어두운 천장 가운데 밝은 등박스" width="1230" height="895" fetchpriority="high">
+  <img src="img/hero.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구, 시온 베이지 대리석 카운터, 블랙 스타론 작업대, 어두운 천장의 할로겐과 밝은 등박스" width="1230" height="895" fetchpriority="high">
   <div class="hero-txt">
     <div class="wrap">
       <div class="hero-tag">
@@ -320,6 +361,18 @@ footer a:hover{color:var(--cream)}
   </div>
 </div>
 
+<section class="film" id="film" aria-label="공간 영상">
+  <div class="wrap">
+    <div class="film-head">
+      <div><span class="eyebrow">Film</span><h2 style="margin-top:8px">문에서 카운터까지</h2></div>
+      <p>공용 복도의 나무 문에서 시작해 복도와 전실을 지나 홀의 카운터까지 걸어 들어가는 순서대로 엮은 38초 영상입니다.</p>
+    </div>
+    <video controls playsinline preload="metadata" poster="img/film-poster.webp" aria-label="스시미토 공간 진입 영상">
+      <source src="media/film.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
 <!-- 01 -->
 <section class="band" id="concept">
   <div class="wrap">
@@ -337,15 +390,15 @@ footer a:hover{color:var(--cream)}
           <div><b>2026</b><span>어두운 배면 · 숨긴 간접광<br>카운터와 접시가 주인공</span></div>
         </div>
         <ul class="rules">
-          <li><strong>한 톤의 배면</strong><span>벽은 모래 질감의 흑갈색 도장, 천장도 같은 색. 경계가 흐려지면 긴 방이 좁게 읽히지 않습니다.</span></li>
-          <li><strong>나무와 돌</strong><span>흑단 스테인 세로 루바, 블랙오크 가구, 시온 베이지 천연대리석 상판. 재료 수는 줄이고 결로 구분합니다.</span></li>
+          <li><strong>한 톤의 배면</strong><span>벽과 천장은 흙손으로 바른 흑색 그래뉼 도장. 경계가 흐려지면 긴 방이 좁게 읽히지 않습니다.</span></li>
+          <li><strong>나무와 돌</strong><span>다크 우드결 LPM 가구, 시온 베이지 천연대리석 카운터, 블랙 스타론 작업대. 재료 수는 줄이고 결과 밝기로 구분합니다.</span></li>
           <li><strong>빛은 카운터에</strong><span>다찌 위 펜던트는 두지 않습니다. 등박스 테두리의 간접광과 상판을 겨눈 스폿이 접시를 가장 밝게 만듭니다.</span></li>
           <li><strong>어둠에서 밝음으로</strong><span>입구, 복도, 전실을 지나 홀에 이를수록 조도가 올라가도록 순서를 짰습니다.</span></li>
         </ul>
       </div>
       <figure>
-        <img src="img/hall-B-02.webp" alt="손님 좌석 뒤 벽. 블랙오크 상부장 아래 간접광, 옷장과 진열 벽감" width="1604" height="981" loading="lazy" style="aspect-ratio:auto;object-fit:contain;background:#26282B">
-        <figcaption>Guest Wall · Render</figcaption>
+        <img src="img/hall-2015.webp" alt="2015년 엘모컴퍼니가 시공한 첫 스시미토 매장. 밝은 나무 카운터와 흰 천장 조명" width="1400" height="933" loading="lazy" style="aspect-ratio:auto">
+        <figcaption>2015 · 첫 매장, 엘모컴퍼니 시공</figcaption>
       </figure>
     </div>
   </div>
@@ -365,8 +418,8 @@ footer a:hover{color:var(--cream)}
         <div class="step-txt">
           <div class="step-k"><em>01</em><span class="eyebrow">Entrance</span></div>
           <h3>공용 복도에 나무 문 한 장</h3>
-          <p>자동문과 그 위 고정판을 같은 월넛 결로 이어 한 장의 나무처럼 보이게 했습니다. 좌우 벽은 어두운 톤으로 정리하고, 문 옆에 작은 사각 조명과 천 가림막만 둡니다. 외부 돌출 간판은 두지 않습니다.</p>
-          <ul class="tags"><li>월넛 필름 자동문</li><li>문 높이 2,100</li><li>사각 벽등</li></ul>
+          <p>자동문과 그 위 고정판을 같은 월넛 결로 이어 한 장의 나무처럼 보이게 했습니다. 복도 벽은 흑색 그래뉼로 정리하고, 문 위에 천 가림막, 문 옆에 사각 벽등과 한글 세로 사인만 둡니다.</p>
+          <ul class="tags"><li>월넛 필름 자동문</li><li>문 높이 2,100</li><li>한글 세로 사인</li></ul>
         </div>
       </article>
       <article class="step">
@@ -374,8 +427,8 @@ footer a:hover{color:var(--cream)}
         <div class="step-txt">
           <div class="step-k"><em>02</em><span class="eyebrow">Corridor</span></div>
           <h3>세로 결과 가지 하나</h3>
-          <p>문을 열면 짧은 복도가 이어집니다. 벽은 흑단색 세로 루바, 바닥은 무광 타일입니다. 빛은 사각 벽등 하나와 바닥의 작은 조경에만 둡니다. 눈이 어둠에 익숙해지는 구간입니다.</p>
-          <ul class="tags"><li>흑단 스테인 루바</li><li>무광 포세린</li><li>낮은 조도</li></ul>
+          <p>문을 열면 짧은 복도가 이어집니다. 정면은 흑단 스테인 세로 루바, 옆 벽은 흑색 그래뉼, 바닥은 600 × 1,200 포세린입니다. 빛은 사각 벽등 하나와 바닥의 작은 조경에만 둡니다. 눈이 어둠에 익숙해지는 구간입니다.</p>
+          <ul class="tags"><li>흑단 스테인 루바</li><li>흑색 그래뉼</li><li>낮은 조도</li></ul>
         </div>
       </article>
       <article class="step">
@@ -395,22 +448,45 @@ footer a:hover{color:var(--cream)}
     <div class="cuts-head">
       <span class="eyebrow">All Corridor Cuts</span>
       <h3>복도 외부와 실내 복도 컷</h3>
-      <p>입구 외부부터 홀 통로까지 복도 렌더를 모두 모았습니다. 누르면 크게 볼 수 있습니다.</p>
+      <p>입구 외부부터 홀 통로까지 최종 컷을 모았습니다. 누르면 크게 볼 수 있습니다.</p>
     </div>
     <div class="cuts" id="cuts"></div>
   </div>
 </section>
 
 <!-- 03 -->
-<section class="band dark" id="hall">
+<section class="band" id="sign">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-no">03</span>
+      <span class="eyebrow">Sign &amp; Logo</span>
+      <h2>문 옆의 작은 이름</h2>
+    </div>
+    <div class="sign">
+      <figure class="main"><img src="img/sign-new.webp" alt="새 입구. 월넛 자동문 위 천 가림막, 문 오른쪽 사각 벽등과 한글 스시미토 세로 사인" width="460" height="610" loading="lazy"><figcaption>Entrance Sign · Render</figcaption></figure>
+      <div class="sign-txt">
+        <p class="lede">센터플레이스 2층 공용 복도에는 돌출 간판을 내지 않습니다. 월넛 자동문 위에 천 가림막을 걸고, 문 오른쪽에 사각 벽등과 한글 「스시미토」 세로 판을 나란히 둡니다.</p>
+        <ul class="tags"><li>한글 세로 사인</li><li>사각 벽등 (입구 벽등)</li><li>천 가림막</li><li>돌출 간판 없음</li><li>간판 · 사인 설치 10.31</li></ul>
+        <p>2015년 첫 매장의 간판은 붓글씨 이름과 붉은 꽃 마크, 영문 SUSHI MITO로 이루어진 스시미토의 얼굴이었습니다. 이름을 조용히 보여주는 방식은 그대로 두고, 새 자리에서는 어두운 벽 위의 작은 판 하나로 줄였습니다.</p>
+        <div class="old">
+          <figure><img src="img/store-2015.webp" alt="2015년 스시미토 입구. 세로 살 문과 문 옆 세로 간판" width="1000" height="1500" loading="lazy"><figcaption>2015 · 입구</figcaption></figure>
+          <figure><img src="img/sign-2015.webp" alt="2015년 스시미토 돌출 간판. 붓글씨 이름, 붉은 꽃 마크, 영문 SUSHI MITO" width="900" height="998" loading="lazy"><figcaption>2015 · 로고 간판</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="band dark" id="hall">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
       <span class="eyebrow">The Hall</span>
       <h2>검정 가구, 검정 천장</h2>
     </div>
     <div class="hall-ctl">
-      <p class="hall-note" id="finB">내부 디자인 최종 시안 · 블랙오크 가구, 등박스를 뺀 천장은 모두 어두운 톤<br>카운터 상판은 시온 베이지 대리석으로 변경 (렌더에는 이전 검은 대리석으로 표시)</p>
+      <p class="hall-note" id="finB">내부 디자인 최종 시안 · N642 다크 우드결 가구 · 시온 베이지 카운터 · 블랙 스타론 작업대 · 천장 할로겐</p>
       <div class="views" aria-label="장면 선택">
         <button aria-pressed="true" data-view="01"><span>i</span>홀 전체</button>
         <button aria-pressed="false" data-view="02"><span>ii</span>손님 벽면</button>
@@ -432,7 +508,7 @@ footer a:hover{color:var(--cream)}
 <section class="band" id="light">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-no">04</span>
+      <span class="sec-no">05</span>
       <span class="eyebrow">Light Order</span>
       <h2>가장 밝은 곳은 상판 위</h2>
     </div>
@@ -441,7 +517,7 @@ footer a:hover{color:var(--cream)}
         <p class="lede">보이는 기구를 줄이고 빛의 서열을 정했습니다. 전실 바닥이 가장 어둡고, 통로와 백바를 지나 카운터 상판에서 가장 밝아집니다. 손님과 셰프의 얼굴에는 대화가 편한 정도의 빛만 닿습니다.</p>
         <ul class="layers">
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="9" width="22" height="10" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><rect x="5" y="11" width="18" height="6" fill="var(--brass)" opacity=".55"/></svg><div><strong>등박스 테두리 간접광</strong><span>카운터 위 4,170 × 1,850 등박스, 테두리 홈 200에 숨긴 선형 조명. 영업 중 30–40%로 디밍합니다.</span></div></li>
-          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M9 5h10l-2 7h-6z" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><path d="M11 12 6 25h16l-5-13z" fill="var(--brass)" opacity=".45"/></svg><div><strong>카운터 스폿</strong><span>정면 7석은 의자 중심마다 한 개, 짧은 변은 3등분 위치에 두 개. 접시 위가 가장 밝습니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M9 5h10l-2 7h-6z" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><path d="M11 12 6 25h16l-5-13z" fill="var(--brass)" opacity=".45"/></svg><div><strong>카운터 할로겐</strong><span>정면 7석은 의자 중심마다 한 개, 짧은 변은 두 개. 2인치 매트블랙 커브형 디밍 할로겐으로 접시 위가 가장 밝습니다.</span></div></li>
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 7h18M5 14h18M5 21h18" stroke="var(--ink2)" stroke-width="1.2"/><path d="M6 8.5h16M6 15.5h16" stroke="var(--brass)" stroke-width="1.6" opacity=".6"/></svg><div><strong>백바 선반 조명</strong><span>셰프 뒤 오픈 선반 밑 간접광과 백바 조명 4개. 별도 회로로 60% 이하에서 씁니다.</span></div></li>
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 8h20M4 15h20M4 22h20" stroke="var(--ink2)" stroke-width="1.2"/><path d="M5 9.5h18M5 16.5h18" stroke="var(--brass)" stroke-width="2" opacity=".7"/></svg><div><strong>가구 간접 LED 3,000K</strong><span>옷장 걸이칸, 진열 선반 밑, 상부장 하부. 어두운 가구라 선반보다 진열한 병과 그릇이 빛납니다.</span></div></li>
         </ul>
@@ -459,59 +535,102 @@ footer a:hover{color:var(--cream)}
         <div class="chart-foot"><span>총 소비전력<b id="watt">657 W</b></span><span>주방 작업면 985 lx · 별도 회로</span></div>
       </div>
     </div>
+    <div class="fixtures">
+      <figure><img src="img/light-plan.webp" alt="조도 분포 평면. 카운터 위 할로겐, 등박스 가운데 사각 직부등, 손님 쪽 백바 할로겐의 위치" width="1994" height="582" loading="lazy"><figcaption>천장 조명 위치와 조도 분포 · 영업 풀점등</figcaption></figure>
+      <ul class="fx">
+        <li><span>카운터 할로겐<small>정면 7 (의자 중심) · 측면 2</small></span><b>9</b></li>
+        <li><span>백바 할로겐<small>홀 상부장(C) 앞 라인 · 별도 회로</small></span><b>4</b></li>
+        <li><span>홀 · 전실 할로겐<small>홀 3 · 전실 2</small></span><b>5</b></li>
+        <li><span>사각 직부등<small>등박스 가운데 판, 작업대 쪽</small></span><b>3</b></li>
+        <li><span>등박스 테두리 간접<small>매립 200 홈 · 3,000K · 디밍 30–40%</small></span><b>1식</b></li>
+        <li><span>가구 간접 LED<small>A 걸이칸 · B3 선반 5줄 · C 상부장 하부 · 3,000K</small></span><b>1식</b></li>
+      </ul>
+    </div>
     <p class="note">조명 시뮬레이션 R3 (2026.10.15) 기준. 직접광과 상호반사를 계산해 렌더로 확인한 값이며, 일부 기구 위치와 광속은 가정값입니다. 발주 사양이 확정되면 다시 계산합니다.</p>
   </div>
 </section>
 
-<!-- 05 -->
+<!-- 06 -->
 <section class="band panel" id="material">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-no">05</span>
+      <span class="sec-no">06</span>
       <span class="eyebrow">Materials</span>
       <h2>여덟 가지 재료</h2>
     </div>
     <div class="mats">
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-wall.webp)" role="img" aria-label="흑갈색 모래 질감 도장"></div><span class="code">01 · WALL</span><h3>모래 질감 흑갈색 도장</h3><p>삼화 챠밍샌드월 무광, 지정색 SH S 8005-Y80R</p><p class="where">홀 · 전실 벽, 천장 (등박스 · 입구 · 주방 제외)</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-louver.webp)" role="img" aria-label="흑단색 세로 루바"></div><span class="code">02 · LOUVER</span><h3>빈티지 흑단 루바</h3><p>레드파인 루바 12 × 120 · 수성 스테인 흑단 · 무광 방염 클리어</p><p class="where">홀 · 복도 벽면</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-marble.webp)" role="img" aria-label="잔결이 있는 따뜻한 베이지 대리석"></div><span class="code">03 · STONE</span><h3>시온 베이지 천연대리석 상판</h3><p>신흥스톤 시온 베이지 20T 폴리싱 (인도네시아산)</p><p class="where">손님 카운터 상판 · 헌상대</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-oak.webp)" role="img" aria-label="블랙오크 무늬 판재"></div><span class="code">04 · JOINERY</span><h3>블랙오크 붙박이 가구</h3><p>블랙오크 LPM 18T · 합판 적층 무늬 엣지</p><p class="where">옷장 · 서비스장 · 셰프 뒤 수납 등 제작 가구</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-ivory.webp)" role="img" aria-label="아이보리 인조대리석"></div><span class="code">05 · WORKTOP</span><h3>아이보리 작업대</h3><p>현대L&amp;C 하넥스 H-아이보리 12T</p><p class="where">하부 냉장고 상부 · 셰프 작업대</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-tile.webp)" role="img" aria-label="밝은 아이보리 포세린 타일"></div><span class="code">06 · FLOOR</span><h3>밝은 아이보리 포세린</h3><p>맥스포인트 홀리 아이보리 600 × 1,200 무광</p><p class="where">홀 바닥</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-walnut.webp)" role="img" aria-label="월넛 세로 목결"></div><span class="code">07 · DOOR</span><h3>월넛 목결 필름</h3><p>LX 베니프 카리스 월넛 (방염)</p><p class="where">입구 자동문 · 문 위 고정판</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-white.webp)" role="img" aria-label="무광 백색 도장"></div><span class="code">08 · CEILING</span><h3>무광 백색 반사면</h3><p>삼화 수성 내부용 무광 백색</p><p class="where">등박스 · 입구 천장 (빛을 받아 되돌리는 면)</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-wall.webp)" role="img" aria-label="흑색 그래뉼 도장"></div><span class="code">01 · WALL</span><h3>흑색 그래뉼 도장</h3><p>테라코 내부용 그래뉼, 흙손 마감</p><p class="where">홀 · 전실 · 복도 벽, 홀 평천장</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-white.webp)" role="img" aria-label="백색 그래뉼 도장"></div><span class="code">02 · LIGHT BOX</span><h3>백색 그래뉼 도장</h3><p>테라코 내부용 그래뉼 백색</p><p class="where">등박스 우물면 · 입구 천장 (자동문 끝선까지)</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-louver.webp)" role="img" aria-label="흑단 스테인 세로 루바"></div><span class="code">03 · LOUVER</span><h3>흑단 스테인 루바</h3><p>레드파인 세로 루바 · 수성 스테인 흑단</p><p class="where">전실 정면</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-marble.webp)" role="img" aria-label="시온 베이지 대리석"></div><span class="code">04 · STONE</span><h3>시온 베이지 천연대리석</h3><p>신흥스톤 시온 베이지 20T 폴리싱</p><p class="where">손님 카운터 상판 · 헌상대</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-staron.webp)" role="img" aria-label="스타론 메탈릭갤럭시 샘플 사진"></div><span class="code">05 · SOLID SURFACE</span><h3>스타론 EG595 메탈릭갤럭시</h3><p>롯데첨단소재 인조대리석 12T, 블랙</p><p class="where">셰프 작업대 · 고정 상판 · 셰프 뒤 하부장 · POS · 음료장 상판</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-lpm.webp)" role="img" aria-label="LPM N642 샘플 사진"></div><span class="code">06 · JOINERY</span><h3>LPM N642 다크 우드결</h3><p>LPM 18T · 노출 엣지 합판 적층 무늬 ABS 2T</p><p class="where">붙박이 가구 전체 (A · B · C · D)</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-tile.webp)" role="img" aria-label="포세린 타일"></div><span class="code">07 · FLOOR</span><h3>포세린 600 × 1,200</h3><p>PH CK 612147M 하바나 CH</p><p class="where">홀 · 셰프존 · 전실 경사 (주방은 200 × 200)</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-walnut.webp)" role="img" aria-label="월넛 세로 목결"></div><span class="code">08 · DOOR</span><h3>월넛 목결 필름</h3><p>LX 베니프 카리스 월넛 (방염)</p><p class="where">입구 자동문 · 문 위 고정판</p></article>
     </div>
-    <p class="note">스와치는 색과 질감의 방향을 보여주는 이미지입니다. 도장 색과 대리석 무늬는 현장 조명(3,000K) 아래 실물 샘플로 확정합니다.</p>
+    <div class="specs">
+      <div>
+        <h3>붙박이 가구</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>No</th><th>가구</th><th>가로 × 높이 × 깊이</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td>수납장 · 옷장</td><td>1,750 × 2,690 × 540</td><td>걸이칸 1,000 · 상부장 밑 간접</td></tr>
+            <tr><td>B1-1</td><td>POS 하부장</td><td>790 × 900 × 600</td><td>서랍 4단 · 스타론 상판</td></tr>
+            <tr><td>B1-2</td><td>음료 하부장</td><td>700 × 900 × 600</td><td>양문 · 스타론 상판</td></tr>
+            <tr><td>B3</td><td>오픈 선반 4단</td><td>1,490 × 2,690 × 300</td><td>LED 5줄</td></tr>
+            <tr><td>B4</td><td>냉장고장 상부장</td><td>650 × 1,152 × 600</td><td>와인셀러 자리 650 × 1,538</td></tr>
+            <tr><td>C</td><td>홀 상부장</td><td>3,500 × 600 × 350</td><td>5칸 · 하부 LED</td></tr>
+            <tr><td>D</td><td>셰프 뒤 하부장</td><td>3,050 × 900 × 350</td><td>매립 싱크 · 스타론 상판</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div>
+        <h3>상판</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>No</th><th>부위</th><th>가로 × 깊이 · 두께</th><th>재료</th></tr></thead>
+          <tbody>
+            <tr><td>N1</td><td>손님 카운터 상판 ㄱ자</td><td>4,700 × 2,400 (폭 400) · 20T</td><td>시온 베이지</td></tr>
+            <tr><td>N2</td><td>헌상대 ㄱ자</td><td>4,300 × 2,000 (폭 150) · 20T</td><td>시온 베이지</td></tr>
+            <tr><td>S1</td><td>셰프 작업대</td><td>3,750 × 750 · 12T</td><td>스타론 EG595</td></tr>
+            <tr><td>S2</td><td>고정 상판 (카운터 다리 위)</td><td>400 × 1,850 · 12T</td><td>스타론 EG595</td></tr>
+            <tr><td>S3</td><td>셰프 뒤 하부장 상판</td><td>3,050 × 350 · 12T</td><td>스타론 EG595</td></tr>
+            <tr><td>S4</td><td>POS · 음료장 상판</td><td>1,454 × 600 · 12T</td><td>스타론 EG595</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <p class="note">LPM과 스타론 칸은 현장 샘플 사진입니다. 간접조명은 모두 3,000K입니다.</p>
   </div>
 </section>
 
-<!-- 06 -->
+<!-- 07 -->
 <section class="band" id="drawings">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-no">06</span>
+      <span class="sec-no">07</span>
       <span class="eyebrow">Drawings</span>
-      <h2>평면과 입면</h2>
+      <h2>확정 도면과 발주 도면</h2>
     </div>
     <figure class="plan">
-      <div class="plan-scroll"><img src="img/plan.webp" alt="스시미토 평면도. 왼쪽 전실에서 오른쪽으로 홀, ㄱ자 카운터, 주방 순" width="2000" height="892" loading="lazy"></div>
+      <div class="plan-scroll"><img src="img/d-plan0920-2.webp" alt="스시미토 확정 평면도 (2026.09.20)" width="1600" height="1131" loading="lazy"></div>
     </figure>
     <dl class="plan-specs">
       <div><dt>외곽</dt><dd>12,910 × 3,780 mm</dd></div>
       <div><dt>순서</dt><dd>전실 → 홀 → 카운터 → 주방</dd></div>
       <div><dt>좌석</dt><dd>긴 변 7석 + 짧은 변 3석</dd></div>
-      <div><dt>바닥</dt><dd>홀 +150 · 주방 +200 · 전실 경사</dd></div>
+      <div><dt>레벨</dt><dd>홀 +150 · 셰프존 ±0 · 주방 +200</dd></div>
     </dl>
+    <div class="doc-tabs" id="docTabs" role="tablist" aria-label="도면 묶음"></div>
     <div class="sheets" id="sheets"></div>
-    <p class="note">디자인 제안 R06 컬러 도면 (2026.09.16). 시공은 2026.09.20 확정 도면 9매(A3, 1/40)를 기준으로 합니다. 도면을 누르면 크게 볼 수 있습니다.</p>
+    <p class="note">도면을 누르면 크게 볼 수 있습니다.</p>
   </div>
 </section>
 
-<!-- 07 -->
+<!-- 08 -->
 <section class="band panel" id="schedule">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-no">07</span>
+      <span class="sec-no">08</span>
       <span class="eyebrow">October 2026</span>
       <h2>한 달의 공사</h2>
     </div>
@@ -536,7 +655,7 @@ footer a:hover{color:var(--cream)}
       <a href="#hall">홀 다시 보기</a>
       <a href="#drawings">도면 보기</a>
     </div>
-    <p class="disc">이 페이지의 이미지는 설계 검토용 렌더와 도면이며 실제 시공 사진이 아닙니다. 마감 색상과 대리석 무늬는 실물 샘플로 최종 확정합니다. 공사 금액은 별도 견적서로 안내합니다.</p>
+
   </div>
 </section>
 </main>
@@ -564,9 +683,9 @@ footer a:hover{color:var(--cream)}
 
   // hall
   var VIEWS={
-    '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 대리석 상판을 두르고, 그 안쪽에 밝은 아이보리 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
-    '02':{t:'손님 벽면',d:'좌석 뒤 벽입니다. 상부장 아래로 간접광 띠가 지나가고, 그 밑은 비워 같은 색 벽으로 이어집니다. 오른쪽에 옷장과 작은 진열 벽감을 두었습니다.'},
-    '03':{t:'홀 통로',d:'손님 좌석 뒤 통로에서 주방 쪽으로 본 장면입니다. 블랙오크 상부장 아래 간접광이 벽을 타고 내려오고, 천장은 등박스만 밝게 남기고 나머지를 어둡게 눌렀습니다. 셰프 뒤 선반 조명과 오른쪽 석재 질감 벽이 깊이를 만듭니다.',src:'img/hall-final-aisle.webp'}
+    '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 시온 베이지 대리석 상판을 두르고, 그 안쪽에 블랙 스타론 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
+    '02':{t:'손님 벽면',d:'좌석 뒤 벽입니다. 천장의 할로겐이 의자 중심마다 하나씩 카운터를 비추고, 상부장 아래 간접광 띠 밑은 같은 색 벽으로 비워 둡니다. 오른쪽에 옷장과 작은 진열 벽감이 있습니다.'},
+    '03':{t:'홀 통로',d:'손님 좌석 뒤 통로에서 주방 쪽으로 본 장면입니다. 블랙오크 상부장 아래 간접광이 벽을 타고 내려오고, 어두운 천장에는 카운터를 따라 할로겐이 줄지어 있고, 등박스 가운데 판에는 작업대를 비추는 사각 직부등 3개가 있습니다.',src:'img/hall-final-aisle.webp'}
   };
   var FIN={B:'내부 디자인 최종 시안 · 검정 가구 · 검정 천장'};
   var fin='B',view='01',front=document.getElementById('stA'),back=document.getElementById('stB');
@@ -600,19 +719,28 @@ footer a:hover{color:var(--cream)}
   mode(0);
 
   // drawings
-  var D=[['전체 평면','Floor plan'],['천장 평면','Ceiling plan'],['입구 정면과 배면','Entrance elevations'],['전실의 세 입면','Vestibule elevations'],['손님석 뒷벽과 옷장','Guest wall'],['셰프 배면과 주방','Chef wall & kitchen'],['카운터 정면','Counter elevation'],['카운터 단면과 서비스장','Counter section']];
-  var sh=document.getElementById('sheets');
-  sh.innerHTML=D.map(function(d,i){var n=('0'+(i+1)).slice(-2);return '<button class="sheet" data-i="'+i+'"><img src="img/dw-'+n+'.webp" alt="'+d[0]+' 도면" loading="lazy" width="1787" height="1263"><span>'+n+' '+d[0]+'<small>'+d[1]+'</small></span></button>'}).join('');
-  var DW=D.map(function(d,i){var n=('0'+(i+1)).slice(-2);return {src:'img/dw-'+n+'.webp',cap:n+' '+d[0],alt:d[0]+' 도면',bg:'#fff'}});
+  var DOCS=[
+    {k:'plan0920',t:'확정 도면',d:'09.20',n:[[2,'평면도'],[3,'천장도'],[4,'입구 정면 · 배면'],[5,'전실 입면'],[6,'입면 · 손님석 뒷벽'],[7,'입면 · 셰프 배면'],[8,'입면 · 카운터 정면'],[9,'입면 · 카운터 단면']]},
+    {k:'fur',t:'가구 발주도면',d:'10.15',n:[[1,'배치도 · 목록'],[2,'A 수납장 · 옷장'],[3,'B 설비장'],[4,'C 홀 상부장 · D 셰프 뒤 하부장']]},
+    {k:'top',t:'상판 발주도면',d:'10.16',n:[[1,'배치도 · 목록'],[2,'천연대리석 N1 · N2'],[3,'스타론 S1 – S4']]},
+    {k:'paint',t:'도장 · 바닥',d:'10.16',n:[[1,'도장 범위'],[2,'도장 면적 · 물량'],[0,'바닥 타일 범위']]},
+    {k:'light',t:'조명 시뮬레이션',d:'R3',n:[[1,'개요'],[2,'두 장면 렌더'],[3,'가구 간접 · 백바'],[4,'조도 분포 평면'],[5,'평가면 조도'],[6,'측면 3석'],[7,'정할 것']]}];
+  function dsrc(g,p){return g.k==='paint'&&p===0?'img/d-floor-1.webp':'img/d-'+g.k+'-'+p+'.webp'}
+  var sh=document.getElementById('sheets'),tabs=document.getElementById('docTabs'),DW=[];
+  tabs.innerHTML=DOCS.map(function(g,i){return '<button role="tab" aria-selected="'+(i===0)+'" data-g="'+i+'">'+g.t+'<small>'+g.d+'</small></button>'}).join('');
+  function showG(gi){var g=DOCS[gi];
+    DW=g.n.map(function(p){return {src:dsrc(g,p[0]),cap:g.t+' · '+p[1],alt:g.t+' '+p[1],bg:'#fff'}});
+    sh.innerHTML=g.n.map(function(p,i){return '<button class="sheet" data-i="'+i+'"><img src="'+dsrc(g,p[0])+'" alt="'+g.t+' '+p[1]+'" loading="lazy" width="1600" height="1131"><span>'+p[1]+'<small>'+g.t+' '+g.d+'</small></span></button>'}).join('');
+    tabs.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-selected',+b.dataset.g===gi)});}
+  tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showG(+b.dataset.g)});
+  showG(0);
   var CUTS=[
     ['img/entry-out.webp','입구 외부','공용 복도 쪽 정면',1],
-    ['img/entry-corridor.webp','내부 복도','흑단 루바 · 타일 바닥 (R25 수정본)',1],
-    ['img/entry-vestibule.webp','전실 정면','조명 오브제 (R26 수정본)',1],
-    ['img/corridor-r25.webp','전실 정면 · 바닥 조경안','R25 수정 전 검토컷',0],
-    ['img/corridor-991.webp','전실 정면 · 초기안','조경 없는 검토컷',0],
-    ['img/hall-final-aisle.webp','홀 통로','좌석 뒤 통로에서 주방 방향 · 내부 최종 시안',1]];
-  var CL=CUTS.map(function(c){return {src:c[0],cap:c[1]+' — '+c[2]+(c[3]?' · 최종':' · 검토컷'),alt:c[1],bg:'#121110'}});
-  document.getElementById('cuts').innerHTML=CUTS.map(function(c,i){return '<button class="cut" data-i="'+i+'"><img src="'+c[0]+'" alt="'+c[1]+'" loading="lazy" width="1448" height="1086"><span>'+c[1]+'<small>'+(c[3]?'<b>최종</b> · ':'검토컷 · ')+c[2]+'</small></span></button>'}).join('');
+    ['img/entry-corridor.webp','내부 복도','흑단 루바 · 흑색 그래뉼',1],
+    ['img/entry-vestibule.webp','전실 정면','세로 빛 띠와 조명 오브제',1],
+    ['img/hall-final-aisle.webp','홀 통로','좌석 뒤 통로에서 주방 방향',1]];
+  var CL=CUTS.map(function(c){return {src:c[0],cap:c[1]+' — '+c[2],alt:c[1],bg:'#121110'}});
+  document.getElementById('cuts').innerHTML=CUTS.map(function(c,i){return '<button class="cut" data-i="'+i+'"><img src="'+c[0]+'" alt="'+c[1]+'" loading="lazy" width="1448" height="1086"><span>'+c[1]+'<small>'+c[2]+'</small></span></button>'}).join('');
   var lb=document.getElementById('lb'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap'),cur=0,LIST=DW;
   function open(i,list){if(list)LIST=list;cur=(i+LIST.length)%LIST.length;var it=LIST[cur];li.src=it.src;li.alt=it.alt;li.style.background=it.bg;lc.textContent=it.cap;if(!lb.open){try{lb.showModal()}catch(e){lb.setAttribute('open','')}}}
   sh.addEventListener('click',function(e){var b=e.target.closest('.sheet');if(b)open(+b.dataset.i,DW)});
