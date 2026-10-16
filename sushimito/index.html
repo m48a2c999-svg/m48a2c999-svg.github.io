@@ -1,18 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#121110">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>스시미토 센터플레이스</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="스시미토 이전 신축 — 서울 중구 남대문로9길 40 센터플레이스 2층. 엘모컴퍼니 인테리어 디자인.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap">
 <style>
 /* Layout: long horizontal room → long vertical scroll. Dark render bands alternate with paper bands, the way the 13 m walk goes from dark entry to the lit counter. */
 :root{
   --paper:#F4F0E8; --panel:#EAE3D6; --ink:#25211E; --ink2:#5D544B; --mute:#8C8274; --hair:#D5CBBB;
   --brass:#B78340; --brass-ink:#875B22;
   --night:#121110; --night2:#1B1917; --night-hair:#34302B; --cream:#EDE6D9; --cream2:#B4AA9C;
-  --f-disp:"Nanum Myeongjo","Noto Serif KR",serif;
-  --f-latin:"Cormorant Garamond","Times New Roman",serif;
-  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-disp:Arial,Arimo,"Nanum Myeongjo","Noto Serif KR",serif;
+  --f-latin:Arial,Arimo,"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  --f-body:Arial,Arimo,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
   --gut:max(16px, env(safe-area-inset-left, 0px));
   --gutr:max(16px, env(safe-area-inset-right, 0px));
   --wrap:1240px;
@@ -36,28 +43,28 @@ a{color:inherit}
 .skip:focus{left:16px;top:16px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
 
-.eyebrow{font-family:var(--f-body);font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
-.latin-i{font-family:var(--f-latin);font-style:italic;font-weight:400;letter-spacing:.01em}
+.eyebrow{font-family:var(--f-body);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.latin-i{font-family:var(--f-latin);font-style:normal;font-weight:400;letter-spacing:-.02em}
 h1,h2,h3{font-family:var(--f-disp);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.01em}
 h2{font-size:clamp(26px,3.4vw,40px);line-height:1.35}
 h3{font-size:clamp(20px,2.1vw,25px);line-height:1.45}
 p{margin:0}
 .lede{font-size:16.5px;color:var(--ink2);max-width:38em}
 .sec-head{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;margin-bottom:clamp(28px,4vw,48px)}
-.sec-no{font-family:var(--f-latin);font-size:15px;color:var(--brass-ink);letter-spacing:.08em;grid-row:span 2}
+.sec-no{font-family:var(--f-latin);font-size:12px;color:var(--brass-ink);letter-spacing:.04em;grid-row:span 2}
 .sec-head .eyebrow{color:var(--brass-ink)}
 @media (max-width:640px){.sec-head{grid-template-columns:auto 1fr}.sec-head h2{grid-column:1/-1}.sec-no{grid-row:auto}}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);border-bottom:1px solid var(--night-hair)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;transition:background .35s,border-color .35s;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);border-bottom:1px solid var(--night-hair)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
 .logo{display:flex;align-items:baseline;gap:12px;text-decoration:none}
-.logo b{font-family:var(--f-latin);font-weight:500;font-size:19px;letter-spacing:.32em}
-.logo span{font-size:11px;color:var(--cream2);letter-spacing:.14em}
+.logo b{font-family:var(--f-latin);font-weight:700;font-size:17px;letter-spacing:-.04em}
+.logo span{font-size:11px;color:var(--cream2);letter-spacing:.04em}
 .nav{display:flex;gap:clamp(14px,2vw,28px);list-style:none;margin:0;padding:0}
-.nav a{font-size:11px;letter-spacing:.2em;text-decoration:none;color:var(--cream2);transition:color .2s}
+.nav a{font-size:10.5px;letter-spacing:.09em;text-decoration:none;color:var(--cream2);transition:color .2s}
 .nav a:hover{color:var(--cream)}
-.menu-btn{display:none;background:none;border:1px solid var(--night-hair);color:var(--cream);font:500 11px/1 var(--f-body);letter-spacing:.2em;padding:9px 12px;cursor:pointer}
+.menu-btn{display:none;background:none;border:1px solid var(--night-hair);color:var(--cream);font:400 10.5px/1 var(--f-body);letter-spacing:.08em;padding:9px 12px;cursor:pointer}
 @media (max-width:900px){
   .menu-btn{display:block}
   .nav{position:absolute;left:0;right:0;top:58px;flex-direction:column;gap:0;background:var(--night);border-bottom:1px solid var(--night-hair);padding:8px var(--gutr) 14px var(--gut)}
@@ -65,28 +72,41 @@ p{margin:0}
   .top:not(.open) .nav{display:none}
 }
 
-/* hero */
-.hero{position:relative;background:var(--night);color:var(--cream);overflow:hidden}
-.hero img{width:100%;height:clamp(520px,80vh,860px);object-fit:cover;object-position:50% 30%}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.15) 0%,rgba(18,17,16,0) 35%,rgba(18,17,16,.7) 62%,rgba(18,17,16,.96) 100%);pointer-events:none}
-.hero-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-block:0 clamp(28px,5vw,60px)}
-.hero-tag{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:18px}
-.hero-tag .eyebrow{color:var(--cream2)}
-.pill{border:1px solid rgba(237,230,217,.35);padding:4px 10px;font-size:10.5px;letter-spacing:.2em;color:var(--cream)}
-.hero h1{font-family:var(--f-latin);font-weight:300;font-size:clamp(52px,10vw,132px);letter-spacing:.14em;line-height:.95;margin-left:-.06em}
-.hero .kr{font-family:var(--f-disp);font-weight:400;font-size:clamp(18px,2.2vw,26px);line-height:1.6;margin-top:18px;max-width:24em;color:var(--cream)}
-.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
-.scroll{font-size:11px;letter-spacing:.24em;text-decoration:none;color:var(--cream2);display:flex;align-items:center;gap:10px}
-.scroll::after{content:"";width:1px;height:38px;background:var(--cream2)}
+/* hero — full-bleed looping film (muted autoplay), type sits on the film like a title card */
+.top.clear{background:transparent;border-bottom-color:rgba(255,255,255,.2);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hero{position:relative;height:100svh;min-height:620px;max-height:1200px;margin-top:-59px;background:#0e0d0c;color:#f4eee3;overflow:hidden;isolation:isolate}
+.hero-video,.hero-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-video{z-index:-2;background:#0e0d0c}
+.hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(9,8,7,.55),rgba(9,8,7,0) 62%),linear-gradient(0deg,rgba(9,8,7,.72),rgba(9,8,7,0) 58%),linear-gradient(180deg,rgba(9,8,7,.45),rgba(9,8,7,0) 22%)}
+.hero-topline{position:absolute;top:104px;left:var(--hg);right:var(--hg);display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.13em;color:#e9e2d5}
+.hero-content{position:absolute;left:var(--hg);right:var(--hg);bottom:112px}
+.hero-kicker{font-size:16px;letter-spacing:-.02em;margin-bottom:22px;color:#f1ebdf}
+.hero h1{font-family:var(--f-latin);font-weight:400;font-size:clamp(78px,12.6vw,200px);line-height:.79;letter-spacing:-.075em;margin:0 0 0 -.04em;color:#f4eee3;position:relative;display:inline-block}
+.hero h1 span{display:block;margin-top:.07em}
+.hero h1 sup{position:absolute;right:-2.7em;top:.1em;font-size:clamp(16px,1.6vw,26px);letter-spacing:0;line-height:1;border:1px solid currentColor;border-radius:50%;width:2.1em;height:2.1em;display:grid;place-items:center}
+.hero-bottom{position:absolute;left:var(--hg);right:var(--hg);bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:10px;letter-spacing:.12em}
+.down-link{display:flex;gap:52px;align-items:center;min-height:44px;text-decoration:none;color:#f1ebdf}
+.down-link span{font-size:22px;letter-spacing:0}
+.film-controls{display:flex;align-items:center;gap:18px}
+.film-controls button{height:44px;min-width:44px;font:400 11px/1 var(--f-latin);color:#f4eee3;background:none;border:1px solid rgba(255,255,255,.45);border-radius:50%;cursor:pointer;letter-spacing:0}
+.film-full{letter-spacing:.1em;text-decoration:none;color:#f4eee3;min-height:44px;display:flex;align-items:center}
+.film-full span{margin-left:13px;letter-spacing:0}
+#filmStage{font-size:11px;letter-spacing:.02em;color:#ece6d7;font-variant-numeric:tabular-nums;min-width:9.5em;text-align:right}
+.film-progress{position:absolute;bottom:0;left:0;height:2px;width:100%;background:rgba(255,255,255,.16)}
+.film-progress i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:#e6c5a2}
+:root{--hg:max(5vw,var(--gut))}
+.top .wrap{max-width:none;padding-left:var(--hg);padding-right:var(--hg)}
+@media (max-width:700px){.hero-topline{top:84px}.hero-topline span:last-child{display:none}.hero-content{bottom:96px}.hero-kicker{font-size:14px;max-width:17em}.hero h1 sup{right:-2.6em}.down-link{gap:20px}#filmStage{display:none}.film-controls{gap:10px}}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero{background:#0e0d0c url(img/hero.webp) 50% 30%/cover no-repeat}}
 
 /* facts strip */
 .facts{background:var(--night);color:var(--cream);border-top:1px solid var(--night-hair)}
 .facts dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0;padding-block:22px 26px}
 .facts dl>div{padding:4px 18px;border-left:1px solid var(--night-hair)}
 .facts dl>div:first-child{border-left:0;padding-left:0}
-.facts dt{font-size:10.5px;letter-spacing:.2em;color:var(--cream2);text-transform:uppercase}
-.facts dd{margin:4px 0 0;font-family:var(--f-latin);font-size:22px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1.3}
-.facts dd small{font-family:var(--f-body);font-size:12px;color:var(--cream2);margin-left:4px}
+.facts dt{font-size:10px;letter-spacing:.1em;color:var(--cream2);text-transform:uppercase}
+.facts dd{margin:4px 0 0;font-family:var(--f-latin);font-size:25px;font-weight:400;letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.3}
+.facts dd small{font-family:var(--f-body);font-size:12px;color:var(--cream2);margin-left:6px;letter-spacing:0}
 @media (max-width:860px){.facts dl{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.facts dl>div{border-left:0;padding-left:0}}
 
 section.band{padding-block:clamp(72px,10vw,130px)}
@@ -100,11 +120,11 @@ section.panel{background:var(--panel)}
 .concept .txt{display:grid;gap:22px}
 .concept figure{margin:0;position:sticky;top:90px}
 .concept figure img{width:100%;aspect-ratio:4/4.6;object-fit:cover}
-figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var(--mute);margin-top:10px;text-align:right}
+figcaption{font-family:var(--f-latin);font-style:normal;font-size:11px;letter-spacing:.02em;color:var(--mute);margin-top:10px;text-align:right}
 .then-now{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);margin-top:10px}
 .then-now div{padding:18px 18px 4px 0}
 .then-now div+div{padding-left:18px;border-left:1px solid var(--hair)}
-.then-now b{display:block;font-family:var(--f-latin);font-size:30px;font-weight:400;color:var(--brass-ink);line-height:1.1}
+.then-now b{display:block;font-family:var(--f-latin);font-size:32px;font-weight:400;letter-spacing:-.05em;color:var(--brass-ink);line-height:1.1}
 .then-now span{font-size:13.5px;color:var(--ink2)}
 .rules{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--hair)}
 .rules li{display:grid;grid-template-columns:8.5em 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--hair)}
@@ -121,12 +141,12 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 .step-img.tall img{aspect-ratio:4/4.4;object-position:50% 40%}
 .step-txt{display:grid;gap:16px;max-width:30em}
 .step-k{display:flex;gap:14px;align-items:baseline}
-.step-k em{font-family:var(--f-latin);font-style:normal;font-size:44px;line-height:1;color:var(--brass-ink);font-weight:300}
+.step-k em{font-family:var(--f-latin);font-style:normal;font-size:44px;line-height:1;color:var(--brass-ink);font-weight:400;letter-spacing:-.06em}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;padding:0;list-style:none}
 .tags li{font-size:12px;border:1px solid var(--hair);padding:3px 10px;color:var(--ink2)}
 @media (max-width:860px){.step{grid-template-columns:1fr}.step:nth-child(even) .step-img{order:0}}
 .statement{margin-top:clamp(64px,9vw,120px);border-top:1px solid var(--hair);padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:end}
-.statement .big{font-family:var(--f-latin);font-weight:300;font-size:clamp(34px,5.4vw,72px);letter-spacing:.06em;line-height:1}
+.statement .big{font-family:var(--f-latin);font-weight:400;font-size:clamp(34px,5.4vw,72px);letter-spacing:-.06em;line-height:1}
 .statement p{color:var(--ink2);max-width:32em}
 .cuts-head{margin-top:clamp(64px,9vw,110px);display:grid;gap:10px;max-width:40em}
 .cuts-head p{color:var(--ink2);font-size:14px}
@@ -190,7 +210,7 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 .mats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,30px)}
 .mat{display:grid;gap:10px;align-content:start}
 .mat .sw{aspect-ratio:1;background-size:cover;background-position:center;border:1px solid var(--hair)}
-.mat .code{font-family:var(--f-latin);font-size:13px;color:var(--brass-ink);letter-spacing:.12em}
+.mat .code{font-family:var(--f-latin);font-size:11px;color:var(--brass-ink);letter-spacing:.06em}
 .mat h3{font-size:17px;line-height:1.4}
 .mat p{font-size:13px;color:var(--ink2);line-height:1.6}
 .mat .where{font-size:12px;color:var(--mute);border-top:1px solid var(--hair);padding-top:8px}
@@ -250,7 +270,7 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 .sheet img{width:100%;aspect-ratio:1600/1131;object-fit:cover;background:#fff;border:1px solid var(--hair);transition:transform .3s}
 .sheet:hover img{transform:translateY(-3px)}
 .sheet span{font-size:13px}
-.sheet small{display:block;font-family:var(--f-latin);font-style:italic;font-size:13px;color:var(--mute)}
+.sheet small{display:block;font-family:var(--f-latin);font-style:normal;font-size:11px;letter-spacing:.02em;color:var(--mute)}
 @media (max-width:860px){.sheets{grid-template-columns:repeat(2,minmax(0,1fr))}}
 dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1500px);width:100%}
 dialog.lb::backdrop{background:rgba(10,9,8,.86)}
@@ -295,15 +315,17 @@ dialog.lb::backdrop{background:rgba(10,9,8,.86)}
 .closing .disc{margin-top:40px;font-size:12.5px;color:var(--cream2);max-width:46em}
 footer{background:var(--night);color:var(--cream2);border-top:1px solid var(--night-hair);font-size:12px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;padding-block:26px calc(26px + env(safe-area-inset-bottom,0px))}
-footer b{font-family:var(--f-latin);font-weight:500;letter-spacing:.3em;color:var(--cream);font-size:14px;margin-right:12px}
+footer b{font-family:var(--f-latin);font-weight:700;letter-spacing:-.04em;color:var(--cream);font-size:15px;margin-right:12px}
 footer nav{display:flex;flex-wrap:wrap;gap:16px}
 footer a{text-decoration:none}
 footer a:hover{color:var(--cream)}
 </style>
 
+</head>
+<body>
 <a class="skip" href="#concept">본문으로 건너뛰기</a>
 
-<header class="top" id="top">
+<header class="top clear" id="top">
   <div class="wrap">
     <a class="logo" href="#hero"><b><i aria-hidden="true"></i>SUSHI MITO</b><span>스시미토</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">MENU</button>
@@ -322,23 +344,24 @@ footer a:hover{color:var(--cream)}
 </header>
 
 <main>
-<section class="hero" id="hero" aria-label="스시미토 표지">
-  <img src="img/hero.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구, 시온 베이지 대리석 카운터, 블랙 스타론 작업대, 어두운 천장의 할로겐과 밝은 등박스" width="1230" height="895" fetchpriority="high">
-  <div class="hero-txt">
-    <div class="wrap">
-      <div class="hero-tag">
-        <span class="eyebrow">CENTER PLACE 2F · 남대문로9길 40</span>
-        <span class="pill">INTERIOR DESIGN 2026</span>
-      </div>
-      <div class="hero-row">
-        <div>
-          <h1>SUSHI MITO</h1>
-          <p class="kr">어두운 배면 위에 나무와 돌, 그리고 접시 위의 빛만 남긴다.</p>
-        </div>
-        <a class="scroll" href="#concept">SCROLL</a>
-      </div>
+<section class="hero" id="hero" aria-label="스시미토 표지 영상">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="img/hero.webp" aria-label="홀 통로에서 시작해 손님 벽면, 홀 전체, 입구, 복도, 전실을 차례로 보여주는 20초 반복 영상"></video>
+  <script>(function(){var v=document.getElementById('heroVideo');v.src=matchMedia('(max-width:700px)').matches?'media/hero-m.mp4':'media/hero.mp4';v.muted=true;})();</script>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-topline"><span>SEOUL, JUNG-GU</span><span>CENTER PLACE 2F · INTERIOR DESIGN 2026</span></div>
+  <div class="hero-content">
+    <p class="hero-kicker">어두운 배면 위에 나무와 돌, 그리고 접시 위의 빛만 남긴다.</p>
+    <h1><span>SUSHI</span><span>MITO</span><sup>2F</sup></h1>
+  </div>
+  <div class="hero-bottom">
+    <a class="down-link" href="#concept">THE STORY <span aria-hidden="true">↓</span></a>
+    <div class="film-controls">
+      <span id="filmStage" aria-live="off">01 / 06 HALL AISLE</span>
+      <button id="heroToggle" type="button" aria-label="영상 일시정지" aria-pressed="false">❙❙</button>
+      <a class="film-full" href="#film" id="filmFull">FILM <span aria-hidden="true">↗</span></a>
     </div>
   </div>
+  <div class="film-progress" aria-hidden="true"><i id="heroProg"></i></div>
 </section>
 
 <div class="facts">
@@ -673,6 +696,22 @@ footer a:hover{color:var(--cream)}
   mb.addEventListener('click',function(){var o=top.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
   document.querySelectorAll('.nav a').forEach(function(a){a.addEventListener('click',function(){top.classList.remove('open');mb.setAttribute('aria-expanded','false')})});
 
+
+  // hero film
+  var hv=document.getElementById('heroVideo'),ht=document.getElementById('heroToggle'),hp=document.getElementById('heroProg'),hs=document.getElementById('filmStage');
+  var ST=[[0,'01 / 06 HALL AISLE'],[3.1,'02 / 06 GUEST WALL'],[6.5,'03 / 06 HALL'],[9.9,'04 / 06 ENTRANCE'],[13.1,'05 / 06 CORRIDOR'],[16.3,'06 / 06 VESTIBULE'],[19.5,'01 / 06 HALL AISLE']];
+  var userPaused=false;
+  function setBtn(){var p=hv.paused;ht.textContent=p?'▶':'❙❙';ht.setAttribute('aria-label',p?'영상 재생':'영상 일시정지');ht.setAttribute('aria-pressed',p)}
+  ht.addEventListener('click',function(){if(hv.paused){userPaused=false;hv.play()}else{userPaused=true;hv.pause()}});
+  hv.addEventListener('play',setBtn);hv.addEventListener('pause',setBtn);
+  (function tick(){var d=hv.duration||20,t=hv.currentTime||0;hp.style.transform='scaleX('+(t/d).toFixed(4)+')';
+    var lab=ST[0][1];for(var i=0;i<ST.length;i++){if(t>=ST[i][0])lab=ST[i][1]}if(hs.textContent!==lab)hs.textContent=lab;requestAnimationFrame(tick)})();
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){hv.pause();hv.removeAttribute('autoplay')}
+  else{var pr=hv.play();if(pr&&pr.catch)pr.catch(function(){setBtn()})}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting){hv.pause()}else if(!userPaused&&!matchMedia('(prefers-reduced-motion:reduce)').matches){hv.play().catch(function(){})}
+    top.classList.toggle('clear',e.intersectionRatio>0.12)})},{threshold:[0,0.12,0.5]}).observe(document.getElementById('hero'))}
+  document.getElementById('filmFull').addEventListener('click',function(){var fv=document.querySelector('#film video');if(fv){setTimeout(function(){fv.play().catch(function(){})},650)}});
   // hall
   var VIEWS={
     '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 시온 베이지 대리석 상판을 두르고, 그 안쪽에 블랙 스타론 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
@@ -761,3 +800,6 @@ footer a:hover{color:var(--cream)}
     var gw=g.parentNode;requestAnimationFrame(function(){if(gw.scrollWidth>gw.clientWidth){gw.scrollLeft=Math.max(0,t.offsetLeft-gw.clientWidth*0.6)}})}
 })();
 </script>
+
+</body>
+</html>
