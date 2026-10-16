@@ -704,8 +704,9 @@ footer a:hover{color:var(--cream)}
   function setBtn(){var p=hv.paused;ht.textContent=p?'▶':'❙❙';ht.setAttribute('aria-label',p?'영상 재생':'영상 일시정지');ht.setAttribute('aria-pressed',p)}
   ht.addEventListener('click',function(){if(hv.paused){userPaused=false;hv.play()}else{userPaused=true;hv.pause()}});
   hv.addEventListener('play',setBtn);hv.addEventListener('pause',setBtn);
-  (function tick(){var d=hv.duration||20,t=hv.currentTime||0;hp.style.transform='scaleX('+(t/d).toFixed(4)+')';
-    var lab=ST[0][1];for(var i=0;i<ST.length;i++){if(t>=ST[i][0])lab=ST[i][1]}if(hs.textContent!==lab)hs.textContent=lab;requestAnimationFrame(tick)})();
+  function upd(){var d=hv.duration||20,t=hv.currentTime||0;hp.style.transform='scaleX('+(t/d).toFixed(4)+')';
+    var lab=ST[0][1];for(var i=0;i<ST.length;i++){if(t>=ST[i][0])lab=ST[i][1]}if(hs.textContent!==lab)hs.textContent=lab}
+  hv.addEventListener('timeupdate',upd);(function tick(){upd();requestAnimationFrame(tick)})();
   if(matchMedia('(prefers-reduced-motion:reduce)').matches){hv.pause();hv.removeAttribute('autoplay')}
   else{var pr=hv.play();if(pr&&pr.catch)pr.catch(function(){setBtn()})}
   if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){
