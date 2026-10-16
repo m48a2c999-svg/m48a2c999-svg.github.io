@@ -8,6 +8,7 @@
 <title>스시미토 센터플레이스</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="스시미토 이전 신축 — 서울 중구 남대문로9길 40 센터플레이스 2층. 설계 · 시공 엘모컴퍼니.">
+<link rel="icon" href="img/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap">
@@ -60,6 +61,8 @@ p{margin:0}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px}
 .logo{display:flex;align-items:baseline;gap:12px;text-decoration:none}
 .logo b{font-family:var(--f-latin);font-weight:700;font-size:17px;letter-spacing:-.04em}
+.logo img{width:26px;height:26px;align-self:center;flex:none}
+.logo{align-items:center!important}
 .logo span{font-size:11px;color:var(--cream2);letter-spacing:.04em}
 .nav{display:flex;gap:clamp(14px,2vw,28px);list-style:none;margin:0;padding:0}
 .nav a{font-size:10.5px;letter-spacing:.09em;text-decoration:none;color:var(--cream2);transition:color .2s}
@@ -82,7 +85,9 @@ p{margin:0}
 .hero-content{position:absolute;left:var(--hg);right:var(--hg);bottom:112px}
 .hero-kicker{font-size:16px;letter-spacing:-.02em;margin-bottom:22px;color:#f1ebdf}
 .hero h1{font-family:var(--f-latin);font-weight:400;font-size:clamp(78px,12.6vw,200px);line-height:.79;letter-spacing:-.075em;margin:0 0 0 -.04em;color:#f4eee3;position:relative;display:inline-block}
-.hero h1 span{display:block;margin-top:.07em}
+.hero h1 span{display:block;white-space:nowrap}
+.hero h1{display:flex!important;align-items:center;gap:.14em;font-size:clamp(44px,11.2vw,192px)!important;line-height:.9!important}
+.hero h1 .h1-mark{width:.74em;height:.74em;flex:none;margin-right:.02em}
 .hero h1 sup{position:absolute;right:-2.7em;top:.1em;font-size:clamp(16px,1.6vw,26px);letter-spacing:0;line-height:1;border:1px solid currentColor;border-radius:50%;width:2.1em;height:2.1em;display:grid;place-items:center}
 .hero-bottom{position:absolute;left:var(--hg);right:var(--hg);bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:10px;letter-spacing:.12em}
 .down-link{display:flex;gap:52px;align-items:center;min-height:44px;text-decoration:none;color:#f1ebdf}
@@ -99,6 +104,38 @@ p{margin:0}
 .hero-topline em{font-style:normal;letter-spacing:0;margin-left:10px;opacity:.85}
 @media (max-width:700px){.hero-topline{top:80px;flex-direction:column;gap:7px}.hero-content{bottom:96px}.hero-kicker{font-size:14px;max-width:17em}.hero h1 sup{right:-2.6em}.down-link{gap:20px}#filmStage{display:none}.film-controls{gap:10px}}
 @media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero{background:#0e0d0c url(img/hero.webp) 50% 30%/cover no-repeat}}
+
+
+/* logo sheet + facade */
+.logo-sheet{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,.55fr) minmax(0,1.25fr);gap:clamp(14px,2.2vw,28px);align-items:stretch;margin-bottom:clamp(48px,7vw,90px)}
+.logo-sheet figure{margin:0;background:#FBFAF7;border:1px solid var(--hair);display:grid;place-items:center;padding:clamp(18px,3vw,44px)}
+.lg-h img{width:100%;height:auto}
+.lg-v img{width:auto;height:auto;max-height:300px;max-width:100%}
+.lg-txt{display:grid;gap:16px;align-content:start}
+.lg-txt .eyebrow{color:var(--brass-ink)}
+@media (max-width:860px){.logo-sheet{grid-template-columns:minmax(0,1fr) minmax(0,.45fr)}.lg-txt{grid-column:1/-1}.lg-v img{max-height:220px}}
+.facade{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,110px)}
+.fac-stage{position:relative;aspect-ratio:941/800;background:var(--night);overflow:hidden}
+.fac-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s ease}
+.fac-stage img.off{opacity:0}
+.fac-txt{display:grid;gap:16px;align-content:center}
+.fac-txt .eyebrow{color:var(--brass-ink)}
+.seg{display:inline-flex;border:1px solid var(--hair);justify-self:start;margin-top:6px}
+.seg button{background:none;border:0;padding:11px 18px;font:400 10.5px/1 var(--f-latin);letter-spacing:.1em;color:var(--ink2);cursor:pointer;min-height:40px}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+@media (max-width:860px){.facade{grid-template-columns:1fr}}
+/* drawings on dark */
+#drawings .plan{background:#151311;border-color:var(--night-hair)}
+#drawings .sheet img{background:#151311;border-color:var(--night-hair)}
+#drawings .sheet small,#drawings .note{color:var(--cream2)}
+#drawings .doc-tabs button{border-color:var(--night-hair);color:var(--cream2)}
+#drawings .doc-tabs button small{color:var(--cream2);opacity:.7}
+#drawings .doc-tabs button[aria-selected="true"]{background:var(--cream);color:var(--night);border-color:var(--cream)}
+#drawings .doc-tabs button[aria-selected="true"] small{color:var(--night)}
+#drawings .plan-specs{border-top-color:var(--night-hair)}
+#drawings .plan-specs dt{color:var(--cream2)}
+.lb-in{background:#151311!important}
+.fixtures figure{background:#151311!important;border-color:var(--night-hair)!important}
 
 /* facts strip */
 .facts{background:var(--night);color:var(--cream);border-top:1px solid var(--night-hair)}
@@ -328,7 +365,7 @@ footer a:hover{color:var(--cream)}
 
 <header class="top clear" id="top">
   <div class="wrap">
-    <a class="logo" href="#hero"><b><i aria-hidden="true"></i>SUSHI MITO</b><span>스시미토</span></a>
+    <a class="logo" href="#hero"><img src="img/mark-w-128.png" alt="" width="26" height="26"><b>SUSHI MITO</b><span>스시미토</span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">MENU</button>
     <ul class="nav" id="nav">
       <li><a href="#film">FILM</a></li>
@@ -352,7 +389,7 @@ footer a:hover{color:var(--cream)}
   <div class="hero-topline"><span>CENTER PLACE 2F, SEOUL</span><span>DESIGN &amp; BUILD · ELMOCOMPANY <em>설계 · 시공 엘모컴퍼니</em></span></div>
   <div class="hero-content">
     <p class="hero-kicker">어두운 배면 위에 나무와 돌, 그리고 접시 위의 빛만 남긴다.</p>
-    <h1><span>SUSHI</span><span>MITO</span><sup>2F</sup></h1>
+    <h1><img class="h1-mark" src="img/mark-w.png" alt="" width="512" height="512"><span>SUSHI MITO</span></h1>
   </div>
   <div class="hero-bottom">
     <a class="down-link" href="#concept">THE STORY <span aria-hidden="true">↓</span></a>
@@ -476,13 +513,37 @@ footer a:hover{color:var(--cream)}
     <div class="sec-head">
       <span class="sec-no">03</span>
       <span class="eyebrow">Sign &amp; Logo</span>
-      <h2>문 옆의 작은 이름</h2>
+      <h2>꽃 문양 하나, 이름 하나</h2>
+    </div>
+    <div class="logo-sheet">
+      <figure class="lg-h"><img src="img/logo-h.png" alt="스시미토 최종 로고 가로형. 원형 꽃 문양 마크, 붓글씨 상호, 영문 SUSHI MITO" width="1280" height="340" loading="lazy"></figure>
+      <figure class="lg-v"><img src="img/logo-v.png" alt="스시미토 최종 로고 세로형" width="310" height="1240" loading="lazy"></figure>
+      <div class="lg-txt">
+        <span class="eyebrow">Final Logo</span>
+        <p class="lede">최종 로고는 원형 테두리 안의 꽃 문양 마크와 붓글씨 상호, 넓은 자간의 영문 SUSHI MITO로 이루어집니다. 가로형은 외벽 간판과 명함에, 세로형은 세로로 긴 판에 씁니다.</p>
+        <ul class="tags"><li>원형 꽃 문양 마크</li><li>붓글씨 상호</li><li>영문 SUSHI MITO</li><li>가로형 · 세로형</li></ul>
+      </div>
+    </div>
+    <div class="facade">
+      <div class="fac-stage" id="facStage">
+        <img id="facDay" src="img/sign-day.webp" alt="센터플레이스 외벽 2층의 스시미토 간판, 낮. 검정 판 위 원형 마크와 영문 SUSHI MITO" width="941" height="800" loading="lazy">
+        <img id="facNight" class="off" src="img/sign-night.webp" alt="같은 간판, 해 질 녘. 마크와 글자에 불이 들어온 모습" width="941" height="800" loading="lazy" aria-hidden="true">
+      </div>
+      <div class="fac-txt">
+        <span class="eyebrow">Facade Sign · Center Place</span>
+        <h3>2층 창 띠의 검정 판</h3>
+        <p>센터플레이스 외벽 2층 창 띠에 검정 바탕 판을 대고, 그 위에 원형 마크와 영문 SUSHI MITO만 올렸습니다. 해가 지면 마크와 글자에만 불이 들어와 거리에서 2층 자리를 찾게 합니다.</p>
+        <div class="seg" role="tablist" aria-label="낮과 밤">
+          <button role="tab" aria-selected="true" data-fac="day">DAY</button>
+          <button role="tab" aria-selected="false" data-fac="night">NIGHT</button>
+        </div>
+      </div>
     </div>
     <div class="sign">
       <figure class="main"><img src="img/sign-new.webp" alt="새 입구. 월넛 자동문 위 천 가림막, 문 오른쪽 사각 벽등과 한글 스시미토 세로 사인" width="460" height="610" loading="lazy"><figcaption>Entrance Sign · Render</figcaption></figure>
       <div class="sign-txt">
         <p class="lede">센터플레이스 2층 공용 복도에는 돌출 간판을 내지 않습니다. 월넛 자동문 위에 천 가림막을 걸고, 문 오른쪽에 사각 벽등과 한글 「스시미토」 세로 판을 나란히 둡니다.</p>
-        <ul class="tags"><li>한글 세로 사인</li><li>사각 벽등 (입구 벽등)</li><li>천 가림막</li><li>돌출 간판 없음</li><li>간판 · 사인 설치 10.31</li></ul>
+        <ul class="tags"><li>한글 세로 사인</li><li>사각 벽등 (입구 벽등)</li><li>천 가림막</li><li>복도 돌출 간판 없음</li><li>간판 · 사인 설치 10.31</li></ul>
         <p>2015년 첫 매장의 간판은 붓글씨 이름과 붉은 꽃 마크, 영문 SUSHI MITO로 이루어진 스시미토의 얼굴이었습니다. 이름을 조용히 보여주는 방식은 그대로 두고, 새 자리에서는 어두운 벽 위의 작은 판 하나로 줄였습니다.</p>
         <div class="old">
           <figure><img src="img/store-2015.webp" alt="2015년 스시미토 입구. 세로 살 문과 문 옆 세로 간판" width="1000" height="1500" loading="lazy"><figcaption>2015 · 입구</figcaption></figure>
@@ -620,7 +681,7 @@ footer a:hover{color:var(--cream)}
 </section>
 
 <!-- 07 -->
-<section class="band" id="drawings">
+<section class="band dark" id="drawings">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-no">07</span>
@@ -714,6 +775,12 @@ footer a:hover{color:var(--cream)}
     if(!e.isIntersecting){hv.pause()}else if(!userPaused&&!matchMedia('(prefers-reduced-motion:reduce)').matches){hv.play().catch(function(){})}
     top.classList.toggle('clear',e.intersectionRatio>0.12)})},{threshold:[0,0.12,0.5]}).observe(document.getElementById('hero'))}
   document.getElementById('filmFull').addEventListener('click',function(){var fv=document.querySelector('#film video');if(fv){setTimeout(function(){fv.play().catch(function(){})},650)}});
+  // facade day / night
+  var fD=document.getElementById('facDay'),fN=document.getElementById('facNight');
+  document.querySelectorAll('[data-fac]').forEach(function(b){b.addEventListener('click',function(){
+    var n=b.dataset.fac==='night';fN.classList.toggle('off',!n);fD.classList.toggle('off',n);
+    fN.setAttribute('aria-hidden',!n);fD.setAttribute('aria-hidden',n);
+    document.querySelectorAll('[data-fac]').forEach(function(x){x.setAttribute('aria-selected',x===b)});});});
   // hall
   var VIEWS={
     '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 시온 베이지 대리석 상판을 두르고, 그 안쪽에 블랙 스타론 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
@@ -762,7 +829,7 @@ footer a:hover{color:var(--cream)}
   var sh=document.getElementById('sheets'),tabs=document.getElementById('docTabs'),DW=[];
   tabs.innerHTML=DOCS.map(function(g,i){return '<button role="tab" aria-selected="'+(i===0)+'" data-g="'+i+'">'+g.t+'<small>'+g.d+'</small></button>'}).join('');
   function showG(gi){var g=DOCS[gi];
-    DW=g.n.map(function(p){return {src:dsrc(g,p[0]),cap:g.t+' · '+p[1],alt:g.t+' '+p[1],bg:'#fff'}});
+    DW=g.n.map(function(p){return {src:dsrc(g,p[0]),cap:g.t+' · '+p[1],alt:g.t+' '+p[1],bg:'#151311'}});
     sh.innerHTML=g.n.map(function(p,i){return '<button class="sheet" data-i="'+i+'"><img src="'+dsrc(g,p[0])+'" alt="'+g.t+' '+p[1]+'" loading="lazy" width="1600" height="1131"><span>'+p[1]+'<small>'+g.t+' '+g.d+'</small></span></button>'}).join('');
     tabs.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-selected',+b.dataset.g===gi)});}
   tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(b)showG(+b.dataset.g)});
