@@ -73,7 +73,7 @@ p{margin:0}
 
 /* hero */
 .hero{position:relative;background:var(--night);color:var(--cream);overflow:hidden}
-.hero img{width:100%;height:clamp(520px,80vh,860px);object-fit:cover;object-position:58% 50%}
+.hero img{width:100%;height:clamp(520px,80vh,860px);object-fit:cover;object-position:50% 30%}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,17,16,.15) 0%,rgba(18,17,16,0) 35%,rgba(18,17,16,.7) 62%,rgba(18,17,16,.96) 100%);pointer-events:none}
 .hero-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-block:0 clamp(28px,5vw,60px)}
 .hero-tag{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:18px}
@@ -136,12 +136,10 @@ figcaption{font-family:var(--f-latin);font-style:italic;font-size:14px;color:var
 .statement p{color:var(--ink2);max-width:32em}
 .cuts-head{margin-top:clamp(64px,9vw,110px);display:grid;gap:10px;max-width:40em}
 .cuts-head p{color:var(--ink2);font-size:14px}
-.cuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
+.cuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
 .cut{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px;align-content:start}
 .cut img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night);transition:transform .3s}
 .cut:hover img{transform:translateY(-3px)}
-.cut:first-child{grid-column:span 2}
-.cut:first-child img{aspect-ratio:8/3;object-position:50% 55%}
 .cut span{font-size:13.5px}
 .cut small{display:block;font-size:12px;color:var(--mute)}
 .cut small b{font-weight:500;color:var(--brass-ink)}
@@ -292,7 +290,7 @@ footer a:hover{color:var(--cream)}
 
 <main>
 <section class="hero" id="hero" aria-label="스시미토 표지">
-  <img src="img/hero.webp" alt="셰프 배면의 원형 후광 오브제와 ㄱ자 대리석 카운터, 등박스 테두리에서 내려오는 확산광" width="1355" height="810" fetchpriority="high">
+  <img src="img/hero.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구와 대리석 카운터, 어두운 천장 가운데 밝은 등박스" width="1230" height="895" fetchpriority="high">
   <div class="hero-txt">
     <div class="wrap">
       <div class="hero-tag">
@@ -340,14 +338,14 @@ footer a:hover{color:var(--cream)}
         </div>
         <ul class="rules">
           <li><strong>한 톤의 배면</strong><span>벽은 모래 질감의 흑갈색 도장, 천장도 같은 색. 경계가 흐려지면 긴 방이 좁게 읽히지 않습니다.</span></li>
-          <li><strong>나무와 돌</strong><span>흑단 스테인 세로 루바, 블랙오크 가구, 검은 천연대리석 상판. 재료 수는 줄이고 결로 구분합니다.</span></li>
+          <li><strong>나무와 돌</strong><span>흑단 스테인 세로 루바, 블랙오크 가구, 시온 베이지 천연대리석 상판. 재료 수는 줄이고 결로 구분합니다.</span></li>
           <li><strong>빛은 카운터에</strong><span>다찌 위 펜던트는 두지 않습니다. 등박스 테두리의 간접광과 상판을 겨눈 스폿이 접시를 가장 밝게 만듭니다.</span></li>
           <li><strong>어둠에서 밝음으로</strong><span>입구, 복도, 전실을 지나 홀에 이를수록 조도가 올라가도록 순서를 짰습니다.</span></li>
         </ul>
       </div>
       <figure>
-        <img src="img/hall-aisle.webp" alt="손님 좌석 뒤 통로에서 본 홀. 검정 가구와 검정 천장, 등박스와 원형 오브제" width="1604" height="981" loading="lazy" style="aspect-ratio:auto;object-fit:contain;background:#26282B">
-        <figcaption>Hall Aisle · Render</figcaption>
+        <img src="img/hall-B-02.webp" alt="손님 좌석 뒤 벽. 블랙오크 상부장 아래 간접광, 옷장과 진열 벽감" width="1604" height="981" loading="lazy" style="aspect-ratio:auto;object-fit:contain;background:#26282B">
+        <figcaption>Guest Wall · Render</figcaption>
       </figure>
     </div>
   </div>
@@ -397,7 +395,7 @@ footer a:hover{color:var(--cream)}
     <div class="cuts-head">
       <span class="eyebrow">All Corridor Cuts</span>
       <h3>복도 외부와 실내 복도 컷</h3>
-      <p>입구 외부부터 홀 통로까지 지금까지 만든 복도 렌더를 모두 모았습니다. 누르면 크게 볼 수 있습니다.</p>
+      <p>입구 외부부터 홀 통로까지 복도 렌더를 모두 모았습니다. 누르면 크게 볼 수 있습니다.</p>
     </div>
     <div class="cuts" id="cuts"></div>
   </div>
@@ -412,13 +410,11 @@ footer a:hover{color:var(--cream)}
       <h2>검정 가구, 검정 천장</h2>
     </div>
     <div class="hall-ctl">
-      <p class="hall-note" id="finB">최종안 · 블랙오크 가구와 흑단 루바, 등박스를 뺀 천장은 모두 어두운 톤</p>
+      <p class="hall-note" id="finB">내부 디자인 최종 시안 · 블랙오크 가구, 등박스를 뺀 천장은 모두 어두운 톤<br>카운터 상판은 시온 베이지 대리석으로 변경 (렌더에는 이전 검은 대리석으로 표시)</p>
       <div class="views" aria-label="장면 선택">
         <button aria-pressed="true" data-view="01"><span>i</span>홀 전체</button>
         <button aria-pressed="false" data-view="02"><span>ii</span>손님 벽면</button>
-        <button aria-pressed="false" data-view="03"><span>iii</span>셰프 벽면</button>
-        <button aria-pressed="false" data-view="04"><span>iv</span>천장 쪽 시선</button>
-        <button aria-pressed="false" data-view="05"><span>v</span>홀 통로</button>
+        <button aria-pressed="false" data-view="03"><span>iii</span>홀 통로</button>
       </div>
     </div>
     <div class="hall-stage" id="stage" role="tabpanel" aria-labelledby="finB">
@@ -446,7 +442,7 @@ footer a:hover{color:var(--cream)}
         <ul class="layers">
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="9" width="22" height="10" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><rect x="5" y="11" width="18" height="6" fill="var(--brass)" opacity=".55"/></svg><div><strong>등박스 테두리 간접광</strong><span>카운터 위 4,170 × 1,850 등박스, 테두리 홈 200에 숨긴 선형 조명. 영업 중 30–40%로 디밍합니다.</span></div></li>
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M9 5h10l-2 7h-6z" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><path d="M11 12 6 25h16l-5-13z" fill="var(--brass)" opacity=".45"/></svg><div><strong>카운터 스폿</strong><span>정면 7석은 의자 중심마다 한 개, 짧은 변은 3등분 위치에 두 개. 접시 위가 가장 밝습니다.</span></div></li>
-          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="8" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><circle cx="14" cy="14" r="10.5" fill="none" stroke="var(--brass)" stroke-width="1.6" opacity=".7"/></svg><div><strong>백바와 원형 오브제</strong><span>셰프 뒤 벽면의 원형 후광과 백바 조명 4개. 별도 회로로 60% 이하에서 씁니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 7h18M5 14h18M5 21h18" stroke="var(--ink2)" stroke-width="1.2"/><path d="M6 8.5h16M6 15.5h16" stroke="var(--brass)" stroke-width="1.6" opacity=".6"/></svg><div><strong>백바 선반 조명</strong><span>셰프 뒤 오픈 선반 밑 간접광과 백바 조명 4개. 별도 회로로 60% 이하에서 씁니다.</span></div></li>
           <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 8h20M4 15h20M4 22h20" stroke="var(--ink2)" stroke-width="1.2"/><path d="M5 9.5h18M5 16.5h18" stroke="var(--brass)" stroke-width="2" opacity=".7"/></svg><div><strong>가구 간접 LED 3,000K</strong><span>옷장 걸이칸, 진열 선반 밑, 상부장 하부. 어두운 가구라 선반보다 진열한 병과 그릇이 빛납니다.</span></div></li>
         </ul>
       </div>
@@ -478,7 +474,7 @@ footer a:hover{color:var(--cream)}
     <div class="mats">
       <article class="mat"><div class="sw" style="background-image:url(img/sw-wall.webp)" role="img" aria-label="흑갈색 모래 질감 도장"></div><span class="code">01 · WALL</span><h3>모래 질감 흑갈색 도장</h3><p>삼화 챠밍샌드월 무광, 지정색 SH S 8005-Y80R</p><p class="where">홀 · 전실 벽, 천장 (등박스 · 입구 · 주방 제외)</p></article>
       <article class="mat"><div class="sw" style="background-image:url(img/sw-louver.webp)" role="img" aria-label="흑단색 세로 루바"></div><span class="code">02 · LOUVER</span><h3>빈티지 흑단 루바</h3><p>레드파인 루바 12 × 120 · 수성 스테인 흑단 · 무광 방염 클리어</p><p class="where">홀 · 복도 벽면</p></article>
-      <article class="mat"><div class="sw" style="background-image:url(img/sw-marble.webp)" role="img" aria-label="흰 결이 있는 검은 대리석"></div><span class="code">03 · STONE</span><h3>검은 천연대리석 상판</h3><p>신흥스톤 유니카프라 20T</p><p class="where">손님 카운터 상판 · 헌상대</p></article>
+      <article class="mat"><div class="sw" style="background-image:url(img/sw-marble.webp)" role="img" aria-label="잔결이 있는 따뜻한 베이지 대리석"></div><span class="code">03 · STONE</span><h3>시온 베이지 천연대리석 상판</h3><p>신흥스톤 시온 베이지 20T 폴리싱 (인도네시아산)</p><p class="where">손님 카운터 상판 · 헌상대</p></article>
       <article class="mat"><div class="sw" style="background-image:url(img/sw-oak.webp)" role="img" aria-label="블랙오크 무늬 판재"></div><span class="code">04 · JOINERY</span><h3>블랙오크 붙박이 가구</h3><p>블랙오크 LPM 18T · 합판 적층 무늬 엣지</p><p class="where">옷장 · 서비스장 · 셰프 뒤 수납 등 제작 가구</p></article>
       <article class="mat"><div class="sw" style="background-image:url(img/sw-ivory.webp)" role="img" aria-label="아이보리 인조대리석"></div><span class="code">05 · WORKTOP</span><h3>아이보리 작업대</h3><p>현대L&amp;C 하넥스 H-아이보리 12T</p><p class="where">하부 냉장고 상부 · 셰프 작업대</p></article>
       <article class="mat"><div class="sw" style="background-image:url(img/sw-tile.webp)" role="img" aria-label="밝은 아이보리 포세린 타일"></div><span class="code">06 · FLOOR</span><h3>밝은 아이보리 포세린</h3><p>맥스포인트 홀리 아이보리 600 × 1,200 무광</p><p class="where">홀 바닥</p></article>
@@ -531,7 +527,7 @@ footer a:hover{color:var(--cream)}
 </section>
 
 <section class="closing" id="closing">
-  <img src="img/hall-B-04.webp" alt="" width="1604" height="981" loading="lazy">
+  <img src="img/hall-B-01.webp" alt="" width="1604" height="981" loading="lazy">
   <div class="wrap">
     <span class="eyebrow" style="color:var(--cream2)">Sushi Mito · Center Place 2F</span>
     <h2 style="margin-top:14px">2026년 가을, 남대문로의 긴 방에 열 개의 자리가 놓입니다.</h2>
@@ -568,16 +564,14 @@ footer a:hover{color:var(--cream)}
 
   // hall
   var VIEWS={
-    '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 검은 대리석 상판을 두르고, 그 안쪽에 밝은 아이보리 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
+    '01':{t:'홀 전체',d:'ㄱ자 카운터를 위에서 본 장면입니다. 긴 변 7석과 짧은 변 3석이 대리석 상판을 두르고, 그 안쪽에 밝은 아이보리 작업대와 하부 냉장고가 셰프 쪽으로 놓입니다. 손님 뒤로는 상부장과 옷장, 오른쪽 끝에 서비스장이 있습니다.'},
     '02':{t:'손님 벽면',d:'좌석 뒤 벽입니다. 상부장 아래로 간접광 띠가 지나가고, 그 밑은 비워 같은 색 벽으로 이어집니다. 오른쪽에 옷장과 작은 진열 벽감을 두었습니다.'},
-    '03':{t:'셰프 벽면',d:'손님이 앉아서 보는 정면입니다. 등박스 테두리의 빛이 셰프 뒤 벽을 타고 내려오고, 원형 후광 오브제가 벽 한가운데에 걸립니다. 상판 위 접시에 빛이 가장 많이 모입니다.'},
-    '04':{t:'천장 쪽 시선',d:'입구 쪽에서 홀 깊이 방향으로 본 장면입니다. 카운터 위 등박스의 테두리 간접광, 오른쪽 원형 오브제, 끝의 선반 조명이 한 줄로 이어집니다. 등박스 밖 천장은 벽과 같은 어두운 톤입니다.'},
-    '05':{t:'홀 통로',d:'손님 좌석 뒤 통로에서 주방 쪽으로 본 장면입니다. 블랙오크 상부장 아래 간접광, 어두운 천장의 작은 스폿, 셰프 뒤 선반 조명이 보입니다.',src:'img/hall-aisle.webp'}
+    '03':{t:'홀 통로',d:'손님 좌석 뒤 통로에서 주방 쪽으로 본 장면입니다. 블랙오크 상부장 아래 간접광이 벽을 타고 내려오고, 천장은 등박스만 밝게 남기고 나머지를 어둡게 눌렀습니다. 셰프 뒤 선반 조명과 오른쪽 석재 질감 벽이 깊이를 만듭니다.',src:'img/hall-final-aisle.webp'}
   };
-  var FIN={B:'검정 가구 · 검정 천장 최종안 (2026.09.29 렌더)'};
+  var FIN={B:'내부 디자인 최종 시안 · 검정 가구 · 검정 천장'};
   var fin='B',view='01',front=document.getElementById('stA'),back=document.getElementById('stB');
   var cT=document.getElementById('capT'),cF=document.getElementById('capF'),cD=document.getElementById('capD');
-  ['01','02','03','04'].forEach(function(v){var i=new Image();i.src='img/hall-B-'+v+'.webp'});(new Image()).src='img/hall-aisle.webp';
+  ['01','02'].forEach(function(v){var i=new Image();i.src='img/hall-B-'+v+'.webp'});(new Image()).src='img/hall-final-aisle.webp';
   function show(){
     var src=VIEWS[view].src||('img/hall-B-'+view+'.webp');
     back.src=src;back.alt='검정 가구 최종안, '+VIEWS[view].t;
@@ -616,8 +610,7 @@ footer a:hover{color:var(--cream)}
     ['img/entry-vestibule.webp','전실 정면','조명 오브제 (R26 수정본)',1],
     ['img/corridor-r25.webp','전실 정면 · 바닥 조경안','R25 수정 전 검토컷',0],
     ['img/corridor-991.webp','전실 정면 · 초기안','조경 없는 검토컷',0],
-    ['img/hall-aisle.webp','홀 통로','좌석 뒤 통로에서 주방 방향',1],
-    ['img/hall-B-04.webp','홀 통로 · 천장 쪽','등박스와 어두운 천장',1]];
+    ['img/hall-final-aisle.webp','홀 통로','좌석 뒤 통로에서 주방 방향 · 내부 최종 시안',1]];
   var CL=CUTS.map(function(c){return {src:c[0],cap:c[1]+' — '+c[2]+(c[3]?' · 최종':' · 검토컷'),alt:c[1],bg:'#121110'}});
   document.getElementById('cuts').innerHTML=CUTS.map(function(c,i){return '<button class="cut" data-i="'+i+'"><img src="'+c[0]+'" alt="'+c[1]+'" loading="lazy" width="1448" height="1086"><span>'+c[1]+'<small>'+(c[3]?'<b>최종</b> · ':'검토컷 · ')+c[2]+'</small></span></button>'}).join('');
   var lb=document.getElementById('lb'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap'),cur=0,LIST=DW;
