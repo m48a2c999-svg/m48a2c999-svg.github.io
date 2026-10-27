@@ -148,6 +148,25 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .hero .wrap>*{max-width:62%}
   .hero .wrap>h1{max-width:none}
 }
+
+/* poster-matched hero */
+.hero{justify-content:flex-start;padding-top:clamp(96px,14vh,150px);padding-bottom:28px}
+.fact .c{color:var(--text);margin:0 -2px 0 -4px}
+.tiny{font-size:clamp(13px,3.4vw,16px);color:var(--sub);font-weight:400;margin-top:4px;line-height:1.6}
+.stars{list-style:none;margin-top:clamp(28px,4.6vw,42px);display:grid;gap:10px}
+.stars li{position:relative;padding-left:1.35em;font-weight:700;font-size:clamp(15px,3.9vw,21px);line-height:1.55}
+.stars li::before{content:"\2217";position:absolute;left:0;top:-.08em;font-size:1.25em;font-weight:400}
+.hero .acts{align-items:center}
+.hero .acts .dday{margin:0 0 0 6px}
+.ask{display:grid;grid-template-columns:auto 1fr;gap:10px 32px;margin-top:clamp(56px,10vh,110px);padding-top:28px;border-top:1px dashed rgba(142,163,189,.35)}
+.ask-k{color:var(--gold);font-weight:700;font-size:clamp(16px,4vw,21px);line-height:1.9}
+.ask-list{display:grid;gap:4px}
+.ask-list a{text-decoration:none;font-size:clamp(15px,3.9vw,21px);font-weight:500;line-height:1.9;color:var(--text);width:max-content;max-width:100%;border-bottom:1px solid transparent}
+.ask-list a:hover{border-color:var(--gold)}
+.dwg{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+@media (max-width:719px){.ask{grid-template-columns:1fr;gap:6px}.hero .acts .dday{margin:6px 0 0}}
+@media (min-width:1000px){.hero .wrap>.ask,.hero .wrap>.dwg,.hero .wrap>.stars{max-width:none}}
+@media (max-width:719px){body{padding-bottom:84px}}
 </style>
 </head>
 <body>
@@ -186,23 +205,36 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
 
     <div class="wrap">
-      <div class="dday rv" id="dday"><i></i><span>D-DAY</span></div>
       <div class="design rv">Design</div>
       <h1 class="rv">Hello Inje</h1>
       <div class="year rv">2026 송년회</div>
       <p class="q rv">변화의 파도가 거센 <b>AI시대,</b><br>우리는 어떤 미래를 설계하고 있습니까?</p>
       <div class="facts rv">
-        <div class="fact"><span class="k">일시</span><span>2026. 11. 13 (금) 19:00~24:00</span></div>
-        <div class="fact"><span class="k">장소</span><span>파르티라운지 왕십리점</span><span class="s">(왕십리역 도보 5분)</span></div>
-        <div class="fact"><span class="k">회비</span><span>인당 5만원</span></div>
+        <div class="fact"><span class="k">일시</span><span class="c">:</span><span>2026. 11. 13 (금) 19:00~24:00</span></div>
+        <div class="fact"><span class="k">장소</span><span class="c">:</span><span>파르티 라운지</span><span class="s">(왕십리역 도보 5분)</span></div>
+        <p class="tiny">(추후 참석인원에 따라 근처 다른 장소로 변경될 수도 있습니다.)</p>
       </div>
+      <ul class="stars rv">
+        <li>건축·인테리어가 아닌 다른 분야에서 활동하시는 동문분들도 <span class="gold">적극 환영합니다!</span></li>
+        <li>회비는 인당 5만원입니다.</li>
+      </ul>
       <div class="acts rv">
         <a class="btn main" id="heroCta" href="https://form.naver.com/response/7l3d5vQD64T/" target="_blank" rel="noopener">
           참석 신청하기
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a class="btn" href="#info">행사 안내</a>
+        <a class="btn" href="#info">장소 · 지도</a>
+        <span class="dday" id="dday"><i></i><span>D-DAY</span></span>
       </div>
+      <div class="ask rv" id="contact">
+        <div class="ask-k">문의사항</div>
+        <div class="ask-list">
+          <a href="tel:01027012971">조승완 (98학번) 010-2701-2971</a>
+          <a href="tel:01096564314">최순환 (99학번) 010-9656-4314</a>
+          <a href="tel:01091970120">오형석 (00학번) 010-9197-0120</a>
+        </div>
+      </div>
+      <div class="dwg caps"><span>Section A–A' · Scale 1:200</span><span>DWG NO. YN-2026</span></div>
     </div>
   </section>
 
@@ -248,23 +280,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
   </section>
 
-  <section class="blk" id="contact">
-    <div class="wrap">
-      <div class="sec-label caps">03 — Contact</div>
-      <h2 class="sec-title rv">문의사항</h2>
-      <div class="contacts">
-        <a class="person rv" href="tel:01027012971"><div><div class="nm">조승완<span>98학번</span></div><div class="ph">010-2701-2971</div></div><div class="call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div></a>
-        <a class="person rv" href="tel:01096564314"><div><div class="nm">최순환<span>99학번</span></div><div class="ph">010-9656-4314</div></div><div class="call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div></a>
-        <a class="person rv" href="tel:01091970120"><div><div class="nm">오형석<span>00학번</span></div><div class="ph">010-9197-0120</div></div><div class="call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg></div></a>
-      </div>
-    </div>
-  </section>
 
   <section class="blk" id="poster">
     <div class="wrap poster-grid">
       <img class="rv" src="img/poster-v2-sm.webp" alt="Hello Inje 2026 송년회 포스터" width="640" height="800" loading="lazy">
       <div class="rv">
-        <div class="caps" style="margin-bottom:18px">04 — Poster</div>
+        <div class="caps" style="margin-bottom:18px">03 — Poster</div>
         <h2 class="sec-title">포스터를 받아<br>단톡방에 올려주세요</h2>
         <p style="color:var(--sub);margin-top:16px;max-width:26em">연락이 뜸했던 동기·선후배에게도 전해주세요. 한 명이라도 더 함께하면 좋겠습니다.</p>
         <div class="acts">
