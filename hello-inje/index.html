@@ -115,6 +115,12 @@ section.blk{padding:clamp(72px,12vw,130px) 0;border-top:1px solid var(--line);po
 .person .call{width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold)}
 .person .call svg{width:18px;height:18px}
 
+.film .frame{position:relative;border:1px solid var(--line);background:#000;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.film video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+.film .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:center}
+.film .snd{position:absolute;right:12px;top:12px;background:rgba(19,29,41,.78);color:var(--text);border:1px solid rgba(232,180,79,.5);font:inherit;font-size:12px;font-weight:700;padding:7px 11px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.film .credit{font-size:12px;color:var(--muted)}
+.film .snd[hidden]{display:none}
 .poster-grid{display:grid;gap:36px;align-items:center}
 .poster-grid img{width:100%;max-width:440px;height:auto;aspect-ratio:4/5;object-fit:contain;border:1px solid var(--line);box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
 .poster-grid .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
@@ -307,6 +313,21 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
   </section>
 
+  <section class="blk film" id="film">
+    <div class="wrap">
+      <div class="sec-label caps">Teaser Film</div>
+      <h2 class="sec-title rv">1분 영상으로 보는<br>2026 송년회</h2>
+      <div class="frame rv" style="margin-top:34px">
+        <video id="filmv" src="media/hello-inje-2026-film.mp4" poster="img/film-poster.webp" muted loop playsinline preload="none" controls></video>
+        <button class="snd" type="button" id="filmSnd">소리 켜고 보기 ▶</button>
+      </div>
+      <div class="acts">
+        <a class="btn" href="media/hello-inje-2026-film.mp4" download="HelloInje_2026송년회_영상.mp4">영상 저장</a>
+        <span class="credit">1분 10초 · 음악 Terminus — Scott Buckley (CC BY 4.0)</span>
+      </div>
+    </div>
+  </section>
+
   <section class="blk" id="info">
     <div class="wrap">
       <div class="sec-label caps">01 — Information</div>
@@ -436,6 +457,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     if(navigator.share){navigator.share({title:"Hello Inje · 2026 송년회",text:"11/13(금) 18:00 입장 · 19:00 시작 · 베리스페이스(신논현역 도보 5분) · 회비 인당 5만원 — 참석 신청은 여기서",url:URL_}).catch(function(){})}
     else copy();
   });
+})();
+</script>
+<script>
+(function(){
+  var v=document.getElementById('filmv'),b=document.getElementById('filmSnd');if(!v)return;
+  var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){if(v.preload==='none')v.preload='auto';if(v.muted){var p=v.play();if(p&&p.catch)p.catch(function(){})}}
+    else if(!v.paused&&v.muted){v.pause()}
+  })},{threshold:.35}):null;
+  if(io)io.observe(v);
+  b.addEventListener('click',function(){v.muted=false;v.loop=false;v.currentTime=0;v.play();b.hidden=true});
+  v.addEventListener('volumechange',function(){if(!v.muted)b.hidden=true});
+  v.addEventListener('ended',function(){v.muted=true;v.loop=true;b.hidden=false;v.play()});
 })();
 </script>
 </body>
