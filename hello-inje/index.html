@@ -167,6 +167,66 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media (max-width:719px){.ask{grid-template-columns:1fr;gap:6px}.hero .acts .dday{margin:6px 0 0}}
 @media (min-width:1000px){.hero .wrap>.ask,.hero .wrap>.dwg,.hero .wrap>.stars{max-width:none}}
 @media (max-width:719px){body{padding-bottom:84px}}
+
+/* ===== poster-ratio hero (4:5, poster coordinates 1600×2000 → 1cqw = 16px) ===== */
+.sheet-wrap{min-height:auto;display:block;padding:58px 0 0;overflow:visible}
+.sheet{position:relative;margin:0 auto;width:100%;aspect-ratio:4/5;container-type:inline-size;background:#131d29;overflow:hidden;display:flex}
+.sheet-art{position:absolute;left:0;bottom:0;width:100%;height:auto;pointer-events:none}
+.sheet-art .ln{fill:none;stroke:#7d93ad;stroke-width:2.2}
+.sheet-art .gd{fill:none;stroke:rgba(142,163,189,.2);stroke-width:1.2}
+.sheet-art .dl{fill:none;stroke:rgba(142,163,189,.32);stroke-width:1.4;stroke-dasharray:4 7}
+.sheet-art .dm{fill:none;stroke:#c9a14e;stroke-width:1.6}
+.sheet-art .dt{font-family:var(--mono);font-size:20px;letter-spacing:.08em;fill:#c9a14e}
+.sheet-art .cn{font-family:var(--mono);font-weight:500;font-size:20px;fill:#c7d2de}
+.anim .ln,.anim .dm{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:drawln 2.6s cubic-bezier(.4,.1,.2,1) forwards}
+.anim .gd,.anim .dl,.anim .dt,.anim .cn{opacity:0;animation:fade 1.4s ease 1.4s forwards}
+.sheet-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:7cqw 0 0 8.25cqw}
+.s-design{font-family:var(--en);font-weight:700;font-size:max(2.6cqw,15px);letter-spacing:-.01em;line-height:1.2}
+.sheet .s-title{font-family:var(--en);font-weight:800;font-size:max(11.4cqw,42px);line-height:1;letter-spacing:-.06em;margin:1.2cqw 0 0 -.3cqw}
+.s-year{font-weight:800;font-size:max(4.1cqw,21px);color:var(--gold);letter-spacing:-.02em;line-height:1.2;margin-top:3.6cqw}
+.s-q{margin-top:7cqw;font-size:max(2cqw,12.5px);font-weight:300;line-height:1.85;color:var(--sub)}
+.s-q b{color:var(--text);font-weight:700}
+.s-facts{margin-top:6.4cqw}
+.s-fact{font-weight:700;font-size:max(2.9cqw,14px);line-height:1.8;letter-spacing:-.01em}
+.s-fact .k{color:var(--gold)}
+.s-fact .s{font-weight:400;font-size:.72em;color:var(--sub)}
+.s-note{font-size:max(1.55cqw,10px);color:var(--sub);margin-top:.6cqw;line-height:1.6;padding-right:4cqw}
+.s-stars{list-style:none;margin-top:4.6cqw;display:grid;gap:1.1cqw;max-width:66cqw}
+.s-stars li{position:relative;padding-left:1.4em;font-weight:700;font-size:max(1.8cqw,11px);line-height:1.55}
+.s-stars li::before{content:"\2217";position:absolute;left:0;top:-.1em;font-size:1.3em;font-weight:400}
+.s-acts{margin-top:5cqw;display:flex;flex-wrap:wrap;align-items:center;gap:1.4cqw}
+.s-btn{display:inline-block;background:var(--gold);color:#18202b;font-weight:700;font-size:max(1.8cqw,12px);padding:1.5cqw 2.6cqw;text-decoration:none;border-radius:2px;line-height:1.2;min-height:34px;display:inline-flex;align-items:center}
+.s-btn:hover{background:var(--gold-2)}
+.s-dday{display:inline-flex;align-items:center;gap:.8em;font-family:var(--mono);font-size:max(1.05cqw,9px);letter-spacing:.22em;color:var(--gold);border:1px solid rgba(232,180,79,.45);padding:.9cqw 1.3cqw}
+.s-dday i{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 1.8s infinite}
+.s-bottom{margin-left:-8.25cqw;padding-bottom:3.6cqw}
+.s-ask{display:grid;grid-template-columns:auto 1fr;column-gap:3.4cqw;padding:2.2cqw 0 0 8.25cqw;border-top:1px dashed rgba(142,163,189,.35)}
+.s-ask .k{color:var(--gold);font-weight:700;font-size:max(1.85cqw,11.5px);line-height:2.1}
+.s-ask .list{display:grid}
+.s-ask a{text-decoration:none;font-weight:500;font-size:max(1.85cqw,11.5px);line-height:2.1;color:var(--text);width:max-content}
+.s-ask a:hover{color:var(--gold-2)}
+.s-dwg{display:flex;justify-content:space-between;gap:10px;margin:2.6cqw 8.25cqw 0;padding-top:1.6cqw;border-top:1px solid rgba(142,163,189,.3);font-family:var(--mono);font-size:max(1.05cqw,8.5px);letter-spacing:.28em;color:var(--muted)}
+@media (min-width:720px){
+  .sheet-wrap{padding:76px 0 56px}
+  .sheet{width:min(calc((100svh - 110px) * .8),760px);box-shadow:0 40px 90px -40px rgba(0,0,0,.8),0 0 0 1px var(--line)}
+}
+
+@media (max-width:719px){
+  .s-design{font-size:max(2.6cqw,12px)}
+  .sheet .s-title{font-size:11.4cqw;margin-top:.6cqw}
+  .s-year{font-size:max(4.1cqw,15px);margin-top:3cqw}
+  .s-q{font-size:max(2cqw,10px);margin-top:5.5cqw;line-height:1.7}
+  .s-facts{margin-top:5cqw}
+  .s-fact{font-size:max(2.9cqw,11.5px);line-height:1.65}
+  .s-note{font-size:max(1.55cqw,8px)}
+  .s-stars{margin-top:3.6cqw;max-width:82cqw;gap:.6cqw}
+  .s-stars li{font-size:max(1.8cqw,9.5px);line-height:1.45}
+  .s-acts{display:none}
+  .s-ask .k,.s-ask a{font-size:max(1.85cqw,9.5px);line-height:1.75}
+  .s-dwg{font-size:max(1.05cqw,6.5px);letter-spacing:.2em}
+  .s-bottom{padding-bottom:2.6cqw}
+}
+@media (prefers-reduced-motion:reduce){.anim .ln,.anim .dm{animation:none;stroke-dasharray:none}.anim .gd,.anim .dl,.anim .dt,.anim .cn{animation:none;opacity:1}}
 </style>
 </head>
 <body>
@@ -177,64 +237,68 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="compass" aria-hidden="true">
-      <svg viewBox="-60 -80 120 140"><text x="0" y="-62" text-anchor="middle" font-family="Jost" font-size="15" font-weight="500" fill="#c7d2de">N</text>
-        <circle r="46" fill="none" stroke="#8ea3bd" stroke-width="1"/><circle r="32" fill="none" stroke="#8ea3bd" stroke-width="1" stroke-dasharray="2 4"/>
-        <line x1="-60" y1="0" x2="60" y2="0" stroke="#8ea3bd" stroke-width="1"/>
-        <path d="M0-50 L9 2 L0-8 L-9 2Z" fill="#8ea3bd"/><path d="M0-50 L0-8 L-9 2Z" fill="#c7d2de"/></svg>
-    </div>
-
-    <div class="draw" id="draw" aria-hidden="true">
-      <svg viewBox="0 0 600 1000" preserveAspectRatio="xMaxYMax meet">
-        <!-- tower -->
-        <path class="ln" d="M250 160 L470 160 L470 1000 M250 160 L250 1000"/>
-        <path class="ln" d="M250 160 L380 96 L600 96 L470 160 M600 96 L600 1000"/>
-        <!-- annex -->
-        <path class="ln" d="M50 690 L250 690 M50 690 L50 1000 M50 690 L118 654 L250 654"/>
+  <section class="hero sheet-wrap">
+    <div class="sheet">
+      <svg class="sheet-art" id="draw" viewBox="0 0 1600 2000" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <defs>
+          <pattern id="g1" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(120,150,185,.07)" stroke-width="1"/></pattern>
+          <pattern id="g2" width="200" height="200" patternUnits="userSpaceOnUse"><rect width="200" height="200" fill="url(#g1)"/><path d="M200 0H0V200" fill="none" stroke="rgba(120,150,185,.13)" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="1600" height="2000" fill="url(#g2)"/>
+        <path class="dl" d="M75 2000 L1600 365" style="stroke:rgba(142,163,189,.16);stroke-dasharray:none"/>
+        <!-- compass -->
+        <g class="cmp" transform="translate(1455 200)">
+          <circle r="47" class="ln"/><circle r="32" class="dl"/><path class="ln" d="M-62 0H62"/>
+          <path d="M0-62 L10 2 L0-10 L-10 2Z" fill="#8ea3bd"/><path d="M0-62 L0-10 L-10 2Z" fill="#c7d2de"/>
+          <text x="0" y="-80" text-anchor="middle" class="cn">N</text>
+        </g>
         <!-- facade grid -->
-        <path class="gd" d="M305 160V1000 M360 160V1000 M415 160V1000 M250 280H470 M250 400H470 M250 520H470 M250 640H470 M250 760H470 M250 880H470 M520 136V1000 M560 116V1000 M110 690V1000 M170 690V1000 M50 800H250 M50 910H250"/>
-        <path class="dl" d="M220 120V1000 M500 140V1000"/>
+        <path class="gd" d="M1188 545V2000 M1248 545V2000 M1308 545V2000 M1128 650H1368 M1128 760H1368 M1128 870H1368 M1128 980H1368 M1128 1090H1368 M1128 1200H1368 M1128 1310H1368 M1128 1420H1368 M1128 1530H1368 M1128 1640H1368 M1128 1750H1368 M1128 1860H1368 M1415 523V2000 M1462 500V2000 M963 1163V2000 M1018 1163V2000 M1073 1163V2000 M908 1270H1128 M908 1380H1128 M908 1490H1128 M908 1600H1128 M908 1710H1128 M908 1820H1128 M908 1930H1128"/>
+        <path class="dl" d="M1098 430V2000 M1397 430V2000"/>
+        <!-- tower -->
+        <path class="ln" d="M1128 2000V545H1368V2000"/>
+        <path class="ln" d="M1128 545L1270 477H1510L1368 545 M1510 477V2000"/>
+        <!-- annex -->
+        <path class="ln" d="M908 2000V1163H1128 M908 1163L982 1123H1128"/>
         <!-- dimensions -->
-        <path class="dm" d="M250 58H470 M250 44V150 M470 44V150 M244 64L256 52 M464 64L476 52 M360 30V58"/>
-        <text x="360" y="22" text-anchor="middle">13,200</text>
-        <path class="dm" d="M640 170V1000 M634 176L646 164"/>
-        <text x="666" y="640" transform="rotate(-90 666 640)" text-anchor="middle">EL. +80,000</text>
-        <path class="dl" d="M-300 1100 L700 60" style="stroke:rgba(142,163,189,.18);stroke-dasharray:none"/>
+        <path class="dm" d="M1128 446H1368 M1128 430V540 M1368 430V540 M1120 454L1136 438 M1360 454L1376 438 M1248 390V470"/>
+        <text x="1246" y="432" text-anchor="middle" class="dt">13,200</text>
+        <path class="dm" d="M1548 545V2000 M1540 553L1556 537"/>
+        <text x="1576" y="1275" transform="rotate(-90 1576 1275)" text-anchor="middle" class="dt">EL. +80,000</text>
       </svg>
-    </div>
 
-    <div class="wrap">
-      <div class="design rv">Design</div>
-      <h1 class="rv">Hello Inje</h1>
-      <div class="year rv">2026 송년회</div>
-      <p class="q rv">변화의 파도가 거센 <b>AI시대,</b><br>우리는 어떤 미래를 설계하고 있습니까?</p>
-      <div class="facts rv">
-        <div class="fact"><span class="k">일시</span><span class="c">:</span><span>2026. 11. 13 (금) 19:00~24:00</span></div>
-        <div class="fact"><span class="k">장소</span><span class="c">:</span><span>파르티 라운지</span><span class="s">(왕십리역 도보 5분)</span></div>
-        <p class="tiny">(추후 참석인원에 따라 근처 다른 장소로 변경될 수도 있습니다.)</p>
-      </div>
-      <ul class="stars rv">
-        <li>건축·인테리어가 아닌 다른 분야에서 활동하시는 동문분들도 <span class="gold">적극 환영합니다!</span></li>
-        <li>회비는 인당 5만원입니다.</li>
-      </ul>
-      <div class="acts rv">
-        <a class="btn main" id="heroCta" href="https://form.naver.com/response/7l3d5vQD64T/" target="_blank" rel="noopener">
-          참석 신청하기
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="btn" href="#info">장소 · 지도</a>
-        <span class="dday" id="dday"><i></i><span>D-DAY</span></span>
-      </div>
-      <div class="ask rv" id="contact">
-        <div class="ask-k">문의사항</div>
-        <div class="ask-list">
-          <a href="tel:01027012971">조승완 (98학번) 010-2701-2971</a>
-          <a href="tel:01096564314">최순환 (99학번) 010-9656-4314</a>
-          <a href="tel:01091970120">오형석 (00학번) 010-9197-0120</a>
+      <div class="sheet-body">
+        <div class="s-top">
+          <div class="s-design rv">Design</div>
+          <h1 class="s-title rv">Hello Inje</h1>
+          <div class="s-year rv">2026 송년회</div>
+          <p class="s-q rv">변화의 파도가 거센 <b>AI시대,</b><br>우리는 어떤 미래를 설계하고 있습니까?</p>
+          <div class="s-facts rv">
+            <div class="s-fact"><span class="k">일시</span> : 2026. 11. 13 (금) 19:00~24:00</div>
+            <div class="s-fact"><span class="k">장소</span> : 파르티 라운지 <span class="s">(왕십리역 도보 5분)</span></div>
+            <p class="s-note">(추후 참석인원에 따라 근처 다른 장소로 변경될 수도 있습니다.)</p>
+          </div>
+          <ul class="s-stars rv">
+            <li>건축·인테리어가 아닌 다른 분야에서 활동하시는 동문분들도 <span class="gold">적극 환영합니다!</span></li>
+            <li>회비는 인당 5만원입니다.</li>
+          </ul>
+          <div class="s-acts rv">
+            <a class="s-btn" id="heroCta" href="https://form.naver.com/response/7l3d5vQD64T/" target="_blank" rel="noopener">참석 신청하기 →</a>
+            <span class="s-dday" id="dday"><i></i><span>D-DAY</span></span>
+          </div>
+        </div>
+        <div class="s-bottom">
+          <div class="s-ask rv" id="contact">
+            <div class="k">문의사항</div>
+            <div class="list">
+              <a href="tel:01027012971">조승완 (98학번) 010-2701-2971</a>
+              <a href="tel:01096564314">최순환 (99학번) 010-9656-4314</a>
+              <a href="tel:01091970120">오형석 (00학번) 010-9197-0120</a>
+            </div>
+          </div>
+          <div class="s-dwg"><span>SECTION A–A' · SCALE 1:200</span><span>DWG NO. YN-2026</span></div>
         </div>
       </div>
-      <div class="dwg caps"><span>Section A–A' · Scale 1:200</span><span>DWG NO. YN-2026</span></div>
     </div>
   </section>
 
@@ -322,7 +386,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   requestAnimationFrame(function(){draw.classList.add('anim')});
 
   // bar + mobile CTA
-  var bar=document.getElementById('bar'),m=document.getElementById('mcta'),hc=document.getElementById('heroCta'),rs=document.getElementById('rsvp');
+  var bar=document.getElementById('bar'),m=document.getElementById('mcta'),hc=document.querySelector('.sheet'),rs=document.getElementById('rsvp');
   function onScroll(){
     bar.classList.toggle('solid',scrollY>40);
     var past=hc.getBoundingClientRect().bottom<0, r=rs.getBoundingClientRect(), inR=r.top<innerHeight&&r.bottom>0;
