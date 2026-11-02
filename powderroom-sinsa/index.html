@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="파우더룸 신사점">
+<meta property="og:description" content="신사동 가로수길 · 와인 & 젤라또 · 설계 · 시공 엘모컴퍼니">
+<meta property="og:image" content="img/exterior.webp">
+<title>파우더룸 신사점</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="파우더룸 신사점 — 서울 강남구 신사동 가로수길. 와인 &amp; 젤라또. 설계 · 시공 엘모컴퍼니.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&family=Frank+Ruhl+Libre:wght@300;400&family=Nanum+Myeongjo:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+<style>
+/* Layout: 긴 코너 매장 → 긴 세로 스크롤. 어두운 렌더 띠와 종이 띠가 번갈아, 길가의 젤라또에서 단 위의 와인 방으로 걸어 들어가는 순서를 따른다. */
+:root{
+  --paper:#F3F1EC; --panel:#E8E5DE; --ink:#22211F; --ink2:#59554F; --mute:#8A847B; --hair:#D4CFC6;
+  --acc:#4F979D; --acc-ink:#2F6F72; --mint:#A9D6CA; --warm:#C9944D;
+  --night:#111211; --night2:#1A1B1A; --night-hair:#323432; --cream:#ECE9E3; --cream2:#B0ACA5;
+  --f-word:"Frank Ruhl Libre",Georgia,"Nanum Myeongjo",serif;
+  --f-disp:Arial,Arimo,"Nanum Myeongjo","Noto Serif KR",serif;
+  --f-latin:Arial,Arimo,"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  --f-body:Arial,Arimo,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px)); --gutr:max(16px, env(safe-area-inset-right, 0px)); --wrap:1240px;
+  --hg:max(5vw,var(--gut));
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#151615; --panel:#1E1F1E; --ink:#ECE9E3; --ink2:#BAB6AF; --mute:#8C887F; --hair:#343633;
+  --acc:#6FB3B4; --acc-ink:#A9D6CA; color-scheme:dark }}
+:root[data-theme="dark"]{ --paper:#151615; --panel:#1E1F1E; --ink:#ECE9E3; --ink2:#BAB6AF; --mute:#8C887F; --hair:#343633; --acc:#6FB3B4; --acc-ink:#A9D6CA; color-scheme:dark }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--night);color:var(--cream);padding:8px 14px;z-index:99} .skip:focus{left:16px;top:16px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gut);padding-right:var(--gutr)}
+.eyebrow{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+h1,h2,h3{font-family:var(--f-disp);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.4vw,40px);line-height:1.35} h3{font-size:clamp(20px,2.1vw,25px);line-height:1.45}
+p{margin:0} .lede{font-size:16.5px;color:var(--ink2);max-width:38em}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;margin-bottom:clamp(28px,4vw,48px)}
+.sec-no{font-family:var(--f-latin);font-size:12px;color:var(--acc-ink);letter-spacing:.04em;grid-row:span 2}
+.sec-head .eyebrow{color:var(--acc-ink)}
+@media (max-width:640px){.sec-head h2{grid-column:1/-1}.sec-no{grid-row:auto}}
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;transition:background .35s,border-color .35s;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--cream);border-bottom:1px solid var(--night-hair)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:58px;max-width:none;padding-left:var(--hg);padding-right:var(--hg)}
+.logo{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.logo b{font-family:var(--f-word);font-weight:400;font-size:21px;letter-spacing:-.01em}
+.logo span{font-size:11px;color:var(--cream2);letter-spacing:.04em}
+.nav{display:flex;gap:clamp(14px,2vw,28px);list-style:none;margin:0;padding:0}
+.nav a{font-size:10.5px;letter-spacing:.09em;text-decoration:none;color:var(--cream2);transition:color .2s} .nav a:hover{color:var(--cream)}
+.menu-btn{display:none;background:none;border:1px solid var(--night-hair);color:var(--cream);font:400 10.5px/1 var(--f-body);letter-spacing:.08em;padding:9px 12px;cursor:pointer}
+@media (max-width:900px){.menu-btn{display:block}.nav{position:absolute;left:0;right:0;top:58px;flex-direction:column;gap:0;background:var(--night);border-bottom:1px solid var(--night-hair);padding:8px var(--gutr) 14px var(--gut)}.nav a{display:block;padding:11px 0;font-size:12px;border-top:1px solid var(--night-hair)}.top:not(.open) .nav{display:none}}
+.top.clear{background:transparent;border-bottom-color:rgba(255,255,255,.2);backdrop-filter:none;-webkit-backdrop-filter:none}
+/* hero */
+.hero{position:relative;height:100svh;min-height:620px;max-height:1200px;margin-top:-59px;background:#0e0f0e;color:#f2efe9;overflow:hidden;isolation:isolate}
+.hero-video,.hero-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-video{z-index:-2;background:#0e0f0e}
+.hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(8,9,8,.55),rgba(8,9,8,0) 62%),linear-gradient(0deg,rgba(8,9,8,.74),rgba(8,9,8,0) 58%),linear-gradient(180deg,rgba(8,9,8,.45),rgba(8,9,8,0) 22%)}
+.hero-topline{position:absolute;top:104px;left:var(--hg);right:var(--hg);display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.13em;color:#e7e3dc}
+.hero-topline em{font-style:normal;letter-spacing:0;margin-left:10px;opacity:.85}
+.hero-content{position:absolute;left:var(--hg);right:var(--hg);bottom:112px}
+.hero-kicker{font-size:16px;letter-spacing:-.02em;margin-bottom:18px;color:#efebe4}
+.hero h1{font-family:var(--f-word);font-weight:300;font-size:clamp(58px,12vw,196px);line-height:.86;letter-spacing:-.035em;margin:0 0 0 -.04em;color:#f2efe9}
+.hero h1 small{display:block;font-family:var(--f-latin);font-size:clamp(11px,1vw,13px);letter-spacing:.6em;margin:18px 0 0 .3em;font-weight:400;color:var(--mint)}
+.hero-bottom{position:absolute;left:var(--hg);right:var(--hg);bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:10px;letter-spacing:.12em}
+.down-link{display:flex;gap:52px;align-items:center;min-height:44px;text-decoration:none;color:#efebe4} .down-link span{font-size:22px;letter-spacing:0}
+.film-controls{display:flex;align-items:center;gap:18px}
+.film-controls button{height:44px;min-width:44px;font:400 11px/1 var(--f-latin);color:#f2efe9;background:none;border:1px solid rgba(255,255,255,.45);border-radius:50%;cursor:pointer}
+.film-full{letter-spacing:.1em;text-decoration:none;color:#f2efe9;min-height:44px;display:flex;align-items:center} .film-full span{margin-left:13px;letter-spacing:0}
+#filmStage{font-size:11px;letter-spacing:.02em;color:#e9e6df;font-variant-numeric:tabular-nums;min-width:11em;text-align:right}
+.film-progress{position:absolute;bottom:0;left:0;height:2px;width:100%;background:rgba(255,255,255,.16)}
+.film-progress i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:var(--mint)}
+@media (max-width:700px){.hero-topline{top:80px;flex-direction:column;gap:7px}.hero-content{bottom:96px}.hero-kicker{font-size:14px;max-width:17em}.down-link{gap:20px}#filmStage{display:none}.film-controls{gap:10px}}
+@media (prefers-reduced-motion:reduce){.hero-video{display:none}.hero{background:#0e0f0e url(img/exterior.webp) 40% 50%/cover no-repeat}}
+/* facts */
+.facts{background:var(--night);color:var(--cream);border-top:1px solid var(--night-hair)}
+.facts dl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0;padding-block:22px 26px}
+.facts dl>div{padding:4px 18px;border-left:1px solid var(--night-hair)} .facts dl>div:first-child{border-left:0;padding-left:0}
+.facts dt{font-size:10px;letter-spacing:.1em;color:var(--cream2);text-transform:uppercase}
+.facts dd{margin:4px 0 0;font-family:var(--f-latin);font-size:25px;letter-spacing:-.045em;font-variant-numeric:tabular-nums;line-height:1.3}
+.facts dd small{font-family:var(--f-body);font-size:12px;color:var(--cream2);margin-left:6px;letter-spacing:0}
+@media (max-width:860px){.facts dl{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.facts dl>div{border-left:0;padding-left:0}}
+section.band{padding-block:clamp(72px,10vw,130px)}
+section.dark{background:var(--night);color:var(--cream)} section.dark .lede,section.dark p{color:var(--cream2)}
+section.dark .sec-no,section.dark .sec-head .eyebrow{color:var(--mint)} section.panel{background:var(--panel)}
+/* film */
+.film{background:var(--night);color:var(--cream)} .film .wrap{padding-block:clamp(56px,8vw,96px)}
+.film-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px 40px;margin-bottom:22px}
+.film-head .eyebrow{color:var(--mint)} .film-head h2{color:var(--cream)} .film-head p{color:var(--cream2);max-width:30em;font-size:14px}
+.film video{width:100%;aspect-ratio:16/9;background:#000;display:block}
+/* 01 concept */
+.concept{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,6vw,90px);align-items:start}
+.concept .txt{display:grid;gap:22px} .concept figure{margin:0;position:sticky;top:90px}
+.concept figure img{width:100%;aspect-ratio:4/4.6;object-fit:cover}
+figcaption{font-family:var(--f-latin);font-size:11px;letter-spacing:.02em;color:var(--mute);margin-top:10px;text-align:right}
+.then-now{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);margin-top:10px}
+.then-now div{padding:18px 18px 4px 0} .then-now div+div{padding-left:18px;border-left:1px solid var(--hair)}
+.then-now b{display:block;font-family:var(--f-latin);font-size:32px;font-weight:400;letter-spacing:-.05em;color:var(--acc-ink);line-height:1.1}
+.then-now span{font-size:13.5px;color:var(--ink2)}
+.rules{list-style:none;margin:16px 0 0;padding:0;border-top:1px solid var(--hair)}
+.rules li{display:grid;grid-template-columns:9em 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.rules strong{font-family:var(--f-disp);font-weight:700;font-size:16px} .rules span{color:var(--ink2);font-size:14.5px}
+.cutline{font-size:13px;color:var(--mute)} .cutline b{color:var(--ink);font-weight:500;margin-right:8px}
+@media (max-width:860px){.concept{grid-template-columns:1fr}.concept figure{position:static}.rules li{grid-template-columns:1fr;gap:2px}}
+/* 02 sequence */
+.seq{display:grid;gap:clamp(56px,8vw,110px)}
+.step{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+.step:nth-child(even) .step-img{order:2} .step-img{margin:0}
+.step-img img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night)}
+.step-txt{display:grid;gap:16px;max-width:30em}
+.step-k{display:flex;gap:14px;align-items:baseline} .step-k em{font-family:var(--f-latin);font-style:normal;font-size:44px;line-height:1;color:var(--acc-ink);letter-spacing:-.06em}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;padding:0;list-style:none} .tags li{font-size:12px;border:1px solid var(--hair);padding:3px 10px;color:var(--ink2)}
+@media (max-width:860px){.step{grid-template-columns:1fr}.step:nth-child(even) .step-img{order:0}}
+.statement{margin-top:clamp(64px,9vw,120px);border-top:1px solid var(--hair);padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:end}
+.statement .big{font-family:var(--f-latin);font-size:clamp(34px,5.4vw,72px);letter-spacing:-.06em;line-height:1}
+.statement p{color:var(--ink2);max-width:32em}
+@media (max-width:860px){.statement{grid-template-columns:1fr}}
+.cuts-head{margin-top:clamp(64px,9vw,110px);display:grid;gap:10px;max-width:40em} .cuts-head p{color:var(--ink2);font-size:14px}
+.cuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:28px}
+.cut{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px;align-content:start}
+.cut img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--night);transition:transform .3s} .cut:hover img{transform:translateY(-3px)}
+.cut span{font-size:13.5px} .cut small{display:block;font-size:12px;color:var(--mute)}
+@media (max-width:860px){.cuts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 03 sign */
+.logo-sheet{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,.55fr) minmax(0,1.25fr);gap:clamp(14px,2.2vw,28px);align-items:stretch;margin-bottom:clamp(48px,7vw,90px)}
+.logo-sheet figure{margin:0;background:#FBFAF7;border:1px solid var(--hair);display:grid;place-items:center;padding:clamp(18px,3vw,44px)}
+.logo-sheet .lg-t{background:#4F979D;border-color:#4F979D}
+.lg-h{display:grid;gap:14px} .lg-h img{width:100%} .lg-v img{width:auto;max-height:300px;max-width:100%}
+.lg-txt{display:grid;gap:16px;align-content:start} .lg-txt .eyebrow{color:var(--acc-ink)}
+@media (max-width:860px){.logo-sheet{grid-template-columns:minmax(0,1fr) minmax(0,.45fr)}.lg-txt{grid-column:1/-1}.lg-v img{max-height:220px}}
+.facade{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
+.facade .fimg img{width:100%;aspect-ratio:941/800;object-fit:cover;object-position:30% 50%}
+.fac-txt{display:grid;gap:16px;align-content:center} .fac-txt .eyebrow{color:var(--acc-ink)}
+.fac-txt figure{margin:8px 0 0;background:#FBFAF7;border:1px solid var(--hair);padding:8px}
+@media (max-width:860px){.facade{grid-template-columns:1fr}}
+/* 04 hall */
+.hall-note{margin:0;font-size:13px;color:var(--cream2);letter-spacing:.02em;align-self:center}
+.hall-ctl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 24px;margin-bottom:18px}
+.views{display:flex;flex-wrap:wrap;gap:6px}
+.views button{background:none;border:1px solid var(--night-hair);color:var(--cream2);font:400 12.5px/1 var(--f-body);padding:10px 13px;cursor:pointer}
+.views button[aria-pressed="true"]{border-color:var(--mint);color:var(--cream)} .views button span{font-family:var(--f-latin);margin-right:6px;color:var(--mint)}
+.hall-stage{position:relative;background:#1f2120;aspect-ratio:1672/941;overflow:hidden}
+.hall-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s ease} .hall-stage img.off{opacity:0}
+.hall-cap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px 48px;margin-top:22px;align-items:start}
+.hall-cap h3{color:var(--cream)} .hall-cap .fin{font-size:12.5px;color:var(--mint);letter-spacing:.06em;margin-top:8px}
+@media (max-width:860px){.hall-cap{grid-template-columns:1fr}.hall-ctl{flex-direction:column}}
+/* 05 light */
+.light{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,90px);align-items:start}
+.layers{list-style:none;margin:26px 0 0;padding:0;border-top:1px solid var(--hair)}
+.layers li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.layers .ic{width:28px;height:28px;margin-top:3px} .layers strong{display:block;font-weight:500;font-size:15px} .layers span{font-size:13.5px;color:var(--ink2)}
+.chart{background:var(--paper);border:1px solid var(--hair);padding:clamp(18px,3vw,30px)}
+.chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:22px}
+.seg{display:inline-flex;border:1px solid var(--hair)}
+.seg button{background:none;border:0;color:var(--ink2);font:400 12.5px/1 var(--f-body);padding:10px 13px;cursor:pointer;min-height:40px}
+.seg button+button{border-left:1px solid var(--hair)} .seg button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.bars{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:9.5em 1fr 4.6em;gap:12px;align-items:center;font-size:13px}
+.bar .lab{color:var(--ink2);line-height:1.35}
+.bar .track{position:relative;height:14px;background:linear-gradient(90deg,var(--hair) 0 1px,transparent 1px) 0 0/20% 100%}
+.bar .fill{position:absolute;left:0;top:2px;bottom:2px;background:var(--acc);transition:width .5s ease}
+.bar .val{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--f-latin);font-size:17px}
+.axis{display:grid;grid-template-columns:9.5em 1fr 4.6em;gap:12px;margin-top:8px;font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums} .axis .ticks{display:flex;justify-content:space-between}
+.chart-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid var(--hair);font-size:12.5px;color:var(--mute)}
+@media (max-width:860px){.light{grid-template-columns:1fr}} @media (max-width:520px){.bar,.axis{grid-template-columns:6.6em 1fr 3.8em}.bar{font-size:12px}}
+.fx{list-style:none;margin:clamp(40px,6vw,64px) 0 0;padding:0;border-top:1px solid var(--hair);columns:2 360px;column-gap:48px}
+.fx li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:14px;break-inside:avoid}
+.fx li b{font-family:var(--f-latin);font-size:19px;font-weight:400;color:var(--acc-ink);white-space:nowrap} .fx li span small{display:block;color:var(--mute);font-size:12px}
+.note{margin-top:36px;font-size:13px;color:var(--mute)}
+/* 06 material */
+.mats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,2.4vw,30px)}
+.mat{display:grid;gap:10px;align-content:start} .mat .sw{aspect-ratio:1;background-size:cover;background-position:center;border:1px solid var(--hair)}
+.mat .code{font-family:var(--f-latin);font-size:11px;color:var(--acc-ink);letter-spacing:.06em} .mat h3{font-size:17px;line-height:1.4}
+.mat p{font-size:13px;color:var(--ink2);line-height:1.6} .mat .where{font-size:12px;color:var(--mute);border-top:1px solid var(--hair);padding-top:8px}
+@media (max-width:960px){.mats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tbl{overflow-x:auto;margin-top:clamp(40px,6vw,64px)}
+.tbl table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
+.tbl th{text-align:left;font-weight:500;color:var(--mute);font-size:11px;letter-spacing:.12em;border-bottom:1px solid var(--ink2);padding:8px 8px 8px 0}
+.tbl td{border-bottom:1px solid var(--hair);padding:10px 12px 10px 0;vertical-align:top} .tbl td:first-child{font-family:var(--f-latin);color:var(--acc-ink);white-space:nowrap}
+.tbl td:nth-child(2){font-weight:500;white-space:nowrap}
+/* 07 drawings */
+.dplan{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.plan{margin:0;background:#000;border:1px solid var(--night-hair);padding:clamp(10px,2vw,22px);cursor:zoom-in}
+.plan-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--night-hair)}
+.plan-specs div{padding:14px 16px 12px 0;border-bottom:1px solid var(--night-hair)} .plan-specs dt{font-size:11px;letter-spacing:.18em;color:var(--cream2)} .plan-specs dd{margin:4px 0 0;font-size:14px;font-variant-numeric:tabular-nums}
+@media (max-width:860px){.dplan{grid-template-columns:1fr}}
+.doc-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:clamp(40px,6vw,64px) 0 20px}
+.doc-tabs button{background:none;border:1px solid var(--night-hair);color:var(--cream2);font:400 13px/1 var(--f-body);padding:10px 14px;cursor:pointer}
+.doc-tabs button small{font-size:11px;opacity:.7;margin-left:6px} .doc-tabs button[aria-selected="true"]{background:var(--cream);color:var(--night);border-color:var(--cream)}
+.sheets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.sheet{background:none;border:0;padding:0;text-align:left;cursor:zoom-in;color:inherit;font:inherit;display:grid;gap:8px}
+.sheet img{width:100%;aspect-ratio:1600/1131;object-fit:contain;background:#000;border:1px solid var(--night-hair);transition:transform .3s} .sheet:hover img{transform:translateY(-3px)}
+.sheet span{font-size:13px} .sheet small{display:block;font-family:var(--f-latin);font-size:11px;color:var(--cream2)}
+@media (max-width:860px){.sheets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1500px);width:100%} dialog.lb::backdrop{background:rgba(8,9,8,.88)}
+.lb-in{background:#000} .lb-in img{width:100%;height:auto;max-height:84vh;object-fit:contain}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--night);color:var(--cream);padding:10px 14px;font-size:13px}
+.lb-bar button{background:none;border:1px solid var(--night-hair);color:var(--cream);font:inherit;padding:6px 12px;cursor:pointer}
+/* 08 next */
+.next{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(28px,5vw,72px)}
+.chk{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)} .chk li{padding:12px 0 12px 26px;border-bottom:1px solid var(--hair);position:relative;font-size:14.5px;color:var(--ink2)}
+.chk li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:12px;border:1px solid var(--acc-ink)}
+.steps{display:grid;gap:0;border-top:1px solid var(--hair)} .steps div{display:grid;grid-template-columns:6.5em 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--hair)}
+.steps b{font-family:var(--f-latin);font-weight:400;color:var(--acc-ink);letter-spacing:.06em;font-size:12px} .steps p{font-size:15px}
+@media (max-width:860px){.next{grid-template-columns:1fr}}
+/* closing */
+.closing{position:relative;background:var(--night);color:var(--cream);overflow:hidden}
+.closing img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4}
+.closing .wrap{position:relative;padding-block:clamp(90px,14vw,170px)}
+.closing .wm{font-family:var(--f-word);font-weight:300;font-size:clamp(44px,7vw,96px);line-height:.9;letter-spacing:-.03em}
+.closing h2{font-size:clamp(24px,3.4vw,40px);max-width:18em;margin-top:22px}
+.closing .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.closing .links a{border:1px solid rgba(236,233,227,.4);padding:12px 18px;text-decoration:none;font-size:13px;letter-spacing:.04em} .closing .links a:hover{background:var(--cream);color:var(--night)}
+.closing .disc{margin-top:40px;font-size:12.5px;color:var(--cream2);max-width:46em}
+footer{background:var(--night);color:var(--cream2);border-top:1px solid var(--night-hair);font-size:12px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;padding-block:26px calc(26px + env(safe-area-inset-bottom,0px))}
+footer b{font-family:var(--f-word);font-weight:400;color:var(--cream);font-size:17px;margin-right:12px}
+footer nav{display:flex;flex-wrap:wrap;gap:16px} footer a{text-decoration:none} footer a:hover{color:var(--cream)}
+</style>
+</head>
+<body>
+
+
+<a class="skip" href="#concept">본문으로 건너뛰기</a>
+<header class="top clear" id="top">
+  <div class="wrap">
+    <a class="logo" href="#hero"><b>powder room</b><span>파우더룸 신사점</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">MENU</button>
+    <ul class="nav" id="nav">
+      <li><a href="#film">FILM</a></li><li><a href="#concept">CONCEPT</a></li><li><a href="#sequence">SEQUENCE</a></li><li><a href="#sign">SIGN</a></li>
+      <li><a href="#hall">INTERIOR</a></li><li><a href="#light">LIGHT</a></li><li><a href="#material">MATERIAL</a></li><li><a href="#drawings">DRAWINGS</a></li><li><a href="#next">NEXT</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="파우더룸 신사점 표지 영상">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="img/exterior.webp" aria-label="모서리 외관, 홀, 젤라또 주방, 파우더룸을 차례로 보여주는 20초 반복 영상"></video>
+  <script>(function(){var v=document.getElementById('heroVideo');v.src=matchMedia('(max-width:700px)').matches?'media/hero-m.mp4':'media/hero.mp4';v.muted=true;})();</script>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-topline"><span>GAROSU-GIL, SINSA · SEOUL</span><span>DESIGN &amp; BUILD · ELMOCOMPANY <em>설계 · 시공 엘모컴퍼니</em></span></div>
+  <div class="hero-content">
+    <p class="hero-kicker">무채색 방에, 청록은 빛으로만. 길가는 낮의 젤라또, 한 단 위는 밤의 와인.</p>
+    <h1>powder room<small>WINE &amp; GELATO · SINSA</small></h1>
+  </div>
+  <div class="hero-bottom">
+    <a class="down-link" href="#concept">THE STORY <span aria-hidden="true">↓</span></a>
+    <div class="film-controls">
+      <span id="filmStage" aria-live="off">01 / 04 CORNER</span>
+      <button id="heroToggle" type="button" aria-label="영상 일시정지" aria-pressed="false">❙❙</button>
+      <a class="film-full" href="#film">FILM <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="film-progress" aria-hidden="true"><i id="heroProg"></i></div>
+</section>
+
+<div class="facts"><div class="wrap"><dl>
+  <div><dt>Site</dt><dd>11,550 × 4,280<small>mm · 코너</small></dd></div>
+  <div><dt>Area</dt><dd>58<small>㎡ · 17.7평</small></dd></div>
+  <div><dt>Seats</dt><dd>23<small>석 · 창가 5 · 하이 4 · 안쪽 14</small></dd></div>
+  <div><dt>Level</dt><dd>+150<small>안쪽 파우더룸</small></dd></div>
+  <div><dt>Program</dt><dd>Wine &amp; Gelato<small>와인 · 젤라또</small></dd></div>
+</dl></div></div>
+
+<section class="film" id="film" aria-label="공간 영상">
+  <div class="wrap">
+    <div class="film-head">
+      <div><span class="eyebrow">Film</span><h2 style="margin-top:8px">모서리에서 파우더룸까지</h2></div>
+      <p>길모퉁이의 청록 간판에서 시작해 홀과 젤라또 패스, 주방을 지나 한 단 위의 파우더룸까지 걸어 들어가는 순서로 엮은 42초 영상입니다.</p>
+    </div>
+    <video controls playsinline preload="metadata" poster="img/film-poster.webp" aria-label="파우더룸 신사점 공간 영상"><source src="media/film.mp4" type="video/mp4"></video>
+  </div>
+</section>
+
+<section class="band" id="concept">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">01</span><span class="eyebrow">Concept</span><h2>무채색 방에, 청록은 빛으로만</h2></div>
+    <div class="concept">
+      <div class="txt">
+        <p class="lede">문래점에 이은 파우더룸의 두 번째 매장입니다. 신사동 가로수길, 길 두 개가 만나는 1층 코너의 중식 교자집 자리를 와인과 젤라또를 파는 가게로 바꿉니다.</p>
+        <p>깊이 11.5m의 긴 매장입니다. 앞은 폭 4.3m, 안쪽은 폭 5.4m로 넓어지고 바닥이 한 단 높습니다. 벽은 회색 석회 스타코, 천장은 검정 노출, 바닥은 기존 바닥을 연마해 살립니다. 브랜드 청록은 칠하지 않고 골유리와 백라이트로만 써서, 불이 켜질 때 비로소 색이 됩니다.</p>
+        <div class="then-now">
+          <div><b>NOW</b><span>중식 교자집 · 벽돌 패턴 기둥<br>금속 타공 패널 · 후드 주방</span></div>
+          <div><b>2026</b><span>와인 · 젤라또 · 회색 스타코<br>청록 골유리 · 단 위의 파우더룸</span></div>
+        </div>
+        <ul class="rules"><li><strong>모서리는 진열장</strong><span>간판 박스는 브랜드 청록으로 칠하고, 주방 창은 스테인리스 프레임에 하부 청록 골유리와 ‘wine & gelato’ 문구. 폴딩창 안쪽은 스테인리스 창가 바.</span></li><li><strong>젤라또는 패스에서 뜬다</strong><span>기존 칸막이를 살려 패스 창을 뚫고, 그 자리에 젤라또 디핑 케이스를 앉힌다. 손님은 홀 쪽 스테인리스 선반 앞에서 고르고, 직원은 주방 안에서 유리 너머로 떠 준다. 상부 청록 골유리 띠.</span></li><li><strong>청록은 유리와 빛으로만</strong><span>골유리 띠, 외부 창 하부, 안쪽 방 민트 백라이트 사인 벽. 벽과 가구는 회색·흑색·스테인리스로 비운다.</span></li><li><strong>단 위는 파우더룸</strong><span>한 단 높은 안쪽 방. 하부 간접광의 그레이 패브릭 긴 의자, 빛나는 와인 장과 청록 골유리 글라스장, 민트 사인 벽. 테이블마다 캔들 램프.</span></li><li><strong>천장·바닥은 살린다</strong><span>노출 천장은 흑색 도장과 블랙 트랙 스폿, 바닥은 기존 바닥 연마·코팅. 공사비는 벽·빛·가구에 쓴다.</span></li></ul>
+        <p class="cutline"><b>뺀 것</b>주방 후드·덕트(가열 조리 없음) · 벽돌 패턴 필라스터 마감(→ 스타코) · 주방 창 금속 타공 패널 · 칸막이 상부 진열 니치(→ 골유리 띠)</p>
+      </div>
+      <figure><img src="img/before-corner.webp" alt="현재 모서리 외관. 검은 간판 박스와 벽돌 패턴 기둥, 금속 타공 패널 주방 창" width="1400" height="1050" loading="lazy"><figcaption>현재 · 2026.11.02 실측 당일</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="band panel" id="sequence">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">02</span><span class="eyebrow">The Approach</span><h2>모서리에서 단 위까지, 세 번의 장면</h2></div>
+    <div class="seq">
+      <article class="step">
+        <figure class="step-img"><img src="img/exterior.webp" alt="청록 간판 박스와 스타코 기둥, 하부 청록 골유리 창의 모서리 외관 야간" width="1600" height="900" loading="lazy"></figure>
+        <div class="step-txt"><div class="step-k"><em>01</em><span class="eyebrow">Corner</span></div>
+          <h3>청록 간판, 빛나는 창</h3>
+          <p>기존 간판 박스를 그대로 살려 브랜드 청록으로 칠하고 흰 세리프 문자를 올립니다. 벽돌 패턴 기둥은 석회 스타코로 덮어 바닥 업라이트로 비추고, 주방 창 하부의 청록 골유리에 ‘wine &amp; gelato’를 새깁니다.</p>
+          <ul class="tags"><li>간판 박스 재사용</li><li>석회 스타코 기둥</li><li>골유리 창 하부</li><li>흑색 양개 유리문</li></ul></div>
+      </article>
+      <article class="step">
+        <figure class="step-img"><img src="img/hall.webp" alt="창가 바와 젤라또 디핑 케이스를 앉힌 패스 창이 있는 홀, 끝에 민트 사인 벽" width="1600" height="900" loading="lazy"></figure>
+        <div class="step-txt"><div class="step-k"><em>02</em><span class="eyebrow">Hall &amp; Pass</span></div>
+          <h3>창가 바와 열린 주방</h3>
+          <p>왼쪽은 롤스크린 앞 스테인리스 창가 바, 오른쪽은 기존 칸막이를 열어 만든 패스 창입니다. 그 자리에 젤라또 디핑 케이스를 앉혀 직원은 주방 안에서 떠 주고, 손님은 홀 쪽 선반 앞에서 고릅니다. 상부 청록 골유리 띠와 케이스 아래 웜 라이트가 홀의 조명을 대신합니다.</p>
+          <ul class="tags"><li>창가 바 5석</li><li>패스 개구 약 2.4m</li><li>청록 골유리 띠</li><li>2,700K 라인</li></ul></div>
+      </article>
+      <article class="step">
+        <figure class="step-img"><img src="img/room.webp" alt="한 단 높은 파우더룸. 패브릭 긴 의자, 스테인리스 테이블, 와인 장과 골유리 글라스장" width="1600" height="900" loading="lazy"></figure>
+        <div class="step-txt"><div class="step-k"><em>03</em><span class="eyebrow">The Powder Room</span></div>
+          <h3>한 단 올라서면, 파우더룸</h3>
+          <p>바닥이 150 높은 안쪽 방을 와인 방으로 씁니다. 그레이 패브릭 긴 의자 아래와 와인 장 선반에만 빛을 두고, 정면에는 민트 백라이트 사인 벽. 브랜드 이름이 그대로 방이 됩니다.</p>
+          <ul class="tags"><li>단 +150</li><li>14석</li><li>와인 장 · 골유리 글라스장</li><li>민트 사인 벽</li></ul></div>
+      </article>
+    </div>
+    <div class="statement"><span class="big">WINE &amp; GELATO,<br>23 SEATS</span>
+      <p>낮에는 테이크아웃 창과 창가 바의 젤라또, 밤에는 단 위 파우더룸의 와인. 한 가게가 시간에 따라 앞과 안쪽을 바꿔 씁니다. <a href="#hall">실내 둘러보기 ↓</a></p></div>
+    <div class="cuts-head"><span class="eyebrow">All Cuts</span><h3>디자인 이미지 모음</h3><p>외관부터 파우더룸까지 디자인 방향 이미지를 모았습니다. 누르면 크게 볼 수 있습니다.</p></div>
+    <div class="cuts" id="cuts"></div>
+  </div>
+</section>
+
+<section class="band" id="sign">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">03</span><span class="eyebrow">Sign &amp; Logo</span><h2>소문자 세리프, 청록 한 가지</h2></div>
+    <div class="logo-sheet">
+      <div class="lg-h">
+        <figure><img src="img/logo-h.webp" alt="파우더룸 워드마크 가로형. 청록 소문자 세리프 powder room과 SINSA" width="1000" height="266" loading="lazy"></figure>
+        <figure class="lg-t"><img src="img/logo-teal.webp" alt="청록 바탕 흰색 워드마크. 간판 박스 적용" width="1000" height="266" loading="lazy"></figure>
+      </div>
+      <figure class="lg-v"><img src="img/logo-v.webp" alt="파우더룸 세로 사인 B안, 글자를 세운 두 줄" width="300" height="1000" loading="lazy"></figure>
+      <div class="lg-txt"><span class="eyebrow">Wordmark</span>
+        <p class="lede">문래점과 같은 소문자 세리프 ‘powder room’과 청록(#4F979D)을 그대로 씁니다. 가로형은 간판 박스와 메뉴에, 세로형(2026.09 사인 시안 B안)은 기둥처럼 세로로 긴 자리에 씁니다.</p>
+        <ul class="tags"><li>청록 #4F979D</li><li>소문자 세리프</li><li>SINSA 넓은 자간</li><li>세로형 B안</li></ul>
+        <p class="cutline">워드마크는 원본 서체와 유사한 무료 서체로 다시 그린 것입니다. 원본 로고 파일로 교체 예정.</p></div>
+    </div>
+    <div class="facade">
+      <div class="fimg"><img src="img/sign-crop.webp" alt="청록 간판 박스와 하부 다운라이트, 흑색 양개 유리문" width="800" height="700" loading="lazy"></div>
+      <div class="fac-txt"><span class="eyebrow">Facade Sign · Corner</span><h3>간판 박스는 그대로, 색은 청록</h3>
+        <p>모서리 출입구 위의 기존 간판 박스는 구조를 살리고 청록으로 칠합니다. 흰색 ‘powder room / SINSA’ 문자와 하부 다운라이트 여섯 개. 해가 지면 간판과 주방 창 하부 골유리가 같은 색으로 빛납니다.</p>
+        <figure><img src="img/facade-elev.webp" alt="모서리를 펼친 외관 전개 입면도" width="1600" height="838" loading="lazy"></figure>
+        <ul class="tags"><li>간판 박스 청록 도장</li><li>다운라이트 6</li><li>기둥 업라이트 2</li><li>담쟁이 유지</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="band dark" id="hall">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">04</span><span class="eyebrow">Interior</span><h2>회색, 검정, 스테인리스</h2></div>
+    <div class="hall-ctl">
+      <p class="hall-note" id="hallNote">디자인 방향 이미지 · 석회 스타코 · 흑색 노출 천장 · 스테인리스 · 청록 골유리</p>
+      <div class="views" aria-label="장면 선택"><button aria-pressed="true" data-view="0"><span>i</span>홀 전체</button><button aria-pressed="false" data-view="1"><span>ii</span>젤라또 패스</button><button aria-pressed="false" data-view="2"><span>iii</span>젤라또 주방</button><button aria-pressed="false" data-view="3"><span>iv</span>파우더룸</button></div>
+    </div>
+    <div class="hall-stage" role="tabpanel" aria-labelledby="hallNote">
+      <img id="stA" src="img/hall.webp" alt="" width="1600" height="900"><img id="stB" class="off" src="img/hall.webp" alt="" width="1600" height="900" aria-hidden="true">
+    </div>
+    <div class="hall-cap" aria-live="polite"><div><h3 id="capT"></h3><p class="fin" id="capF"></p></div><p id="capD"></p></div>
+  </div>
+</section>
+
+<section class="band" id="light">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">05</span><span class="eyebrow">Light Order</span><h2>불빛은 낮게, 안으로 갈수록 적게</h2></div>
+    <div class="light">
+      <div>
+        <p class="lede">천장은 어둡게 두고 빛은 선반 아래, 유리 뒤, 테이블 위로만 보냅니다. 앞에서 안으로 갈수록 조도를 낮추고, 안쪽 방에서는 민트 사인 벽과 와인 장이 가장 밝은 면이 됩니다.</p>
+        <ul class="layers">
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="6" width="22" height="9" fill="var(--acc)" opacity=".45"/><path d="M3 18h22" stroke="var(--ink2)" stroke-width="1.2"/></svg><div><strong>골유리 띠 후면 간접광</strong><span>패스 상부 청록 골유리 뒤 LED. 청록이 빛으로만 보이게 하는 장치입니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 10h20" stroke="var(--ink2)" stroke-width="1.6"/><path d="M5 12h18" stroke="var(--warm)" stroke-width="2.4" opacity=".7"/></svg><div><strong>선반 아래 2,700K 라인</strong><span>패스 선반 · 주방 오픈 선반 · 와인 장 선반 아래. 스타코 벽의 결이 드러납니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M10 4h8v6h-8z" fill="none" stroke="var(--ink2)" stroke-width="1.2"/><path d="M11 10 7 25h14l-4-15z" fill="var(--warm)" opacity=".4"/></svg><div><strong>블랙 트랙 스폿</strong><span>기존 트랙 레일 재사용. 상판과 테이블만 겨누고 벽에는 쏘지 않습니다.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="5" width="18" height="18" fill="var(--mint)" opacity=".7"/></svg><div><strong>민트 백라이트 사인 벽</strong><span>파우더룸 정면 유백 아크릴 + LED. 안쪽 방에서 가장 밝은 면.</span></div></li>
+          <li><svg class="ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M4 20h20" stroke="var(--ink2)" stroke-width="1.2"/><path d="M4 22h20" stroke="var(--warm)" stroke-width="2.4" opacity=".7"/></svg><div><strong>긴 의자 하부 · 단 디딤 라인</strong><span>파우더룸 긴 의자 아래 간접광과 단(+150) 앞 디딤 라인.</span></div></li>
+        </ul>
+      </div>
+      <div class="chart" role="group" aria-label="평가면별 목표 조도">
+        <div class="chart-top"><span class="eyebrow">평가면 목표 조도 · lx</span>
+          <div class="seg" role="tablist" aria-label="점등 모드"><button role="tab" aria-selected="true" data-mode="0">낮 · 젤라또</button><button role="tab" aria-selected="false" data-mode="1">밤 · 와인</button></div></div>
+        <div class="bars" id="bars"></div>
+        <div class="axis" aria-hidden="true"><span></span><div class="ticks"><span>0</span><span>250</span><span>500</span></div><span></span></div>
+        <div class="chart-foot"><span>설계 목표값 · 조명 시뮬레이션 전</span><span>색온도 2,700 – 3,000K</span></div>
+      </div>
+    </div>
+    <ul class="fx">
+      <li><span>블랙 트랙 스폿<small>기존 레일 재사용 · 홀 · 셀러 앞 · 파우더룸</small></span><b>약 24</b></li>
+      <li><span>패스 골유리 띠 후면 LED<small>개구 약 2.4m + 주방 상부장</small></span><b>1식</b></li>
+      <li><span>선반 아래 라인 2,700K<small>패스 · 주방 선반 · 와인 장</small></span><b>1식</b></li>
+      <li><span>민트 사인 벽 백라이트<small>파우더룸 정면</small></span><b>1식</b></li>
+      <li><span>긴 의자 하부 간접광<small>파우더룸 ㄱ자</small></span><b>1식</b></li>
+      <li><span>간판 다운라이트<small>청록 간판 박스 하부</small></span><b>6</b></li>
+      <li><span>기둥 바닥 업라이트<small>모서리 스타코 기둥 양쪽</small></span><b>2</b></li>
+      <li><span>테이블 캔들 램프<small>충전식 · 창가 바 · 테이블</small></span><b>약 12</b></li>
+    </ul>
+    <p class="note">수량과 조도는 디자인 단계의 목표값입니다. 조명 계획 확정 후 시뮬레이션으로 다시 계산합니다.</p>
+  </div>
+</section>
+
+<section class="band panel" id="material">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">06</span><span class="eyebrow">Materials</span><h2>여덟 가지 재료</h2></div>
+    <div class="mats"><article class="mat"><div class="sw" style="background-image:url(img/sw-stucco.webp)" role="img" aria-label="회색 석회 스타코"></div><span class="code">01 · WALL</span><h3>회색 석회 스타코</h3><p>거친 흙손 질감 · 무광</p><p class="where">홀 벽 · 외부 필라스터</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-flute.webp)" role="img" aria-label="청록 골유리"></div><span class="code">02 · GLASS</span><h3>청록 골유리</h3><p>플루티드 유리 · 뒤 간접광</p><p class="where">패스 상부 띠 · 주방 창 하부</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-steel.webp)" role="img" aria-label="스테인리스 헤어라인"></div><span class="code">03 · STEEL</span><h3>스테인리스 헤어라인</h3><p>STS304 · 1.2T</p><p class="where">패스 선반 · 창가 바 · 창 프레임</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-ceiling.webp)" role="img" aria-label="흑색 노출 천장"></div><span class="code">04 · CEILING</span><h3>흑색 노출 천장</h3><p>무광 흑색 도장 · 블랙 트랙 스폿</p><p class="where">전 구역 천장</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-floor.webp)" role="img" aria-label="기존 바닥 연마"></div><span class="code">05 · FLOOR</span><h3>기존 바닥 연마</h3><p>연마 후 투명 코팅 · 브라운 톤</p><p class="where">바닥 전체 (단 포함)</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-mint.webp)" role="img" aria-label="민트 백라이트 사인 벽"></div><span class="code">06 · SIGN WALL</span><h3>민트 백라이트 사인 벽</h3><p>유백 아크릴 + LED · 세리프 문자</p><p class="where">파우더룸 정면</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-wine.webp)" role="img" aria-label="빛나는 와인 선반"></div><span class="code">07 · WINE</span><h3>빛나는 와인 선반</h3><p>흑색 스틸 선반 · 선반 아래 LED</p><p class="where">파우더룸 · 거리 창 바</p></article><article class="mat"><div class="sw" style="background-image:url(img/sw-leather.webp)" role="img" aria-label="그레이 패브릭 긴 의자"></div><span class="code">08 · SEATING</span><h3>그레이 패브릭 긴 의자</h3><p>방염 원단 · 하부 간접광 · 스테인리스 테이블</p><p class="where">파우더룸 좌석</p></article></div>
+    <div class="tbl"><table><thead><tr><th>No</th><th>구역</th><th>구성</th></tr></thead><tbody><tr><td>01</td><td>창가 바</td><td>스테인리스 상판 · 흑색 스툴 5석 · 롤스크린</td></tr><tr><td>02</td><td>젤라또</td><td>패스 개구부 안 디핑 케이스 12구 · 유리 가드 · 홀 쪽 스테인리스 주문 선반</td></tr><tr><td>03</td><td>거리 창 바</td><td>도로① 창 안쪽 와인 선반 · 포스 · 테이크아웃 응대</td></tr><tr><td>04</td><td>패스</td><td>기존 칸막이에 길이 2.4m 개구 · 디핑 케이스 + 홀 쪽 선반 · 상부 청록 골유리</td></tr><tr><td>05</td><td>주방</td><td>패스 뒤 디핑 케이스 · 배치 프리저 · 제빙기 · 테이블 냉장고 · 싱크 (문래점 장비 기준) · 후드 철거 · 위로 여는 테이크아웃 창</td></tr><tr><td>06</td><td>셀러 앞</td><td>하이 테이블 2개 4석 · 와인 셀러 2대</td></tr><tr><td>07</td><td>파우더룸</td><td>단 +150 · 패브릭 긴 의자 + 스테인리스 테이블 5개 14석 · 민트 사인 벽 · 와인 장 · 골유리 글라스장</td></tr><tr><td>08</td><td>화장실 · 창고</td><td>위치 유지 · 문은 벽과 같은 스타코 마감</td></tr></tbody></table></div>
+    <p class="note">모두 국내 유통 자재 기준입니다. 재료 칸은 질감 표현용 그림이며, 실제 샘플이 정해지면 사진으로 바꿉니다.</p>
+  </div>
+</section>
+
+<section class="band dark" id="drawings">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">07</span><span class="eyebrow">Drawings</span><h2>배치안과 현황 실측도</h2></div>
+    <div class="dplan">
+      <button class="plan" type="button" data-lb="d-plan" data-cap="배치 평면 · NTS"><img src="img/d-plan.webp" alt="파우더룸 신사점 배치 평면도" width="820" height="1260" loading="lazy"></button>
+      <div><p class="lede" style="margin-bottom:26px">실측 평면 위에 그린 배치안입니다. 앞쪽은 창가 바, 칸막이의 패스 개구에 젤라또 디핑 케이스, 그 뒤가 주방, 통로 끝 한 단 위가 파우더룸입니다.</p>
+        <dl class="plan-specs">
+          <div><dt>외곽</dt><dd>깊이 11,550 · 폭 4,280 / 5,385</dd></div>
+          <div><dt>순서</dt><dd>모서리 → 홀 → 셀러 앞 → 파우더룸</dd></div>
+          <div><dt>좌석</dt><dd>창가 5 · 하이 4 · 안쪽 14</dd></div>
+          <div><dt>레벨</dt><dd>홀 ±0 · 파우더룸 +150</dd></div>
+          <div><dt>천장</dt><dd>노출 2,735 · 보 하부 2,440 (메모)</dd></div>
+          <div><dt>실측</dt><dd>2026.11.02 · 재실측 필요 항목 있음</dd></div>
+        </dl></div>
+    </div>
+    <div class="doc-tabs" id="docTabs" role="tablist" aria-label="도면 묶음">
+      <button role="tab" aria-selected="true" data-set="proposal">제안 도면<small>3</small></button>
+      <button role="tab" aria-selected="false" data-set="survey">현황 실측도<small>A-00 – A-03</small></button>
+    </div>
+    <div class="sheets" id="sheets"></div>
+    <p class="note">도면을 누르면 크게 볼 수 있습니다. 현황 실측도의 주황 ( ) 치수는 추정값입니다.</p>
+  </div>
+</section>
+
+<section class="band" id="next">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">08</span><span class="eyebrow">Next</span><h2>확인할 것과 다음 단계</h2></div>
+    <div class="next"><ul class="chk"><li>재실측: 홀·주방 칸막이 위치(패스 개구 폭), 모서리 사선(현황도 1,800), 단차 높이, 보 위치</li><li>장비: 디핑 케이스 길이(12구 기준 약 2.2m)·배치 프리저 기종 → 전기 용량</li><li>설비: 패스 뒤 싱크 급배수, 기존 트렌치 재사용 범위</li><li>사인: 기존 간판 박스 상태 확인 → 청록 도장·문자 교체 가능 여부</li><li>외부: 필라스터 스타코 마감, 담쟁이 유지 범위 건물 협의</li><li>면적: 메모 25.39평(83.9㎡) ≈ 현황도 근생 면적 / 실내 약 58㎡ (계약면적 확인)</li><li>건축물현황도: 후면 창 2,250 · 도로② 후면 문·창 막힘 여부, 화장실 공용 여부</li></ul><div class="steps"><div><b>STEP 1</b><p>재실측 · 장비 확정</p></div><div><b>STEP 2</b><p>평면 · 천장 · 입면 도면</p></div><div><b>STEP 3</b><p>견적서 (별도)</p></div><div><b>STEP 4</b><p>조명 시뮬레이션 · 홈페이지 갱신</p></div></div></div>
+  </div>
+</section>
+
+<section class="closing" aria-label="마무리">
+  <img src="img/room.webp" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
+    <div class="wm">powder room</div>
+    <h2>길가는 낮의 젤라또, 한 단 위는 밤의 와인.</h2>
+    <div class="links"><a href="#film">영상 다시 보기</a><a href="#drawings">도면 보기</a><a href="#top">처음으로</a></div>
+    <p class="disc">이 페이지는 2026.11.02 실측과 디자인 방향 이미지를 바탕으로 한 검토용 제안입니다. 이미지는 방향을 보여주는 참고이며 치수와 장비는 실측 도면을 따릅니다. 공사비는 별도 견적서로 드립니다. 설계 · 시공 엘모컴퍼니.</p>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><div><b>powder room</b>파우더룸 신사점 · 서울 강남구 신사동 가로수길 · 설계 · 시공 엘모컴퍼니 · Rev.4 검토용</div>
+  <nav aria-label="바닥글"><a href="#film">FILM</a><a href="#concept">CONCEPT</a><a href="#drawings">DRAWINGS</a></nav></div></footer>
+
+<dialog class="lb" id="lb" aria-label="크게 보기"><div class="lb-in"><img id="lbImg" src="" alt=""></div><div class="lb-bar"><span id="lbCap"></span><button type="button" id="lbClose">닫기</button></div></dialog>
+
+<script>
+(function () {
+  var VIEWS = [{"k": "hall", "t": "홀 전체", "en": "HALL", "h": "입구에서 안쪽 방까지", "f": "창가 바 · 젤라또 패스 · 단 위 파우더룸", "d": "왼쪽은 롤스크린 앞 스테인리스 창가 바와 흑색 스툴, 오른쪽은 청록 골유리 띠 아래 패스 창에 앉힌 젤라또 디핑 케이스입니다. 통로 끝에서 한 단 올라서면 민트 사인 벽의 파우더룸이 보입니다."}, {"k": "pass", "t": "젤라또 패스", "en": "PASS", "h": "유리 너머로 뜨는 젤라또", "f": "디핑 케이스 · 유리 가드 · 홀 쪽 스테인리스 선반", "d": "기존 칸막이를 남기고 길이 약 2.4m를 열어 그 자리에 디핑 케이스를 넣었습니다. 직원은 주방 안에서 떠 주고, 손님은 홀 쪽 선반 앞에서 고릅니다. 케이스 아래 웜 라이트가 스타코 결을 드러내고, 위로는 청록 골유리 띠."}, {"k": "kitchen", "t": "젤라또 주방", "en": "KITCHEN", "h": "주방 안에서 본 패스", "f": "디핑 케이스 · 스테인리스 · 위로 여는 테이크아웃 창", "d": "가열 조리가 없어 후드와 덕트를 걷어냈습니다. 패스에 붙인 디핑 케이스 너머로 홀이 보이고, 스테인리스 작업대 위로 골유리 상부장. 도로① 쪽 끝 창은 위로 열어 테이크아웃 창으로 씁니다."}, {"k": "room", "t": "파우더룸", "en": "POWDER ROOM", "h": "한 단 위의 와인 방", "f": "그레이 패브릭 긴 의자 · 와인 장 · 골유리 글라스장", "d": "바닥을 한 단(+150) 올린 안쪽 방입니다. 긴 의자 아래와 와인 장 선반에만 빛을 두고, 천장 트랙 스폿은 테이블만 비춥니다. 정면 벽에는 민트 백라이트 사인."}];
+  var CUTS = [{"k": "exterior", "t": "모서리 야간", "s": "청록 간판 박스 · 골유리 창"}, {"k": "hall", "t": "홀 전체", "s": "창가 바와 젤라또 패스"}, {"k": "pass", "t": "젤라또 패스", "s": "유리 너머로 뜨는 젤라또"}, {"k": "kitchen", "t": "젤라또 주방", "s": "디핑 케이스 · 테이크아웃 창"}, {"k": "gelato", "t": "디핑 케이스", "s": "12구 · 유리 가드"}, {"k": "room", "t": "파우더룸", "s": "단 위의 와인 방"}, {"k": "mint", "t": "민트 사인 벽", "s": "방에서 가장 밝은 면"}, {"k": "sign-crop", "t": "간판", "s": "powder room / SINSA"}];
+  var SHEETS = {"proposal": [{"k": "d-plan", "t": "배치 평면", "s": "Plan · NTS"}, {"k": "d-section", "t": "빛 단면", "s": "Section · 조도 서열"}, {"k": "d-facade", "t": "외관 전개 입면", "s": "Elevation · 모서리 펼침"}], "survey": [{"k": "sheet-a00", "t": "A-00 건축물현황도 대조", "s": "1/75 · A3"}, {"k": "sheet-a01", "t": "A-01 현황 평면도", "s": "1/60 · A3"}, {"k": "sheet-a02", "t": "A-02 외부 입면도", "s": "1/50 · A3"}, {"k": "sheet-a03", "t": "A-03 홀 내부 입면도", "s": "1/50 · A3"}]};
+  var BARS = [["젤라또 케이스 상판", 500, 300], ["홀 쪽 주문 선반", 350, 220], ["창가 바 상판", 300, 160], ["셀러 앞 하이 테이블", 150, 110], ["파우더룸 테이블", 120, 90], ["파우더룸 바닥", 70, 45]];
+  var STAGES = ['01 / 04 CORNER', '02 / 04 HALL', '03 / 04 KITCHEN', '04 / 04 POWDER ROOM'];
+  var top = document.getElementById('top'), menu = document.getElementById('menuBtn');
+  function onS() { top.classList.toggle('clear', window.scrollY < window.innerHeight * 0.6); }
+  window.addEventListener('scroll', onS, { passive: true }); onS();
+  menu.addEventListener('click', function () { var o = top.classList.toggle('open'); menu.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  document.querySelectorAll('#nav a').forEach(function (a) { a.addEventListener('click', function () { top.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }); });
+  // hero video
+  var v = document.getElementById('heroVideo'), tg = document.getElementById('heroToggle'), pr = document.getElementById('heroProg'), st = document.getElementById('filmStage');
+  tg.addEventListener('click', function () { if (v.paused) { v.play(); tg.textContent = '❙❙'; tg.setAttribute('aria-pressed', 'false'); tg.setAttribute('aria-label', '영상 일시정지'); } else { v.pause(); tg.textContent = '▶'; tg.setAttribute('aria-pressed', 'true'); tg.setAttribute('aria-label', '영상 재생'); } });
+  v.addEventListener('timeupdate', function () { if (!v.duration) return; pr.style.transform = 'scaleX(' + (v.currentTime / v.duration) + ')'; st.textContent = STAGES[Math.min(3, Math.floor(v.currentTime / 5.0))]; });
+  // lightbox
+  var lb = document.getElementById('lb'), li = document.getElementById('lbImg'), lc = document.getElementById('lbCap');
+  function openLb(src, cap) { li.src = 'img/' + src + '.webp'; li.alt = cap; lc.textContent = cap; if (lb.showModal) lb.showModal(); else lb.setAttribute('open', ''); }
+  document.getElementById('lbClose').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+  // cuts
+  var cuts = document.getElementById('cuts');
+  CUTS.forEach(function (c) { var b = document.createElement('button'); b.className = 'cut'; b.type = 'button';
+    b.innerHTML = '<img src="img/' + c.k + '.webp" alt="' + c.t + '" loading="lazy"><span>' + c.t + '<small>' + c.s + '</small></span>';
+    b.addEventListener('click', function () { openLb(c.k, c.t + ' · ' + c.s); }); cuts.appendChild(b); });
+  document.querySelector('.plan').addEventListener('click', function (e) { openLb('d-plan', '배치 평면 · NTS'); });
+  // hall views
+  var A = document.getElementById('stA'), B = document.getElementById('stB'), cur = A;
+  var capT = document.getElementById('capT'), capF = document.getElementById('capF'), capD = document.getElementById('capD');
+  function show(i) { var x = VIEWS[i]; var nxt = cur === A ? B : A; nxt.src = 'img/' + x.k + '.webp'; nxt.alt = x.t + ' — ' + x.h;
+    nxt.classList.remove('off'); nxt.removeAttribute('aria-hidden'); cur.classList.add('off'); cur.setAttribute('aria-hidden', 'true'); cur = nxt;
+    capT.textContent = x.h; capF.textContent = x.en + ' · ' + x.f; capD.textContent = x.d;
+    document.querySelectorAll('.views button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.view == i ? 'true' : 'false'); }); }
+  document.querySelectorAll('.views button').forEach(function (b) { b.addEventListener('click', function () { show(+b.dataset.view); }); });
+  A.alt = VIEWS[0].t; capT.textContent = VIEWS[0].h; capF.textContent = VIEWS[0].en + ' · ' + VIEWS[0].f; capD.textContent = VIEWS[0].d;
+  // light chart
+  var bars = document.getElementById('bars');
+  BARS.forEach(function (r) { var d = document.createElement('div'); d.className = 'bar';
+    d.innerHTML = '<span class="lab">' + r[0] + '</span><div class="track"><i class="fill"></i></div><span class="val"></span>'; bars.appendChild(d); });
+  function mode(m) { bars.querySelectorAll('.bar').forEach(function (d, i) { var val = BARS[i][1 + m]; d.querySelector('.fill').style.width = Math.min(100, val / 500 * 100) + '%'; d.querySelector('.val').textContent = val; });
+    document.querySelectorAll('.chart .seg button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.mode == m ? 'true' : 'false'); }); }
+  document.querySelectorAll('.chart .seg button').forEach(function (b) { b.addEventListener('click', function () { mode(+b.dataset.mode); }); });
+  mode(0);
+  // drawing sets
+  var sh = document.getElementById('sheets');
+  function set(k) { sh.innerHTML = ''; SHEETS[k].forEach(function (s) { var b = document.createElement('button'); b.className = 'sheet'; b.type = 'button';
+      b.innerHTML = '<img src="img/' + s.k + '.webp" alt="' + s.t + '" loading="lazy"><span>' + s.t + '<small>' + s.s + '</small></span>';
+      b.addEventListener('click', function () { openLb(s.k, s.t + ' · ' + s.s); }); sh.appendChild(b); });
+    document.querySelectorAll('#docTabs button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.set === k ? 'true' : 'false'); }); }
+  document.querySelectorAll('#docTabs button').forEach(function (b) { b.addEventListener('click', function () { set(b.dataset.set); }); });
+  set('proposal');
+})();
+</script>
+
+</body>
+</html>
