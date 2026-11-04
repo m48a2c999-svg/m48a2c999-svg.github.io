@@ -100,7 +100,7 @@ footer ul{padding-left:1.2em;margin-top:6px}
 
   <section id="process">
     <p class="part">Part 1</p>
-    <h2>만드는 과정 6단계</h2>
+    <h2>만드는 과정 7단계</h2>
     <p>코드를 쓰는 시간보다 재료와 순서를 정하는 시간이 더 깁니다. AI(클로드 코드)는 4단계에서 실행만 맡았습니다.</p>
 
     <div class="step">
@@ -134,7 +134,7 @@ footer ul{padding-left:1.2em;margin-top:6px}
           <span class="sw" style="background:#ece3e1"></span>핑크 <span class="sw" style="background:#5d7f86"></span>틸
           <span class="sw" style="background:#e4e9e5"></span>세이지</li>
         <li><b>글꼴</b>: 영문 제목 Cormorant Garamond, 국문 제목 Noto Serif KR, 본문 Noto Sans KR (모두 Google Fonts 무료)</li>
-        <li><b>움직임 두 가지만</b>: 포스터의 망점(halftone)을 배경 점으로 바꿔 천천히 움직이게 하고, 소개문의 점·선·면을 스크롤 도식으로 만들었습니다.</li>
+        <li><b>움직임은 포스터에서 꺼내기</b>: 망점(halftone) → 배경 점, 큰 세리프 글자 → 떠다니는 Space Lab 글자, 픽셀 덩어리 → 포스터·영상이 픽셀로 드러나는 효과, 소개문의 점·선·면 → 스크롤 도식. 새로 지어낸 효과는 없습니다.</li>
       </ul>
     </div>
 
@@ -162,6 +162,7 @@ footer ul{padding-left:1.2em;margin-top:6px}
       <pre class="tree">patina/
 ├─ index.html        ← 사이트 한 장 (글 · 디자인 · 움직임 모두)
 ├─ making.html       ← 지금 보는 안내 페이지
+├─ patina.ics        ← 캘린더에 추가 파일
 └─ img/
    ├─ poster-gray.webp · poster-pink.webp · poster-sage.webp
    ├─ poster-gray-sm.webp · poster-pink-sm.webp · poster-sage-sm.webp
@@ -169,7 +170,22 @@ footer ul{padding-left:1.2em;margin-top:6px}
     </div>
 
     <div class="step">
-      <h3><span class="no">06</span>노트북과 폰으로 확인하기</h3>
+      <h3><span class="no">06</span>찾아오는 사람에게 필요한 것 더하기</h3>
+      <p>포스터만으로는 부족한 정보를 채웁니다. 동문회 초대장(Hello Inje)에서 쓴 방식을 그대로 가져왔습니다.</p>
+      <div class="tscroll"><table>
+        <tr><th>넣은 것</th><th>어떻게</th><th>정보 출처</th></tr>
+        <tr><td>교통 · 주차</td><td>강남역 9번 출구 도보 약 5분, 건물 지하 주차장(유료)</td><td>장소 대관 안내(스페이스클라우드)</td></tr>
+        <tr><td>지도 · 주소 복사</td><td>네이버 지도 · 카카오맵 버튼, 누르면 주소가 복사되는 버튼</td><td>포스터 주소</td></tr>
+        <tr><td>캘린더에 추가</td><td>.ics 파일 한 개 — 누르면 폰 캘린더에 3일 일정이 들어감</td><td>포스터 날짜·시간</td></tr>
+        <tr><td>D-day · 공유하기</td><td>개막까지 남은 날 자동 계산, 폰 공유 창 열기</td><td>—</td></tr>
+        <tr><td>영상</td><td>Google Drive 영상을 '링크가 있는 모든 사용자 보기'로 공유한 뒤 화면에 넣기</td><td>졸업연구 영상</td></tr>
+        <tr><td>폰 아래 고정 버튼</td><td>오시는 길 · 캘린더에 추가</td><td>—</td></tr>
+      </table></div>
+      <p class="note"><b>영상 파일은 사이트에 직접 올리지 않습니다.</b> 이 사이트도 46MB 영상을 Google Drive에 두고 화면만 연결했습니다. 유튜브 '일부 공개' 링크로 넣어도 같습니다.</p>
+    </div>
+
+    <div class="step">
+      <h3><span class="no">07</span>노트북과 폰으로 확인하기</h3>
       <div class="shots">
         <figure><img src="img/making-desktop.webp" alt="노트북 화면 첫 화면" loading="lazy" width="1200" height="750"><figcaption>노트북 1440px · 첫 화면</figcaption></figure>
         <figure><img src="img/making-phone1.webp" alt="폰 화면 첫 화면" loading="lazy" width="390" height="844"><figcaption>폰 · 첫 화면</figcaption></figure>
@@ -179,7 +195,8 @@ footer ul{padding-left:1.2em;margin-top:6px}
       <ul class="check">
         <li>폰에서 옆으로 밀리는 화면이 없는가</li>
         <li>글자가 잘리거나 겹치지 않는가</li>
-        <li>지도 · 인스타그램 링크가 열리는가</li>
+        <li>지도 · 인스타그램 링크가 열리는가, 캘린더 · 주소 복사 · 공유 버튼이 되는가</li>
+        <li>영상이 폰에서도 재생되는가</li>
         <li>첫 화면에 전시명 · 날짜 · 장소가 다 보이는가</li>
         <li>포스터에 없는 내용이 들어가지 않았는가</li>
       </ul>

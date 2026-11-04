@@ -45,7 +45,7 @@ main,header,footer{position:relative;z-index:1}
 .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:clamp(24px,5vw,80px);padding:120px clamp(16px,6vw,96px) 72px}
 .kicker{font-size:14px;letter-spacing:.06em;color:var(--soft)}
 .title{margin:18px 0 28px}
-.title .en{display:block;font-family:var(--en);font-weight:600;font-size:clamp(76px,13vw,184px);line-height:.86;letter-spacing:-.01em}
+.title .en{display:block;white-space:nowrap;font-family:var(--en);font-weight:600;font-size:clamp(72px,11.5vw,172px);line-height:.86;letter-spacing:-.01em}
 .title .ko{display:flex;align-items:center;gap:14px;font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.2vw,44px);margin-top:18px}
 .title .ko::before{content:"";width:clamp(36px,6vw,88px);height:1px;background:var(--ink)}
 .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;font-size:16px;max-width:460px;border-top:1px solid var(--line);padding-top:18px}
@@ -104,6 +104,7 @@ section.block{padding:clamp(88px,14vw,180px) clamp(16px,6vw,96px)}
 
 /* posters */
 .pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,3vw,40px)}
+.pcard{position:relative}
 .pcard button{all:unset;cursor:zoom-in;display:block;width:100%}
 .pcard button:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
 .pcard img{width:100%;aspect-ratio:1820/2576;object-fit:cover;box-shadow:0 22px 44px -26px rgba(0,0,0,.45);transition:transform .5s ease}
@@ -132,7 +133,47 @@ dialog form button{all:unset;cursor:pointer;color:#fff;font-size:14px;letter-spa
 footer{padding:56px clamp(16px,6vw,96px) 64px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-size:13.5px;color:var(--soft)}
 footer b{display:block;color:var(--ink);font-family:var(--serif);font-size:15px}
 footer a{color:var(--ink)}
+/* motion: hero letters */
+.title .en .ch{display:inline-block;opacity:0;transform:translateY(.32em) scale(.96);filter:blur(10px);animation:rise 1.5s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i) * 110ms + 150ms)}
+@keyframes rise{to{opacity:1;transform:none;filter:none}}
+.title .ko{opacity:0;animation:fade 1.2s ease .95s forwards}
+@keyframes fade{to{opacity:1}}
+.dday{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;font-weight:700;letter-spacing:.08em;padding:5px 12px;border-radius:999px;background:var(--ink);color:var(--paper)}
+.dday::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--paper);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+/* motion: drifting serif letters (from the poster's Space Lab) */
+#float{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#float span{position:absolute;font-family:var(--en);font-weight:600;line-height:.8;color:var(--ink);opacity:.055;will-change:transform;user-select:none}
+/* motion: marquee */
+.marquee{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:56px;font-family:var(--en);font-style:italic;font-weight:500;font-size:clamp(30px,4.4vw,60px);line-height:1;will-change:transform}
+.marquee .track b{font-family:var(--serif);font-style:normal;font-weight:600;font-size:.62em;align-self:center}
+/* film */
+.film{position:relative;aspect-ratio:16/9;background:#141210;box-shadow:0 34px 70px -34px rgba(0,0,0,.55);max-width:1200px}
+.film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin-top:16px;font-size:14px;color:var(--soft);max-width:1200px}
+/* motion: pixel mosaic reveal (poster's pixel blocks) */
+.mosaic .cells{position:absolute;inset:0;display:grid;grid-template-columns:repeat(var(--cols,12),1fr);pointer-events:none;z-index:2}
+.mosaic .cells i{background:var(--bg);transition:opacity .5s ease,background-color 1.6s ease}
+.mosaic.revealed .cells i{opacity:0}
+/* visit actions */
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.mini{all:unset;cursor:pointer;display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;background:color-mix(in srgb,var(--paper) 60%,transparent)}
+.mini:hover{border-color:var(--ink)}
+.mini:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bigday{font-family:var(--en);font-size:clamp(64px,9vw,120px);font-weight:600;line-height:.9;margin:22px 0 6px}
+.bigday small{display:block;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--soft);margin-top:10px;letter-spacing:.04em}
+.toast{position:fixed;left:50%;bottom:86px;transform:translate(-50%,20px);opacity:0;z-index:40;background:var(--ink);color:var(--paper);font-size:14px;padding:10px 18px;border-radius:999px;transition:opacity .3s,transform .3s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* mobile dock */
+.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;display:none;gap:8px;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.dock.on{transform:none}
+.dock a{flex:1;display:flex;align-items:center;justify-content:center;height:50px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;background:var(--ink);color:var(--paper);box-shadow:0 12px 30px -12px rgba(0,0,0,.5)}
+.dock a.ghost{background:var(--paper);color:var(--ink);border:1px solid var(--ink)}
+@media (max-width:760px){.dock{display:flex}footer{padding-bottom:110px}}
 @media (prefers-reduced-motion:reduce){
+  .title .en .ch,.title .ko{opacity:1;transform:none;filter:none;animation:none}
+  .mosaic .cells{display:none}
   *{transition:none!important;scroll-behavior:auto!important}
   .statement .ln{opacity:1;transform:none}
 }
@@ -140,11 +181,13 @@ footer a{color:var(--ink)}
 </head>
 <body data-tone="gray">
 <canvas id="dots" aria-hidden="true"></canvas>
+<div id="float" aria-hidden="true"></div>
 
 <header class="top" id="top">
   <a class="mark" href="#hero">Space Lab<small>43rd · Hoseo Univ.</small></a>
   <nav class="nav" aria-label="섹션">
     <a href="#about" class="hide-m">전시 소개</a>
+    <a href="#film">영상</a>
     <a href="#posters">포스터</a>
     <a href="#visit">오시는 길</a>
   </nav>
@@ -154,7 +197,8 @@ footer a{color:var(--ink)}
 <section class="hero" id="hero">
   <div>
     <p class="kicker">제43회 호서대학교 실내디자인학과 공간실험전</p>
-    <h1 class="title"><span class="en">PATINA</span><span class="ko">시간의 흔적</span></h1>
+    <span class="dday" id="dday" hidden></span>
+    <h1 class="title"><span class="en" aria-label="PATINA"><span class="ch" aria-hidden="true" style="--i:0">P</span><span class="ch" aria-hidden="true" style="--i:1">A</span><span class="ch" aria-hidden="true" style="--i:2">T</span><span class="ch" aria-hidden="true" style="--i:3">I</span><span class="ch" aria-hidden="true" style="--i:4">N</span><span class="ch" aria-hidden="true" style="--i:5">A</span></span><span class="ko">시간의 흔적</span></h1>
     <dl class="facts">
       <dt>일시</dt><dd>2026. 11. 13 FRI — 11. 15 SUN</dd>
       <dt>시간</dt><dd>14:00 – 21:00</dd>
@@ -190,6 +234,17 @@ footer a{color:var(--ink)}
   </p>
 </section>
 
+<div class="marquee" aria-hidden="true"><div class="track" id="track"><span>Patina</span><b>시간의 흔적</b><span>Space Lab</span><b>2026. 11. 13 — 11. 15</b><span>Point · Line · Plane</span><b>모나코스페이스 B1</b></div></div>
+
+<section class="block" id="film">
+  <p class="label">Film</p>
+  <div class="film mosaic" id="filmBox">
+    <iframe src="https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/preview" title="졸업연구 영상" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+    <div class="cells"></div>
+  </div>
+  <p class="cap"><span>졸업연구 Space Directing · 2026 · 제작 조승완</span><a href="https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/view" target="_blank" rel="noopener">새 창에서 크게 보기 ↗</a></p>
+</section>
+
 <section class="plp" id="plp" aria-label="점, 선, 면">
   <div class="stick">
     <svg id="plpSvg" viewBox="0 0 560 560" role="img" aria-label="점이 선으로 이어지고 면으로 쌓이는 도식"></svg>
@@ -204,16 +259,16 @@ footer a{color:var(--ink)}
 <section class="block" id="posters">
   <p class="label">Posters</p>
   <div class="pgrid">
-    <figure class="pcard">
-      <button type="button" data-full="img/poster-gray.webp" aria-label="그레이 포스터 크게 보기"><img src="img/poster-gray-sm.webp" alt="PATINA 포스터 그레이" loading="lazy"></button>
+    <figure class="pcard mosaic">
+      <div class="cells"></div><button type="button" data-full="img/poster-gray.webp" aria-label="그레이 포스터 크게 보기"><img src="img/poster-gray-sm.webp" alt="PATINA 포스터 그레이" loading="lazy"></button>
       <figcaption class="meta"><b>Gray</b><a href="img/poster-gray.webp" download="PATINA_poster_gray.webp">내려받기</a></figcaption>
     </figure>
-    <figure class="pcard">
-      <button type="button" data-full="img/poster-pink.webp" aria-label="핑크·틸 포스터 크게 보기"><img src="img/poster-pink-sm.webp" alt="PATINA 포스터 핑크·틸" loading="lazy"></button>
+    <figure class="pcard mosaic">
+      <div class="cells"></div><button type="button" data-full="img/poster-pink.webp" aria-label="핑크·틸 포스터 크게 보기"><img src="img/poster-pink-sm.webp" alt="PATINA 포스터 핑크·틸" loading="lazy"></button>
       <figcaption class="meta"><b>Pink · Teal</b><a href="img/poster-pink.webp" download="PATINA_poster_pink.webp">내려받기</a></figcaption>
     </figure>
-    <figure class="pcard">
-      <button type="button" data-full="img/poster-sage.webp" aria-label="세이지 포스터 크게 보기"><img src="img/poster-sage-sm.webp" alt="PATINA 포스터 세이지" loading="lazy"></button>
+    <figure class="pcard mosaic">
+      <div class="cells"></div><button type="button" data-full="img/poster-sage.webp" aria-label="세이지 포스터 크게 보기"><img src="img/poster-sage-sm.webp" alt="PATINA 포스터 세이지" loading="lazy"></button>
       <figcaption class="meta"><b>Sage</b><a href="img/poster-sage.webp" download="PATINA_poster_sage.webp">내려받기</a></figcaption>
     </figure>
   </div>
@@ -224,17 +279,24 @@ footer a{color:var(--ink)}
     <div>
       <p class="label">Visit</p>
       <h2>모나코스페이스<br>B1</h2>
+      <p class="bigday" id="bigday" hidden></p>
       <div class="cta">
-        <a class="btn fill" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C%20397" target="_blank" rel="noopener">네이버 지도 ↗</a>
-        <a class="btn" href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C%20397" target="_blank" rel="noopener">카카오맵 ↗</a>
+        <a class="btn fill" href="patina.ics" download="PATINA_공간실험전.ics">캘린더에 추가</a>
+        <button type="button" class="btn" id="shareBtn">공유하기</button>
       </div>
     </div>
     <dl class="vlist">
-      <div><dt>일시</dt><dd>2026년 11월 13일 금요일 — 15일 일요일</dd></div>
-      <div><dt>시간</dt><dd>14:00 – 21:00</dd></div>
-      <div><dt>장소</dt><dd>모나코스페이스 B1<small>서울특별시 서초구 서초대로 397</small></dd></div>
+      <div><dt>일시</dt><dd>2026년 11월 13일 금요일 — 15일 일요일<small>매일 14:00 – 21:00</small></dd></div>
+      <div><dt>장소</dt><dd>모나코스페이스 B1<small>서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층</small>
+        <div class="acts">
+          <a class="mini" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C%20397" target="_blank" rel="noopener">네이버 지도</a>
+          <a class="mini" href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C%20397" target="_blank" rel="noopener">카카오맵</a>
+          <button type="button" class="mini" data-copy="서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층 모나코스페이스">주소 복사</button>
+        </div></dd></div>
+      <div><dt>교통</dt><dd>강남역 9번 출구에서 직진, 도보 약 5분<small>지하철 2호선 · 신분당선 강남역</small></dd></div>
+      <div><dt>주차</dt><dd>건물 지하 주차장 (하이파킹)<small>유료 · 할인권은 현장에서 구매합니다. 주차 공간이 많지 않아 대중교통을 권합니다.</small></dd></div>
       <div><dt>주최</dt><dd>호서대학교 실내디자인학과<small>제43회 공간실험전 · Space Lab exhibition</small></dd></div>
-      <div><dt>소식</dt><dd><a href="https://www.instagram.com/hsu_spacedesign/" target="_blank" rel="noopener">@hsu_spacedesign</a><small>포스터 QR 코드와 같은 주소입니다</small></dd></div>
+      <div><dt>문의</dt><dd><a href="https://www.instagram.com/hsu_spacedesign/" target="_blank" rel="noopener">@hsu_spacedesign</a><small>인스타그램 DM · 포스터 QR 코드와 같은 주소입니다</small></dd></div>
     </dl>
   </div>
 </section>
@@ -242,8 +304,14 @@ footer a{color:var(--ink)}
 
 <footer>
   <div><b>PATINA : 시간의 흔적</b>제43회 호서대학교 실내디자인학과 공간실험전 · Space Lab</div>
-  <div><a href="making.html">이 사이트를 만든 과정 →</a></div>
+  <div><a href="making.html">이 사이트를 만든 과정 →</a><br><small>장소·교통·주차: 스페이스클라우드 '모나코 스페이스' 안내 기준 (2026. 11. 4 확인)</small></div>
 </footer>
+
+<nav class="dock" id="dock" aria-label="빠른 메뉴">
+  <a href="#visit">오시는 길</a>
+  <a class="ghost" href="patina.ics" download="PATINA_공간실험전.ics">캘린더에 추가</a>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <dialog id="lb" aria-label="포스터 크게 보기">
   <form method="dialog"><button>닫기 ✕</button></form>
@@ -342,6 +410,72 @@ footer a{color:var(--ink)}
     steps.forEach((li, i) => li.classList.toggle('on', i <= s && (reduce || i === s || p >= .98)));
   };
   addEventListener('scroll', upd, {passive:true}); addEventListener('resize', upd); upd();
+
+  /* D-day */
+  const kst = () => { const d = new Date(Date.now() + 9 * 3600e3); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); };
+  const open = Date.UTC(2026, 10, 13), close = Date.UTC(2026, 10, 15);
+  const today = kst(), dd = Math.round((open - today) / 864e5);
+  const chip = document.getElementById('dday'), big = document.getElementById('bigday');
+  let chipTxt, bigTxt, bigSub;
+  if (dd > 0) { chipTxt = `D-${dd} · 11월 13일 개막`; bigTxt = `D-${dd}`; bigSub = '2026. 11. 13 금요일 14:00 개막'; }
+  else if (today <= close) { chipTxt = '지금 전시 중 · 14:00–21:00'; bigTxt = 'Now open'; bigSub = `${11}월 ${15}일 일요일까지 · 매일 14:00–21:00`; }
+  else { chipTxt = '전시가 끝났습니다 · 찾아와 주셔서 감사합니다'; bigTxt = 'Thank you'; bigSub = '2026. 11. 13 — 11. 15'; }
+  chip.textContent = chipTxt; chip.hidden = false;
+  big.innerHTML = `${bigTxt}<small>${bigSub}</small>`; big.hidden = false;
+
+  /* drifting serif letters, parallax with scroll */
+  const fl = document.getElementById('float');
+  const L = [['S',-4,6,46,.10],['p',62,30,30,.22],['a',8,62,34,.16],['c',70,96,38,.28],['e',4,138,40,.12],['L',58,176,44,.24],['a',16,214,32,.18],['b',66,250,40,.30]];
+  const els = L.map(([ch, x, y, sz, sp], i) => { const e = document.createElement('span'); e.textContent = ch;
+    e.style.left = x + 'vw'; e.style.top = y + 'vh'; e.style.fontSize = sz + 'vw'; fl.append(e); return {e, y, sp, i}; });
+  const drift = now => {
+    const t = now / 1000, sy = scrollY;
+    els.forEach(o => { const dy = -sy * o.sp, wob = reduce ? 0 : Math.sin(t * .25 + o.i) * 10, rot = reduce ? 0 : Math.sin(t * .18 + o.i * 1.7) * 3;
+      o.e.style.transform = `translate3d(0,${dy + wob}px,0) rotate(${rot}deg)`; });
+    if (!reduce) requestAnimationFrame(drift);
+  };
+  requestAnimationFrame(drift);
+  if (reduce) addEventListener('scroll', () => drift(0), {passive:true});
+
+  /* marquee: drifts on its own and speeds up with scrolling */
+  const track = document.getElementById('track');
+  track.innerHTML += track.innerHTML; track.innerHTML += track.innerHTML;
+  let mx = 0, lastY = scrollY, lastT = performance.now();
+  const mq = now => {
+    const dt = Math.min(64, now - lastT); lastT = now;
+    const v = Math.abs(scrollY - lastY); lastY = scrollY;
+    mx -= dt * .04 + v * .6;
+    const half = track.scrollWidth / 2; if (-mx > half) mx += half;
+    track.style.transform = `translate3d(${mx}px,0,0)`;
+    if (!reduce) requestAnimationFrame(mq);
+  };
+  if (!reduce) requestAnimationFrame(mq);
+
+  /* pixel mosaic reveal */
+  document.querySelectorAll('.mosaic').forEach(m => {
+    const box = m.querySelector('.cells'), cols = m.classList.contains('film') ? 16 : 8;
+    const rows = Math.round(cols * (m.classList.contains('film') ? 9 / 16 : 2576 / 1820));
+    m.style.setProperty('--cols', cols);
+    for (let k = 0; k < cols * rows; k++) { const i = document.createElement('i'); i.style.transitionDelay = (Math.random() * 900 | 0) + 'ms'; box.append(i); }
+    if (m.classList.contains('pcard')) { box.style.bottom = 'auto'; box.style.aspectRatio = '1820/2576'; box.style.width = '100%'; }
+  });
+  const mio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); mio.unobserve(e.target); } }), {threshold:.25});
+  document.querySelectorAll('.mosaic').forEach(m => mio.observe(m));
+
+  /* copy · share · toast */
+  const toast = document.getElementById('toast'); let tt;
+  const say = m => { toast.textContent = m; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 1800); };
+  const copy = async txt => { try { await navigator.clipboard.writeText(txt); say('복사했습니다'); } catch (e) { prompt('아래 내용을 복사하세요', txt); } };
+  document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', () => copy(b.dataset.copy)));
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    const data = {title: 'PATINA : 시간의 흔적 — 제43회 공간실험전', text: '2026. 11. 13 — 11. 15 · 14:00–21:00 · 모나코스페이스 B1', url: location.href.split('#')[0]};
+    if (navigator.share) { try { await navigator.share(data); } catch (e) {} } else copy(data.url);
+  });
+
+  /* mobile dock after the hero */
+  const dock = document.getElementById('dock'), hero = document.getElementById('hero'), visit = document.getElementById('visit');
+  const dockUpd = () => { const h = hero.getBoundingClientRect().bottom < 0, v = visit.getBoundingClientRect(); dock.classList.toggle('on', h && !(v.top < innerHeight * .6 && v.bottom > 0)); };
+  addEventListener('scroll', dockUpd, {passive:true}); dockUpd();
 
   /* lightbox */
   const lb = document.getElementById('lb'), lbi = lb.querySelector('img');
