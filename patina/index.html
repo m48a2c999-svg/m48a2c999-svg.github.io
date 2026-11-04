@@ -9,20 +9,20 @@
 <meta property="og:description" content="시간이 남긴 흔적, 점–선–면의 공간 · 호서대학교 실내디자인학과 Space Lab · 11. 13 – 11. 15 모나코스페이스 B1">
 <meta property="og:image" content="https://m48a2c999-svg.github.io/patina/img/og.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#e9e8e6">
+<meta name="theme-color" content="#cfd0cf">
 <link rel="icon" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#e9e8e6; --paper:#f3f2f0; --ink:#34302d; --soft:#6f6a66; --line:#b9b5b0; --accent:#7d7975; --dot:52,48,45;
+  --bg:#cfd0cf; --paper:#f3f2f0; --ink:#34302d; --soft:#6f6a66; --line:#b9b5b0; --accent:#7d7975; --dot:52,48,45;
   --serif:"Noto Serif KR","Cormorant Garamond",Georgia,serif;
   --en:"Cormorant Garamond","Noto Serif KR",Georgia,serif;
   --sans:"Noto Sans KR",-apple-system,"Apple SD Gothic Neo",sans-serif;
 }
-body[data-tone="pink"]{--bg:#ece3e1;--paper:#f5efee;--ink:#3a3131;--soft:#6e6262;--line:#c3b2b0;--accent:#5d7f86;--dot:58,49,49}
-body[data-tone="sage"]{--bg:#e4e9e5;--paper:#eff2ef;--ink:#2f3430;--soft:#646c66;--line:#b3bcb5;--accent:#7c8f80;--dot:47,52,48}
+body[data-tone="pink"]{--bg:#d7c9c7;--paper:#f5efee;--ink:#3a3131;--soft:#6e6262;--line:#c3b2b0;--accent:#5d7f86;--dot:58,49,49}
+body[data-tone="sage"]{--bg:#c7d3cd;--paper:#eff2ef;--ink:#2f3430;--soft:#646c66;--line:#b3bcb5;--accent:#7c8f80;--dot:47,52,48}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;transition:background-color 1.6s ease,color 1.6s ease;overflow-x:hidden}
@@ -348,7 +348,7 @@ window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0)});a
     imgs.forEach(i => i.classList.toggle('on', i.dataset.tone === t));
     btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.tone === t));
     const meta = document.querySelector('meta[name=theme-color]');
-    meta.content = getComputedStyle(body).getPropertyValue('--bg').trim() || '#e9e8e6';
+    meta.content = getComputedStyle(body).getPropertyValue('--bg').trim() || '#cfd0cf';
   };
   const auto = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => setTone(tones[(idx + 1) % 3]), 5200); };
   btns.forEach(b => b.addEventListener('click', () => { setTone(b.dataset.tone); auto(); }));
