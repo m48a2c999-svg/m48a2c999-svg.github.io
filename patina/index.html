@@ -180,6 +180,12 @@ footer a{color:var(--ink)}
   .statement .ln{opacity:1;transform:none}
 }
 </style>
+<script>
+/* 링크로 들어오면 항상 맨 위 첫 화면부터 */
+try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(e){}
+if(location.hash){history.replaceState(null,'',location.pathname+location.search)}
+window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0)});addEventListener('pageshow',function(e){if(e.persisted)window.scrollTo(0,0)});
+</script>
 </head>
 <body data-tone="gray">
 <canvas id="dots" aria-hidden="true"></canvas>
