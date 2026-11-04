@@ -97,7 +97,8 @@ section.dark .sec-no,section.dark .sec-head .eyebrow{color:var(--mint)} section.
 /* 01 concept */
 .concept{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,6vw,90px);align-items:start}
 .concept .txt{display:grid;gap:22px} .concept figure{margin:0;position:sticky;top:90px}
-.concept figure img{width:100%;aspect-ratio:4/4.6;object-fit:cover}
+.concept figure img{width:100%;max-width:460px;aspect-ratio:736/1198;object-fit:cover;display:block;margin-left:auto}
+.kw{list-style:none;display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:4px 0 0} .kw li{border:1px solid var(--hair);padding:8px 13px;font-size:13.5px;color:var(--ink2)}
 figcaption{font-family:var(--f-latin);font-size:11px;letter-spacing:.02em;color:var(--mute);margin-top:10px;text-align:right}
 .then-now{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);margin-top:10px}
 .then-now div{padding:18px 18px 4px 0} .then-now div+div{padding-left:18px;border-left:1px solid var(--hair)}
@@ -294,16 +295,11 @@ footer nav{display:flex;flex-wrap:wrap;gap:16px} footer a{text-decoration:none} 
     <div class="sec-head"><span class="sec-no">01</span><span class="eyebrow">Concept</span><h2>무채색 방에, 청록은 빛으로만</h2></div>
     <div class="concept">
       <div class="txt">
-        <p class="lede">문래점에 이은 파우더룸의 두 번째 매장입니다. 신사동 가로수길, 길 두 개가 만나는 1층 코너의 중식 교자집 자리를 와인과 젤라또를 파는 가게로 바꿉니다.</p>
-        <p>깊이 11.5m의 긴 매장입니다. 앞은 폭 4.3m, 안쪽은 폭 5.4m로 넓어지고 바닥이 한 단 높습니다. 벽은 회색 석회 스타코, 천장은 검정 노출, 바닥은 기존 바닥을 연마해 살립니다. 브랜드 청록은 칠하지 않고 골유리와 백라이트로만 써서, 불이 켜질 때 비로소 색이 됩니다.</p>
-        <div class="then-now">
-          <div><b>NOW</b><span>중식 교자집 · 벽돌 패턴 기둥<br>금속 타공 패널 · 후드 주방</span></div>
-          <div><b>2026</b><span>와인 · 젤라또 · 회색 스타코<br>청록 골유리 · 단 위의 파우더룸</span></div>
-        </div>
-        <ul class="rules"><li><strong>모서리는 진열장</strong><span>간판 박스는 브랜드 청록으로 칠하고, 도로① 주방 창은 위로 올리는 2단 폴딩 창으로 열어 차양 겸 테이크아웃 창, 하부는 청록 골유리와 ‘wine & gelato’ 문구. 폴딩창 안쪽은 스테인리스 창가 바.</span></li><li><strong>젤라또는 패스에서 뜬다</strong><span>칸막이를 400 옮겨 다시 세워 홀 폭 2,350을 만들고, 패스 창을 뚫어 그 자리에 젤라또 디핑 케이스를 앉힌다. 손님은 홀 쪽 스테인리스 선반 앞에서 고르고, 직원은 주방 안에서 유리 너머로 떠 준다. 상부 청록 골유리 띠.</span></li><li><strong>청록은 유리와 빛으로만</strong><span>골유리 띠, 외부 창 하부, 안쪽 방 민트 백라이트 사인 벽. 벽과 가구는 회색·흑색·스테인리스로 비운다.</span></li><li><strong>단 위는 파우더룸</strong><span>한 단 높은 안쪽 방. 하부 간접광의 그레이 패브릭 긴 의자, 빛나는 와인 장과 청록 골유리 글라스장, 민트 사인 벽. 테이블마다 캔들 램프.</span></li><li><strong>천장·바닥은 살린다</strong><span>노출 천장은 흑색 도장과 블랙 트랙 스폿, 바닥은 기존 바닥 연마·코팅. 공사비는 벽·빛·가구에 쓴다.</span></li></ul>
-        <p class="cutline"><b>뺀 것</b>주방 후드·덕트(가열 조리 없음) · 벽돌 패턴 필라스터 마감(→ 스타코) · 주방 창 금속 타공 패널 · 칸막이 상부 진열 니치(→ 골유리 띠)</p>
+        <p class="lede">문래점에 이은 파우더룸의 두 번째 매장. 신사동 가로수길 1층 코너에서 와인과 젤라또를 팝니다.</p>
+        <p>벽은 회색 스타코, 천장은 검정, 바닥은 기존 바닥을 연마해 살립니다. 브랜드 청록은 칠하지 않고 빛으로만 씁니다 — 불이 켜질 때 비로소 색이 되는 방.</p>
+        <ul class="kw"><li>회색 스타코</li><li>검정 천장</li><li>청록은 빛으로만</li><li>단 위의 파우더룸</li></ul>
       </div>
-      <figure><img src="img/before-corner.webp" alt="현재 모서리 외관. 검은 간판 박스와 벽돌 패턴 기둥, 금속 타공 패널 주방 창" width="1400" height="1050" loading="lazy"><figcaption>현재 · 2026.11.02 실측 당일</figcaption></figure>
+      <figure><img src="img/concept-neon.webp" alt="어두운 벽에 청록 네온 문구 YOU ARE MORE THAN BEAUTIFUL" width="736" height="1198" loading="lazy"><figcaption>무드 레퍼런스 — 청록 네온</figcaption></figure>
     </div>
   </div>
 </section>
@@ -426,7 +422,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:16px} footer a{text-decoration:none} 
 
 <section class="band dark" id="drawings">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-no">07</span><span class="eyebrow">Drawings</span><h2>배치안과 현황 실측도</h2></div>
+    <div class="sec-head"><span class="sec-no">07</span><span class="eyebrow">Drawings</span><h2>배치안과 도면</h2></div>
     <div class="dplan">
       <button class="plan" type="button" data-lb="d-plan" data-cap="배치 평면 · NTS"><img src="img/d-plan.webp" alt="파우더룸 신사점 배치 평면도" width="920" height="1258" loading="lazy"></button>
       <div><p class="lede" style="margin-bottom:26px">건축물현황도 틀(1층 1/150)을 기준으로 그린 배치안입니다. 화장실 블록 2,800 × 2,600은 통로 · 좌측 창고 · 전면 공용 화장실로 나눴습니다. 앞쪽은 창가 바, 칸막이의 패스 개구에 젤라또 디핑 케이스, 그 뒤가 주방, 통로 끝 한 단 위가 파우더룸입니다.</p>
@@ -440,11 +436,11 @@ footer nav{display:flex;flex-wrap:wrap;gap:16px} footer a{text-decoration:none} 
         </dl></div>
     </div>
     <div class="doc-tabs" id="docTabs" role="tablist" aria-label="도면 묶음">
-      <button role="tab" aria-selected="true" data-set="proposal">제안 도면<small>3</small></button>
-      <button role="tab" aria-selected="false" data-set="survey">현황 실측도<small>B-01 · B-02 · A-00 – A-03</small></button>
+      <button role="tab" aria-selected="true" data-set="proposal">제안 도면<small>5</small></button>
+      <button role="tab" aria-selected="false" data-set="survey">건축물현황도 CAD<small>B-01 · B-02</small></button>
     </div>
     <div class="sheets" id="sheets"></div>
-    <p class="note">도면을 누르면 크게 볼 수 있습니다. 현황 실측도의 주황 ( ) 치수는 추정값입니다.</p>
+    <p class="note">도면을 누르면 크게 볼 수 있습니다. B-02의 주황 치수는 통로 여유 치수입니다.</p>
   </div>
 </section>
 
@@ -497,7 +493,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:16px} footer a{text-decoration:none} 
 (function () {
   var VIEWS = [{"k": "hall", "t": "홀 전체", "en": "HALL", "h": "입구에서 안쪽 방까지", "f": "창가 바 · 젤라또 패스 · 단 위 파우더룸", "d": "왼쪽은 롤스크린 앞 스테인리스 창가 바와 흑색 스툴, 오른쪽은 청록 골유리 띠 아래 패스 창에 앉힌 젤라또 디핑 케이스입니다. 통로 끝에서 한 단 올라서면 민트 사인 벽의 파우더룸이 보입니다."}, {"k": "pass", "t": "젤라또 패스", "en": "PASS", "h": "유리 너머로 뜨는 젤라또", "f": "디핑 케이스 · 유리 가드 · 홀 쪽 스테인리스 선반", "d": "칸막이를 400 옮겨 홀 폭 2,350을 만들고 길이 약 2.4m를 열어 그 자리에 디핑 케이스를 넣었습니다. 직원은 주방 안에서 떠 주고, 손님은 홀 쪽 선반 앞에서 고릅니다. 케이스 아래 웜 라이트가 스타코 결을 드러내고, 위로는 청록 골유리 띠."}, {"k": "kitchen", "t": "젤라또 주방", "en": "KITCHEN", "h": "주방 안에서 본 패스", "f": "디핑 케이스 · 스테인리스 · 도로① 위로 올리는 폴딩 창", "d": "가열 조리가 없어 후드와 덕트를 걷어냈습니다. 패스에 붙인 디핑 케이스 너머로 홀이 보이고, 스테인리스 작업대 위로 골유리 상부장. 도로① 쪽 끝 창은 위로 열어 테이크아웃 창으로 씁니다."}, {"k": "room", "t": "파우더룸", "en": "POWDER ROOM", "h": "한 단 위의 와인 방", "f": "그레이 패브릭 긴 의자 · 와인 장 · 골유리 글라스장", "d": "바닥을 한 단(+150) 올린 안쪽 방입니다. 긴 의자 아래와 와인 장 선반에만 빛을 두고, 천장 트랙 스폿은 테이블만 비춥니다. 정면 벽에는 민트 백라이트 사인."}, {"k": "toilet", "t": "화장실", "en": "RESTROOM", "h": "같은 방, 한 톤 낮게", "f": "마감만 교체 · 웜그레이 도장 · 청록 포인트 · 원형 거울", "d": "통로 끝 공용 화장실(실내 약 1,500 × 2,625)입니다. 문 · 양변기 · 소변기 · 세면기는 그대로 두고 마감만 바꿉니다. 벽은 웜그레이 방수 도장, 바닥은 에폭시, 천장은 흑색. 세면대 뒤 한 면만 청록으로 칠하고 원형 거울 뒤 2,700K 간접광."}];
   var CUTS = [{"k": "exterior", "t": "모서리 야간", "s": "청록 간판 박스 · 골유리 창"}, {"k": "hall", "t": "홀 전체", "s": "창가 바와 젤라또 패스"}, {"k": "pass", "t": "젤라또 패스", "s": "유리 너머로 뜨는 젤라또"}, {"k": "kitchen", "t": "젤라또 주방", "s": "디핑 케이스 · 테이크아웃 창"}, {"k": "gelato", "t": "디핑 케이스", "s": "12구 · 유리 가드"}, {"k": "room", "t": "파우더룸", "s": "단 위의 와인 방"}, {"k": "mint", "t": "민트 사인 벽", "s": "방에서 가장 밝은 면"}, {"k": "toilet", "t": "화장실", "s": "마감만 교체 · 청록 포인트 · 원형 거울"}, {"k": "sign-crop", "t": "간판", "s": "powder room / SINSA"}];
-  var SHEETS = {"proposal": [{"k": "d-plan", "t": "배치 평면", "s": "Plan · NTS"}, {"k": "d-section", "t": "빛 단면", "s": "Section · 조도 서열"}, {"k": "d-facade", "t": "외관 전개 입면", "s": "Elevation · 모서리 펼침"}, {"k": "d-kitchen", "t": "주방 · 젤라또 제조 코너", "s": "Kitchen · 평면 + 동쪽 벽 입면"}, {"k": "d-toilet", "t": "화장실 마감 교체 (현장 사진 기준)", "s": "Restroom · 평면 1/20 + 입면 1/25"}], "survey": [{"k": "sheet-b02", "t": "B-02 설계 평면 · 현황도 적용", "s": "1/75 · A3"}, {"k": "sheet-b01", "t": "B-01 건축물현황도 CAD", "s": "1/75 · A3"}, {"k": "sheet-a00", "t": "A-00 건축물현황도 대조", "s": "1/75 · A3"}, {"k": "sheet-a01", "t": "A-01 현황 평면도", "s": "1/60 · A3"}, {"k": "sheet-a02", "t": "A-02 외부 입면도", "s": "1/50 · A3"}, {"k": "sheet-a03", "t": "A-03 홀 내부 입면도", "s": "1/50 · A3"}]};
+  var SHEETS = {"proposal": [{"k": "d-plan", "t": "배치 평면", "s": "Plan · NTS"}, {"k": "d-section", "t": "빛 단면", "s": "Section · 조도 서열"}, {"k": "d-facade", "t": "외관 전개 입면", "s": "Elevation · 모서리 펼침"}, {"k": "d-kitchen", "t": "주방 · 젤라또 제조 코너", "s": "Kitchen · 평면 + 동쪽 벽 입면"}, {"k": "d-toilet", "t": "화장실 마감 교체", "s": "Restroom · 평면 1/20 + 입면 1/25"}], "survey": [{"k": "sheet-b02", "t": "B-02 설계 평면 · 현황도 적용", "s": "1/75 · A3"}, {"k": "sheet-b01", "t": "B-01 건축물현황도 CAD", "s": "1/75 · A3"}]};
   var BARS = [["젤라또 케이스 상판", 500, 300], ["홀 쪽 주문 선반", 350, 220], ["창가 바 상판", 300, 160], ["셀러 앞 하이 테이블", 150, 110], ["파우더룸 테이블", 120, 90], ["파우더룸 바닥", 70, 45]];
   var STAGES = ['01 / 04 CORNER', '02 / 04 HALL', '03 / 04 KITCHEN', '04 / 04 POWDER ROOM'];
   var top = document.getElementById('top'), menu = document.getElementById('menuBtn');
