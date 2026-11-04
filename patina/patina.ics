@@ -1,17 +1,49 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Hoseo Univ Interior Design//PATINA 2026//KO
+PRODID:-//Hoseo Space Lab//PATINA 2026//KO
 CALSCALE:GREGORIAN
-METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Asia/Seoul
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0900
+TZOFFSETTO:+0900
+TZNAME:KST
+END:STANDARD
+END:VTIMEZONE
 BEGIN:VEVENT
-UID:patina-2026-spacelab@m48a2c999-svg.github.io
+UID:patina-2026-13@m48a2c999-svg.github.io
 DTSTAMP:20261104T000000Z
-DTSTART:20261113T050000Z
-DTEND:20261113T120000Z
-RRULE:FREQ=DAILY;COUNT=3
+DTSTART;TZID=Asia/Seoul:20261113T140000
+DTEND;TZID=Asia/Seoul:20261113T210000
 SUMMARY:PATINA : 시간의 흔적 — 제43회 호서대 실내디자인학과 공간실험전
 LOCATION:모나코스페이스 B1\, 서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층
-DESCRIPTION:2026.11.13(금)–11.15(일) 매일 14:00–21:00 · 강남역 9번 출구 도보 약 5분\nhttps://m48a2c999-svg.github.io/patina/
+DESCRIPTION:매일 14:00–21:00 · 강남역 9번 출구 도보 약 5분 · 주차: 건물 지하(유료)\nhttps://m48a2c999-svg.github.io/patina/
+URL:https://m48a2c999-svg.github.io/patina/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:내일 PATINA 공간실험전 개막
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:patina-2026-14@m48a2c999-svg.github.io
+DTSTAMP:20261104T000000Z
+DTSTART;TZID=Asia/Seoul:20261114T140000
+DTEND;TZID=Asia/Seoul:20261114T210000
+SUMMARY:PATINA : 시간의 흔적 — 제43회 호서대 실내디자인학과 공간실험전
+LOCATION:모나코스페이스 B1\, 서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층
+DESCRIPTION:매일 14:00–21:00 · 강남역 9번 출구 도보 약 5분 · 주차: 건물 지하(유료)\nhttps://m48a2c999-svg.github.io/patina/
+URL:https://m48a2c999-svg.github.io/patina/
+END:VEVENT
+BEGIN:VEVENT
+UID:patina-2026-15@m48a2c999-svg.github.io
+DTSTAMP:20261104T000000Z
+DTSTART;TZID=Asia/Seoul:20261115T140000
+DTEND;TZID=Asia/Seoul:20261115T210000
+SUMMARY:PATINA : 시간의 흔적 — 제43회 호서대 실내디자인학과 공간실험전
+LOCATION:모나코스페이스 B1\, 서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층
+DESCRIPTION:매일 14:00–21:00 · 강남역 9번 출구 도보 약 5분 · 주차: 건물 지하(유료)\nhttps://m48a2c999-svg.github.io/patina/
 URL:https://m48a2c999-svg.github.io/patina/
 END:VEVENT
 END:VCALENDAR

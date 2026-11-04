@@ -290,7 +290,7 @@ window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0)});a
       <h2>모나코스페이스<br>B1</h2>
       <p class="bigday" id="bigday" hidden></p>
       <div class="cta">
-        <a class="btn fill" href="patina.ics" download="PATINA_공간실험전.ics">캘린더에 추가</a>
+        <a class="btn fill addcal" href="patina.ics">캘린더에 추가</a>
         <button type="button" class="btn" id="shareBtn">공유하기</button>
       </div>
     </div>
@@ -318,7 +318,7 @@ window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0)});a
 
 <nav class="dock" id="dock" aria-label="빠른 메뉴">
   <a href="#visit">오시는 길</a>
-  <a class="ghost" href="patina.ics" download="PATINA_공간실험전.ics">캘린더에 추가</a>
+  <a class="ghost addcal" href="patina.ics">캘린더에 추가</a>
 </nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -519,6 +519,44 @@ window.scrollTo(0,0);addEventListener('load',function(){window.scrollTo(0,0)});a
   b.addEventListener('click',function(e){e.stopPropagation();if(v.muted){v.muted=false;v.loop=false;v.currentTime=0}else{v.muted=true;v.loop=true}go();lab()});
   v.addEventListener('click',function(){b.click()});
   v.addEventListener('ended',function(){v.muted=true;v.loop=true;v.currentTime=0;go();lab()});
+})();
+</script>
+<script>
+/* 캘린더에 추가 — 구독이 아니라 일정으로 바로 추가 (Hello Inje 방식) */
+(function(){
+  var SITE='https://m48a2c999-svg.github.io/patina/';
+  var TITLE='PATINA : 시간의 흔적 — 제43회 호서대 실내디자인학과 공간실험전';
+  var LOC='모나코스페이스 B1, 서울특별시 서초구 서초대로 397 부띠크모나코 지하 1층';
+  var DESC='매일 14:00–21:00 · 강남역 9번 출구 도보 약 5분 · 주차: 건물 지하(유료)';
+  function esc(t){return t.replace(/\\/g,'\\\\').replace(/,/g,'\\,').replace(/;/g,'\;').replace(/\n/g,'\\n')}
+  function ics(){
+    var now=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+    var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hoseo Space Lab//PATINA 2026//KO','CALSCALE:GREGORIAN',
+      'BEGIN:VTIMEZONE','TZID:Asia/Seoul','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0900','TZOFFSETTO:+0900','TZNAME:KST','END:STANDARD','END:VTIMEZONE'];
+    ['13','14','15'].forEach(function(d,i){
+      L.push('BEGIN:VEVENT','UID:patina-2026-'+d+'@m48a2c999-svg.github.io','DTSTAMP:'+now,
+        'DTSTART;TZID=Asia/Seoul:202611'+d+'T140000','DTEND;TZID=Asia/Seoul:202611'+d+'T210000',
+        'SUMMARY:'+esc(TITLE),'LOCATION:'+esc(LOC),'DESCRIPTION:'+esc(DESC+'\n'+SITE),'URL:'+SITE);
+      if(i===0)L.push('BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:내일 PATINA 공간실험전 개막','END:VALARM');
+      L.push('END:VEVENT');
+    });
+    L.push('END:VCALENDAR'); return L.join('\r\n');
+  }
+  function gcal(){
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(TITLE)+
+      '&dates=20261113T140000/20261113T210000&ctz=Asia/Seoul&recur='+encodeURIComponent('RRULE:FREQ=DAILY;COUNT=3')+
+      '&location='+encodeURIComponent(LOC)+'&details='+encodeURIComponent(DESC+'\n'+SITE);
+  }
+  function note(m){var t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2200)}
+  document.querySelectorAll('.addcal').forEach(function(el){
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      if(/Android/i.test(navigator.userAgent)){window.open(gcal(),'_blank','noopener');note('구글 캘린더에서 저장을 누르세요');return}
+      var b=new Blob([ics()],{type:'text/calendar;charset=utf-8'}),a=document.createElement('a');
+      a.href=URL.createObjectURL(b);a.download='PATINA_2026.ics';document.body.appendChild(a);a.click();
+      setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},800);note('열리는 화면에서 ‘모두 추가’를 누르세요');
+    });
+  });
 })();
 </script>
 </body>
