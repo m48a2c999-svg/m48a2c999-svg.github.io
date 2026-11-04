@@ -82,8 +82,8 @@ section.block{padding:clamp(88px,14vw,180px) clamp(16px,6vw,96px)}
 .statement .ln.in{opacity:1;transform:none}
 
 /* point line plane */
-.plp{height:320vh;position:relative}
-.plp .stick{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(20px,5vw,72px);padding:80px clamp(16px,6vw,96px) 40px}
+.plp{position:relative}
+.plp .stick{position:relative;min-height:min(100svh,860px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(20px,5vw,72px);padding:80px clamp(16px,6vw,96px) 40px}
 .plp svg{width:100%;max-width:560px;height:auto;justify-self:center;overflow:visible}
 .steps{list-style:none;display:grid;gap:clamp(18px,3vh,34px)}
 .steps li{display:grid;grid-template-columns:72px 1fr;gap:4px 18px;opacity:.28;transition:opacity .6s}
@@ -93,8 +93,7 @@ section.block{padding:clamp(88px,14vw,180px) clamp(16px,6vw,96px)}
 .steps h3 span{font-family:var(--en);font-style:italic;font-weight:500;color:var(--soft);margin-left:8px}
 .steps p{color:var(--soft);font-size:15.5px}
 @media (max-width:860px){
-  .plp{height:300vh}
-  .plp .stick{grid-template-columns:1fr;align-content:center;gap:18px;padding-top:76px}
+  .plp .stick{min-height:0;grid-template-columns:1fr;align-content:center;gap:22px;padding:72px clamp(16px,6vw,96px) 56px}
   .plp svg{max-width:min(78vw,46vh)}
   .steps{gap:10px}
   .steps li{grid-template-columns:44px 1fr;gap:0 12px}
@@ -151,6 +150,9 @@ footer a{color:var(--ink)}
 /* film */
 .film{position:relative;aspect-ratio:16/9;background:#141210;box-shadow:0 34px 70px -34px rgba(0,0,0,.55);max-width:1200px}
 .film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#141210;display:block}
+.film .snd{position:absolute;right:12px;bottom:12px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:rgba(20,18,17,.66);color:#f4f2ee;border:1px solid rgba(244,242,238,.4);border-radius:999px;font:inherit;font-size:12.5px;font-weight:600;padding:7px 13px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+@media (min-width:720px){.film .snd{right:18px;bottom:18px;font-size:13.5px;padding:9px 16px}}
 .cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin-top:16px;font-size:14px;color:var(--soft);max-width:1200px}
 /* motion: pixel mosaic reveal (poster's pixel blocks) */
 .mosaic .cells{position:absolute;inset:0;display:grid;grid-template-columns:repeat(var(--cols,12),1fr);pointer-events:none;z-index:2}
@@ -239,10 +241,11 @@ footer a{color:var(--ink)}
 <section class="block" id="film">
   <p class="label">Film</p>
   <div class="film mosaic" id="filmBox">
-    <iframe src="https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/preview" title="졸업연구 영상" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+    <video id="filmv" src="media/patina-film.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-label="졸업연구 영상"></video>
+    <button class="snd" type="button" id="filmSnd" aria-label="소리 켜기">🔇 소리 켜기</button>
     <div class="cells"></div>
   </div>
-  <p class="cap"><span>졸업연구 Space Directing · 2026</span><a href="https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/view" target="_blank" rel="noopener">새 창에서 크게 보기 ↗</a></p>
+  <p class="cap"><span>졸업연구 Space Directing · 2026</span><a id="filmDl" href="media/patina-film.mp4" download="PATINA_졸업연구_영상.mp4">영상 저장 ↓</a></p>
 </section>
 
 <section class="plp" id="plp" aria-label="점, 선, 면">
@@ -376,7 +379,7 @@ footer a{color:var(--ink)}
   };
   requestAnimationFrame(draw);
 
-  /* point - line - plane diagram driven by scroll */
+  /* point - line - plane diagram: plays by itself when it comes into view (no scroll-jacking) */
   const svg = document.getElementById('plpSvg'), NS = 'http://www.w3.org/2000/svg';
   let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const pts = [[70,470],[130,380],[105,280],[190,215],[270,260],[255,350],[340,400],[410,320],[380,215],[455,150],[490,250],[470,430]];
@@ -398,9 +401,7 @@ footer a{color:var(--ink)}
   const dots = pts.map(p => { const c = mk('circle', {cx: p[0], cy: p[1], r: 7, fill: 'currentColor', opacity: 0}); gDots.append(c); return c; });
   svg.style.color = 'var(--ink)';
   const sec = document.getElementById('plp'), steps = [...sec.querySelectorAll('.steps li')];
-  const upd = () => {
-    const r = sec.getBoundingClientRect();
-    let p = reduce ? 1 : Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+  const upd = (p) => {
     const a = Math.min(1, p / .3), b = Math.min(1, Math.max(0, (p - .3) / .3)), c = Math.min(1, Math.max(0, (p - .62) / .33));
     dots.forEach((d, i) => d.setAttribute('opacity', Math.min(1, Math.max(0, a * pts.length - i))));
     path.style.strokeDashoffset = len * (1 - b);
@@ -409,7 +410,21 @@ footer a{color:var(--ink)}
     const s = p < .3 ? 0 : p < .62 ? 1 : 2;
     steps.forEach((li, i) => li.classList.toggle('on', i <= s && (reduce || i === s || p >= .98)));
   };
-  addEventListener('scroll', upd, {passive:true}); addEventListener('resize', upd); upd();
+  const RUN = 6500, HOLD = 3200;
+  let pt0 = null, vis = false, raf = 0;
+  const tick = (now) => {
+    if (pt0 === null) pt0 = now;
+    const t = (now - pt0) % (RUN + HOLD);
+    upd(Math.min(1, t / RUN));
+    raf = vis ? requestAnimationFrame(tick) : 0;
+  };
+  if (reduce) upd(1);
+  else {
+    upd(0);
+    const start = () => { if (!vis) { vis = true; if (!raf) raf = requestAnimationFrame(tick); } };
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) start(); else vis = false; }), {threshold: .15}).observe(sec);
+    else start();
+  }
 
   /* D-day */
   const kst = () => { const d = new Date(Date.now() + 9 * 3600e3); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); };
@@ -483,6 +498,21 @@ footer a{color:var(--ink)}
     lbi.src = b.dataset.full; lbi.alt = b.querySelector('img').alt; lb.showModal();
   }));
   lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+})();
+</script>
+<script>
+(function(){
+  var v=document.getElementById('filmv'),b=document.getElementById('filmSnd');if(!v)return;
+  function fallback(){if(!v.parentNode)return;var f=document.createElement('iframe');f.src='https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/preview';f.title='졸업연구 영상';f.allow='autoplay; fullscreen';f.allowFullscreen=true;v.replaceWith(f);b.remove();var d=document.getElementById('filmDl');if(d){d.removeAttribute('download');d.href='https://drive.google.com/file/d/1NOP3bQas9nrx_K8ErxG7NvQ-Z4LaQDxj/view';d.target='_blank';d.rel='noopener';d.textContent='새 창에서 크게 보기 ↗'}}
+  v.addEventListener('error',fallback);if(v.error)fallback();
+  function go(){var p=v.play();if(p&&p.catch)p.catch(function(){})}
+  go(); v.addEventListener('loadeddata',function(){if(v.paused)go()});
+  ['touchstart','scroll','click'].forEach(function(ev){addEventListener(ev,function f(){if(v.paused&&v.muted)go();removeEventListener(ev,f)},{passive:true,once:true})});
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(v.paused)go()}else if(!v.paused&&v.muted){v.pause()}})},{threshold:.2}).observe(v)}
+  function lab(){b.textContent=v.muted?'🔇 소리 켜기':'🔊 소리 끄기';b.setAttribute('aria-label',v.muted?'소리 켜기':'소리 끄기')}
+  b.addEventListener('click',function(e){e.stopPropagation();if(v.muted){v.muted=false;v.loop=false;v.currentTime=0}else{v.muted=true;v.loop=true}go();lab()});
+  v.addEventListener('click',function(){b.click()});
+  v.addEventListener('ended',function(){v.muted=true;v.loop=true;v.currentTime=0;go();lab()});
 })();
 </script>
 </body>
