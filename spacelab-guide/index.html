@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPACE LAB 웹 포트폴리오 규격</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one long spec sheet in the deck's slate-and-red world. Sticky section bar, numbers set in mono, every diagram drawn to the real pixel ratio. */
+:root{
+  --bg:#4d5371;
+  --bg-deep:#40455f;
+  --panel:rgba(255,255,255,.075);
+  --panel-strong:rgba(255,255,255,.13);
+  --ink:#f4f5fa;
+  --muted:#c4c8db;
+  --faint:#9196b0;
+  --line:rgba(255,255,255,.16);
+  --accent:#ec3d42;
+  --accent-soft:rgba(236,61,66,.16);
+  --wave:#aab3e6;
+  --ok:#5fd39a;
+  --warn:#f5c04e;
+  --font-display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --radius:6px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+.num,.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:420px){.wrap{padding:0 16px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg-deep),var(--bg));padding:56px 0 120px}
+.hero .wrap{position:relative;z-index:1;display:grid;gap:28px}
+.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.04em}
+.hero h1{font-size:clamp(30px,5vw,48px);font-weight:700}
+.hero .lead{color:var(--muted);font-size:18px;max-width:40em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:4px}
+.stat .v{font-family:var(--font-mono);font-weight:600;font-size:clamp(26px,3.6vw,38px);color:var(--accent);line-height:1.15}
+.stat .k{font-weight:700}
+.stat .d{color:var(--muted);font-size:14px}
+.hero svg.waves{position:absolute;left:0;right:0;bottom:0;width:100%;height:160px;z-index:0}
+.source{font-size:13px;color:var(--faint)}
+
+/* section nav */
+.secnav{position:sticky;top:0;z-index:20;background:rgba(64,69,95,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.secnav ol{list-style:none;margin:0 auto;padding:0 24px;max-width:1120px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.secnav ol::-webkit-scrollbar{display:none}
+.secnav a{display:block;white-space:nowrap;text-decoration:none;font-size:14px;color:var(--muted);padding:14px 10px;border-bottom:2px solid transparent}
+.secnav a:hover{color:var(--ink)}
+.secnav a.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* sections */
+section.s{padding:64px 0;border-bottom:1px solid var(--line)}
+section.s:nth-of-type(even){background:rgba(0,0,0,.06)}
+.shead{display:grid;gap:8px;margin-bottom:28px;max-width:46em}
+.shead .tag{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.shead h2{font-size:clamp(24px,3.2vw,32px);font-weight:700}
+.shead p{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media (max-width:860px){.grid2,.grid3{grid-template-columns:1fr}.grid4,.grid5{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}}
+@media (max-width:420px){.grid4,.grid5{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card h3{font-size:18px;font-weight:600;margin-bottom:6px}
+.card .idx{font-family:var(--font-mono);color:var(--accent);font-weight:600;font-size:20px;display:block;margin-bottom:4px}
+.card ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:15px}
+.card li+li{margin-top:2px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.red{color:var(--accent)}
+.note{color:var(--faint);font-size:13px;margin-top:14px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:rgba(0,0,0,.28);font-weight:600;font-size:14px;color:var(--ink)}
+tbody tr:last-child td{border-bottom:0}
+td.px{font-family:var(--font-mono);color:var(--accent);font-weight:600;white-space:nowrap}
+tr.total td{background:rgba(0,0,0,.12);font-weight:700}
+
+/* diagrams */
+.box{border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.06);position:relative;border-radius:2px}
+.box .lbl{position:absolute;font-size:13px;font-weight:500;padding:6px 8px;line-height:1.35}
+.fill-red{background:var(--accent);border-color:var(--accent)}
+.ratio-stage{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+@media (max-width:860px){.ratio-stage{grid-template-columns:1fr}}
+.ratio-body{aspect-ratio:1280/905;width:100%}
+.ratio-head{aspect-ratio:1280/579;width:100%}
+.ratio-thumb{position:absolute;left:0;top:0;width:46.875%;aspect-ratio:600/424}
+.facts{display:grid;gap:16px}
+.facts b{display:block;font-weight:600}
+.facts span{color:var(--muted);font-size:14px}
+
+.conv{display:grid;gap:14px}
+.conv-main{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;gap:6px}
+.conv-main .eq{font-family:var(--font-mono);font-size:clamp(22px,3.4vw,32px);font-weight:600;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+.conv-main .eq .to{color:var(--accent)}
+.conv-main .eq i{font-style:normal;color:var(--faint);font-size:.75em}
+
+/* site structure */
+.struct{display:grid;grid-template-columns:1fr auto 1fr 1fr;gap:20px;align-items:start}
+@media (max-width:860px){.struct{grid-template-columns:1fr}.struct .arrow{transform:rotate(90deg);justify-self:center}}
+.listgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.listgrid div{aspect-ratio:600/424;background:rgba(255,255,255,.12);border:1px solid var(--line)}
+.listgrid .hov{background:var(--accent);border-color:var(--accent);display:grid;place-content:center;text-align:center;font-size:11px;line-height:1.3;padding:4px}
+.arrow{font-family:var(--font-mono);color:var(--muted);font-size:14px;text-align:center;padding-top:48px}
+.detail{border:1.5px solid rgba(255,255,255,.55);display:grid}
+.detail .h{aspect-ratio:1280/579;background:rgba(255,255,255,.14);border-bottom:1px solid var(--line);position:relative}
+.detail .h::before{content:"";position:absolute;inset:0 0 auto 0;height:7%;background:var(--accent)}
+.detail .b{aspect-ratio:1280/905;background:rgba(255,255,255,.07);border-bottom:1px solid var(--line)}
+.detail .b.more{aspect-ratio:auto;padding:10px;font-size:12px;color:var(--muted);text-align:center;border-bottom:0}
+.detail span{position:absolute;left:8px;bottom:6px;font-size:12px;font-family:var(--font-mono)}
+.detail .b{position:relative}
+.cap{font-size:13px;color:var(--muted);margin-top:8px}
+.notes{display:grid;gap:16px}
+.notes b{display:block;font-weight:600}
+.notes span{color:var(--muted);font-size:14px}
+
+/* header template */
+.hmock{aspect-ratio:1191/539;width:100%;background:#d9dbe3;color:#2a2d3a;position:relative;border-radius:2px;overflow:hidden}
+.hmock .band{position:absolute;inset:0 0 auto 0;height:9%;background:#babdc9;display:flex;justify-content:space-between;align-items:center;padding:0 2%;font-size:clamp(9px,1.2vw,13px);font-weight:700}
+.hmock .band small{font-weight:400}
+.hmock .txt{position:absolute;left:2.5%;top:16%;width:22%;display:grid;gap:5%;height:70%}
+.hmock .txt i{display:block;height:3px;background:#5b5f70;border-radius:1px}
+.hmock .img{position:absolute;left:27%;top:16%;right:2.5%;bottom:10%;background:#8e92a3;display:grid;place-content:center;text-align:center;color:#fff;font-weight:700;font-size:clamp(11px,1.6vw,16px);line-height:1.35}
+.pin{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--font-mono);font-size:12px;font-weight:600;display:grid;place-content:center;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(255,255,255,.55)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.steps .n{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--font-mono);font-weight:600;font-size:13px;display:grid;place-content:center}
+.steps b{display:block;font-weight:600}
+.steps span{color:var(--muted);font-size:14px}
+
+/* body placement */
+.bmock{aspect-ratio:1280/905;width:100%;position:relative;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.55)}
+.bmock .safe{position:absolute;left:3.125%;right:3.125%;top:4.42%;bottom:4.42%;border:1.5px dashed rgba(255,255,255,.45)}
+.bmock .p{position:absolute;top:4.42%;height:23.98%;width:30.156%;background:rgba(255,255,255,.2);display:grid;place-content:center;font-size:12px;font-family:var(--font-mono);color:var(--ink)}
+.bmock .area{position:absolute;left:3.125%;right:3.125%;top:30.6%;bottom:4.42%;background:rgba(255,255,255,.1);display:grid;place-content:center;color:var(--muted);font-size:14px}
+
+/* type sizes */
+.typerow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.typerow:last-child{border-bottom:0}
+.typerow .sz{font-family:var(--font-mono);color:var(--accent);font-weight:600;white-space:nowrap}
+.phone{width:200px;margin:0 auto;border:8px solid #15161d;border-radius:28px;background:#fff;padding:22px 10px;aspect-ratio:9/18.5;display:grid;align-content:start;gap:8px}
+.phone .ph{background:#9ea2b2;aspect-ratio:1280/579}
+.phone .ln{height:2px;background:#5b5f70;width:70%}
+.phone .ln.s{width:50%}
+.phone .pb{background:#c7cad6;aspect-ratio:1280/905;margin-top:6px}
+.phonecap{text-align:center;font-size:13px;margin-top:12px;color:var(--accent);font-family:var(--font-mono)}
+
+/* callouts */
+.callouts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media (max-width:860px){.callouts{grid-template-columns:1fr}}
+.callout{border-radius:var(--radius);padding:18px 20px;border:1px solid var(--line);background:var(--panel)}
+.callout.warn{background:var(--accent-soft);border-color:rgba(236,61,66,.5)}
+.callout b{display:block;margin-bottom:4px}
+kbd{font-family:var(--font-mono);font-size:13px;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+
+/* thumbnail steps */
+.tstep{display:grid;gap:10px}
+.tstep .vis{aspect-ratio:600/424;border-radius:2px;display:grid;place-content:center}
+.v1{background:#9a5a3d}.v1 i{width:40px;height:44px;background:#e6d3ac;display:block}
+.v2{background:#9a5a3d;position:relative}.v2::after{content:"";position:absolute;inset:12%;border:2px dashed #fff}
+.v3{background:#6c6c6c}.v3 i{width:40px;height:44px;background:#c9c9c9;display:block}
+.v4{background:rgba(255,255,255,.14);font-size:12px;text-align:center;line-height:1.4}
+.tstep .t{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start}
+.tstep .t .n{width:24px;height:24px;font-size:12px}
+
+/* chart */
+.chartwrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.chartwrap h3{font-size:15px;font-weight:600;margin-bottom:10px}
+.chartwrap svg{width:100%;height:auto;display:block}
+.chartwrap text{fill:var(--muted);font-family:var(--font-mono);font-size:12px}
+.chartwrap .vl{fill:var(--ink);font-weight:600}
+
+/* page composition */
+.pg{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:4px;align-content:start}
+.pg .no{font-family:var(--font-mono);font-weight:600;font-size:20px}
+.pg .no em{font-style:normal;font-size:12px;margin-left:6px;font-family:var(--font-body);font-weight:700}
+.pg .sz{font-family:var(--font-mono);font-size:12px;color:var(--faint)}
+.pg.must{background:var(--accent);border-color:var(--accent)}
+.pg.must .sz{color:rgba(255,255,255,.8)}
+.pg.thumb{background:rgba(0,0,0,.25)}
+
+/* zip tree */
+.tree{font-family:var(--font-mono);font-size:14px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:grid;gap:10px;overflow-x:auto}
+.tree .row{display:grid;grid-template-columns:auto 1fr;gap:16px;white-space:nowrap}
+.tree .row .c{color:var(--faint);font-family:var(--font-body);font-size:13px}
+.tree .i1{padding-left:22px}.tree .i2{padding-left:44px}
+.tree .zip{color:var(--accent);font-weight:600}
+
+/* checklist + checker */
+.checklist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:860px){.checklist{grid-template-columns:1fr}}
+.checklist label{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer}
+.checklist input{appearance:none;flex:none;width:20px;height:20px;border:2px solid var(--accent);border-radius:3px;margin:2px 0 0;display:grid;place-content:center;cursor:pointer;background:transparent}
+.checklist input:checked{background:var(--accent)}
+.checklist input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.checklist input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.35)}
+.progress{display:flex;align-items:center;gap:14px;margin:0 0 18px}
+.bar{flex:1;height:8px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.btn{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:var(--panel-strong);border:1px solid var(--line);border-radius:var(--radius);padding:9px 14px;cursor:pointer}
+.btn:hover{background:rgba(255,255,255,.2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.drop{margin-top:28px;border:2px dashed rgba(255,255,255,.35);border-radius:var(--radius);padding:28px;text-align:center;display:grid;gap:12px;justify-items:center;background:rgba(0,0,0,.1)}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.drop .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.drop input{display:none}
+.summary{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 12px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 10px;border-radius:99px;background:var(--panel-strong);white-space:nowrap}
+.chip.ok{background:rgba(95,211,154,.18);color:#a8f0cb}
+.chip.bad{background:var(--accent-soft);color:#ffb3b5}
+.chip.warn{background:rgba(245,192,78,.18);color:#ffe2a3}
+td .chip+.chip{margin-left:4px}
+#results td{font-size:14px}
+#results td.f{font-family:var(--font-mono);word-break:break-all}
+
+/* final */
+.finals{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.finals{grid-template-columns:1fr}}
+.final{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:grid;gap:10px;align-content:start}
+.final .file{font-family:var(--font-mono);color:var(--faint);font-size:13px}
+.final .shape{border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);width:70%}
+.final .big{font-family:var(--font-mono);font-weight:600;font-size:26px;color:var(--accent);line-height:1.2}
+.remember{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:center;margin-top:44px}
+@media (max-width:860px){.remember{grid-template-columns:1fr}}
+.remember h3{font-size:clamp(26px,3.6vw,36px)}
+.rlist{display:grid;gap:10px}
+.rlist div{background:var(--panel-strong);border-radius:var(--radius);padding:14px 18px;display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline}
+.rlist .v{font-family:var(--font-mono);font-weight:600;font-size:24px;color:var(--accent)}
+.rlist span{color:var(--muted);font-size:14px}
+footer{padding:36px 0 56px;color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">호서대학교 졸업연구 · 10–11주차 · SPACE LAB 웹 포트폴리오 규격</p>
+    <h1>SPACE LAB에는 글 칸이 없다</h1>
+    <p class="lead">이미지 한 장이 곧 한 페이지입니다. 제목·설명·캡션은 전부 이미지 안에 넣습니다. 이 페이지의 숫자만 맞추면 학과 일괄 업로드 양식에 그대로 올라갑니다.</p>
+    <div class="stats">
+      <div class="stat"><span class="v">1280px</span><span class="k">헤더·본문의 가로 폭</span><span class="d">학과 공지 기준. 일괄 업로드를 위해 반드시 통일</span></div>
+      <div class="stat"><span class="v">600 × 424</span><span class="k">썸네일 크기</span><span class="d">흑백, 글자 없음. 목록 화면에 쓰인다</span></div>
+      <div class="stat"><span class="v">1MB</span><span class="k">장당 용량 상한</span><span class="d">2025 실측은 대부분 300~650KB</span></div>
+    </div>
+  </div>
+  <svg class="waves" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,90 C240,30 420,140 720,96 C1000,56 1180,130 1440,80 L1440,160 L0,160 Z" fill="#aab3e6" opacity=".22"/>
+    <path d="M0,120 C300,80 520,150 820,118 C1080,92 1260,150 1440,118 L1440,160 L0,160 Z" fill="#aab3e6" opacity=".3"/>
+  </svg>
+</header>
+
+<nav class="secnav" aria-label="섹션">
+  <ol id="navlist">
+    <li><a href="#structure">사이트 구조</a></li>
+    <li><a href="#deliverables">제출물</a></li>
+    <li><a href="#spec">규격표</a></li>
+    <li><a href="#ratio">비율·환산</a></li>
+    <li><a href="#header-template">헤더</a></li>
+    <li><a href="#body-layout">본문 배치</a></li>
+    <li><a href="#type-size">글자 크기</a></li>
+    <li><a href="#export">내보내기</a></li>
+    <li><a href="#thumbnail">썸네일</a></li>
+    <li><a href="#file-size">용량</a></li>
+    <li><a href="#pages">페이지 구성</a></li>
+    <li><a href="#submit">제출</a></li>
+    <li><a href="#mistakes">자주 하는 실수</a></li>
+    <li><a href="#check">셀프 체크</a></li>
+    <li><a href="#final">최종 정리</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section class="s" id="structure">
+  <div class="wrap">
+    <div class="shead"><span class="tag">36</span><h2>사이트는 목록과 상세, 두 화면이다</h2></div>
+    <div class="struct">
+      <div>
+        <h3 class="small" style="margin-bottom:10px">목록 화면</h3>
+        <div class="listgrid" aria-label="목록 화면 예시">
+          <div></div><div class="hov">작품명<br>부제 한 줄<br>Hong, Gil-Dong</div><div></div>
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+        </div>
+        <p class="cap">썸네일 600 × 424 흑백. 마우스를 올리면 작품명이 위에 덮인다</p>
+      </div>
+      <div class="arrow">클릭 →</div>
+      <div>
+        <h3 class="small" style="margin-bottom:10px">상세 화면 <span class="mono red">1280px</span></h3>
+        <div class="detail" aria-label="상세 화면 예시">
+          <div class="h"><span>01 헤더</span></div>
+          <div class="b"><span>02 본문</span></div>
+          <div class="b more">03 · 04 · … 08 이어짐</div>
+        </div>
+      </div>
+      <div class="notes">
+        <div><b>간격 없이 세로로</b><span>01부터 번호 순서대로 위에서 아래로 쌓인다</span></div>
+        <div><b>글·영상 입력 없음</b><span>영상은 대표 컷 + 유튜브 QR로 대신한다</span></div>
+        <div><b>폰에서는 0.3배</b><span>사이트 표시 폭은 최대 1200px(약 94%), 폰은 약 390px</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="deliverables">
+  <div class="wrap">
+    <div class="shead"><span class="tag">37</span><h2>제출하는 것은 세 가지</h2></div>
+    <div class="grid3">
+      <div class="card"><span class="idx">01</span><h3>보고서</h3><ul><li>JPG 8장 (01~08.jpg)</li><li>01 = 메인(헤더) 페이지</li><li>폴더명: 본인 이름</li></ul></div>
+      <div class="card"><span class="idx">02</span><h3>썸네일</h3><ul><li>JPG 1장, 600 × 424</li><li>흑백, 글자 없음</li><li>파일명: 본인 이름.jpg</li></ul></div>
+      <div class="card"><span class="idx">03</span><h3>작품정보</h3><ul><li>작품명 / 부제 / 영문 이름</li><li>목록 카드에 글자로 들어감</li><li>작품정보.txt 1개</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="spec">
+  <div class="wrap">
+    <div class="shead"><span class="tag">38</span><h2>규격표: 이 표 하나만 지키면 된다</h2></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>파일</th><th>프로그램 · 작업 판</th><th>내보낼 크기 (px)</th><th>비율</th><th>형식</th><th>장당 용량</th></tr></thead>
+        <tbody>
+          <tr><td>헤더 <span class="mono">01.jpg</span></td><td>일러스트 · 템플릿 첫 대지 1191 × 539pt</td><td class="px">1280 × 579</td><td class="mono">약 2.2 : 1</td><td>JPG · RGB · 72dpi</td><td class="mono">300~600KB</td></tr>
+          <tr><td>본문 <span class="mono">02~08.jpg</span></td><td>일러스트 · A3 가로 대지 1191 × 842pt</td><td class="px">1280 × 905</td><td class="mono">1 : 1.414</td><td>JPG · RGB · 72dpi</td><td class="mono">300~800KB, 최대 1MB</td></tr>
+          <tr><td>썸네일 <span class="mono">이름.jpg</span></td><td>포토샵</td><td class="px">600 × 424</td><td class="mono">1 : 1.414</td><td>JPG · RGB · 72dpi · 흑백</td><td class="mono">100~200KB</td></tr>
+          <tr class="total"><td>합계</td><td></td><td>9개 파일</td><td></td><td></td><td class="mono">8MB 이하</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">가로 1280px · 72dpi: 2026 학과 공지 · 형식·파일명·썸네일: 학과 수업자료(2023 졸업연구 13·14주차) · 용량: 2025 게시판 실측 기반 권장값</p>
+  </div>
+</section>
+
+<section class="s" id="ratio">
+  <div class="wrap">
+    <div class="shead"><span class="tag">39 · 40</span><h2>본문과 썸네일은 같은 비율, 헤더는 같은 폭</h2><p>아래 상자는 실제 픽셀 비율 그대로 그렸습니다.</p></div>
+    <div class="ratio-stage">
+      <div style="display:grid;gap:16px">
+        <div class="box ratio-body">
+          <div class="box fill-red ratio-thumb"><span class="lbl">썸네일<br><span class="mono">600 × 424</span></span></div>
+          <span class="lbl" style="left:0;bottom:0">본문 <span class="mono">1280 × 905</span> (A3 가로)</span>
+        </div>
+        <div class="box ratio-head"><span class="lbl" style="left:0;bottom:0">헤더 <span class="mono">1280 × 579</span></span></div>
+      </div>
+      <div class="facts">
+        <div><b class="mono">1 : 1.414 (√2)</b><span>A3 판넬과 같은 비율. 판넬 레이아웃을 그대로 옮길 수 있다</span></div>
+        <div><b>썸네일도 같은 비율</b><span>600 × 424 = 1 : 1.414, 목록용으로 작게</span></div>
+        <div><b>헤더는 폭만 같다</b><span>같은 1280px 폭에 높이만 579px</span></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:20px;margin:44px 0 14px">mm에서 px로, 숫자 환산</h3>
+    <div class="conv">
+      <div class="conv-main">
+        <div class="eq"><span>420mm</span><i>=</i><span>1191pt</span><i>→</i><span class="to">1280px</span></div>
+        <p class="muted small">A3 가로 대지를 그대로 내보내면 1191px. 폭을 1280px로 지정하면 107.5%로 확대돼 맞는다</p>
+      </div>
+      <div class="grid4">
+        <div class="card"><span class="idx">1mm ≈ 3.05px</span><p class="muted small">420mm가 1280px</p></div>
+        <div class="card"><span class="idx">1pt ≈ 1.07px</span><p class="muted small">글자 pt와 화면 px가 거의 같다</p></div>
+        <div class="card"><span class="idx">72dpi</span><p class="muted small">웹은 dpi가 아니라 픽셀 수만 본다</p></div>
+        <div class="card"><span class="idx">폰 0.3배</span><p class="muted small">1280px가 약 390px로 줄어든다</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="header-template">
+  <div class="wrap">
+    <div class="shead"><span class="tag">41</span><h2>헤더는 템플릿에 글과 이미지만 바꾼다</h2><p>대지 <span class="mono">1191 × 539pt</span> → 내보내기 <span class="mono red">1280 × 579px</span></p></div>
+    <div class="grid2" style="grid-template-columns:1.4fr 1fr;align-items:start">
+      <div class="hmock" role="img" aria-label="헤더 템플릿 구조">
+        <div class="band"><span>Main Title <small>_부제목</small></span><span>Hong, Gil-Dong</span></div>
+        <div class="txt"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="img">Main Image<br><span class="mono">300 × 155mm</span></div>
+        <span class="pin" style="left:50%;top:4.5%">1</span>
+        <span class="pin" style="left:4%;top:86%">2</span>
+        <span class="pin" style="left:96%;top:22%">3</span>
+        <span class="pin" style="left:30%;top:90%">4</span>
+      </div>
+      <ol class="steps">
+        <li><span class="n">1</span><div><b>색띠</b><span>작품명 _부제 / 영문 이름</span></div></li>
+        <li><span class="n">2</span><div><b>개요 글</b><span>Noto Sans CJK JP Regular 13pt, 행간 16.5pt, 자간 0, 양쪽 정렬</span></div></li>
+        <li><span class="n">3</span><div><b>메인 이미지</b><span>회색 박스에 클리핑 마스크로 맞춘다</span></div></li>
+        <li><span class="n">4</span><div><b>반드시 Embed</b><span>연결(Link)로 두면 다른 컴퓨터에서 깨진다</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="body-layout">
+  <div class="wrap">
+    <div class="shead"><span class="tag">42</span><h2>본문 한 장 안에 이미지를 넣는 크기</h2><p><span class="mono">1280 × 905</span> · 안쪽 점선 = 여백 40px (사용 영역 <span class="mono">1200 × 825</span>)</p></div>
+    <div class="grid2" style="align-items:start">
+      <div class="bmock" role="img" aria-label="본문 배치 예시">
+        <div class="safe"></div>
+        <div class="p" style="left:3.125%">386 × 217</div>
+        <div class="p" style="left:34.84%">386 × 217</div>
+        <div class="p" style="left:66.56%">386 × 217</div>
+        <div class="area">도면·설명 영역</div>
+      </div>
+      <div>
+        <div class="tbl">
+          <table style="min-width:0">
+            <thead><tr><th>넣는 것</th><th>크기 (px)</th></tr></thead>
+            <tbody>
+              <tr><td>16:9 렌더·영상 컷, 꽉 채움</td><td class="px">1280 × 720</td></tr>
+              <tr><td>16:9 두 장 나란히 (간격 20)</td><td class="px">각 590 × 332</td></tr>
+              <tr><td>16:9 세 장 나란히 (간격 20)</td><td class="px">각 386 × 217</td></tr>
+              <tr><td>9:16 숏폼 컷</td><td class="px">464 × 825</td></tr>
+              <tr><td>1:1 이미지</td><td class="px">825 × 825</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note" style="color:var(--muted)">16:9를 꽉 채우면 아래 <b class="red">185px</b>가 남는다. 제목·캡션 띠로 쓴다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="type-size">
+  <div class="wrap">
+    <div class="shead"><span class="tag">43</span><h2>글자 크기: 폰에서는 0.3배로 줄어든다</h2></div>
+    <div class="grid2" style="grid-template-columns:1.5fr 1fr;align-items:center">
+      <div>
+        <div class="typerow"><span style="font-size:28px;font-weight:700">페이지 제목</span><span class="sz">28pt 이상</span></div>
+        <div class="typerow"><span style="font-size:16px">본문 설명은 이 크기</span><span class="sz">14pt 이상</span></div>
+        <div class="typerow"><span style="font-size:12px">캡션 · 도면 표기</span><span class="sz">11pt 이상</span></div>
+        <p class="note">A3 대지에서 1pt ≈ 화면 1.07px. 데스크톱에서는 거의 이 크기로 보인다</p>
+      </div>
+      <div>
+        <div class="phone" aria-hidden="true"><div class="ph"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div><div class="pb"></div></div>
+        <p class="phonecap">본문 14pt → 폰에서 약 4.6px</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="export">
+  <div class="wrap">
+    <div class="shead"><span class="tag">44</span><h2>내보내기: 일러스트, 웹용으로 저장</h2></div>
+    <ol class="steps grid5" style="grid-template-columns:repeat(5,1fr)">
+      <li style="grid-template-columns:1fr"><span class="n">1</span><div><b>대지 선택</b><span>내보낼 페이지 대지를 클릭</span></div></li>
+      <li style="grid-template-columns:1fr"><span class="n">2</span><div><b>웹용으로 저장</b><span>파일 › 내보내기 › 웹용으로 저장(레거시)</span></div></li>
+      <li style="grid-template-columns:1fr"><span class="n">3</span><div><b>JPEG · Maximum</b><span>형식 JPEG, 품질 Maximum</span></div></li>
+      <li style="grid-template-columns:1fr"><span class="n">4</span><div><b>폭 1280px</b><span>연결고리 켜고 폭 1280, ‘대지에 맞게 자르기’ 체크</span></div></li>
+      <li style="grid-template-columns:1fr"><span class="n">5</span><div><b>용량 보고 저장</b><span>왼쪽 아래 용량이 1MB 이하인지</span></div></li>
+    </ol>
+    <div class="callouts">
+      <div class="callout"><b>단축키</b><p class="small">Mac <kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>S</kbd><br>Win <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>S</kbd></p></div>
+      <div class="callout warn"><b>주의</b><p class="small">‘화면용으로 내보내기’를 1x 그대로 쓰면 1191px로 나온다. 어느 방법이든 마지막에 파일 크기를 확인한다</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="thumbnail">
+  <div class="wrap">
+    <div class="shead"><span class="tag">45</span><h2>썸네일: 포토샵, 600 × 424 흑백</h2></div>
+    <div class="grid4">
+      <div class="tstep"><div class="vis v1"><i></i></div><div class="t steps"><span class="n">1</span><div><b>대표 렌더</b><span>가장 강한 한 장</span></div></div></div>
+      <div class="tstep"><div class="vis v2"></div><div class="t steps"><span class="n">2</span><div><b>자르기 600 × 424</b><span>자르기 도구에 크기 입력</span></div></div></div>
+      <div class="tstep"><div class="vis v3"><i></i></div><div class="t steps"><span class="n">3</span><div><b>흑백</b><span>이미지 › 조정 › 흑백</span></div></div></div>
+      <div class="tstep"><div class="vis v4"><span>홍길동.jpg<br><span class="mono">600 × 424</span></span></div><div class="t steps"><span class="n">4</span><div><b>JPG로 저장</b><span>파일명: 본인 이름.jpg</span></div></div></div>
+    </div>
+    <div class="callouts">
+      <div class="callout"><b>할 것</b><p class="small">피사체를 가운데 80% 안에. 공간이 한눈에 읽히는 컷</p></div>
+      <div class="callout warn"><b>하지 말 것</b><p class="small">글자·로고 넣기. 마우스를 올리면 작품명이 위에 덮인다</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="file-size">
+  <div class="wrap">
+    <div class="shead"><span class="tag">46</span><h2>용량: 장당 1MB, 한 사람 8MB 이하</h2></div>
+    <div class="grid2" style="align-items:start">
+      <div class="chartwrap">
+        <h3>2025 졸업작품 게시물 7건, 1인 합계 (MB)</h3>
+        <svg id="chart" viewBox="0 0 460 260" role="img" aria-label="2025 졸업작품 1인 합계 용량: 학생 1부터 7까지 5.9, 4.0, 4.7, 3.1, 3.1, 4.2, 2.4MB, 상한 8MB"></svg>
+        <p class="note">장당 실측: 대부분 300~650KB (최소 210KB, 최대 960KB)</p>
+      </div>
+      <div>
+        <h3 style="font-size:18px;margin-bottom:14px">1MB가 넘을 때, 이 순서로</h3>
+        <ol class="steps">
+          <li><span class="n">1</span><div><b>폭이 1280px인가</b><span>대부분 4K 렌더를 그대로 내보낸 경우</span></div></li>
+          <li><span class="n">2</span><div><b>품질 한 단계 내리기</b><span>Maximum → Very High → High, 그 아래는 쓰지 않는다</span></div></li>
+          <li><span class="n">3</span><div><b>PNG·CMYK가 아닌가</b><span>같은 장도 PNG는 3~5배 무겁다</span></div></li>
+          <li><span class="n">4</span><div><b>렌더 노이즈 정리</b><span>어두운 노이즈 렌더는 디노이즈 후 다시 배치</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="pages">
+  <div class="wrap">
+    <div class="shead"><span class="tag">47</span><h2>페이지 구성: 01부터 08까지</h2><p>02~08은 1280 × 905. 본문을 더 쓰면 09, 10으로 이어 붙인다. 04 과정과 08 영상은 빼지 않는다.</p></div>
+    <div class="grid5">
+      <div class="pg"><span class="no">01<em>헤더</em></span><span>작품명 · 개요 · 메인 이미지</span><span class="sz">1280 × 579</span></div>
+      <div class="pg"><span class="no">02</span><span>이슈 · 문제 · 해법<br>대지 분석</span><span class="sz">1280 × 905</span></div>
+      <div class="pg"><span class="no">03</span><span>컨셉 · 형태<br>다이어그램</span><span class="sz">1280 × 905</span></div>
+      <div class="pg must"><span class="no">04<em>필수</em></span><span>과정: 스케치 → 다이어그램 → 모형</span><span class="sz">1280 × 905</span></div>
+      <div class="pg"><span class="no">05</span><span>평면도 +<br>동선 다이어그램</span><span class="sz">1280 × 905</span></div>
+      <div class="pg"><span class="no">06</span><span>단면 · 입면<br>재료 · 디테일</span><span class="sz">1280 × 905</span></div>
+      <div class="pg"><span class="no">07</span><span>공간 렌더<br>(영상 시퀀스 순서)</span><span class="sz">1280 × 905</span></div>
+      <div class="pg must"><span class="no">08<em>필수</em></span><span>영상 대표 컷<br>+ 유튜브 QR</span><span class="sz">1280 × 905</span></div>
+      <div class="pg thumb"><span class="no" style="font-size:16px">이름.jpg</span><span>썸네일</span><span class="sz">600 × 424 흑백</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="submit">
+  <div class="wrap">
+    <div class="shead"><span class="tag">48 · 52</span><h2>제출: 폴더 하나를 ZIP으로</h2></div>
+    <div class="grid2" style="align-items:start">
+      <div class="tree" aria-label="제출 폴더 구조">
+        <div class="row"><span class="zip">20221234_홍길동.zip</span><span class="c">8MB 이하</span></div>
+        <div class="row i1"><span>홍길동/</span><span class="c">폴더명 = 본인 이름</span></div>
+        <div class="row i2"><span>01.jpg</span><span class="c">1280 × 579 헤더</span></div>
+        <div class="row i2"><span>02.jpg … 08.jpg</span><span class="c">1280 × 905 본문</span></div>
+        <div class="row i1"><span>홍길동.jpg</span><span class="c">600 × 424 썸네일 흑백</span></div>
+        <div class="row i1"><span>작품정보.txt</span><span class="c">작품명 / 부제 / 영문 이름 / 유튜브 주소</span></div>
+      </div>
+      <ol class="steps">
+        <li><span class="n">1</span><div><b>폴더 정리</b><span>이름 폴더에 01~08, 바깥에 썸네일과 작품정보</span></div></li>
+        <li><span class="n">2</span><div><b>ZIP 압축</b><span>학번_이름.zip, 8MB 이하인지 확인</span></div></li>
+        <li><span class="n">3</span><div><b>크기·용량 확인</b><span><kbd>Cmd</kbd> + <kbd>I</kbd>로 1280 × 579 · 1280 × 905 · 600 × 424, 장당 1MB</span></div></li>
+        <li><span class="n">4</span><div><b>LMS 과제방 업로드</b><span>원본 .ai는 내지 않고 본인이 보관</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="mistakes">
+  <div class="wrap">
+    <div class="shead"><span class="tag">49</span><h2>자주 하는 실수 다섯 가지</h2></div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>실수</th><th>왜 생기나</th><th>고치기</th></tr></thead>
+        <tbody>
+          <tr><td><b>폭이 1191·1200px</b></td><td class="muted">1x로 그대로, 또는 작년 기준(1200)으로 내보냄</td><td>폭 1280px로 다시 저장</td></tr>
+          <tr><td><b>색이 탁하다</b></td><td class="muted">인쇄 판넬 파일(CMYK) 그대로 저장</td><td>RGB로 바꾼 뒤 저장</td></tr>
+          <tr><td><b>이미지가 깨진다</b></td><td class="muted">메인 이미지가 연결(Link) 상태</td><td>포함(Embed)으로 바꿈</td></tr>
+          <tr><td><b>썸네일 크기·색 틀림</b></td><td class="muted">2025 게시판에도 693 × 490, 720 × 480, 컬러가 섞여 있음</td><td>600 × 424 흑백으로 다시</td></tr>
+          <tr><td><b>헤더가 제각각</b></td><td class="muted">템플릿 칸·글꼴을 옮기거나 바꿈</td><td>글과 이미지만 교체</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="check">
+  <div class="wrap">
+    <div class="shead"><span class="tag">50</span><h2>제출 전 셀프 체크 10</h2><p>체크한 항목은 이 브라우저에 남습니다. 아래에서 실제 파일을 넣어 크기·용량을 바로 검사할 수도 있습니다.</p></div>
+    <div class="progress"><div class="bar"><i id="pbar"></i></div><span class="mono small" id="pcount">0 / 10</span><button class="btn" id="resetChecks" type="button">체크 지우기</button></div>
+    <ul class="checklist" id="checklist">
+      <li><label><input type="checkbox" id="c1"><span>01.jpg가 1280 × 579인가</span></label></li>
+      <li><label><input type="checkbox" id="c2"><span>02~08이 1280 × 905인가</span></label></li>
+      <li><label><input type="checkbox" id="c3"><span>썸네일이 600 × 424, 흑백, 글자 없음인가</span></label></li>
+      <li><label><input type="checkbox" id="c4"><span>전부 JPG, RGB인가</span></label></li>
+      <li><label><input type="checkbox" id="c5"><span>장당 1MB, ZIP 8MB 이하인가</span></label></li>
+      <li><label><input type="checkbox" id="c6"><span>폴더명 본인 이름, 파일명 01~08인가</span></label></li>
+      <li><label><input type="checkbox" id="c7"><span>헤더 레이아웃을 바꾸지 않았나</span></label></li>
+      <li><label><input type="checkbox" id="c8"><span>메인 이미지가 Embed인가</span></label></li>
+      <li><label><input type="checkbox" id="c9"><span>본문 14pt, 캡션 11pt 이상인가</span></label></li>
+      <li><label><input type="checkbox" id="c10"><span>작품정보.txt를 넣었나</span></label></li>
+    </ul>
+    <p class="note">크기·용량 확인: 파일 선택 후 Cmd + I (윈도우: 속성 › 자세히)</p>
+
+    <div class="drop" id="drop">
+      <h3 style="font-size:18px">제출 파일 검사</h3>
+      <p class="muted small">01~08.jpg, 썸네일, 작품정보.txt를 여기에 끌어다 놓거나 선택하세요. 파일은 이 브라우저 안에서만 읽고 어디에도 올라가지 않습니다.</p>
+      <div class="btns">
+        <label class="btn primary" for="fileInput">파일 선택</label>
+        <label class="btn" for="dirInput">폴더 선택</label>
+        <button class="btn" type="button" id="clearFiles">결과 지우기</button>
+      </div>
+      <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.txt,image/*,text/plain">
+      <input type="file" id="dirInput" webkitdirectory multiple>
+    </div>
+    <div id="checkerOut" hidden>
+      <div class="summary" id="summary"></div>
+      <div class="tbl"><table id="results"><thead><tr><th>파일</th><th>역할</th><th>크기 (px)</th><th>용량</th><th>판정</th></tr></thead><tbody></tbody></table></div>
+      <p class="note">흑백은 색상 샘플링으로, RGB·CMYK는 JPG 헤더로 판별합니다. 헤더 레이아웃·Embed·글자 크기는 눈으로 확인하세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="final">
+  <div class="wrap">
+    <div class="shead"><span class="tag">51 · 53</span><h2>최종 제출: 이 세 가지 파일</h2></div>
+    <div class="finals">
+      <div class="final"><b>헤더</b><span class="file">01.jpg</span><div class="shape" style="aspect-ratio:1280/579"></div><span class="big">1280 × 579</span><span class="muted small">작품명 · 개요 · 메인 이미지</span></div>
+      <div class="final"><b>본문</b><span class="file">02~08.jpg</span><div class="shape" style="aspect-ratio:1280/905"></div><span class="big">1280 × 905</span><span class="muted small">A3 가로, 7장 기준</span></div>
+      <div class="final"><b>썸네일</b><span class="file">이름.jpg</span><div class="shape" style="aspect-ratio:600/424;width:33%"></div><span class="big">600 × 424</span><span class="muted small">흑백 · 글자 없음</span></div>
+    </div>
+    <p class="note" style="color:var(--muted)"><b class="red">공통</b> JPG · RGB · 72dpi · 장당 1MB 이하 · 일러스트 ‘웹용으로 저장’ 폭 1280px, 품질 Maximum</p>
+
+    <div class="remember">
+      <div><h3>기억할 세 가지</h3><p class="muted" style="margin-top:10px">학과 일괄 업로드 양식에 맞추는 기준</p></div>
+      <div class="rlist">
+        <div><span class="v">1280px</span><span>헤더·본문 가로 폭, 72dpi</span></div>
+        <div><span class="v">JPG</span><span>RGB, 웹용으로 저장</span></div>
+        <div><span class="v">1MB</span><span>장당 용량 상한</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">호서대학교 졸업연구 10–11주차 웹 포트폴리오 강의 35–53p 기반 · SPACE LAB 웹 포트폴리오 규격</div>
+</footer>
+
+<script>
+(function(){
+  /* chart */
+  var data=[5.9,4.0,4.7,3.1,3.1,4.2,2.4], max=8, svg=document.getElementById('chart');
+  var L=36,R=12,T=18,B=34,W=460,H=260,ph=H-T-B,pw=W-L-R,ns='http://www.w3.org/2000/svg',out='';
+  function y(v){return T+ph-(v/max)*ph}
+  [0,2,4,6,8].forEach(function(t){out+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="rgba(255,255,255,.1)"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end">'+t+'</text>'});
+  out+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(8)+'" y2="'+y(8)+'" stroke="#ec3d42" stroke-dasharray="5 4" stroke-width="1.5"/><text x="'+(W-R)+'" y="'+(y(8)-5)+'" text-anchor="end" style="fill:#ec3d42">상한 8MB</text>';
+  var slot=pw/data.length,bw=slot*.56;
+  data.forEach(function(v,i){var x=L+slot*i+(slot-bw)/2;out+='<rect x="'+x+'" y="'+y(v)+'" width="'+bw+'" height="'+(y(0)-y(v))+'" fill="#ec3d42" rx="1"/><text class="vl" x="'+(x+bw/2)+'" y="'+(y(v)-6)+'" text-anchor="middle">'+v.toFixed(1)+'</text><text x="'+(x+bw/2)+'" y="'+(H-12)+'" text-anchor="middle" style="font-family:var(--font-body)">학생 '+(i+1)+'</text>'});
+  svg.innerHTML=out;
+
+  /* nav highlight */
+  var links=[].slice.call(document.querySelectorAll('.secnav a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a){a.classList.add('on');try{a.scrollIntoView({block:'nearest',inline:'center'})}catch(_){}}}})},{rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('section.s').forEach(function(s){io.observe(s)});
+  }
+
+  /* checklist */
+  var KEY='spacelab-selfcheck-v1', boxes=[].slice.call(document.querySelectorAll('#checklist input'));
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){return {}}}
+  function save(st){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(_){}}
+  var st=load();
+  function render(){var n=boxes.filter(function(b){return b.checked}).length;document.getElementById('pbar').style.width=(n*10)+'%';document.getElementById('pcount').textContent=n+' / 10'}
+  boxes.forEach(function(b){b.checked=!!st[b.id];b.addEventListener('change',function(){st[b.id]=b.checked;save(st);render()})});
+  document.getElementById('resetChecks').addEventListener('click',function(){boxes.forEach(function(b){b.checked=false});st={};save(st);render()});
+  render();
+
+  /* file checker */
+  var MB=1000*1000, files=[];
+  var drop=document.getElementById('drop'), tbody=document.querySelector('#results tbody');
+  function chip(cls,t){return '<span class="chip '+cls+'">'+t+'</span>'}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function kb(n){return n>=MB?(n/MB).toFixed(2)+'MB':Math.round(n/1000)+'KB'}
+  function role(name,w,h){
+    var base=name.split('/').pop().toLowerCase();
+    if(/\.txt$/.test(base))return 'info';
+    var m=base.match(/^(\d{1,2})\.(jpe?g|png)$/);
+    if(m){var k=parseInt(m[1],10);if(k===1)return 'header';if(k>=2)return 'body'}
+    if(w===600&&h===424)return 'thumb';
+    if(w&&h&&w<1000)return 'thumb';
+    return 'unknown';
+  }
+  function jpegComponents(buf){
+    var d=new Uint8Array(buf),i=2;
+    if(d[0]!==0xFF||d[1]!==0xD8)return null;
+    while(i<d.length-9){
+      if(d[i]!==0xFF){i++;continue}
+      var mk=d[i+1];
+      if(mk>=0xC0&&mk<=0xCF&&mk!==0xC4&&mk!==0xC8&&mk!==0xCC)return d[i+9];
+      var len=(d[i+2]<<8)|d[i+3];i+=2+len;
+    }
+    return null;
+  }
+  function isGray(img){
+    try{var c=document.createElement('canvas');c.width=80;c.height=57;var x=c.getContext('2d');x.drawImage(img,0,0,80,57);
+      var p=x.getImageData(0,0,80,57).data,bad=0,tot=p.length/4;
+      for(var i=0;i<p.length;i+=4){var r=p[i],g=p[i+1],b=p[i+2];if(Math.max(Math.abs(r-g),Math.abs(g-b),Math.abs(r-b))>14)bad++}
+      return bad/tot<.02}catch(_){return null}
+  }
+  function analyze(f){
+    return new Promise(function(res){
+      var name=f.webkitRelativePath||f.name, r={name:name,size:f.size,file:f};
+      if(/\.txt$/i.test(f.name)){r.role='info';return res(r)}
+      if(!/^image\//.test(f.type)&&!/\.(jpe?g|png)$/i.test(f.name)){r.role='skip';return res(r)}
+      var fr=new FileReader();
+      fr.onload=function(){
+        r.comp=/\.jpe?g$/i.test(f.name)||f.type==='image/jpeg'?jpegComponents(fr.result):null;
+        var url=URL.createObjectURL(f),img=new Image();
+        img.onload=function(){r.w=img.naturalWidth;r.h=img.naturalHeight;r.role=role(name,r.w,r.h);if(r.role==='thumb')r.gray=isGray(img);URL.revokeObjectURL(url);res(r)};
+        img.onerror=function(){r.role='unknown';r.err=true;URL.revokeObjectURL(url);res(r)};
+        img.src=url;
+      };
+      fr.onerror=function(){r.role='unknown';r.err=true;res(r)};
+      fr.readAsArrayBuffer(f.slice(0,Math.min(f.size,262144)));
+    });
+  }
+  var ROLE={header:'헤더',body:'본문',thumb:'썸네일',info:'작품정보',unknown:'확인 필요'};
+  var EXPECT={header:[1280,579],body:[1280,905],thumb:[600,424]};
+  function verdict(r){
+    var out=[],ok=true;
+    if(r.role==='info'){return chip('ok','포함')}
+    if(r.err){return chip('bad','열 수 없는 파일')}
+    var jpg=/\.jpe?g$/i.test(r.name);
+    if(!jpg){out.push(chip('bad','JPG 아님'));ok=false}
+    var e=EXPECT[r.role];
+    if(e){if(r.w!==e[0]||r.h!==e[1]){out.push(chip('bad',e[0]+' × '+e[1]+'이어야 함'));ok=false}}
+    else{out.push(chip('warn','파일명을 01~08 또는 본인 이름으로'));ok=false}
+    if(r.size>MB){out.push(chip('bad','1MB 초과'));ok=false}
+    if(r.comp===4){out.push(chip('bad','CMYK → RGB로'));ok=false}
+    if(r.role==='thumb'&&r.gray===false){out.push(chip('bad','흑백 아님'));ok=false}
+    if(ok)out.unshift(chip('ok','통과'));
+    return out.join('');
+  }
+  function renderResults(){
+    var list=files.filter(function(r){return r.role!=='skip'});
+    document.getElementById('checkerOut').hidden=!list.length;
+    list.sort(function(a,b){return a.name.localeCompare(b.name,'ko',{numeric:true})});
+    tbody.innerHTML=list.map(function(r){return '<tr><td class="f">'+esc(r.name)+'</td><td>'+(ROLE[r.role]||'')+'</td><td class="mono">'+(r.w?r.w+' × '+r.h:'—')+'</td><td class="mono">'+kb(r.size)+'</td><td>'+verdict(r)+'</td></tr>'}).join('');
+    var total=list.reduce(function(s,r){return s+r.size},0);
+    var have={};list.forEach(function(r){var b=r.name.split('/').pop().toLowerCase().match(/^(\d{1,2})\.jpe?g$/);if(b)have[parseInt(b[1],10)]=1});
+    var miss=[];for(var i=1;i<=8;i++)if(!have[i])miss.push(('0'+i).slice(-2)+'.jpg');
+    var hasThumb=list.some(function(r){return r.role==='thumb'}),hasInfo=list.some(function(r){return r.role==='info'});
+    var s=[];
+    s.push(chip('',list.length+'개 파일'));
+    s.push(total>8*MB?chip('bad','합계 '+kb(total)+' · 8MB 초과'):chip('ok','합계 '+kb(total)+' · 8MB 이하'));
+    s.push(miss.length?chip('bad','없음: '+miss.join(', ')):chip('ok','01~08 모두 있음'));
+    s.push(hasThumb?chip('ok','썸네일 있음'):chip('bad','썸네일 없음'));
+    s.push(hasInfo?chip('ok','작품정보.txt 있음'):chip('bad','작품정보.txt 없음'));
+    document.getElementById('summary').innerHTML=s.join('');
+  }
+  function addFiles(fl){
+    var arr=[].slice.call(fl).filter(function(f){return !/^\./.test(f.name)});
+    Promise.all(arr.map(analyze)).then(function(rs){
+      rs.forEach(function(r){files=files.filter(function(o){return o.name!==r.name});files.push(r)});
+      renderResults();
+    });
+  }
+  document.getElementById('fileInput').addEventListener('change',function(e){addFiles(e.target.files);e.target.value=''});
+  document.getElementById('dirInput').addEventListener('change',function(e){addFiles(e.target.files);e.target.value=''});
+  document.getElementById('clearFiles').addEventListener('click',function(){files=[];renderResults()});
+  ['dragenter','dragover'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove('over')})});
+  drop.addEventListener('drop',function(e){if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files)});
+})();
+</script>
+</body>
+</html>
