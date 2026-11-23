@@ -667,6 +667,7 @@ async function handleOrder(text){
   if(!CAP.sample){const r=localRoute(text);const o={text,at:Date.now(),status:'접수',...r};ORDERS.unshift(o);saveOrder(o);renderInbox();notionPush(o);bot.content='지금은 Claude 연결이 허용되지 않아 바로 진행하지 못했어요. 노션 지시함에 넣어 두었고, 다음 정해진 시간(07:31·16:31)에 처리해 결과를 보고에 올릴게요.';renderChat();saveChat();return}
   chatBusy=true;chatStart=Date.now();chatAbort=new AbortController();
   await (CAP.mcp?withTO(Promise.all([projFolders(),loadShared()]),5000):null);window.__logged=false;const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
+  if(hist.length){const L=hist[hist.length-1];L.content=L.content+'\n\n---\n[자동 첨부 · 최근 공유 기록 (프로젝트 채팅창·HQ·자동 작업)]\n'+(SHARED_LOG||'(불러오지 못함 — 필요하면 read_handoff로 인계 문서를 읽을 것)').slice(0,3500)+'\n[지침] 위 기록과 해당 프로젝트 인계 문서(read_handoff)를 근거로 바로 답하고 진행한다. 되묻는 말로 끝내지 않는다. 마지막에 share_log를 호출한다.'}
   const msgs=[{role:'user',content:chatSys()+'\n\n(여기까지 업무 기준. 대표와의 대화가 이어집니다.)'},{role:'assistant',content:'네, 대표님. 말씀하시면 바로 진행할게요.'},...hist];
   const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();if(t.name==='share_log'){window.__logged=true;shareLog(i.project,i.summary,i.link);return{saved:'기록 중'}}try{return await withTO(t.execute(i),30000)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
   try{let canImg=false;try{canImg=!!(imgs.length&&(await CAP.sample.limits()).images)}catch(e){}
