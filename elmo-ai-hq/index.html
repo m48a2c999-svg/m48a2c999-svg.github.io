@@ -551,7 +551,7 @@ const CAP={sample:null,db:null,mcp:null,dict:null};
  if(window.claude&&claude.use&&window.IS_OWNER){
   claude.use('sample').then(v=>CAP.sample=v).catch(()=>{});
   claude.use('dictation').then(v=>{CAP.dict=v;if(v)setupMic()}).catch(()=>{});
-  claude.use('mcp').then(v=>{CAP.mcp=v;if(v){notionSync().then(loadReal);setInterval(()=>notionSync().then(loadReal),600000)}}).catch(()=>{});
+  claude.use('mcp').then(v=>{CAP.mcp=v;if(v){setTimeout(()=>notionSync().then(loadReal),2500);setInterval(()=>notionSync().then(loadReal),600000)}}).catch(()=>{});
   (window.DBCAP?Promise.resolve(window.DBCAP):claude.use('db')).then(v=>{CAP.db=v;if(v){subscribeDB();subscribeVisits();subscribeSites();loadChat()}}).catch(()=>{});
 }}catch(e){}})();
 
@@ -689,8 +689,9 @@ const fileId=r=>r&&(r.id||(r.file&&r.file.id)||((JSON.stringify(r).match(/"id"\s
 const LOG_DS='42162081-6f83-8199-967f-000ba4ac9a3e';let SHARED_LOG='',sharedAt=0;
 
 const LOG_VIEW='view://42162081-6f83-817e-ba6c-000c035cd499';
-async function logRows(){const tb='collection://'+LOG_DS;try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});const rows=rowsOf(r);if(rows.length)return rows}catch(e){}
-  try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{mode:'view',view_url:LOG_VIEW,page_size:100}});const rows=rowsOf(r).map(x=>{const p=x.properties||x;return{'한 일':String(p['한 일']||p.title||'').replace(/\\/g,''),'팀':p['팀']||'',createdTime:x.createdTime||x.created_time||p['date:날짜:start']||p['날짜']||''}}).filter(x=>x['한 일']);rows.sort((a,b)=>String(b.createdTime).localeCompare(String(a.createdTime)));return rows.slice(0,25)}catch(e){return[]}}
+async function logRows(){const tb='collection://'+LOG_DS;
+  try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{mode:'view',view_url:LOG_VIEW,page_size:40}});const rows=rowsOf(r).map(x=>{const p=x.properties||x;return{'한 일':String(p['한 일']||p.title||'').replace(/\\/g,''),'팀':p['팀']||'',createdTime:x.createdTime||x.created_time||p['date:날짜:start']||p['날짜']||''}}).filter(x=>x['한 일']);if(rows.length)return rows.slice(0,25)}catch(e){}
+  try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});return rowsOf(r)}catch(e){return[]}}
 async function shareLog(project,summary,link){if(!CAP.mcp)return{saved:false};try{const props={'한 일':('['+(project||'미분류')+'] '+summary).slice(0,190),'팀':(project||'미분류')+' · AI HQ 대화','비서':'ELMO-0','date:날짜:start':ymd(kst())};if(link&&/^https?:/.test(link))props['결과물']=link;await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:LOG_DS},pages:[{properties:props}]});sharedAt=0;return{saved:true}}catch(e){return{saved:false}}}
 async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{SHARED_LOG=(await logRows()).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
 const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',drive_search:'드라이브 검색',add_schedule:'일정 추가'};
@@ -924,7 +925,7 @@ function orbitStep(dt){if(!orbitOn)return;const prev=new Map();ORB.forEach(e=>pr
   const mv=(a,e)=>{if(!e||!prev.has(e))return;const q=prev.get(e),dx=e.cx-q[0],dy=e.cy-q[1];a.gx+=dx;a.gy+=dy;a.tx+=dx;a.ty+=dy};
   teamAgents.forEach(a=>mv(a,a.team.div));mv(chief,chief.anchor);mv(officer,officer.anchor);mv(inspector,inspector.anchor);mv(ceoAgent,CEO);mv(cloneAgent,CEO);
   if(focusId&&panelState){const e=ENT[focusId];if(e&&prev.has(e)){const p=iso(e.cx,e.cy,0),wide=W>760;tCamX=(W-(wide?420:0))/2-p[0]*tZoom;tCamY=(wide?H/2-40:H*.2)-p[1]*tZoom+30}}}
-function fit(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.min(window.devicePixelRatio||1,LOW?1.5:2);cv.width=W*DPR;cv.height=H*DPR;
+function fit(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.min(window.devicePixelRatio||1,1.5);cv.width=W*DPR;cv.height=H*DPR;
   const z0=W<=760?Math.max(.2,Math.min(.42,(W-40)/1350)):Math.min((W-150)/2380,(H-190)/1300);tZoom=Math.max(.15,Math.min(1.15,z0));if(!fit.done){zoom=tZoom;camX=tCamX=W/2;camY=tCamY=W>760?H/2-10:H*.5;fit.done=1}}
 window.addEventListener('resize',()=>{fit.done=0;fit()});
 function resetView(){fit.done=0;fit();closePanel()}
@@ -1032,8 +1033,8 @@ function hqDraw(t){const p=iso(0,0,0),r=4.4,rx=r*TW/2*Math.SQRT2,ry=r*TH/2*Math.
   ctx.strokeStyle=hexA('#5ad1ff',.5);ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(p[0],top,rx*.62,ry*.62,0,-t*.8,-t*.8+1.4);ctx.stroke();
   if(HQ.pulse>0){const k=1-HQ.pulse;ctx.strokeStyle=hexA(c,HQ.pulse);ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(p[0],top,rx*(1+k*.9),ry*(1+k*.9),0,0,7);ctx.stroke();HQ.pulse=Math.max(0,HQ.pulse-.01)}}
 /* 중앙 행성 — 파티클 셸 + 펄 코어 (레퍼런스: 도트 글로브 · 파티클 구체 · 이리데센트 오브) */
-const SHELL=(()=>{const N=LOW?760:1700,g=Math.PI*(3-Math.sqrt(5)),pts=[];for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),ph=i*g;pts.push([Math.cos(ph)*r,y,Math.sin(ph)*r,Math.random()])}return pts})();
-const RIBBON=[0,1,2].map(k=>{const M=LOW?110:240;return Array.from({length:M},(_,i)=>[i/M*Math.PI*2,Math.random()])});
+const SHELL=(()=>{const N=LOW?600:1100,g=Math.PI*(3-Math.sqrt(5)),pts=[];for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),ph=i*g;pts.push([Math.cos(ph)*r,y,Math.sin(ph)*r,Math.random()])}return pts})();
+const RIBBON=[0,1,2].map(k=>{const M=LOW?90:160;return Array.from({length:M},(_,i)=>[i/M*Math.PI*2,Math.random()])});
 function pearl(cx,cy,r,c1,c2,t,ph,al){ctx.save();ctx.beginPath();ctx.arc(cx,cy,r,0,7);ctx.clip();
   const b=ctx.createRadialGradient(cx-r*.3,cy-r*.35,r*.05,cx,cy,r);b.addColorStop(0,`rgba(255,255,255,${.95*al})`);b.addColorStop(.65,`rgba(236,228,255,${.85*al})`);b.addColorStop(1,`rgba(196,176,255,${.75*al})`);ctx.fillStyle=b;ctx.fillRect(cx-r,cy-r,r*2,r*2);
   const a=t*.9+ph,x1=cx+Math.cos(a)*r*.35,y1=cy+Math.sin(a*1.3)*r*.18,x2=cx-Math.cos(a)*r*.3,y2=cy+r*.12-Math.sin(a)*r*.12;
@@ -1125,13 +1126,15 @@ function bubble(a){if(!a.bubble)return;if(zoom<.45&&a.kind==='team')return;const
 function nameTag(a){if(a.kind==='team'&&zoom<.85)return;if(zoom<.42)return;const[sx,sy]=toScreen(a._sx,a._sy);const t=a.kind==='chief'?'총괄 비서':a.kind==='ceo'?'ELMO':a.kind==='alt'?'대표 분신':a.kind==='cio'?'개선 실장':a.kind==='qa'?'감리 팀장':a.kind==='sec'?'보안 전문가':a.team.agent;ctx.font='700 10.5px "Noto Sans KR",sans-serif';const w=ctx.measureText(t).width+12;const y=sy+(a.kind==='team'?46:62)*zoom*(a.scale/.82)*.82;ctx.fillStyle='rgba(6,10,22,.78)';rr(sx-w/2,y,w,17,6);ctx.fill();ctx.fillStyle=a.color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(t,sx,y+9)}
 
 /* ---- loop ---- */
+const BGC=document.createElement('canvas'),bgx=BGC.getContext('2d');let bgAt=-99,bgW=0,bgH=0;
+function drawBG(t){if(t-bgAt>2.5||bgW!==W||bgH!==H){bgAt=t;bgW=W;bgH=H;BGC.width=Math.max(1,Math.round(W*DPR));BGC.height=Math.max(1,Math.round(H*DPR));const ctx=bgx;ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=218+14*Math.sin(t*.04),hu2=196+20*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},48%,36%)`);bg.addColorStop(.5,`hsl(${hu+6},50%,21%)`);bg.addColorStop(1,`hsl(${hu+10},52%,11%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+14,.2],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,192,.08]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},80%,70%,${al*1.7})`);nb.addColorStop(1,`hsla(${h},80%,62%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
+  stars.forEach(s=>{ctx.fillStyle=`rgba(220,225,255,${.12+.3*Math.sin(t*.6+s.p)**2})`;ctx.fillRect(s.x*W,s.y*H,s.r,s.r)});}ctx.drawImage(BGC,0,0,W,H)}
 let last=performance.now(),acc=0;
-function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const minDt=view!=='space'?160:(LOW?30:0);if(now-last<minDt)return;
+function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const bc=document.body.classList;const minDt=view!=='space'?160:(bc.contains('chatting')||panelState)?110:bc.contains('idle')?66:(LOW?42:30);if(now-last<minDt)return;
   const dt=Math.min(.06,(now-last)/1000);last=now;const t=(now-T0)/1000;
   zoom+=(tZoom-zoom)*.09;camX+=(tCamX-camX)*.09;camY+=(tCamY-camY)*.09;
   orbitStep(dt);teamAgents.forEach(a=>{teamUpdate(a,dt);a.update(dt)});chiefUpdate(dt);chief.update(dt);officerUpdate(dt);officer.update(dt);inspectorUpdate(dt);inspector.update(dt);guardUpdate(dt);guard.update(dt);ceoUpdate(dt);ceoAgent.update(dt);cloneUpdate(dt);cloneAgent.update(dt);
-  ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=218+14*Math.sin(t*.04),hu2=196+20*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},48%,36%)`);bg.addColorStop(.5,`hsl(${hu+6},50%,21%)`);bg.addColorStop(1,`hsl(${hu+10},52%,11%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+14,.2],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,192,.08]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},80%,70%,${al*1.7})`);nb.addColorStop(1,`hsla(${h},80%,62%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
-  stars.forEach(s=>{ctx.fillStyle=`rgba(220,225,255,${.12+.3*Math.sin(t*.6+s.p)**2})`;ctx.fillRect(s.x*W,s.y*H,s.r,s.r)});
+  ctx.setTransform(DPR,0,0,DPR,0,0);drawBG(t);
   ctx.setTransform(DPR*zoom,0,0,DPR*zoom,DPR*camX,DPR*camY);
   floor(t);packetDraw(dt);
   const it=[];it.push({d:-.6,f:()=>hqDraw(t)});it.push({d:.1,f:()=>hqTower(t)});
