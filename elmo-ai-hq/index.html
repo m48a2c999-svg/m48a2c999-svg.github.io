@@ -574,8 +574,8 @@ async function notionSync(){if(!CAP.mcp)return;try{const tb='collection://'+NOTI
 /* ---------- 총괄 비서 대화 (Claude처럼 말하면 알아서 진행) ---------- */
 let CHAT=[],chatBusy=false,chatAbort=null;
 function mdLite(s){let h=esc(s||'');h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,4} (.+)$/gm,'<b>$1</b>').replace(/^[-•] (.+)$/gm,'<span class="li">· $1</span>').replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');return h.replace(/<\/span>\n/g,'</span>').replace(/\n/g,'<br>')}
-function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안</div>';el.scrollTop=el.scrollHeight}
-function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){closePanel&&panelState&&closePanel();renderChat()}}
+function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안'+(SHARED_LOG?'<br><br><b>최근 공유 기록</b> (프로젝트 채팅창·HQ·자동 작업)<br>'+esc(SHARED_LOG.split(String.fromCharCode(10)).slice(0,6).join(String.fromCharCode(10))).replace(/\n/g,'<br>'):'')+'</div>';el.scrollTop=el.scrollHeight}
+function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){if(typeof loadShared==='function'&&!CHAT.length)loadShared().then(renderChat);closePanel&&panelState&&closePanel();renderChat()}}
 function saveChat(){if(!CAP.db)return;try{CAP.db.collection('chat').doc('main').set({msgs:CHAT.slice(-60).map(m=>({role:m.role,content:m.content,at:m.at||0})),at:Date.now()}).catch(()=>{})}catch(e){}}
 function loadChat(){try{CAP.db.collection('chat').limit(1).onSnapshot(snap=>{const arr=snap&&snap.docs?snap.docs.map(d=>typeof d.data==='function'?d.data():(d.data||d)):[];const m=arr[0]&&arr[0].msgs;if(Array.isArray(m)&&!chatBusy&&m.length>=CHAT.length){CHAT=m;renderChat()}},()=>{})}catch(e){}}
 function chatSys(){
@@ -588,10 +588,17 @@ function chatSys(){
 - 일거리(지시)를 받았으면 log_task 도구로 노션 지시함에 기록한다: 결과물을 보여줬으면 상태 '피드백 대기', 대표 피드백으로 마무리되면 '보고'. 잡담·단순 질문은 기록하지 않는다.
 - 결제·송금·서명·로그인·비밀번호·대표 이름으로 외부 발송은 하지 않는다. 그런 단계는 준비까지 해 두고 "대표님 손이 필요한 일: …" 한 줄로 따로 적고, log_task 상태는 '대표 손 필요'.
 - 작업은 대표가 만들어 둔 기존 프로젝트 폴더에서 이어서 한다. 결과물 문서는 save_doc으로 [프로젝트 폴더] 목록 중 맞는 폴더에 [검토용]으로 저장하고 링크를 답에 넣는다. 새 폴더는 만들지 않는다. 완성 확정(대표가 좋다고 함) 후 최종본 정리는 지시함에 '보고'로 남기면 정해진 작업이 99_최종본에 옮긴다.
-- 대표가 파일을 올리면 내용을 읽고(사진은 직접 보고) 바로 일을 진행한다. 원본은 save_upload로 맞는 프로젝트 폴더에 저장한다.
+- 대표가 파일을 올리면 내용을 읽고(사진은 직접 보고, PDF·워드는 save_upload 후 read_drive_file) 바로 일을 진행한다. 원본은 맞는 프로젝트 폴더에 저장한다.
 - 일정·메일·드라이브가 필요하면 도구로 직접 확인한다. 일정 추가 요청은 add_schedule.
 - 회사: 서울 인테리어 설계·시공. 실내건축공사업 면허 없음 → 공공입찰 제외, 전문공사 1,500만원 이상은 면허 보유 협력사 원도급.
 - 말투: 해요체, 짧고 실무적으로. 결과물은 바로 쓸 수 있게.
+[대화 공유 — 가장 중요]
+- 대표는 Claude 프로젝트 채팅창과 이 HQ 대화를 오가며 같은 프로젝트를 이야기한다. 두 곳은 노션 업무 로그와 Drive 프로젝트 폴더 인계 문서로 이어진다.
+- 어떤 프로젝트 이야기인지 판단되면 read_handoff로 그 폴더의 인계 문서를 먼저 읽고, 거기서 이어서 진행한다(프로젝트 채팅창에서 한 이야기가 거기 있다).
+- 답변을 마칠 때마다 share_log로 프로젝트 이름과 요약을 남긴다. 이렇게 남긴 기록을 프로젝트 채팅창과 08:00·17:00 보고가 이어받는다.
+- 올린 PDF·문서는 save_upload로 저장한 뒤 read_drive_file로 내용을 읽을 수 있다.
+[최근 공유 기록 — 프로젝트 채팅창·HQ·자동 작업]
+${SHARED_LOG||'(불러오지 못함)'}
 [분신 기준 — 대표 스타일]
 ${CLONE.principles.map(x=>'- '+x).join('\n')}
 [팀 코드] ${roster}
@@ -600,6 +607,12 @@ ${proj}
 [프로젝트 폴더 — 11_프로젝트 공용 작업파일]
 ${(PF||[]).map(f=>f.name).join(' / ')||'(목록을 못 불러옴 — save_doc 호출 시 받은 목록을 쓴다)'}`}
 const CHAT_TOOLS=()=>[
+ {name:'read_handoff',description:'프로젝트 폴더의 인계 문서(최신 상태·다음 할 일·공유 대화 기록)를 읽는다. 어떤 프로젝트 이야기인지 알면 먼저 호출해 이어서 진행한다.',inputSchema:{type:'object',properties:{project:{type:'string'}},required:['project']},
+  async execute(i){await projFolders();const f=pickFolder(i.project);if(!f)return{error:'폴더 없음',folders:(PF||[]).map(x=>x.name)};const s=await mcpCall('Google Drive','search_files',{query:`parentId = '${f.id}' and title contains '인계'`,pageSize:5,excludeContentSnippets:true});const doc=(s.files||s.items||[])[0];const list=await mcpCall('Google Drive','search_files',{query:`parentId = '${f.id}'`,pageSize:30,excludeContentSnippets:true,orderBy:'modifiedTime desc'}).catch(()=>({}));const files=((list.files||list.items||[]).slice(0,15)).map(x=>({name:x.title||x.name,id:x.id}));if(!doc)return{folder:f.name,handoff:'(인계 문서 없음)',files};const r=await mcpCall('Google Drive','read_file_content',{fileId:doc.id});const txt=(r&&(r.content||r.text))||JSON.stringify(r);return{folder:f.name,handoff:String(txt).slice(-7000),files}}},
+ {name:'read_drive_file',description:'드라이브 파일 내용을 읽는다(구글 문서·PDF·워드·엑셀·이미지 등). fileId는 read_handoff나 save_upload가 돌려준 값.',inputSchema:{type:'object',properties:{fileId:{type:'string'}},required:['fileId']},
+  async execute(i){const r=await mcpCall('Google Drive','read_file_content',{fileId:i.fileId});return String((r&&(r.content||r.text))||JSON.stringify(r)).slice(0,12000)}},
+ {name:'share_log',description:'매 답변을 마칠 때 반드시 호출: 이 대화 내용을 프로젝트 공유 기록(노션 업무 로그)에 남겨 Claude 프로젝트 채팅창·보고와 같은 흐름으로 이어지게 한다.',inputSchema:{type:'object',properties:{project:{type:'string',description:'프로젝트 폴더 이름(없으면 엘모컴퍼니 운영)'},summary:{type:'string',description:'대표가 말한 것 + 비서가 한 것 2~3줄'},link:{type:'string',description:'결과물 링크(있으면)'}},required:['project','summary']},
+  async execute(i){window.__logged=true;return await shareLog(i.project,i.summary,i.link)}},
  {name:'save_doc',description:'결과물(문서)을 대표가 만들어 둔 기존 프로젝트 폴더(11_프로젝트 공용 작업파일/<프로젝트>)에 [검토용] 구글 문서로 저장하고 링크를 돌려준다. project는 [프로젝트 폴더] 목록의 이름 그대로.',inputSchema:{type:'object',properties:{project:{type:'string'},title:{type:'string'},content:{type:'string',description:'문서 본문 전체'}},required:['project','title','content']},
   async execute(i){await projFolders();const f=pickFolder(i.project);if(!f)return{error:'그 이름의 프로젝트 폴더가 없어요. 목록에서 가장 가까운 폴더 이름으로 다시 저장하세요.',folders:(PF||[]).map(x=>x.name)};const t=/^\[검토용\]/.test(i.title)?i.title:'[검토용] '+i.title;const r=await mcpCall('Google Drive','create_file',{title:t,parentId:f.id,textContent:i.content,contentMimeType:'text/plain'});const id=fileId(r);return{saved:true,folder:f.name,url:id?`https://docs.google.com/document/d/${id}/edit`:''}}},
  {name:'save_upload',description:'대표가 이번에 올린 첨부 파일을 해당 프로젝트 폴더에 원본 그대로 저장한다. index는 첨부 번호(1부터).',inputSchema:{type:'object',properties:{index:{type:'number'},project:{type:'string'}},required:['index','project']},
@@ -631,7 +644,11 @@ function b64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onl
 async function projFolders(){if(PF&&PF.length)return PF;try{const p=await mcpCall('Google Drive','search_files',{query:`parentId = '${WORK_ID}' and mimeType = 'application/vnd.google-apps.folder'`,pageSize:100,excludeContentSnippets:true});PF=(p.files||p.items||[]).map(f=>({id:f.id,name:f.title||f.name})).filter(f=>f.id&&f.name)}catch(e){PF=[]}return PF}
 function pickFolder(name){const n=String(name||'').replace(/\s+/g,'').toLowerCase();if(!PF||!n)return null;const nm=f=>f.name.replace(/\s+/g,'').toLowerCase();return PF.find(f=>nm(f)===n)||PF.find(f=>nm(f).includes(n)||n.includes(nm(f)))||null}
 const fileId=r=>r&&(r.id||(r.file&&r.file.id)||((JSON.stringify(r).match(/"id"\s*:\s*"([\w-]{20,})"/)||[])[1]))||'';
-const TOOL_KO={save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
+
+const LOG_DS='42162081-6f83-8199-967f-000ba4ac9a3e';let SHARED_LOG='',sharedAt=0;
+async function shareLog(project,summary,link){if(!CAP.mcp)return{saved:false};try{const props={'한 일':('['+(project||'미분류')+'] '+summary).slice(0,190),'팀':(project||'미분류')+' · AI HQ 대화','비서':'ELMO-0','date:날짜:start':ymd(kst())};if(link&&/^https?:/.test(link))props['결과물']=link;await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:LOG_DS},pages:[{properties:props}]});sharedAt=0;return{saved:true}}catch(e){return{saved:false}}}
+async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{const tb='collection://'+LOG_DS;const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});SHARED_LOG=rowsOf(r).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
+const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
 async function handleOrder(text){
   if(!window.IS_OWNER){toast(LOCK_MSG);return}
   text=text.trim();if((!text&&!ATT.length)||chatBusy)return;$('#cmdIn').value='';chatOpen(true);
@@ -643,7 +660,7 @@ async function handleOrder(text){
   ceoAgent.say(text.slice(0,30),3.4);fly('ceo','hq','#ffd27a',3);pushFeed('ceo',text);setStatus('<b>총괄 비서</b>가 진행하고 있어요…');
   if(!CAP.sample){const r=localRoute(text);const o={text,at:Date.now(),status:'접수',...r};ORDERS.unshift(o);saveOrder(o);renderInbox();notionPush(o);bot.content='지금은 Claude 연결이 허용되지 않아 바로 진행하지 못했어요. 노션 지시함에 넣어 두었고, 다음 정해진 시간(07:31·16:31)에 처리해 결과를 보고에 올릴게요.';renderChat();saveChat();return}
   chatBusy=true;chatAbort=new AbortController();
-  await (CAP.mcp?projFolders():null);const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
+  await (CAP.mcp?Promise.all([projFolders(),loadShared()]):null);window.__logged=false;const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
   const msgs=[{role:'user',content:chatSys()+'\n\n(여기까지 업무 기준. 대표와의 대화가 이어집니다.)'},{role:'assistant',content:'네, 대표님. 말씀하시면 바로 진행할게요.'},...hist];
   const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();try{return await t.execute(i)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
   try{let canImg=false;try{canImg=!!(imgs.length&&(await CAP.sample.limits()).images)}catch(e){}
@@ -651,6 +668,7 @@ async function handleOrder(text){
     chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
   catch(e){if(e&&e.code==='not_granted')CAP.sample=null;bot.content=(e&&e.text)||('진행 중 문제가 생겼어요 ('+((e&&e.code)||'오류')+'). 다시 보내 주시면 이어서 할게요.');setStatus('총괄 비서 응답 오류')}
   chatBusy=false;renderChat();saveChat();
+  if(CAP.mcp&&!window.__logged&&bot.content&&!/문제가 생겼어요/.test(bot.content)){shareLog('미분류',(text.slice(0,80)+' → '+bot.content.replace(/\s+/g,' ').slice(0,100)))}
 }
 function setStatus(h){$('#status').innerHTML=h}
 
