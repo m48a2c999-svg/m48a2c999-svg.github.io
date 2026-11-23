@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<style>:root{--bg:#ece9ff;--ink:#e9eefc;--mute:#8c97b8;--line:rgba(140,170,255,.16);--glass:rgba(12,17,34,.74);--glass2:rgba(18,25,48,.9);--gold:#ffe08a;--kr:'Noto Sans KR',system-ui,sans-serif;--en:'Space Grotesk','Noto Sans KR',sans-serif;--sb:env(safe-area-inset-bottom,0px)}
+<style>:root{--bg:#04050a;--ink:#e9eefc;--mute:#8c97b8;--line:rgba(140,170,255,.16);--glass:rgba(12,17,34,.74);--glass2:rgba(18,25,48,.9);--gold:#ffe08a;--kr:'Noto Sans KR',system-ui,sans-serif;--en:'Space Grotesk','Noto Sans KR',sans-serif;--sb:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--kr);overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 canvas#world{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
@@ -285,15 +285,6 @@ body.visitor .chat{display:none}
 .ac small{color:#9aa6c8}.ac button{background:none;border:0;color:#cfd8f5;cursor:pointer;font-size:14px;line-height:1}
 .cbtn.clip{font-size:16px}
 body.visitor .cbtn.clip{display:none}
-
-/* ---- 밝은 배경 ---- */
-.brand h1{background:linear-gradient(100deg,#262a5e 0%,#262a5e 30%,#6b4cff 42%,#2f6bff 50%,#c2378f 58%,#262a5e 70%,#262a5e 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand small{color:#5a6194}
-.clock{color:#545c8c;text-shadow:0 2px 14px rgba(255,255,255,.7)}
-.clock b{color:#232756}
-.status{color:#4a5180}
-.status b{color:#2b2f66}
-.status a{color:#5b3fd6!important}
 </style>
 </head>
 <body>
@@ -458,7 +449,7 @@ var CLONE={"id": "alt", "code": "ELMO-α", "name": "대표 분신", "agent": "�
 var SECURITY={"id": "sec", "code": "ELMO-S", "name": "보안실", "agent": "보안 전문가", "color": "#9ff5d6", "icon": "⛨", "mission": "누가 이 공간과 엘모가 관리하는 사이트에 들어오는지 지켜봅니다. 방문 기록·통계를 정리하고, 공유 링크·연결된 앱 권한·의심 메일(가짜 송금 영수증 등)을 점검해 대표께 알립니다.", "duties": ["AI HQ 방문자·접근 기록 정리 (대표 본인 제외)", "엘모 관리 사이트 방문 통계 정리 (GA4 등 연결 후)", "공유 링크·연결 앱 권한 점검 — 필요 없는 권한 정리 제안", "의심 메일·송금 영수증·피싱 링크 점검", "비밀번호·인증 정보는 다루지 않음 — 로그인은 대표 본인 또는 비밀번호 관리자"], "rules": ["비밀번호·인증 코드·계좌번호 저장 금지", "권한 변경은 제안까지만, 적용은 대표가 직접", "방문자 정보는 이름·횟수·시간만 (대표만 열람)"], "autos": [["가동", "방문할 때마다 접근 기록 저장 (대표만 열람)"], ["신설", "17:00 종합 보고에 방문 통계 한 줄"]]};
 var PARTNERS=[];
 var PARTNER_LEVELS=[["L1 메일", "파트너 메일을 Gmail 라벨로 자동 분류 → 담당 팀 브리핑. 회신은 초안까지만, 발송은 대표 승인 후."], ["L2 공유 폴더", "파트너별 Drive 폴더 (보기/수정 권한 분리). 새 파일이 올라오면 담당 팀이 확인하고 보고."], ["L3 노션 게스트", "진행 현황·요청 사항을 파트너 전용 노션 페이지로 공유. 우리 내부 기록은 보이지 않음."], ["L4 파트너 포털", "이 페이지처럼 파트너 전용 페이지를 지정한 사람에게만 공유. 파트너가 남긴 요청이 지시함으로 들어옴."]];
-var HUB_LINKS={"drive": [], "web": [["elmocompany.com", "https://www.elmocompany.com", "EC", "#ffd27a", "홈페이지 · 포트폴리오"], ["scalebuild.kr", "https://scalebuild.kr", "SB", "#b18cff", "스케일빌드"], ["yeonlink.com", "https://yeonlink.com", "YL", "#3ee6d0", "연링크"], ["연링크 블로그", "https://blog.naver.com/yeonlink_official", "N", "#3ee6d0", "네이버 블로그"]], "sns": [["@elmocompany_", "https://www.instagram.com/elmocompany_/", "IG", "#ff8a5c", "엘모컴퍼니"], ["@scalebuild.kr", "https://www.instagram.com/scalebuild.kr/", "IG", "#b18cff", "스케일빌드"], ["@yeonlink.app", "https://www.instagram.com/yeonlink.app/", "IG", "#3ee6d0", "연링크"], ["@bombata.korea", "https://www.instagram.com/bombata.korea/", "IG", "#3ee6d0", "봄바타"], ["ELMO TV", "https://www.youtube.com/@elmotv4088", "YT", "#ff5d7a", "유튜브"]], "tools": []};
+var HUB_LINKS={"drive": [], "web": [["elmocompany.com", "https://www.elmocompany.com", "EC", "#ffd27a", "홈페이지 · 포트폴리오"], ["scalebuild.kr", "https://scalebuild.kr", "SB", "#b18cff", "스케일빌드"], ["yeonlink.com", "https://yeonlink.com", "YL", "#3ee6d0", "연링크"], ["연링크 블로그", "https://blog.naver.com/yeonlink_official", "N", "#3ee6d0", "네이버 블로그"], ["AI HQ (Claude)", "https://claude.ai/artifact/ViLRgwVigNbe9UvZWvhrem", "AI", "#ffe08a", "대표 전용 HQ"], ["AI HQ 공개 (GitHub)", "https://m48a2c999-svg.github.io/elmo-ai-hq/", "GH", "#c9b6ff", "공개 화면"], ["GitHub 저장소", "https://github.com/m48a2c999-svg/m48a2c999-svg.github.io", "GH", "#9aa6c8", "코드"]], "sns": [["@elmocompany_", "https://www.instagram.com/elmocompany_/", "IG", "#ff8a5c", "엘모컴퍼니"], ["@scalebuild.kr", "https://www.instagram.com/scalebuild.kr/", "IG", "#b18cff", "스케일빌드"], ["@yeonlink.app", "https://www.instagram.com/yeonlink.app/", "IG", "#3ee6d0", "연링크"], ["@bombata.korea", "https://www.instagram.com/bombata.korea/", "IG", "#3ee6d0", "봄바타"], ["ELMO TV", "https://www.youtube.com/@elmotv4088", "YT", "#ff5d7a", "유튜브"]], "tools": []};
 </script>
 <script>function miniLogo(cv){if(!cv||!cv.getContext)return;const ctx=cv.getContext('2d');const D=Math.min(window.devicePixelRatio||1,2);const S=cv.clientWidth||54;cv.width=S*D;cv.height=S*D;
  const N=320,g=Math.PI*(3-Math.sqrt(5)),P=[];for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),ph=i*g;P.push([Math.cos(ph)*r,y,Math.sin(ph)*r,Math.random()])}
@@ -655,8 +646,12 @@ function pickFolder(name){const n=String(name||'').replace(/\s+/g,'').toLowerCas
 const fileId=r=>r&&(r.id||(r.file&&r.file.id)||((JSON.stringify(r).match(/"id"\s*:\s*"([\w-]{20,})"/)||[])[1]))||'';
 
 const LOG_DS='42162081-6f83-8199-967f-000ba4ac9a3e';let SHARED_LOG='',sharedAt=0;
+
+const LOG_VIEW='view://42162081-6f83-817e-ba6c-000c035cd499';
+async function logRows(){const tb='collection://'+LOG_DS;try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});const rows=rowsOf(r);if(rows.length)return rows}catch(e){}
+  try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{mode:'view',view_url:LOG_VIEW,page_size:100}});const rows=rowsOf(r).map(x=>{const p=x.properties||x;return{'한 일':p['한 일']||p.title||'','팀':p['팀']||'',createdTime:x.createdTime||x.created_time||p['date:날짜:start']||p['날짜']||''}}).filter(x=>x['한 일']);rows.sort((a,b)=>String(b.createdTime).localeCompare(String(a.createdTime)));return rows.slice(0,25)}catch(e){return[]}}
 async function shareLog(project,summary,link){if(!CAP.mcp)return{saved:false};try{const props={'한 일':('['+(project||'미분류')+'] '+summary).slice(0,190),'팀':(project||'미분류')+' · AI HQ 대화','비서':'ELMO-0','date:날짜:start':ymd(kst())};if(link&&/^https?:/.test(link))props['결과물']=link;await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:LOG_DS},pages:[{properties:props}]});sharedAt=0;return{saved:true}}catch(e){return{saved:false}}}
-async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{const tb='collection://'+LOG_DS;const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});SHARED_LOG=rowsOf(r).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
+async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{SHARED_LOG=(await logRows()).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
 const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
 const withTO=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r({error:'시간 초과 — 이 단계는 건너뛰고 계속'}),ms))]);let chatStart=0;
 async function handleOrder(text){
@@ -1059,7 +1054,7 @@ function agentDraw(a,t){const bob=Math.sin(t*2.2+a.phase)*3+(a.moving?Math.abs(M
     ctx.strokeStyle='#8ff0ff';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(x-r*.35,cy-r*1.15);ctx.lineTo(x,cy-r*1.5);ctx.lineTo(x+r*.35,cy-r*1.15);ctx.stroke()}
   else{const oa=t*1.6+a.phase;const ox=x+Math.cos(oa)*r*1.35,oy=cy+Math.sin(oa)*r*.4;if(Math.sin(oa)<0){ctx.fillStyle=hexA(c,.9);ctx.beginPath();ctx.arc(ox,oy,1.8,0,7);ctx.fill()}}
   a._sx=x;a._sy=cy-r*.4;}
-function floor(t){const rg=ctx.createRadialGradient(0,0,0,0,0,1500);rg.addColorStop(0,'rgba(70,60,170,.16)');rg.addColorStop(1,'rgba(70,60,170,0)');ctx.strokeStyle=rg;ctx.lineWidth=1;const N=30;ctx.beginPath();for(let i=-N;i<=N;i+=1){let a=iso(i,-N),b=iso(i,N);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);a=iso(-N,i);b=iso(N,i);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();
+function floor(t){const rg=ctx.createRadialGradient(0,0,0,0,0,1500);rg.addColorStop(0,'rgba(170,160,255,.09)');rg.addColorStop(1,'rgba(170,160,255,0)');ctx.strokeStyle=rg;ctx.lineWidth=1;const N=30;ctx.beginPath();for(let i=-N;i<=N;i+=1){let a=iso(i,-N),b=iso(i,N);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);a=iso(-N,i);b=iso(N,i);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();
   sweep=(sweep+.0025)%1;const sr=sweep*(R+6);ctx.strokeStyle=`rgba(200,190,255,${.16*(1-sweep)})`;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(0,0,sr*TW/2*Math.SQRT2,sr*TH/2*Math.SQRT2,0,0,7);ctx.stroke();
   [CEO,...DIVS].forEach(e=>{const ang=Math.atan2(e.cy,e.cx),r0=e.ring?R1+HALF*1.45:4.5,r1=Math.hypot(e.cx,e.cy)-(e===CEO?CHALF:HALF)*1.12;const a=iso(Math.cos(ang)*r0,Math.sin(ang)*r0),b=iso(Math.cos(ang)*r1,Math.sin(ang)*r1);ctx.strokeStyle=hexA(e.color,.07);ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.setLineDash([2,10]);ctx.lineDashOffset=-t*18;ctx.strokeStyle=hexA(e.color,.35);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.setLineDash([])});
   [[R1,'rgba(255,224,138,.16)',1],[R2,'rgba(140,170,255,.16)',-1],[R1+HALF*1.45,'rgba(140,170,255,.07)',0],[R2+HALF+3.2,'rgba(177,140,255,.10)',0]].forEach(([rr,c,dir])=>{ctx.strokeStyle=c;ctx.lineWidth=1.5;if(dir){ctx.setLineDash([2,12]);ctx.lineDashOffset=-dir*t*14}ctx.beginPath();ctx.ellipse(0,0,rr*TW/2*Math.SQRT2,rr*TH/2*Math.SQRT2,0,0,7);ctx.stroke();ctx.setLineDash([])});
@@ -1091,7 +1086,7 @@ function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const
   const dt=Math.min(.06,(now-last)/1000);last=now;const t=(now-T0)/1000;
   zoom+=(tZoom-zoom)*.09;camX+=(tCamX-camX)*.09;camY+=(tCamY-camY)*.09;
   orbitStep(dt);teamAgents.forEach(a=>{teamUpdate(a,dt);a.update(dt)});chiefUpdate(dt);chief.update(dt);officerUpdate(dt);officer.update(dt);inspectorUpdate(dt);inspector.update(dt);guardUpdate(dt);guard.update(dt);ceoUpdate(dt);ceoAgent.update(dt);cloneUpdate(dt);cloneAgent.update(dt);
-  ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=248+30*Math.sin(t*.04),hu2=210+32*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},80%,97%)`);bg.addColorStop(.5,`hsl(${hu+10},62%,90%)`);bg.addColorStop(1,`hsl(${hu+20},48%,82%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+28,.22],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,318,.09]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},85%,78%,${al*1.8})`);nb.addColorStop(1,`hsla(${h},85%,78%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
+  ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=248+30*Math.sin(t*.04),hu2=210+32*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},48%,19%)`);bg.addColorStop(.5,`hsl(${hu+10},50%,10.5%)`);bg.addColorStop(1,`hsl(${hu+20},45%,5%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+28,.22],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,318,.09]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},80%,62%,${al})`);nb.addColorStop(1,`hsla(${h},80%,62%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
   stars.forEach(s=>{ctx.fillStyle=`rgba(220,225,255,${.12+.3*Math.sin(t*.6+s.p)**2})`;ctx.fillRect(s.x*W,s.y*H,s.r,s.r)});
   ctx.setTransform(DPR*zoom,0,0,DPR*zoom,DPR*camX,DPR*camY);
   floor(t);packetDraw(dt);
@@ -1135,7 +1130,7 @@ const dg2=s=>/스시미토|파우더룸|위즈엘|도면|설계|렌더/.test(s)?
 const hm=t=>new Date(t).toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false});
 const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?'방금':m<60?m+'분 전':m<1440?Math.round(m/60)+'시간 전':Math.round(m/1440)+'일 전'};
 async function loadReal(){if(!window.IS_OWNER||!CAP.mcp)return;const items=[];
-  try{const tb='collection://'+LOG_DS;const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 20`}});const rows=rowsOf(r);
+  try{const rows=await logRows();
     if(rows.length){SHARED_LOG=rows.map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n');sharedAt=Date.now()}
     rows.forEach(x=>{const s=(x['팀']||'')+' '+(x['한 일']||'');items.push({t:Date.parse(x.createdTime)||0,div:dg2(s),text:String(x['한 일']||'').replace(/^\[[^\]]*\]\s*/,''),src:'업무 로그'})})}catch(e){}
   (NOTION_ROWS||[]).forEach(x=>items.push({t:Date.parse(x.createdTime)||0,div:dg2(x['지시']||''),text:`지시 ${x['상태']||''} · ${x['지시']}`,src:'지시함'}));
