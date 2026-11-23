@@ -539,7 +539,12 @@ function lockedPanel(e){panelState={type:'lock'};selected=e.id||null;head(e.colo
   h+=`<div class="sec"><div class="lockbox">🔒 세부 업무·프로젝트·일정은 대표 전용입니다.<br><small>엘모컴퍼니 AI 조직이 움직이는 모습만 공개돼요.</small></div></div>`;show(h)}
 function toast(t,ms=2600){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('on'),ms)}
 
-if(!window.IS_OWNER){const ci=$('#cmdIn');if(ci){ci.placeholder='🔒 지시는 대표만 할 수 있어요 · 공간은 자유롭게 둘러보세요';ci.disabled=true}const st=$('#status');if(st)st.innerHTML='엘모컴퍼니 AI 조직이 일하는 모습입니다 · 세부 내용은 대표 전용 · <a href="https://claude.ai/artifact/ViLRgwVigNbe9UvZWvhrem" target="_blank" rel="noopener" style="color:#c9b6ff;text-decoration:underline">대표 입장 ↗</a>';}
+const OWNER_URL='https://claude.ai/artifact/ViLRgwVigNbe9UvZWvhrem';
+if(!window.IS_OWNER){const ci=$('#cmdIn');if(ci){ci.placeholder='🔒 지시는 대표만 할 수 있어요 · 공간은 자유롭게 둘러보세요';ci.disabled=true}const st=$('#status');if(st)st.innerHTML='엘모컴퍼니 AI 조직이 일하는 모습입니다 · 세부 내용은 대표 전용 · <a class="ownerGo" href="${OWNER_URL}" style="color:#c9b6ff;text-decoration:underline">대표 입장 ↗</a>';
+ const pub=/github\.io$/.test(location.hostname);let skip=false;try{skip=new URLSearchParams(location.search).has('public')}catch(e){}
+ if(pub&&!skip){let rem=false;try{rem=localStorage.getItem('elmo_owner')==='1'}catch(e){}if(rem){location.replace(OWNER_URL)}}
+ if(pub&&!document.querySelector('.ownerPill')){const a=document.createElement('a');a.className='ownerPill ownerGo';a.href=OWNER_URL;a.textContent='대표 입장';a.style.cssText='position:fixed;top:12px;right:12px;z-index:60;padding:8px 14px;border-radius:999px;background:rgba(110,150,255,.22);border:1px solid rgba(160,190,255,.45);color:#e6ecff;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(8px)';document.body.appendChild(a)}
+ document.querySelectorAll('.ownerGo').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('elmo_owner','1')}catch(e){}}));}
 /* ---------- capabilities ---------- */
 const CAP={sample:null,db:null,mcp:null,dict:null};
 (async()=>{try{if(window.claude&&claude.use&&!window.IS_OWNER){claude.use('db').then(v=>{CAP.vdb=v;if(v)logVisit()}).catch(()=>{});}
@@ -618,6 +623,8 @@ function chatSys(){
 - 작업은 대표가 만들어 둔 기존 프로젝트 폴더에서 이어서 한다. 결과물 문서는 save_doc으로 [프로젝트 폴더] 목록 중 맞는 폴더에 [검토용]으로 저장하고 링크를 답에 넣는다. 새 폴더는 만들지 않는다. 완성 확정(대표가 좋다고 함) 후 최종본 정리는 지시함에 '보고'로 남기면 정해진 작업이 99_최종본에 옮긴다.
 - 대표가 파일을 올리면 내용을 읽고(사진은 직접 보고, PDF·워드는 save_upload 후 read_drive_file) 바로 일을 진행한다. 원본은 맞는 프로젝트 폴더에 저장한다.
 - 일정·메일·드라이브가 필요하면 도구로 직접 확인한다. 일정 추가 요청은 add_schedule.
+- 파일 이야기가 나오면 drive_search(이름 핵심 단어)나 drive_recent로 찾고, 도구가 준 url을 반드시 [파일명](url) 링크로 답에 넣는다. "링크를 드릴 수 없다"고 말하지 않는다. 내용이 필요하면 id로 read_drive_file을 바로 호출해 읽고 진행한다.
+- 프로젝트 폴더는 [프로젝트 폴더] 목록에 있는 이름으로만 고른다. 채팅창 이름과 폴더 이름이 달라도(예: 국민대 수업 → 논문 프로젝트/호서대 졸업연구 강의처럼) 가장 가까운 폴더를 쓰고, "폴더가 없다"며 멈추지 않는다.
 - 회사: 서울 인테리어 설계·시공. 실내건축공사업 면허 없음 → 공공입찰 제외, 전문공사 1,500만원 이상은 면허 보유 협력사 원도급.
 - 말투: 해요체, 짧고 실무적으로. 결과물은 바로 쓸 수 있게.
 [대화 공유 — 가장 중요]
@@ -636,7 +643,7 @@ ${proj}
 ${(PF||[]).map(f=>f.name).join(' / ')||'(목록을 못 불러옴 — save_doc 호출 시 받은 목록을 쓴다)'}`}
 const CHAT_TOOLS=()=>[
  {name:'read_handoff',description:'프로젝트 폴더의 인계 문서(최신 상태·다음 할 일·공유 대화 기록)를 읽는다. 어떤 프로젝트 이야기인지 알면 먼저 호출해 이어서 진행한다.',inputSchema:{type:'object',properties:{project:{type:'string'}},required:['project']},
-  async execute(i){await projFolders();const f=pickFolder(i.project);if(!f)return{error:'그 이름의 폴더가 없어요. 아래 목록에서 가장 맞는 폴더 이름으로 read_handoff를 다시 호출하세요(예: 수업 이름·현장 이름이 들어간 폴더).',folders:(PF||[]).map(x=>x.name)};const s=await mcpCall('Google Drive','search_files',{query:`parentId = '${f.id}' and title contains '인계'`,pageSize:5,excludeContentSnippets:true});const doc=(s.files||s.items||[])[0];const list=await mcpCall('Google Drive','search_files',{query:`parentId = '${f.id}'`,pageSize:30,excludeContentSnippets:true,orderBy:'modifiedTime desc'}).catch(()=>({}));const files=((list.files||list.items||[]).slice(0,15)).map(x=>({name:x.title||x.name,id:x.id}));if(!doc)return{folder:f.name,handoff:'(인계 문서 없음)',files};const r=await mcpCall('Google Drive','read_file_content',{fileId:doc.id});const txt=(r&&(r.content||r.text))||JSON.stringify(r);return{folder:f.name,handoff:String(txt).slice(-7000),files}}},
+  async execute(i){await projFolders();const f=pickFolder(i.project);if(!f)return{error:'그 이름의 폴더가 없어요. 아래 목록에서 가장 맞는 폴더 이름으로 read_handoff를 다시 호출하세요(예: 수업 이름·현장 이름이 들어간 폴더).',folders:(PF||[]).map(x=>x.name)};const s=await mcpCall('Google Drive','search_files',{query:`parentId = '${f.id}' and title contains '인계'`,pageSize:5,excludeContentSnippets:true});const doc=(s.files||s.items||[])[0];const lf=await driveAll(`parentId = '${f.id}'`,30,{orderBy:'modifiedTime desc'}).catch(()=>[]);const files=lf.slice(0,20).map(x=>({name:x.title||x.name,id:x.id,url:dlink(x),mod:x.modifiedTime||''}));if(!doc)return{folder:f.name,folderUrl:f.url,handoff:'(인계 문서 없음)',files};const r=await mcpCall('Google Drive','read_file_content',{fileId:doc.id});const txt=(r&&(r.content||r.text))||JSON.stringify(r);return{folder:f.name,folderUrl:f.url,handoffUrl:dlink(doc),handoff:String(txt).slice(-7000),files}}},
  {name:'read_drive_file',description:'드라이브 파일 내용을 읽는다(구글 문서·PDF·워드·엑셀·이미지 등). fileId는 read_handoff나 save_upload가 돌려준 값.',inputSchema:{type:'object',properties:{fileId:{type:'string'}},required:['fileId']},
   async execute(i){const r=await mcpCall('Google Drive','read_file_content',{fileId:i.fileId});return String((r&&(r.content||r.text))||JSON.stringify(r)).slice(0,12000)}},
  {name:'share_log',description:'매 답변을 마칠 때 반드시 호출: 이 대화 내용을 프로젝트 공유 기록(노션 업무 로그)에 남겨 Claude 프로젝트 채팅창·보고와 같은 흐름으로 이어지게 한다.',inputSchema:{type:'object',properties:{project:{type:'string',description:'프로젝트 폴더 이름(없으면 엘모컴퍼니 운영)'},summary:{type:'string',description:'대표가 말한 것 + 비서가 한 것 2~3줄'},link:{type:'string',description:'결과물 링크(있으면)'}},required:['project','summary']},
@@ -654,8 +661,10 @@ const CHAT_TOOLS=()=>[
   async execute(i){const p=await mcpCall('Google Calendar','list_events',{startTime:i.start+'T00:00:00',endTime:i.end+'T23:59:00',orderBy:'startTime',pageSize:40});return(p.events||[]).map(e=>({t:e.summary,s:(e.start&&(e.start.dateTime||e.start.date))||'',where:e.location||''}))}},
  {name:'mail',description:'Gmail을 검색해 최근 메일 요약을 본다. 답장은 하지 않는다.',inputSchema:{type:'object',properties:{query:{type:'string',description:'Gmail 검색어, 예: from:dario newer_than:7d'}},required:['query']},
   async execute(i){const p=await mcpCall('Gmail','search_threads',{query:i.query,pageSize:8,view:'THREAD_VIEW_SUMMARY'});return(p.threads||[]).map(t=>{const m=(t.messages||[])[0]||{};return{subj:m.subject||'',from:(m.sender||'').replace(/<.*>/,''),date:m.date||'',snip:(m.snippet||'').slice(0,160)}})}},
- {name:'drive_recent',description:'구글 드라이브 최근 파일 목록.',inputSchema:{type:'object',properties:{}},
-  async execute(){const p=await mcpCall('Google Drive','list_recent_files',{pageSize:15});return(p.files||p.items||[]).slice(0,15).map(f=>({name:f.title||f.name,url:f.url||f.webViewLink||'',mod:f.modifiedTime||''}))}},
+ {name:'drive_recent',description:'구글 드라이브 최근 파일 목록. 각 파일의 id(읽기용)와 url(대표에게 줄 링크)이 온다.',inputSchema:{type:'object',properties:{}},
+  async execute(){const p=await mcpCall('Google Drive','list_recent_files',{pageSize:15,excludeContentSnippets:true,orderBy:'lastModified'});return(p.files||p.items||[]).slice(0,15).map(f=>({name:f.title||f.name,id:f.id,url:dlink(f),mod:f.modifiedTime||''}))}},
+ {name:'drive_search',description:'드라이브 전체에서 파일 이름으로 찾는다(띄어쓰기 없이 핵심 단어 하나, 예: 아트파빌리온). id(read_drive_file용)와 url(링크)을 돌려준다.',inputSchema:{type:'object',properties:{keyword:{type:'string'}},required:['keyword']},
+  async execute(i){const k=String(i.keyword||'').replace(/'/g,"\\'");const fs=await driveAll(`title contains '${k}'`,10,{orderBy:'modifiedTime desc'});return fs.map(f=>({name:f.title||f.name,id:f.id,url:dlink(f),mod:f.modifiedTime||'',type:(f.mimeType||'').replace('application/vnd.google-apps.','')}))}},
  {name:'add_schedule',description:'AI HQ 스케줄에 일정을 추가한다(구글 캘린더 등록은 대표가).',inputSchema:{type:'object',properties:{date:{type:'string'},time:{type:'string'},title:{type:'string'}},required:['date','title']},
   async execute(i){addUserEvent({date:i.date,time:i.time||'',title:i.title,div:'hq',src:'대화'});return{saved:true}}}
 ];
@@ -669,7 +678,9 @@ function addFiles(list){for(const f of list){if(ATT.length>=6){toast('한 번에
  const dk=document.querySelector('.dock');if(dk){dk.addEventListener('dragover',e=>{if(window.IS_OWNER){e.preventDefault()}});dk.addEventListener('drop',e=>{if(!window.IS_OWNER)return;e.preventDefault();addFiles(e.dataTransfer.files)})}
  if(!window.IS_OWNER&&ci)ci.style.display='none'}
 function b64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]||'');r.onerror=rej;r.readAsDataURL(file)})}
-async function projFolders(){if(PF&&PF.length)return PF;try{const p=await mcpCall('Google Drive','search_files',{query:`parentId = '${WORK_ID}' and mimeType = 'application/vnd.google-apps.folder'`,pageSize:100,excludeContentSnippets:true});PF=(p.files||p.items||[]).map(f=>({id:f.id,name:f.title||f.name})).filter(f=>f.id&&f.name)}catch(e){PF=[]}return PF}
+async function driveAll(query,max=200,extra={}){let out=[],tok='';for(let i=0;i<12&&out.length<max;i++){const p=await mcpCall('Google Drive','search_files',Object.assign({query,pageSize:100,excludeContentSnippets:true},extra,tok?{pageToken:tok}:{}));const fs=p.files||p.items||[];out=out.concat(fs);tok=p.nextPageToken||'';if(!tok||!fs.length)break}return out.slice(0,max)}
+const dlink=f=>f.viewUrl||f.url||f.webViewLink||(f.id?('https://drive.google.com/open?id='+f.id):'');
+async function projFolders(){if(PF&&PF.length>5)return PF;try{const fs=await driveAll(`parentId = '${WORK_ID}' and mimeType = 'application/vnd.google-apps.folder'`,300);PF=fs.map(f=>({id:f.id,name:f.title||f.name,url:dlink(f)})).filter(f=>f.id&&f.name)}catch(e){PF=PF||[]}return PF}
 function pickFolder(name){const norm=s=>String(s||'').replace(/\s+/g,'').toLowerCase();const n=norm(name);if(!PF||!PF.length||!n)return null;const ex=PF.find(f=>norm(f.name)===n)||PF.find(f=>norm(f.name).includes(n)||n.includes(norm(f.name)));if(ex)return ex;const grams=s=>{const t=norm(s).replace(/프로젝트|작업|폴더|관리|전체/g,'').replace(/[^0-9a-z가-힣]/g,'');const g=new Set();for(let k=0;k<t.length-1;k++)g.add(t.slice(k,k+2));return g};const q=grams(name);let best=null,bs=0,b2=0;PF.forEach(f=>{const g=grams(f.name);let s=0;g.forEach(x=>{if(q.has(x))s++});const sc=s/Math.max(3,Math.min(g.size,q.size));if(sc>bs){b2=bs;bs=sc;best=f}else if(sc>b2)b2=sc});return bs>=0.25&&bs-b2>=0.05?best:null}
 const fileId=r=>r&&(r.id||(r.file&&r.file.id)||((JSON.stringify(r).match(/"id"\s*:\s*"([\w-]{20,})"/)||[])[1]))||'';
 
@@ -680,7 +691,7 @@ async function logRows(){const tb='collection://'+LOG_DS;try{const r=await mcpCa
   try{const r=await mcpCall('Notion','notion-query-data-sources',{data:{mode:'view',view_url:LOG_VIEW,page_size:100}});const rows=rowsOf(r).map(x=>{const p=x.properties||x;return{'한 일':String(p['한 일']||p.title||'').replace(/\\/g,''),'팀':p['팀']||'',createdTime:x.createdTime||x.created_time||p['date:날짜:start']||p['날짜']||''}}).filter(x=>x['한 일']);rows.sort((a,b)=>String(b.createdTime).localeCompare(String(a.createdTime)));return rows.slice(0,25)}catch(e){return[]}}
 async function shareLog(project,summary,link){if(!CAP.mcp)return{saved:false};try{const props={'한 일':('['+(project||'미분류')+'] '+summary).slice(0,190),'팀':(project||'미분류')+' · AI HQ 대화','비서':'ELMO-0','date:날짜:start':ymd(kst())};if(link&&/^https?:/.test(link))props['결과물']=link;await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:LOG_DS},pages:[{properties:props}]});sharedAt=0;return{saved:true}}catch(e){return{saved:false}}}
 async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{SHARED_LOG=(await logRows()).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
-const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
+const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',drive_search:'드라이브 검색',add_schedule:'일정 추가'};
 const withTO=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r({error:'시간 초과 — 이 단계는 건너뛰고 계속'}),ms))]);let chatStart=0;
 async function handleOrder(text){
   if(!window.IS_OWNER){toast(LOCK_MSG);return}
