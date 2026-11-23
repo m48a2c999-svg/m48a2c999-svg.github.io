@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<style>:root{--bg:#04050a;--ink:#e9eefc;--mute:#8c97b8;--line:rgba(140,170,255,.16);--glass:rgba(12,17,34,.74);--glass2:rgba(18,25,48,.9);--gold:#ffe08a;--kr:'Noto Sans KR',system-ui,sans-serif;--en:'Space Grotesk','Noto Sans KR',sans-serif;--sb:env(safe-area-inset-bottom,0px)}
+<style>:root{--bg:#ece9ff;--ink:#e9eefc;--mute:#8c97b8;--line:rgba(140,170,255,.16);--glass:rgba(12,17,34,.74);--glass2:rgba(18,25,48,.9);--gold:#ffe08a;--kr:'Noto Sans KR',system-ui,sans-serif;--en:'Space Grotesk','Noto Sans KR',sans-serif;--sb:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--kr);overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 canvas#world{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
@@ -285,6 +285,15 @@ body.visitor .chat{display:none}
 .ac small{color:#9aa6c8}.ac button{background:none;border:0;color:#cfd8f5;cursor:pointer;font-size:14px;line-height:1}
 .cbtn.clip{font-size:16px}
 body.visitor .cbtn.clip{display:none}
+
+/* ---- 밝은 배경 ---- */
+.brand h1{background:linear-gradient(100deg,#262a5e 0%,#262a5e 30%,#6b4cff 42%,#2f6bff 50%,#c2378f 58%,#262a5e 70%,#262a5e 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{color:#5a6194}
+.clock{color:#545c8c;text-shadow:0 2px 14px rgba(255,255,255,.7)}
+.clock b{color:#232756}
+.status{color:#4a5180}
+.status b{color:#2b2f66}
+.status a{color:#5b3fd6!important}
 </style>
 </head>
 <body>
@@ -518,13 +527,13 @@ const CAP={sample:null,db:null,mcp:null,dict:null};
  if(window.claude&&claude.use&&window.IS_OWNER){
   claude.use('sample').then(v=>CAP.sample=v).catch(()=>{});
   claude.use('dictation').then(v=>{CAP.dict=v;if(v)setupMic()}).catch(()=>{});
-  claude.use('mcp').then(v=>{CAP.mcp=v;if(v){notionSync();setInterval(notionSync,180000)}}).catch(()=>{});
+  claude.use('mcp').then(v=>{CAP.mcp=v;if(v){notionSync().then(loadReal);setInterval(()=>notionSync().then(loadReal),600000)}}).catch(()=>{});
   (window.DBCAP?Promise.resolve(window.DBCAP):claude.use('db')).then(v=>{CAP.db=v;if(v){subscribeDB();subscribeVisits();subscribeSites();loadChat()}}).catch(()=>{});
 }}catch(e){}})();
 
 /* ---------- feed ---------- */
 let feedItems=[];
-function pushFeed(id,text){const k=kst();feedItems.unshift(`<span><i style="color:${colorOf(id)}">${pad(k.getHours())}:${pad(k.getMinutes())} ${esc((ENT[id]||{}).code||'')}</i><b>${esc(text)}</b></span>`);feedItems=feedItems.slice(0,10);$('#feed').innerHTML=feedItems.join('')}
+function pushFeed(id,text,sim){if(sim&&typeof REAL!=='undefined'&&REAL.length)return;const k=kst();feedItems.unshift(`<span><i style="color:${colorOf(id)}">${pad(k.getHours())}:${pad(k.getMinutes())} ${esc((ENT[id]||{}).code||'')}</i><b>${esc(text)}</b></span>`);feedItems=feedItems.slice(0,10);$('#feed').innerHTML=feedItems.join('')}
 (function(){const k=kst(),m=k.getHours()*60+k.getMinutes();DAILY.filter(d=>d[3]==='가동').forEach(d=>{const[h,mm]=d[0].split(':').map(Number);if(h*60+mm<=m)feedItems.unshift(`<span><i style="color:${colorOf(d[1])}">${d[0]}</i><b>${esc(d[2])}</b></span>`)});$('#feed').innerHTML=feedItems.join('')})();
 
 /* ================= ORDERS (지시 → 전달 → 보고) ================= */
@@ -649,9 +658,10 @@ const LOG_DS='42162081-6f83-8199-967f-000ba4ac9a3e';let SHARED_LOG='',sharedAt=0
 async function shareLog(project,summary,link){if(!CAP.mcp)return{saved:false};try{const props={'한 일':('['+(project||'미분류')+'] '+summary).slice(0,190),'팀':(project||'미분류')+' · AI HQ 대화','비서':'ELMO-0','date:날짜:start':ymd(kst())};if(link&&/^https?:/.test(link))props['결과물']=link;await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:LOG_DS},pages:[{properties:props}]});sharedAt=0;return{saved:true}}catch(e){return{saved:false}}}
 async function loadShared(){if(!CAP.mcp||Date.now()-sharedAt<6e5)return;sharedAt=Date.now();try{const tb='collection://'+LOG_DS;const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 25`}});SHARED_LOG=rowsOf(r).map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n')}catch(e){}}
 const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽기',share_log:'공유 기록',save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
+const withTO=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r({error:'시간 초과 — 이 단계는 건너뛰고 계속'}),ms))]);let chatStart=0;
 async function handleOrder(text){
   if(!window.IS_OWNER){toast(LOCK_MSG);return}
-  text=text.trim();if((!text&&!ATT.length)||chatBusy)return;$('#cmdIn').value='';chatOpen(true);
+  text=text.trim();if(!text&&!ATT.length)return;if(chatBusy){if(Date.now()-chatStart>20000){try{chatAbort&&chatAbort.abort()}catch(e){}chatBusy=false}else{toast('앞 답을 마무리하는 중이에요. 잠깐 뒤 다시 보내 주세요');return}}$('#cmdIn').value='';chatOpen(true);
   const files=ATT.slice();ATT=[];renderAtt();window.__curFiles=files;let attTxt='',imgs=[];
   if(files.length){const parts=[];for(let k=0;k<files.length;k++){const f=files[k];let line=`${k+1}. ${f.name} (${f.type||'파일'}, ${fmtSize(f.size)})`;if(/^text\/|json|csv|markdown/.test(f.type)||/\.(txt|md|csv|json)$/i.test(f.name)){try{line+='\n```\n'+(await f.text()).slice(0,15000)+'\n```'}catch(e){}}else if(/^image\//.test(f.type)){imgs.push(f);line+=' — 사진 첨부(직접 보세요)'}else{line+=' — 내용은 직접 못 읽음. 파일명·맥락으로 판단하고 원본은 save_upload로 저장'}parts.push(line)}attTxt='\n\n[첨부 파일]\n'+parts.join('\n')}
   if(!text)text='(첨부 파일을 올렸어요. 알아서 정리·진행해 주세요)';
@@ -659,15 +669,15 @@ async function handleOrder(text){
   CHAT.push({role:'user',content:text+(files.length?'\n📎 '+files.map(f=>f.name).join(', '):''),at:Date.now(),send:text+attTxt});const bot={role:'assistant',content:'',at:Date.now(),tools:[]};CHAT.push(bot);renderChat();
   ceoAgent.say(text.slice(0,30),3.4);fly('ceo','hq','#ffd27a',3);pushFeed('ceo',text);setStatus('<b>총괄 비서</b>가 진행하고 있어요…');
   if(!CAP.sample){const r=localRoute(text);const o={text,at:Date.now(),status:'접수',...r};ORDERS.unshift(o);saveOrder(o);renderInbox();notionPush(o);bot.content='지금은 Claude 연결이 허용되지 않아 바로 진행하지 못했어요. 노션 지시함에 넣어 두었고, 다음 정해진 시간(07:31·16:31)에 처리해 결과를 보고에 올릴게요.';renderChat();saveChat();return}
-  chatBusy=true;chatAbort=new AbortController();
-  await (CAP.mcp?Promise.all([projFolders(),loadShared()]):null);window.__logged=false;const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
+  chatBusy=true;chatStart=Date.now();chatAbort=new AbortController();
+  await (CAP.mcp?withTO(Promise.all([projFolders(),loadShared()]),5000):null);window.__logged=false;const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
   const msgs=[{role:'user',content:chatSys()+'\n\n(여기까지 업무 기준. 대표와의 대화가 이어집니다.)'},{role:'assistant',content:'네, 대표님. 말씀하시면 바로 진행할게요.'},...hist];
-  const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();try{return await t.execute(i)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
+  const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();if(t.name==='share_log'){window.__logged=true;shareLog(i.project,i.summary,i.link);return{saved:'기록 중'}}try{return await withTO(t.execute(i),30000)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
   try{let canImg=false;try{canImg=!!(imgs.length&&(await CAP.sample.limits()).images)}catch(e){}
-    const res=await CAP.sample(msgs,{modelTier:'default',cache:false,tools,...(canImg?{images:imgs}:{}),signal:chatAbort.signal,onText:({text})=>{bot.content=text;renderChat()}});bot.content=(res&&res.text)||bot.content||'(답이 비어 있어요)';
+    const res=await CAP.sample(msgs,{modelTier:'default',cache:false,tools,...(canImg?{images:imgs}:{}),signal:chatAbort.signal,onText:({text})=>{bot.content=text;chatStart=Date.now();renderChat()}});bot.content=(res&&res.text)||bot.content||'(답이 비어 있어요)';
     chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
   catch(e){if(e&&e.code==='not_granted')CAP.sample=null;bot.content=(e&&e.text)||('진행 중 문제가 생겼어요 ('+((e&&e.code)||'오류')+'). 다시 보내 주시면 이어서 할게요.');setStatus('총괄 비서 응답 오류')}
-  chatBusy=false;renderChat();saveChat();
+  chatBusy=false;try{renderChat();saveChat()}catch(e){}
   if(CAP.mcp&&!window.__logged&&bot.content&&!/문제가 생겼어요/.test(bot.content)){shareLog('미분류',(text.slice(0,80)+' → '+bot.content.replace(/\s+/g,' ').slice(0,100)))}
 }
 function setStatus(h){$('#status').innerHTML=h}
@@ -902,7 +912,7 @@ const officer=new Agent({kind:'cio',gx:OFFICER.cx+.5,gy:OFFICER.cy+.5,speed:2.2,
 const inspector=new Agent({kind:'qa',gx:INSPECTOR.cx+.4,gy:INSPECTOR.cy+.4,speed:2,scale:1,color:INSPECTOR.color});inspector.wait=9;inspector.k=0;inspector.state='rest';
 const guard=new Agent({kind:'sec',gx:SECURITY.cx+.4,gy:SECURITY.cy+.4,speed:1.6,scale:1,color:SECURITY.color});guard.wait=5;guard.k=0;
 function inspectorUpdate(dt){const a=inspector;if(a.moving)return;a.wait-=dt;if(a.wait>0)return;const L=archived();
- if(!L.length||a.state==='store'){if(a.state==='store'){VAULT.pulse=1;pushFeed('vault','보관 창고 이관 — '+a.item.name);a.say('보관 창고 이관 · '+a.item.name,3.2)}a.anchor=null;a.set(INSPECTOR.cx+(Math.random()-.5)*1.2,INSPECTOR.cy+(Math.random()-.5)*1.2);a.state='rest';a.wait=7+Math.random()*6;return}
+ if(!L.length||a.state==='store'){if(a.state==='store'){VAULT.pulse=1;pushFeed('vault','보관 창고 이관 — '+a.item.name,1);a.say('보관 창고 이관 · '+a.item.name,3.2)}a.anchor=null;a.set(INSPECTOR.cx+(Math.random()-.5)*1.2,INSPECTOR.cy+(Math.random()-.5)*1.2);a.state='rest';a.wait=7+Math.random()*6;return}
  if(a.state==='rest'){const it=L[a.k++%L.length];a.item=it;const d=it.team?it.team.div:null;if(d){const ang=Math.atan2(d.cy,d.cx),rr=Math.hypot(d.cx,d.cy)-HALF*1.2;a.anchor=d;a.set(Math.cos(ang)*rr,Math.sin(ang)*rr)}a.state='check';a.wait=.4;return}
  if(a.state==='check'){const d=a.item.team?a.item.team.div:null;if(d)d.pulse=1;a.say('감리 · '+a.item.name+' ('+a.item.st+') 검수',3);a.state='go';a.wait=3.2;return}
  if(a.state==='go'){a.anchor=null;a.set(VAULT.cx+.9,VAULT.cy+.9);a.state='store';a.wait=.6;return}}
@@ -931,13 +941,13 @@ function chiefUpdate(dt){patrol.t-=dt;
   if(patrol.queue.length&&patrol.phase!=='toceo'&&patrol.phase!=='atceo'){const ang=Math.atan2(CEO.cy,CEO.cx),rr=Math.hypot(CEO.cx,CEO.cy)-CHALF*1.1;chief.anchor=CEO;chief.set(Math.cos(ang)*rr,Math.sin(ang)*rr);patrol.phase='toceo';patrol.msg=patrol.queue.shift();return}
   if(patrol.phase==='toceo'){if(!chief.moving){patrol.phase='atceo';patrol.t=3.4;chief.say(patrol.msg,3.4);CEO.pulse=1;fly('hq','ceo','#ffe08a',2);setTimeout(()=>ceoAgent.say('확인했어요',2.2),1300)}return}
   if(patrol.phase==='atceo'){if(patrol.t<=0){patrol.phase='idle';patrol.t=.5}return}
-  if(patrol.phase==='walk'){if(!chief.moving&&patrol.t<=0){patrol.phase='check';patrol.t=3.2;const d=DIVS[patrol.i];d.pulse=1;const t=d.T[Math.floor(Math.random()*d.T.length)];chief.say('점검 · '+d.name,3);const a=agentOf(t);if(a&&a.mode==='wander'){a.busy=true;a.set(chief.gx+(d.cx-chief.gx)*.35,chief.gy+(d.cy-chief.gy)*.35);setTimeout(()=>{const pj=t.projects[0];a.say('보고 · '+(pj?pj[0]+' '+pj[1]:'이상 없음'),2.6)},1000);setTimeout(()=>{a.busy=false;a.wait=.4},3300)}pushFeed(d.id,d.name+' 점검')}return}
+  if(patrol.phase==='walk'){if(!chief.moving&&patrol.t<=0){patrol.phase='check';patrol.t=3.2;const d=DIVS[patrol.i];d.pulse=1;const t=d.T[Math.floor(Math.random()*d.T.length)];chief.say('점검 · '+d.name,3);const a=agentOf(t);if(a&&a.mode==='wander'){a.busy=true;a.set(chief.gx+(d.cx-chief.gx)*.35,chief.gy+(d.cy-chief.gy)*.35);setTimeout(()=>{const pj=t.projects[0];a.say('보고 · '+(pj?pj[0]+' '+pj[1]:'이상 없음'),2.6)},1000);setTimeout(()=>{a.busy=false;a.wait=.4},3300)}pushFeed(d.id,d.name+' 점검',1)}return}
   if(patrol.t>0)return;
   patrol.i++;
-  if(patrol.i>=DIVS.length){patrol.i=-1;chief.goReport(DIVS.length+'개 본부·실 점검 완료 · 피드백 대기 '+ORDERS.filter(o=>o.status==='피드백 대기').length+'건');pushFeed('hq',DIVS.length+'개 본부·실 점검 완료 → 대표실 보고');patrol.phase='idle';patrol.t=6;return}
+  if(patrol.i>=DIVS.length){patrol.i=-1;chief.goReport(DIVS.length+'개 본부·실 점검 완료 · 피드백 대기 '+ORDERS.filter(o=>o.status==='피드백 대기').length+'건');pushFeed('hq',DIVS.length+'개 본부·실 점검 완료 → 대표실 보고',1);patrol.phase='idle';patrol.t=6;return}
   const d=DIVS[patrol.i];const ang=Math.atan2(d.cy,d.cx);const rr=Math.hypot(d.cx,d.cy)-HALF*1.15;chief.anchor=d;chief.set(Math.cos(ang)*rr,Math.sin(ang)*rr);patrol.phase='walk';patrol.t=.2}
 function officerUpdate(dt){const a=officer;if(a.moving)return;a.wait-=dt;if(a.wait>0)return;if(!OFFICER.ideas.length){a.anchor=null;a.set(OFFICER.cx+(Math.random()-.5)*1.4,OFFICER.cy+(Math.random()-.5)*1.4);a.wait=4+Math.random()*4;return}
-  if(a.state==='go'){const i=OFFICER.ideas[a.idea%OFFICER.ideas.length];a.say('개선안 · '+i[1],3.6);const dc=i[0].split('·')[0];const d=DIVS.find(v=>v.code===dc);if(d){d.pulse=1}pushFeed('cio','개선안 — '+i[1]);a.idea++;a.state='back';a.wait=3.8;return}
+  if(a.state==='go'){const i=OFFICER.ideas[a.idea%OFFICER.ideas.length];a.say('개선안 · '+i[1],3.6);const dc=i[0].split('·')[0];const d=DIVS.find(v=>v.code===dc);if(d){d.pulse=1}pushFeed('cio','개선안 — '+i[1],1);a.idea++;a.state='back';a.wait=3.8;return}
   if(a.state==='back'){a.anchor=null;a.set(OFFICER.cx+(Math.random()-.5)*1.2,OFFICER.cy+(Math.random()-.5)*1.2);a.state='rest';a.wait=4+Math.random()*4;if(a.idea%3===0)setTimeout(()=>{chief.goReport('개선 실장 제안 '+OFFICER.ideas.length+'건 정리했어요')},2500);return}
   const i=OFFICER.ideas[a.idea%OFFICER.ideas.length];const dc=i[0].split('·')[0];const d=DIVS.find(v=>v.code===dc)||DIVS[0];const ang=Math.atan2(d.cy,d.cx),rr=Math.hypot(d.cx,d.cy)-HALF*1.25;a.anchor=d;a.set(Math.cos(ang)*rr+(Math.random()-.5),Math.sin(ang)*rr+(Math.random()-.5));a.state='go';a.wait=.3}
 function cloneUpdate(dt){const a=cloneAgent;if(a.moving)return;a.wait-=dt;if(a.wait>0)return;const sp=[[CEO.cx-1.2,CEO.cy+1.2],[CEO.cx-1.8,CEO.cy+.2],[CEO.cx-.4,CEO.cy+1.6]];const q=sp[Math.floor(Math.random()*sp.length)];a.set(q[0],q[1]);a.wait=5+Math.random()*6;
@@ -1049,7 +1059,7 @@ function agentDraw(a,t){const bob=Math.sin(t*2.2+a.phase)*3+(a.moving?Math.abs(M
     ctx.strokeStyle='#8ff0ff';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(x-r*.35,cy-r*1.15);ctx.lineTo(x,cy-r*1.5);ctx.lineTo(x+r*.35,cy-r*1.15);ctx.stroke()}
   else{const oa=t*1.6+a.phase;const ox=x+Math.cos(oa)*r*1.35,oy=cy+Math.sin(oa)*r*.4;if(Math.sin(oa)<0){ctx.fillStyle=hexA(c,.9);ctx.beginPath();ctx.arc(ox,oy,1.8,0,7);ctx.fill()}}
   a._sx=x;a._sy=cy-r*.4;}
-function floor(t){const rg=ctx.createRadialGradient(0,0,0,0,0,1500);rg.addColorStop(0,'rgba(170,160,255,.09)');rg.addColorStop(1,'rgba(170,160,255,0)');ctx.strokeStyle=rg;ctx.lineWidth=1;const N=30;ctx.beginPath();for(let i=-N;i<=N;i+=1){let a=iso(i,-N),b=iso(i,N);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);a=iso(-N,i);b=iso(N,i);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();
+function floor(t){const rg=ctx.createRadialGradient(0,0,0,0,0,1500);rg.addColorStop(0,'rgba(70,60,170,.16)');rg.addColorStop(1,'rgba(70,60,170,0)');ctx.strokeStyle=rg;ctx.lineWidth=1;const N=30;ctx.beginPath();for(let i=-N;i<=N;i+=1){let a=iso(i,-N),b=iso(i,N);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);a=iso(-N,i);b=iso(N,i);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();
   sweep=(sweep+.0025)%1;const sr=sweep*(R+6);ctx.strokeStyle=`rgba(200,190,255,${.16*(1-sweep)})`;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(0,0,sr*TW/2*Math.SQRT2,sr*TH/2*Math.SQRT2,0,0,7);ctx.stroke();
   [CEO,...DIVS].forEach(e=>{const ang=Math.atan2(e.cy,e.cx),r0=e.ring?R1+HALF*1.45:4.5,r1=Math.hypot(e.cx,e.cy)-(e===CEO?CHALF:HALF)*1.12;const a=iso(Math.cos(ang)*r0,Math.sin(ang)*r0),b=iso(Math.cos(ang)*r1,Math.sin(ang)*r1);ctx.strokeStyle=hexA(e.color,.07);ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.setLineDash([2,10]);ctx.lineDashOffset=-t*18;ctx.strokeStyle=hexA(e.color,.35);ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();ctx.setLineDash([])});
   [[R1,'rgba(255,224,138,.16)',1],[R2,'rgba(140,170,255,.16)',-1],[R1+HALF*1.45,'rgba(140,170,255,.07)',0],[R2+HALF+3.2,'rgba(177,140,255,.10)',0]].forEach(([rr,c,dir])=>{ctx.strokeStyle=c;ctx.lineWidth=1.5;if(dir){ctx.setLineDash([2,12]);ctx.lineDashOffset=-dir*t*14}ctx.beginPath();ctx.ellipse(0,0,rr*TW/2*Math.SQRT2,rr*TH/2*Math.SQRT2,0,0,7);ctx.stroke();ctx.setLineDash([])});
@@ -1081,7 +1091,7 @@ function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const
   const dt=Math.min(.06,(now-last)/1000);last=now;const t=(now-T0)/1000;
   zoom+=(tZoom-zoom)*.09;camX+=(tCamX-camX)*.09;camY+=(tCamY-camY)*.09;
   orbitStep(dt);teamAgents.forEach(a=>{teamUpdate(a,dt);a.update(dt)});chiefUpdate(dt);chief.update(dt);officerUpdate(dt);officer.update(dt);inspectorUpdate(dt);inspector.update(dt);guardUpdate(dt);guard.update(dt);ceoUpdate(dt);ceoAgent.update(dt);cloneUpdate(dt);cloneAgent.update(dt);
-  ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=248+30*Math.sin(t*.04),hu2=210+32*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},48%,19%)`);bg.addColorStop(.5,`hsl(${hu+10},50%,10.5%)`);bg.addColorStop(1,`hsl(${hu+20},45%,5%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+28,.22],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,318,.09]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},80%,62%,${al})`);nb.addColorStop(1,`hsla(${h},80%,62%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
+  ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=248+30*Math.sin(t*.04),hu2=210+32*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},80%,97%)`);bg.addColorStop(.5,`hsl(${hu+10},62%,90%)`);bg.addColorStop(1,`hsl(${hu+20},48%,82%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+28,.22],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,318,.09]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},85%,78%,${al*1.8})`);nb.addColorStop(1,`hsla(${h},85%,78%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
   stars.forEach(s=>{ctx.fillStyle=`rgba(220,225,255,${.12+.3*Math.sin(t*.6+s.p)**2})`;ctx.fillRect(s.x*W,s.y*H,s.r,s.r)});
   ctx.setTransform(DPR*zoom,0,0,DPR*zoom,DPR*camX,DPR*camY);
   floor(t);packetDraw(dt);
@@ -1118,6 +1128,27 @@ let idleT=0;const wake=()=>{idleT=0;document.body.classList.remove('idle')};['po
 let started=false;const start=()=>{if(!started){started=true;last=performance.now();requestAnimationFrame(frame);chief.say('오늘도 '+DIVS.length+'개 본부·실을 점검합니다',3.5)}};
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);setTimeout(start,1500);
 window.__hq={focusOn,closePanel,setView,openTeam};
+
+/* ---------- 실제 활동 (노션 업무 로그·지시함·드라이브) — 화면이 진짜 일을 보여주도록 ---------- */
+let REAL=[],realIdx=0;
+const dg2=s=>/스시미토|파우더룸|위즈엘|도면|설계|렌더/.test(s)?'dsn':/견적|현장|공사|시공|하자|피엔폴루스|사천|세라덤/.test(s)?'con':/파사드|스케일|외장|빌딩스킨|building skins/i.test(s)?'fcd':/진단|FIM/i.test(s)?'dia':/AI 조직|AI HQ|총괄|노션|인계/.test(s)?'hq':/동문회|홈페이지|웹/.test(s)?'sns':/NAS|책|아카이브/i.test(s)?'arc':/폴더|드라이브|맥/.test(s)?'adm':divGuess(s);
+const hm=t=>new Date(t).toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false});
+const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?'방금':m<60?m+'분 전':m<1440?Math.round(m/60)+'시간 전':Math.round(m/1440)+'일 전'};
+async function loadReal(){if(!window.IS_OWNER||!CAP.mcp)return;const items=[];
+  try{const tb='collection://'+LOG_DS;const r=await mcpCall('Notion','notion-query-data-sources',{data:{data_source_urls:[tb],query:`SELECT "한 일","팀",createdTime FROM "${tb}" ORDER BY createdTime DESC LIMIT 20`}});const rows=rowsOf(r);
+    if(rows.length){SHARED_LOG=rows.map(x=>`- ${String(x.createdTime||'').slice(5,16)} ${x['팀']||''}: ${x['한 일']||''}`).join('\n');sharedAt=Date.now()}
+    rows.forEach(x=>{const s=(x['팀']||'')+' '+(x['한 일']||'');items.push({t:Date.parse(x.createdTime)||0,div:dg2(s),text:String(x['한 일']||'').replace(/^\[[^\]]*\]\s*/,''),src:'업무 로그'})})}catch(e){}
+  (NOTION_ROWS||[]).forEach(x=>items.push({t:Date.parse(x.createdTime)||0,div:dg2(x['지시']||''),text:`지시 ${x['상태']||''} · ${x['지시']}`,src:'지시함'}));
+  try{const p=await mcpCall('Google Drive','list_recent_files',{pageSize:12,excludeContentSnippets:true,orderBy:'lastModified'});(p.files||p.items||[]).forEach(f=>items.push({t:Date.parse(f.modifiedTime)||0,div:dg2(f.title||f.name||''),text:`파일 작업 · ${f.title||f.name}`,src:'드라이브'}))}catch(e){}
+  ORDERS.slice(0,8).forEach(o=>items.push({t:o.at||0,div:o.routes&&o.routes[0]&&TEAM_BY[o.routes[0].team]?TEAM_BY[o.routes[0].team].div.id:'hq',text:`${o.status||''} · ${o.text}`,src:'HQ'}));
+  const seen=new Set();const uniq=items.filter(x=>x.t&&x.text&&!seen.has(x.text)&&seen.add(x.text));if(!uniq.length)return;
+  uniq.sort((a,b)=>b.t-a.t);REAL=uniq.slice(0,30);realIdx=0;
+  feedItems=REAL.slice(0,12).map(r=>`<span><i style="color:${colorOf(r.div)}">${hm(r.t)} ${esc(r.src)}</i><b>${esc(r.text)}</b></span>`);$('#feed').innerHTML=feedItems.join('');
+  const lab=document.querySelector('.ticker .lab');if(lab)lab.textContent='실제 활동';
+  if(!chatBusy&&!document.body.classList.contains('chatting'))setStatus(`실제 기록 <b>${REAL.length}</b>건 · 마지막 활동 ${ago(REAL[0].t)} — ${esc(REAL[0].text.slice(0,40))}`);
+}
+setInterval(()=>{if(!REAL.length||document.hidden)return;const r=REAL[realIdx++%Math.min(REAL.length,14)];const d=DIV_BY[r.div];
+  if(d){d.pulse=1;const t=TEAMS.find(x=>x.div.id===r.div);const a=t&&agentOf(t);if(a)a.say(r.text.slice(0,28),4.5);fly('hq',r.div,colorOf(r.div),3)}else if(r.div==='hq'&&typeof chief!=='undefined'){chief.say(r.text.slice(0,28),4.5)}},6500);
 
 }
 </script>
