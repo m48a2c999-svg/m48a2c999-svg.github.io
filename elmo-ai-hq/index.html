@@ -339,7 +339,7 @@ body.visitor .cbtn.clip{display:none}
 <div class="dock">
   <div class="ticker"><div class="lab">LIVE</div><div class="feed" id="feed"></div></div>
   <div class="att" id="att"></div>
-  <form class="cmd" id="cmdForm" autocomplete="off">
+  <form class="cmd" id="cmdForm" autocomplete="off" onsubmit="return false">
     <div class="who"><i>★</i><span>총괄 비서</span></div>
     <input id="cmdIn" placeholder="총괄 비서에게 말하기 — Claude한테 말하듯 편하게" enterkeyhint="send">
     <input type="file" id="fileIn" multiple hidden><button type="button" class="cbtn clip" id="clipBtn" aria-label="파일 올리기" title="파일 올리기 (사진·PDF·문서)">📎</button><button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
@@ -609,8 +609,10 @@ let CHAT=[],chatBusy=false,chatAbort=null;
 function mdLite(s){let h=esc(s||'');h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,4} (.+)$/gm,'<b>$1</b>').replace(/^[-•] (.+)$/gm,'<span class="li">· $1</span>').replace(/\[((?:[^\[\]]|\[[^\]]*\])+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,'$1<a href="$2" target="_blank" rel="noopener">링크 열기</a>');return h.replace(/<\/span>\n/g,'</span>').replace(/\n/g,'<br>')}
 function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안'+(SHARED_LOG?'<br><br><b>최근 공유 기록</b> (프로젝트 채팅창·HQ·자동 작업)<br>'+esc(SHARED_LOG.split(String.fromCharCode(10)).slice(0,6).join(String.fromCharCode(10))).replace(/\n/g,'<br>'):'')+'</div>';el.scrollTop=el.scrollHeight}
 function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){if(typeof loadShared==='function'&&!CHAT.length)loadShared().then(renderChat);closePanel&&panelState&&closePanel();renderChat()}}
-function saveChat(){if(!CAP.db)return;try{CAP.db.collection('chat').doc('main').set({msgs:CHAT.slice(-60).map(m=>({role:m.role,content:m.content,at:m.at||0})),at:Date.now()}).catch(()=>{})}catch(e){}}
-function loadChat(){try{CAP.db.collection('chat').limit(1).onSnapshot(snap=>{const arr=snap&&snap.docs?snap.docs.map(d=>typeof d.data==='function'?d.data():(d.data||d)):[];const m=arr[0]&&arr[0].msgs;if(Array.isArray(m)&&!chatBusy&&m.length>=CHAT.length){CHAT=m.map(x=>({role:x.role,content:x.content,at:x.at||0}));renderChat()}},()=>{})}catch(e){}}
+const ckey=m=>m.role+'|'+(m.at||0);
+function mergeMsgs(a,b){const M=new Map();(a||[]).forEach(m=>M.set(ckey(m),{role:m.role,content:m.content,at:m.at||0}));(b||[]).forEach(m=>{const k=ckey(m),o=M.get(k);if(!o||String(m.content||'').length>=String(o.content||'').length)M.set(k,{role:m.role,content:m.content,at:m.at||0})});return[...M.values()].sort((x,y)=>(x.at-y.at)||(x.role==='user'?-1:1)).slice(-80)}
+async function saveChat(){if(!CAP.db)return;try{const ref=CAP.db.collection('chat').doc('main');let remote=[];try{const g=await ref.get();const v=g&&(typeof g.data==='function'?g.data():g.data);remote=(v&&v.msgs)||[]}catch(e){}const merged=mergeMsgs(remote,CHAT.filter(m=>m.content));await ref.set({msgs:merged,at:Date.now()}).catch(()=>{});if(!chatBusy&&merged.length>CHAT.length){CHAT=merged.map(x=>({...x}));renderChat()}}catch(e){}}
+function loadChat(){try{CAP.db.collection('chat').limit(1).onSnapshot(snap=>{const arr=snap&&snap.docs?snap.docs.map(d=>typeof d.data==='function'?d.data():(d.data||d)):[];const m=arr[0]&&arr[0].msgs;if(Array.isArray(m)&&!chatBusy){const mg=mergeMsgs(CHAT,m);if(mg.length!==CHAT.length||mg.some((x,k)=>!CHAT[k]||CHAT[k].content!==x.content)){CHAT=mg.map(x=>({...x}));renderChat()}}},()=>{})}catch(e){}}
 function chatSys(){
   const roster=TEAMS.map(t=>`${t.code}: ${t.div.name} ${t.name}`).join(' / ');
   const proj=(typeof CLAUDE_PROJECTS!=='undefined'?CLAUDE_PROJECTS:[]).map(p=>`${p[0]} (${p[1]}) — ${p[2]} [${p[3]}]`).join('\n');
