@@ -311,6 +311,8 @@ body.visitor .cbtn.clip{display:none}
  .ac{max-width:200px}
 }
 @media (max-width:380px){.rail button{width:40px}.rail button span{font-size:8.5px}}
+
+@media (max-width:760px){.fab button{width:44px;height:44px;font-size:18px}}
 </style>
 </head>
 <body>
@@ -913,7 +915,7 @@ function fit(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.
   const z0=W<=760?Math.max(.2,Math.min(.42,(W-40)/1350)):Math.min((W-150)/2380,(H-190)/1300);tZoom=Math.max(.15,Math.min(1.15,z0));if(!fit.done){zoom=tZoom;camX=tCamX=W/2;camY=tCamY=W>760?H/2-10:H*.5;fit.done=1}}
 window.addEventListener('resize',()=>{fit.done=0;fit()});
 function resetView(){fit.done=0;fit();closePanel()}
-$('#zIn').onclick=()=>zoomAt(W/2,H/2,tZoom*1.25);$('#zOut').onclick=()=>zoomAt(W/2,H/2,tZoom/1.25);$('#zHome').onclick=resetView;
+$('#zIn').onclick=()=>{focusId=null;zoomAt(W/2,H/2,tZoom*1.35)};$('#zOut').onclick=()=>{focusId=null;zoomAt(W/2,H/2,tZoom/1.35)};$('#zHome').onclick=resetView;
 
 const stars=Array.from({length:LOW?70:170},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.3+.2,p:Math.random()*6}));
 const motes=Array.from({length:LOW?30:80},()=>newMote());
@@ -1136,14 +1138,24 @@ function focusOn(id){const e=ENT[id]||HQ;focusId=id;const p=iso(e.cx||0,e.cy||0,
   if(id==='alt')return openClone();if(id==='qa')return openInspector();if(id==='sec')return openSecurity();if(id==='vault')return openVault();
   if(id==='hq')openHQ();else if(id==='ceo')openCEO();else if(id==='cio')openOfficer();else if(DIV_BY[id])openDiv(id);else if(ENT[id]&&ENT[id].code==='PARTNER')openPartner(id)}
 function openHit(h){if(!h)return;if(h.startsWith('a:')){const k=h.slice(2);if(k==='chief')return focusOn('hq');if(k==='cio')return focusOn('cio');if(k==='ceo')return focusOn('ceo');if(k==='qa'||k==='sec'||k==='alt')return focusOn(k);const t=TEAM_BY[k];focusOn(t.div.id);if(window.IS_OWNER)openTeam(k);return}focusOn(h)}
-let drag=null,pts=new Map(),pinch=null,moved=0;
-cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;if(pts.size===1)drag={x:e.clientX,y:e.clientY,cx:tCamX,cy:tCamY};if(pts.size===2){const[a,b]=[...pts.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:tZoom};drag=null}});
-cv.addEventListener('pointermove',e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);if(pinch&&pts.size===2){const[a,b]=[...pts.values()];zoomAt((a[0]+b[0])/2,(a[1]+b[1])/2,pinch.z*Math.hypot(a[0]-b[0],a[1]-b[1])/pinch.d);moved=99;return}
-  if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=Math.max(moved,Math.hypot(dx,dy));if(moved>5){cv.classList.add('drag');tCamX=drag.cx+dx;tCamY=drag.cy+dy;camX=tCamX;camY=tCamY}return}
+let drag=null,pts=new Map(),pinch=null,moved=0,lastTap={t:0,x:0,y:0},tapTimer=0,vel=[0,0],lastMv=null,glideOn=false;
+const clampZ=z=>Math.max(.14,Math.min(2.4,z));
+function glide(){if(!glideOn)return;vel[0]*=.92;vel[1]*=.92;if(Math.hypot(vel[0],vel[1])<.4){glideOn=false;return}tCamX+=vel[0];tCamY+=vel[1];camX=tCamX;camY=tCamY;requestAnimationFrame(glide)}
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);glideOn=false;moved=0;
+  if(pts.size===1){drag={x:e.clientX,y:e.clientY,cx:tCamX,cy:tCamY};lastMv={x:e.clientX,y:e.clientY,t:performance.now()};vel=[0,0]}
+  if(pts.size===2){const[a,b]=[...pts.values()];const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;zoom=tZoom;camX=tCamX;camY=tCamY;pinch={d:Math.max(20,Math.hypot(a[0]-b[0],a[1]-b[1])),z:tZoom,wx:(mx-tCamX)/tZoom,wy:(my-tCamY)/tZoom};drag=null;focusId=null;clearTimeout(tapTimer)}});
+cv.addEventListener('pointermove',e=>{if(pts.has(e.pointerId))pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pinch&&pts.size===2){const[a,b]=[...pts.values()];const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;const nz=clampZ(pinch.z*Math.hypot(a[0]-b[0],a[1]-b[1])/pinch.d);zoom=tZoom=nz;camX=tCamX=mx-pinch.wx*nz;camY=tCamY=my-pinch.wy*nz;moved=99;return}
+  if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;moved=Math.max(moved,Math.hypot(dx,dy));if(moved>6){focusId=null;cv.classList.add('drag');tCamX=drag.cx+dx;tCamY=drag.cy+dy;camX=tCamX;camY=tCamY;const now=performance.now();if(lastMv){const dt=Math.max(8,now-lastMv.t);vel=[(e.clientX-lastMv.x)*16/dt,(e.clientY-lastMv.y)*16/dt]}lastMv={x:e.clientX,y:e.clientY,t:now}}return}
   if(e.pointerType==='mouse'){const h=hit(e.clientX,e.clientY);hoverId=h;cv.classList.toggle('hover',!!h)}});
-function endP(e){pts.delete(e.pointerId);if(pts.size<2)pinch=null;if(drag&&moved<=5)openHit(hit(e.clientX,e.clientY));drag=null;cv.classList.remove('drag')}
+function endP(e){pts.delete(e.pointerId);if(pts.size<2&&pinch){pinch=null;if(pts.size===1){const[p]=[...pts.values()];drag={x:p[0],y:p[1],cx:tCamX,cy:tCamY};moved=99;lastMv=null}return}
+  if(drag&&moved<=6){const x=e.clientX,y=e.clientY,now=performance.now();
+    if(e.pointerType!=='mouse'){if(now-lastTap.t<320&&Math.hypot(x-lastTap.x,y-lastTap.y)<40){clearTimeout(tapTimer);lastTap.t=0;focusId=null;zoomAt(x,y,tZoom*1.8)}else{lastTap={t:now,x,y};tapTimer=setTimeout(()=>openHit(hit(x,y)),260)}}
+    else openHit(hit(x,y))}
+  else if(drag&&moved>6&&lastMv&&performance.now()-lastMv.t<80&&Math.hypot(vel[0],vel[1])>1.5){glideOn=true;requestAnimationFrame(glide)}
+  drag=null;cv.classList.remove('drag')}
 cv.addEventListener('pointerup',endP);cv.addEventListener('pointercancel',endP);
-function zoomAt(sx,sy,nz){nz=Math.max(.14,Math.min(2.2,nz));const wx=(sx-tCamX)/tZoom,wy=(sy-tCamY)/tZoom;tZoom=nz;tCamX=sx-wx*nz;tCamY=sy-wy*nz}
+function zoomAt(sx,sy,nz){nz=clampZ(nz);const wx=(sx-tCamX)/tZoom,wy=(sy-tCamY)/tZoom;tZoom=nz;tCamX=sx-wx*nz;tCamY=sy-wy*nz}
 cv.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,tZoom*Math.exp(-e.deltaY*.0012))},{passive:false});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'){closePanel();setView('space')}});
 
