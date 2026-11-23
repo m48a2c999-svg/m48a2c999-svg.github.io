@@ -313,6 +313,14 @@ body.visitor .cbtn.clip{display:none}
 .brand small{color:#c9cdf0}
 .clock{color:#c4c9ea;text-shadow:0 2px 12px rgba(20,10,60,.55)}
 .status{color:#cfd4f2;text-shadow:0 1px 6px rgba(20,10,60,.6)}
+
+.cmd textarea{flex:1;min-width:0;background:none;border:0;outline:0;font:inherit;font-size:16px;line-height:1.45;padding:8px 2px;color:inherit;resize:none;max-height:132px;overflow-y:auto}
+.cmd textarea::placeholder{color:#6d789a}
+.bub,.bub *{-webkit-user-select:text;user-select:text}
+.bub .cp{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#c9d2f5;font-size:11.5px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.bub .cp.ok{color:#9be7b5;border-color:rgba(155,231,181,.5)}
+.resume{margin:10px 6px;padding:11px 13px;border-radius:14px;background:rgba(255,200,90,.12);border:1px solid rgba(255,200,90,.4);font-size:13px;line-height:1.55;color:#ffe2a8}
+.resume button{margin-top:8px;padding:7px 14px;border-radius:999px;border:0;background:#ffd27a;color:#2a2108;font-weight:700;font-size:13px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -341,7 +349,7 @@ body.visitor .cbtn.clip{display:none}
   <div class="att" id="att"></div>
   <form class="cmd" id="cmdForm" autocomplete="off" onsubmit="return false">
     <div class="who"><i>★</i><span>총괄 비서</span></div>
-    <input id="cmdIn" placeholder="총괄 비서에게 말하기 — Claude한테 말하듯 편하게" enterkeyhint="send">
+    <textarea id="cmdIn" rows="1" placeholder="총괄 비서에게 말하기 — Claude한테 말하듯 편하게 (붙여넣기 가능)" enterkeyhint="send"></textarea>
     <input type="file" id="fileIn" multiple hidden><button type="button" class="cbtn clip" id="clipBtn" aria-label="파일 올리기" title="파일 올리기 (사진·PDF·문서)">📎</button><button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
     <button type="button" class="cbtn inbox" id="inboxBtn"><span>보고함</span><em id="inboxN">0</em></button>
     <button type="submit" class="cbtn send">보내기</button>
@@ -540,11 +548,13 @@ function lockedPanel(e){panelState={type:'lock'};selected=e.id||null;head(e.colo
 function toast(t,ms=2600){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('on'),ms)}
 
 const OWNER_URL='https://claude.ai/artifact/ViLRgwVigNbe9UvZWvhrem';
+function goOwner(auto){try{localStorage.setItem('elmo_owner','1')}catch(e){}const ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(OWNER_URL);return}if(/Instagram|FBAN|FBAV|Line\//i.test(ua)&&!auto){toast('오른쪽 위 ⋯ 메뉴에서 “브라우저로 열기”를 눌러 주세요')}location.href=OWNER_URL}
 if(!window.IS_OWNER){const ci=$('#cmdIn');if(ci){ci.placeholder='🔒 지시는 대표만 할 수 있어요 · 공간은 자유롭게 둘러보세요';ci.disabled=true}const st=$('#status');if(st)st.innerHTML='엘모컴퍼니 AI 조직이 일하는 모습입니다 · 세부 내용은 대표 전용 · <a class="ownerGo" href="${OWNER_URL}" style="color:#c9b6ff;text-decoration:underline">대표 입장 ↗</a>';
  const pub=/github\.io$/.test(location.hostname);let skip=false;try{skip=new URLSearchParams(location.search).has('public')}catch(e){}
- if(pub&&!skip){let rem=false;try{rem=localStorage.getItem('elmo_owner')==='1'}catch(e){}if(rem){location.replace(OWNER_URL)}}
+ if(pub&&!skip){let rem=false;try{rem=localStorage.getItem('elmo_owner')==='1'}catch(e){}if(rem){goOwner(true)}}
+ if(pub&&ci){ci.disabled=false;ci.readOnly=true;ci.placeholder='🔒 대표 입장하고 말하기 →';ci.style.cursor='pointer';ci.addEventListener('click',()=>goOwner());const sb=document.querySelector('.cmd .send');if(sb){sb.type='button';sb.textContent='대표 입장';sb.onclick=()=>goOwner()}}
  if(pub&&!document.querySelector('.ownerPill')){const a=document.createElement('a');a.className='ownerPill ownerGo';a.href=OWNER_URL;a.textContent='대표 입장';a.style.cssText='position:fixed;top:12px;right:12px;z-index:60;padding:8px 14px;border-radius:999px;background:rgba(110,150,255,.22);border:1px solid rgba(160,190,255,.45);color:#e6ecff;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(8px)';document.body.appendChild(a)}
- document.querySelectorAll('.ownerGo').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('elmo_owner','1')}catch(e){}}));}
+ document.querySelectorAll('.ownerGo').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goOwner()}));}
 /* ---------- capabilities ---------- */
 const CAP={sample:null,db:null,mcp:null,dict:null};
 (async()=>{try{if(window.claude&&claude.use&&!window.IS_OWNER){claude.use('db').then(v=>{CAP.vdb=v;if(v)logVisit()}).catch(()=>{});}
@@ -607,7 +617,16 @@ async function notionSync(){if(!CAP.mcp)return;try{const tb='collection://'+NOTI
 /* ---------- 총괄 비서 대화 (Claude처럼 말하면 알아서 진행) ---------- */
 let CHAT=[],chatBusy=false,chatAbort=null;
 function mdLite(s){let h=esc(s||'');h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,4} (.+)$/gm,'<b>$1</b>').replace(/^[-•] (.+)$/gm,'<span class="li">· $1</span>').replace(/\[((?:[^\[\]]|\[[^\]]*\])+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>').replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g,'$1<a href="$2" target="_blank" rel="noopener">링크 열기</a>');return h.replace(/<\/span>\n/g,'</span>').replace(/\n/g,'<br>')}
-function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안'+(SHARED_LOG?'<br><br><b>최근 공유 기록</b> (프로젝트 채팅창·HQ·자동 작업)<br>'+esc(SHARED_LOG.split(String.fromCharCode(10)).slice(0,6).join(String.fromCharCode(10))).replace(/\n/g,'<br>'):'')+'</div>';el.scrollTop=el.scrollHeight}
+function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map((m,k)=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.role!=='user'&&m.content&&!(chatBusy&&k===CHAT.length-1)?`<button type="button" class="cp" data-cp="${k}">복사</button>`:''}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안'+(SHARED_LOG?'<br><br><b>최근 공유 기록</b> (프로젝트 채팅창·HQ·자동 작업)<br>'+esc(SHARED_LOG.split(String.fromCharCode(10)).slice(0,6).join(String.fromCharCode(10))).replace(/\n/g,'<br>'):'')+'</div>';if(CUT&&!chatBusy){const d=document.createElement('div');d.className='resume';d.innerHTML='⏸ 화면이 꺼지거나 앱을 나가서 이 창에서는 답이 멈췄어요.<br>지시는 노션 지시함에 「처리 중」으로 남아 있어서, 다음 정해진 처리 때 클라우드가 이어서 끝내고 보고에 올려요.<br><button type="button">지금 여기서 이어서 하기</button>';d.querySelector('button').onclick=resumeCut;el.appendChild(d)}el.querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>copyText(CHAT[+b.dataset.cp].content,b));el.scrollTop=el.scrollHeight}
+let CUT=null,CUR_TASK=null,NEXT_TASK_URL='';
+function copyText(t,btn){const done=()=>{if(btn){btn.textContent='복사됨';btn.classList.add('ok');setTimeout(()=>{btn.textContent='복사';btn.classList.remove('ok')},1600)}};const fb=()=>{try{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,t.length);const ok=document.execCommand('copy');ta.remove();if(ok)done();else toast('길게 눌러서 글자를 선택해 복사해 주세요')}catch(e){toast('길게 눌러서 글자를 선택해 복사해 주세요')}};try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done,fb);else fb()}catch(e){fb()}}
+function pendRef(){return CAP.db?CAP.db.collection('chat').doc('pending'):null}
+async function setPending(v){try{const r=pendRef();if(r)await r.set(v)}catch(e){}}
+async function startTask(text,at){if(NEXT_TASK_URL){CUR_TASK={url:NEXT_TASK_URL,used:false};NEXT_TASK_URL='';setPending({text,at,url:CUR_TASK.url});return}CUR_TASK={url:'',used:false};setPending({text,at,url:''});if(!CAP.mcp)return;try{const r=await withTO(mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:{'지시':text.slice(0,190),'상태':'처리 중','출처':'AI HQ 페이지','총괄 비서 메모':'AI HQ 대화에서 진행 중. 이 상태로 오래 남아 있으면 화면이 꺼져 중단된 것 — 지시함 처리 작업이 이어서 진행한다.'}}]}),15000);const u=findUrl(r);if(u&&CUR_TASK){CUR_TASK.url=u;setPending({text,at,url:u})}}catch(e){}}
+async function finishTask(status,result){const T=CUR_TASK;CUR_TASK=null;setPending({at:0});if(!T||!T.url||T.used||!CAP.mcp)return;try{await mcpCall('Notion','notion-update-page',{page_id:T.url,command:'update_properties',properties:{'상태':status,'결과':String(result||'').slice(0,1900),'총괄 비서 메모':'AI HQ 대화에서 처리 완료'}})}catch(e){}}
+async function checkCut(){if(!CAP.db)return;if(chatBusy){if(Date.now()-chatStart>60000){try{chatAbort&&chatAbort.abort()}catch(e){}chatBusy=false;const b=CHAT[CHAT.length-1];if(b&&b.role==='assistant'&&!b.content)b.content='(화면이 꺼져서 여기서는 중단됐어요)'}else return}try{const g=await pendRef().get();const v=g&&(typeof g.data==='function'?g.data():g.data);if(v&&v.at&&Date.now()-v.at>20000){const ans=CHAT.find(m=>m.role==='assistant'&&m.at===v.at&&m.content&&!/중단됐어요/.test(m.content));CUT=ans?null:v;if(ans)setPending({at:0})}else CUT=null}catch(e){}renderChat()}
+function resumeCut(){const v=CUT;CUT=null;if(!v)return;NEXT_TASK_URL=v.url||'';handleOrder(v.text+'\n\n(앞에서 화면이 꺼져 끊긴 작업이에요. 처음부터 다시 확인해서 끝까지 진행해 주세요.)')}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkCut,800)});
 function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){if(typeof loadShared==='function'&&!CHAT.length)loadShared().then(renderChat);closePanel&&panelState&&closePanel();renderChat()}}
 const ckey=m=>m.role+'|'+(m.at||0);
 function mergeMsgs(a,b){const M=new Map();(a||[]).forEach(m=>M.set(ckey(m),{role:m.role,content:m.content,at:m.at||0}));(b||[]).forEach(m=>{const k=ckey(m),o=M.get(k);if(!o||String(m.content||'').length>=String(o.content||'').length)M.set(k,{role:m.role,content:m.content,at:m.at||0})});return[...M.values()].sort((x,y)=>(x.at-y.at)||(x.role==='user'?-1:1)).slice(-80)}
@@ -657,7 +676,7 @@ const CHAT_TOOLS=()=>[
  {name:'log_task',description:'대표 지시와 진행 결과를 노션 지시함에 기록한다. 결과물을 만들었으면 status=피드백 대기.',inputSchema:{type:'object',properties:{title:{type:'string',description:'지시 한 줄'},teams:{type:'array',items:{type:'string'},description:'담당 팀 코드 1~3개'},status:{type:'string',enum:['처리 중','피드백 대기','대표 손 필요','보고']},result:{type:'string',description:'만든 결과물 요약 3줄 이내'},due:{type:'string',description:'YYYY-MM-DD, 없으면 빈 값'}},required:['title','status']},
   async execute(i){const teams=(i.teams||[]).filter(c=>TEAM_BY[c]).slice(0,3);const o={text:i.title,at:Date.now(),status:i.status,routes:teams.map(c=>({team:c,task:i.title.slice(0,40)})),result:i.result||'',reply:'',when:i.due||''};ORDERS.unshift(o);
    teams.forEach((c,k)=>{const t=TEAM_BY[c];setTimeout(()=>{t.div.pulse=1;fly('hq',t.div.id,'#ffe08a',4);const a=agentOf(t);if(a)a.receive(o.text.slice(0,24));pushFeed(t.div.id,`${t.name} — ${o.text}`)},300+k*500)});
-   let url='';if(CAP.mcp){try{const props={'지시':i.title.slice(0,190),'상태':i.status,'출처':'AI HQ 페이지','담당 팀':JSON.stringify(teams),'결과':(i.result||'').slice(0,1900),'총괄 비서 메모':'AI HQ 대화에서 진행'};if(i.due&&/^\d{4}-\d{2}-\d{2}$/.test(i.due))props['date:기한:start']=i.due;const r=await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:props}]});url=findUrl(r)}catch(e){}}
+   let url='';if(CAP.mcp){try{const props={'지시':i.title.slice(0,190),'상태':i.status,'출처':'AI HQ 페이지','담당 팀':JSON.stringify(teams),'결과':(i.result||'').slice(0,1900),'총괄 비서 메모':'AI HQ 대화에서 진행'};if(i.due&&/^\d{4}-\d{2}-\d{2}$/.test(i.due))props['date:기한:start']=i.due;if(CUR_TASK&&CUR_TASK.url&&!CUR_TASK.used){CUR_TASK.used=true;props['총괄 비서 메모']='AI HQ 대화에서 처리';await mcpCall('Notion','notion-update-page',{page_id:CUR_TASK.url,command:'update_properties',properties:props});url=CUR_TASK.url}else{const r=await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:props}]});url=findUrl(r)}}catch(e){}}
    o.notionUrl=url||'';saveOrder(o);renderInbox();return{saved:true,notion:url?'기록됨':'페이지에만 저장(노션 연결 안 됨)'}}},
  {name:'calendar',description:'대표 구글 캘린더 일정을 기간으로 조회한다.',inputSchema:{type:'object',properties:{start:{type:'string',description:'YYYY-MM-DD'},end:{type:'string',description:'YYYY-MM-DD'}},required:['start','end']},
   async execute(i){const p=await mcpCall('Google Calendar','list_events',{startTime:i.start+'T00:00:00',endTime:i.end+'T23:59:00',orderBy:'startTime',pageSize:40});return(p.events||[]).map(e=>({t:e.summary,s:(e.start&&(e.start.dateTime||e.start.date))||'',where:e.location||''}))}},
@@ -698,7 +717,7 @@ const TOOL_KO={read_handoff:'인계 문서 확인',read_drive_file:'파일 읽�
 const withTO=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(()=>r({error:'시간 초과 — 이 단계는 건너뛰고 계속'}),ms))]);let chatStart=0;
 async function handleOrder(text){
   if(!window.IS_OWNER){toast(LOCK_MSG);return}
-  text=text.trim();if(!text&&!ATT.length)return;if(chatBusy){if(Date.now()-chatStart>20000){try{chatAbort&&chatAbort.abort()}catch(e){}chatBusy=false}else{toast('앞 답을 마무리하는 중이에요. 잠깐 뒤 다시 보내 주세요');return}}$('#cmdIn').value='';chatOpen(true);
+  text=text.trim();if(!text&&!ATT.length)return;if(chatBusy){if(Date.now()-chatStart>20000){try{chatAbort&&chatAbort.abort()}catch(e){}chatBusy=false}else{toast('앞 답을 마무리하는 중이에요. 잠깐 뒤 다시 보내 주세요');return}}$('#cmdIn').value='';try{$('#cmdIn').style.height=''}catch(e){}chatOpen(true);
   const files=ATT.slice();ATT=[];renderAtt();window.__curFiles=files;let attTxt='',imgs=[];
   if(files.length){const parts=[];for(let k=0;k<files.length;k++){const f=files[k];let line=`${k+1}. ${f.name} (${f.type||'파일'}, ${fmtSize(f.size)})`;if(/^text\/|json|csv|markdown/.test(f.type)||/\.(txt|md|csv|json)$/i.test(f.name)){try{line+='\n```\n'+(await f.text()).slice(0,15000)+'\n```'}catch(e){}}else if(/^image\//.test(f.type)){imgs.push(f);line+=' — 사진 첨부(직접 보세요)'}else{line+=' — 내용은 직접 못 읽음. 파일명·맥락으로 판단하고 원본은 save_upload로 저장'}parts.push(line)}attTxt='\n\n[첨부 파일]\n'+parts.join('\n')}
   if(!text)text='(첨부 파일을 올렸어요. 알아서 정리·진행해 주세요)';
@@ -707,21 +726,21 @@ async function handleOrder(text){
   CHAT.push({role:'user',content:text+(files.length?'\n📎 '+files.map(f=>f.name).join(', '):''),at:Date.now(),send:text+attTxt});const bot={role:'assistant',content:'',at:Date.now(),tools:[]};CHAT.push(bot);renderChat();
   ceoAgent.say(text.slice(0,30),3.4);fly('ceo','hq','#ffd27a',3);pushFeed('ceo',text);setStatus('<b>총괄 비서</b>가 진행하고 있어요…');
   if(!CAP.sample){const r=localRoute(text);const o={text,at:Date.now(),status:'접수',...r};ORDERS.unshift(o);saveOrder(o);renderInbox();notionPush(o);bot.content='지금은 Claude 연결이 허용되지 않아 바로 진행하지 못했어요. 노션 지시함에 넣어 두었고, 다음 정해진 시간(07:31·16:31)에 처리해 결과를 보고에 올릴게요.';renderChat();saveChat();return}
-  chatBusy=true;chatStart=Date.now();chatAbort=new AbortController();
+  chatBusy=true;chatStart=Date.now();chatAbort=new AbortController();CUT=null;startTask(text,bot.at);
   await (CAP.mcp?withTO(Promise.all([projFolders(),loadShared()]),5000):null);window.__logged=false;const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
   if(hist.length){const L=hist[hist.length-1];L.content=L.content+'\n\n---\n[자동 첨부 · 최근 공유 기록 (프로젝트 채팅창·HQ·자동 작업)]\n'+(SHARED_LOG||'(불러오지 못함 — 필요하면 read_handoff로 인계 문서를 읽을 것)').slice(0,3500)+'\n[지침] 위 기록과 해당 프로젝트 인계 문서(read_handoff)를 근거로 바로 답하고 진행한다. 되묻는 말로 끝내지 않는다. 파일·링크·일정·메일 질문은 앞선 답변을 믿지 말고 이번에 도구(drive_search·drive_recent·calendar 등)를 다시 호출해 확인한 값으로 답한다. 파일을 말하면 [파일명](url) 링크를 꼭 넣는다. 마지막에 share_log를 호출한다.'}
   const msgs=[{role:'user',content:chatSys()+'\n\n(여기까지 업무 기준. 대표와의 대화가 이어집니다.)'},{role:'assistant',content:'네, 대표님. 말씀하시면 바로 진행할게요.'},...hist];
   const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();if(t.name==='share_log'){window.__logged=true;shareLog(i.project,i.summary,i.link);return{saved:'기록 중'}}try{return await withTO(t.execute(i),30000)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
   try{let canImg=false;try{canImg=!!(imgs.length&&(await CAP.sample.limits()).images)}catch(e){}
     const res=await CAP.sample(msgs,{modelTier:'complex',cache:false,tools,...(canImg?{images:imgs}:{}),signal:chatAbort.signal,onText:({text})=>{bot.content=text;chatStart=Date.now();renderChat()}});bot.content=(res&&res.text)||bot.content||'(답이 비어 있어요)';
-    chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
+    finishTask('보관',bot.content.replace(/\s+/g,' ').slice(0,300));chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
   catch(e){if(e&&e.code==='not_granted')CAP.sample=null;bot.content=(e&&e.text)||('진행 중 문제가 생겼어요 ('+((e&&e.code)||'오류')+'). 다시 보내 주시면 이어서 할게요.');setStatus('총괄 비서 응답 오류')}
   chatBusy=false;try{renderChat();saveChat()}catch(e){}
   if(CAP.mcp&&!window.__logged&&bot.content&&!/문제가 생겼어요/.test(bot.content)){shareLog('미분류',(text.slice(0,80)+' → '+bot.content.replace(/\s+/g,' ').slice(0,100)))}
 }
 function setStatus(h){$('#status').innerHTML=h}
 
-$('#cmdForm').addEventListener('submit',e=>{e.preventDefault();handleOrder($('#cmdIn').value)});
+$('#cmdForm').addEventListener('submit',e=>{e.preventDefault();handleOrder($('#cmdIn').value)});{const ci=$('#cmdIn');ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();handleOrder(ci.value)}});const grow=()=>{ci.style.height='auto';ci.style.height=Math.min(132,ci.scrollHeight)+'px'};ci.addEventListener('input',grow);ci.addEventListener('paste',()=>setTimeout(grow,0))}setTimeout(()=>{if(window.IS_OWNER)checkCut()},4000);
 $('#inboxBtn').addEventListener('click',()=>{setView('space');chatOpen(false);openCEO()});
 {const cc=$('#chatClose');if(cc)cc.addEventListener('click',()=>chatOpen(false))}
 
