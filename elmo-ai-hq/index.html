@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#05070f">
 <title>ELMO COMPANY · AI HQ</title>
-<meta name="description" content="엘모컴퍼니 AI 조직 — 대표를 위한 AI 본부">
-<meta property="og:title" content="ELMO COMPANY · AI HEADQUARTERS">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -261,6 +259,32 @@ body.viewing .clock,body.viewing .sites{opacity:0;pointer-events:none}
 .panel{top:122px}
 @media (max-width:760px){.panel{top:auto}}
 @media (max-width:760px){.sites{left:64px;right:58px;transform:none;max-width:none}}
+/* ---- 총괄 비서 대화 ---- */
+.chat{position:fixed;right:12px;top:122px;bottom:calc(150px + var(--sb));width:min(460px,calc(100% - 24px));z-index:39;border-radius:20px;background:var(--glass2);border:1px solid rgba(255,224,138,.3);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.55);display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 30px));transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+body.chatting .chat{transform:none}
+.chh{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.chh span{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.chh i{font-style:normal;color:#ffe08a}.chh b{font-size:14px}.chh small{width:100%;color:#9aa6c8;font-size:11.5px}
+.chh button{background:none;border:0;color:#cfd8f5;font-size:22px;cursor:pointer;line-height:1}
+.chl{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:8px;align-items:flex-start}.msg.me{justify-content:flex-end}
+.msg>i{font-style:normal;flex:0 0 26px;height:26px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff6d6,#ffd27a 55%,#c99a3a);color:#3a2a00;font-size:12px}
+.bub{max-width:86%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.6;word-break:break-word}
+.msg.me .bub{background:rgba(255,224,138,.16);border:1px solid rgba(255,224,138,.3);border-bottom-right-radius:6px}
+.msg.bot .bub{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:6px}
+.bub a{color:#c9b6ff;text-decoration:underline}.bub .li{display:block;padding-left:4px}
+.tl{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.tl span{font-size:10.5px;padding:2px 7px;border-radius:999px;background:rgba(160,190,255,.12);color:#b9c6ee}
+.dots{display:inline-flex;gap:4px}.dots b{width:6px;height:6px;border-radius:50%;background:#cfd8f5;opacity:.4;animation:dt 1s infinite}.dots b:nth-child(2){animation-delay:.15s}.dots b:nth-child(3){animation-delay:.3s}
+@keyframes dt{50%{opacity:1;transform:translateY(-2px)}}
+.fbk{margin:6px 0 2px;padding:5px 10px;border-radius:999px;border:1px solid rgba(201,182,255,.45);background:rgba(201,182,255,.12);color:#e6dcff;font-size:12px;cursor:pointer}
+.chip.s-피드백,.chip.s-피드백.대기{background:rgba(201,182,255,.16);color:#d8c8ff}
+body.chatting .panel.open{transform:translateX(calc(100% + 30px))}
+body.visitor .chat{display:none}
+@media (max-width:760px){.chat{top:auto;left:6px;right:6px;width:auto;bottom:calc(128px + var(--sb));height:min(62vh,calc(100vh - 240px));transform:translateY(140%)}body.chatting .chat{transform:none}}
+.att{display:flex;flex-wrap:wrap;gap:6px}.att:empty{display:none}
+.ac{display:inline-flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:999px;background:rgba(14,20,40,.9);border:1px solid rgba(255,224,138,.3);font-size:12px;color:#e9eefc;max-width:260px}
+.ac small{color:#9aa6c8}.ac button{background:none;border:0;color:#cfd8f5;cursor:pointer;font-size:14px;line-height:1}
+.cbtn.clip{font-size:16px}
+body.visitor .cbtn.clip{display:none}
 </style>
 </head>
 <body>
@@ -286,16 +310,18 @@ body.viewing .clock,body.viewing .sites{opacity:0;pointer-events:none}
 
 <div class="dock">
   <div class="ticker"><div class="lab">LIVE</div><div class="feed" id="feed"></div></div>
+  <div class="att" id="att"></div>
   <form class="cmd" id="cmdForm" autocomplete="off">
     <div class="who"><i>★</i><span>총괄 비서</span></div>
-    <input id="cmdIn" placeholder="총괄 비서에게 지시하기 — 예: 봄바타 다리오 회신 초안 준비해줘" enterkeyhint="send">
-    <button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
+    <input id="cmdIn" placeholder="총괄 비서에게 말하기 — Claude한테 말하듯 편하게" enterkeyhint="send">
+    <input type="file" id="fileIn" multiple hidden><button type="button" class="cbtn clip" id="clipBtn" aria-label="파일 올리기" title="파일 올리기 (사진·PDF·문서)">📎</button><button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
     <button type="button" class="cbtn inbox" id="inboxBtn"><span>보고함</span><em id="inboxN">0</em></button>
     <button type="submit" class="cbtn send">보내기</button>
   </form>
-  <div class="status" id="status">공간을 눌러 본부·팀·파트너를 열거나, 아래에 지시를 쓰면 총괄 비서가 담당 팀에 전달하고 대표실로 보고합니다.</div>
+  <div class="status" id="status">공간을 눌러 본부·팀·파트너를 열거나, 아래에 말을 걸면 총괄 비서가 알아서 진행해 결과를 가져옵니다.</div>
 </div>
 
+<section class="chat" id="chat" aria-label="총괄 비서 대화"><div class="chh"><span><i>★</i><b>총괄 비서</b><small>알아서 진행하고 결과를 가져옵니다 · 피드백만 주세요</small></span><button type="button" id="chatClose" aria-label="닫기">×</button></div><div class="chl" id="chatList"></div></section>
 <section class="panel" id="panel"><div class="ph" id="ph"></div><div class="pb" id="pb"></div></section>
 <div class="toast" id="toast"></div>
 
@@ -356,7 +382,7 @@ body.viewing .clock,body.viewing .sites{opacity:0;pointer-events:none}
     <div class="fstep"><div class="n">STEP 2</div><b>총괄 비서 분류</b><p>Claude가 담당 팀 1~3개와 할 일·기한을 정함</p></div><div class="farrow">→</div>
     <div class="fstep"><div class="n">STEP 3</div><b>팀 비서 실행</b><p>예약 작업이 지시함을 읽고 처리 · 초안·자료·알림</p></div><div class="farrow">→</div>
     <div class="fstep"><div class="n">STEP 4</div><b>기록</b><p>지시함·업무 로그에 남김 · 원본 파일은 Drive</p></div><div class="farrow">→</div>
-    <div class="fstep"><div class="n">STEP 5</div><b>대표실 보고</b><p>21:00 정리 + 06:20 아침 브리핑 · 결정이 필요한 것만 질문</p></div>
+    <div class="fstep"><div class="n">STEP 5</div><b>대표실 보고</b><p>08:00 · 17:00 보고 · 진행한 일에 피드백, 대표 손이 필요한 것만 따로</p></div>
   </div>
   <p class="hint">지금 연결된 것: 이 페이지에서 지시하면 Claude가 바로 분류해 지시함(페이지 DB)에 저장합니다. 팀 비서가 지시함을 자동으로 읽어 실행하는 연결(STEP 3)은 노션 지시함과 예약 작업을 만드는 다음 단계에서 붙습니다.</p>
 
@@ -408,8 +434,8 @@ body.viewing .clock,body.viewing .sites{opacity:0;pointer-events:none}
 </div></section>
 <div class="splash" id="splash"><canvas id="slogo"></canvas><b>ELMO COMPANY</b></div>
 <script>/* public data (private details load from the owner-only store) */
-var CEO={"id": "ceo", "code": "CEO", "name": "대표실", "agent": "대표 · 엘모", "color": "#ffd27a", "icon": "E", "mission": "지시하고, 보고받고, 결정합니다.", "decisions": []};
-var HQ={"id": "hq", "code": "ELMO-0", "name": "총괄 비서실", "agent": "총괄 비서", "color": "#ffe08a", "icon": "★", "mission": "대표 지시를 받아 맞는 본부·팀으로 전달하고, 결과를 모아 대표실에 보고합니다.", "duties": ["대표 지시 접수 → 담당 팀 분류·전달", "매일 08:00 · 17:00 종합 보고 (리스트형, 하루 두 번만 알림)", "07:31 · 16:31 노션 지시함 처리 (조용히)", "매주 월 19개 본부·실 점검 + 노션 → Drive 백업", "결정이 필요한 것만 골라 보고"], "autos": [], "checkRules": []};
+var CEO={"id": "ceo", "code": "CEO", "name": "대표실", "agent": "대표 · 엘모", "color": "#ffd27a", "icon": "E", "mission": "지시하면 총괄 비서가 진행하고, 대표는 피드백합니다.", "hands": []};
+var HQ={"id": "hq", "code": "ELMO-0", "name": "총괄 비서실", "agent": "총괄 비서", "color": "#ffe08a", "icon": "★", "mission": "대표 지시를 받아 맞는 본부·팀으로 전달하고, 결과를 모아 대표실에 보고합니다.", "duties": ["대표 지시 접수 → 담당 팀 분류·전달", "매일 08:00 · 17:00 종합 보고 (리스트형, 하루 두 번만 알림)", "07:31 · 16:31 노션 지시함 처리 (조용히)", "매주 월 19개 본부·실 점검 + 노션 → Drive 백업", "지시는 알아서 진행해 결과물로 보고 → 대표 피드백 반영"], "autos": [], "checkRules": []};
 var DIVS=[{"id": "con", "code": "CON", "name": "인테리어 시공 사업본부", "en": "Interior Construction", "color": "#7db8ff", "icon": "C", "grp": "사업", "mission": "현장 시공·견적·구매·하자 — 엘모컴퍼니 본업 (민간 공사 중심, 공공입찰 제외)", "teams": [["SC", "시공·현장팀", "현장 비서", "착공부터 준공·정산까지 현장 흐름을 챙깁니다.", [], [], [], []], ["ES", "영업·견적팀", "견적 비서", "민간 의뢰 문의 → 견적 → 계약까지 수주 흐름을 관리합니다. (공공입찰 제외)", [], [], [], []], ["PM", "공무·구매팀", "공무 비서", "협력업체·자재 단가와 발주, 하도급 서류를 관리합니다.", [], [], [], []], ["QA", "하자·AS팀", "AS 비서", "준공 후 하자 접수부터 보수 완료까지 기록하고 챙깁니다.", [], [], [], []]]}, {"id": "dsn", "code": "DSN", "name": "인테리어 설계 본부", "en": "Interior Design", "color": "#9aa8ff", "icon": "D", "grp": "사업", "mission": "공간 기획·도면·3D·조명 도면 — 설계와 제안", "teams": [["DS", "설계·디자인팀", "디자인 비서", "공간 기획과 도면·디자인 콘셉트를 만들고 버전을 관리합니다.", [], [], [], []], ["VZ", "3D·시각화팀", "시각화 비서", "스케치업 모델과 렌더, 제안 이미지를 만듭니다.", [], [], [], []], ["LT", "조명·인허가도면팀", "도면 비서", "조명 배치와 허가·소방 협의용 도면을 준비합니다.", [], [], [], []]]}, {"id": "fcd", "code": "FCD", "name": "파사드사업본부", "en": "BUILDING SKINS", "color": "#b9a3ff", "icon": "S", "grp": "스케일빌드", "mission": "외장 리모델링 제안·영업과 해외 제안", "teams": [["FS", "파사드사업팀", "파사드 비서", "외장 리모델링 제안과 영업을 진행합니다.", [], [], [], []], ["FO", "해외제안팀", "해외 비서", "해외 공간·외관 디자인 제안을 준비합니다.", [], [], [], []]]}, {"id": "phd", "code": "PHD", "name": "박사연구실", "en": "Doctoral Lab", "color": "#e6a6d8", "icon": "R", "grp": "연구", "mission": "박사논문과 학술논문", "teams": [["PH", "박사논문팀", "박사논문 비서", "생체모방 키네틱 파사드 박사논문을 끌고 갑니다.", [], [], [], []], ["JP", "학술논문팀", "논문 비서", "학술지 투고 논문을 관리합니다.", [], [], [], []]]}, {"id": "fin", "code": "FIN", "name": "재무·회계실", "en": "Finance", "color": "#a9b8d8", "icon": "₩", "grp": "경영지원", "mission": "세금계산서·증빙·신고 일정", "teams": [["FN", "재무·회계팀", "재무 비서", "세금계산서·증빙·신고 일정을 챙깁니다.", [], [], [], []]]}, {"id": "law", "code": "LAW", "name": "법무·법규실", "en": "Legal", "color": "#9fd3c2", "icon": "L", "grp": "경영지원", "mission": "계약·분쟁 기록과 사업 관련 법령 개정", "teams": [["LW", "국내 법규팀", "법규 비서", "사업에 닿는 법령 개정을 먼저 알려드립니다.", [], [], [], []], ["LG", "법무·계약팀", "법무 비서", "계약서와 분쟁 기록을 관리합니다.", [], [], [], []]]}, {"id": "prv", "code": "PRV", "name": "대표 개인실", "en": "Private Office", "color": "#d9b3f0", "icon": "P", "grp": "개인", "locked": true, "mission": "대표 개인 업무 — 비공개", "teams": [["AS", "자산·세무팀", "자산 비서", "비공개 팀입니다.", [], [], [], []], ["HL", "건강·운동팀", "건강 비서", "비공개 팀입니다.", [], [], [], []], ["TR", "여행·라이프팀", "라이프 비서", "비공개 팀입니다.", [], [], [], []], ["PS", "개인 일정팀", "일정 비서", "비공개 팀입니다.", [], [], [], []]]}, {"id": "sns", "code": "SNS", "name": "SNS·웹 미디어실", "en": "Social & Web", "color": "#f2b49b", "icon": "M", "grp": "미디어", "mission": "인스타 4개 브랜드와 홈페이지", "teams": [["SN", "SNS팀", "SNS 비서", "인스타 4개 브랜드를 운영합니다.", [], [], [], []], ["WB", "웹·블로그팀", "웹 비서", "홈페이지와 행사 사이트를 관리합니다.", [], [], [], []]]}, {"id": "arc", "code": "ARC", "name": "출판·영상실", "en": "Archive & Video", "color": "#e8c4a0", "icon": "V", "grp": "미디어", "mission": "2011~2026 아카이브·책·유튜브", "teams": [["AR", "출판·아카이브팀", "아카이브 비서", "2011~2026 자료를 정리하고 책을 만듭니다.", [], [], [], []], ["VD", "영상팀", "영상 비서", "유튜브와 강의 영상을 만듭니다.", [], [], [], []]]}, {"id": "adm", "code": "ADM", "name": "총무·IT·메일실", "en": "Admin & IT", "color": "#b4c0e0", "icon": "A", "grp": "경영지원", "mission": "Drive·NAS·맥·구독, 메일 분류", "teams": [["IT", "총무·IT팀", "IT 비서", "Drive·NAS·맥·구독을 관리합니다.", [], [], [], []], ["ML", "메일·문서팀", "메일 비서", "메일을 분류하고 회신 초안을 씁니다.", [], [], [], []]]}, {"id": "dia", "code": "DIA", "name": "진단·데이터실", "en": "Diagnostics", "color": "#c8b8f0", "icon": "F", "grp": "스케일빌드", "mission": "노후 외장 진단·FIM 데이터·리드 발굴", "teams": [["FD", "진단·데이터팀", "진단 비서", "노후 외장 진단과 FIM 데이터, 리드 발굴을 맡습니다.", [], [], [], []]]}, {"id": "ylk", "code": "YLK", "name": "연링크 사업부", "en": "Yeonlink", "color": "#8fdccf", "icon": "Y", "grp": "신사업", "mission": "만남 앱 연링크 운영·성장", "teams": [["YL", "연링크팀", "연링크 비서", "만남 앱 연링크의 운영과 성장을 맡습니다.", [], [], [], []]]}, {"id": "bmb", "code": "BMB", "name": "봄바타 코리아", "en": "Bombata Korea", "color": "#9cd6b8", "icon": "B", "grp": "신사업", "mission": "이탈리아 가방 수입·판매", "teams": [["BB", "봄바타 코리아팀", "봄바타 비서", "이탈리아 가방 수입·판매를 맡습니다.", [], [], [], []]]}, {"id": "pap", "code": "PAP", "name": "논문 모니터링실", "en": "Paper Watch", "color": "#f0b8d4", "icon": "W", "grp": "연구", "mission": "키네틱·생체모방 외피 최신 논문", "teams": [["LM", "논문 모니터링팀", "모니터링 비서", "키네틱·생체모방 외피 최신 논문을 매일 찾습니다.", [], [], [], []]]}, {"id": "edu", "code": "EDU", "name": "강의·교육실", "en": "Teaching", "color": "#e9a0b8", "icon": "E", "grp": "연구", "mission": "호서대 강의·국민대 수업", "teams": [["ED", "강의·수업팀", "강의 비서", "호서대 강의와 국민대 수업 과제를 챙깁니다.", [], [], [], []]]}, {"id": "eco", "code": "ECO", "name": "국내·해외 정세실", "en": "Macro Watch", "color": "#a8dcb0", "icon": "G", "grp": "정보", "mission": "금리·부동산·환율·통상·유가·베트남", "teams": [["DM", "국내 정세팀", "국내정세 비서", "금리·부동산·건설경기를 봅니다.", [], [], [], []], ["GL", "해외 정세팀", "해외정세 비서", "환율·통상·유가·베트남을 봅니다.", [], [], [], []]]}, {"id": "ait", "code": "AIT", "name": "AI·기술실", "en": "AI & Tech", "color": "#cfe3a0", "icon": "I", "grp": "정보", "mission": "새 AI 도구를 조직에 반영", "teams": [["AI", "AI·기술팀", "AI 비서", "새 AI 도구를 조직에 반영합니다.", [], [], [], []]]}, {"id": "hos", "code": "HOS", "name": "호스피탈리티 사업부", "en": "Hospitality", "color": "#9cc8e6", "icon": "H", "grp": "신사업", "mission": "OCEANBOWL STAY·다낭 호텔 검토", "teams": [["HS", "호스피탈리티팀", "호스피탈리티 비서", "OCEANBOWL STAY·다낭 호텔 등 직접 운영 사업을 검토합니다.", [], [], [], []]]}, {"id": "fnb", "code": "FNB", "name": "F&B 브랜드실", "en": "Food & Beverage", "color": "#a8e0cf", "icon": "K", "grp": "신사업", "mission": "외식 브랜드 콘셉트 검증", "teams": [["FB", "F&B 브랜드팀", "F&B 비서", "외식 브랜드 콘셉트를 검증합니다.", [], [], [], []]]}];
 var CLAUDE_PROJECTS=[];
 var INTEL={"law": [], "dom": [], "glb": [], "dates": []};
@@ -419,7 +445,7 @@ var SCHED_EXTRA=[];
 var DAILY=[];
 var OFFICER={"id": "cio", "code": "ELMO-1", "name": "개선 실장실", "agent": "개선 실장", "color": "#8ff0ff", "icon": "↑", "mission": "모든 프로젝트를 돌며 업그레이드할 것, 더 나은 방식으로 바꿀 것, 합치거나 정리할 것을 찾아 총괄 비서를 거쳐 대표께 올립니다.", "duties": ["프로젝트별 도구·방식 업그레이드 검토", "수작업 → 자동화 전환 후보 발굴", "중복 프로젝트 통합·보류 프로젝트 정리 제안", "새 AI 기능·국내 서비스 반영 (AI·기술팀과 연동)", "개선안 → 대표 승인 → 적용 → 효과 확인"], "autos": [], "ideas": []};
 var INSPECTOR={"id": "qa", "code": "ELMO-2", "name": "감리실", "agent": "감리 팀장", "color": "#ffd9a8", "icon": "✓", "mission": "끝났거나 멈춘 일을 검수합니다. 결과물이 99_최종본에 있고 인계 문서가 정리됐는지 확인한 뒤, 작업 파일과 기록을 「보관 창고」로 옮겨 공간을 가볍게 유지합니다. 지우지 않고 옮기기만 합니다.", "duties": ["완료·보류 프로젝트 검수 (결과물·인계 문서·노션 기록 확인)", "검수 통과 → 작업 폴더를 「11_프로젝트 공용 작업파일 / 00_보관 창고」로 이동", "99_최종본은 그대로 두고 보관 목록에 링크만 기록", "노션 프로젝트 단계 → 「보관」, 지시함 「보고」 14일 지난 것 → 「보관」", "이동 내역(원래 위치·새 위치)을 업무 로그에 남김 — 언제든 되돌리기 가능", "빠진 것이 있으면 보관하지 않고 담당 팀에 보완 요청"], "rules": ["파일·폴더 삭제 금지 — 옮기기만", "99_최종본 폴더는 옮기지 않음", "완료·보류로 바뀐 지 7일 지난 것만 이관", "진행 중인 일과 연결된 폴더는 건드리지 않음", "대표 개인실(비공개) 자료는 이관 대상에서 제외"], "autos": [["신설", "매주 목 16:13 검수·보관 이관 (결과는 17:00 종합 보고에 포함)"]]};
-var CLONE={"id": "alt", "code": "ELMO-α", "name": "대표 분신", "agent": "대표 분신", "color": "#ffcf8a", "icon": "α", "mission": "대표가 지금까지 정한 원칙과 프로젝트 진행 방식을 기준으로, 결정이 필요한 일마다 「엘모라면 이렇게」 초안을 미리 만들어 둡니다. 대표는 확인만 하면 됩니다. 돈·서명·로그인·발송·삭제는 분신도 결정하지 않습니다.", "principles": ["완성도 우선 — 어설픈 결과물은 내지 않고, 부족하면 먼저 말한다", "추천·비교는 최신 가격·후기를 확인한 뒤", "파일은 Drive 2026 cowork 규칙 (11 작업 → 99 최종), 원본은 지우지 않는다", "반복 실무(AutoCAD 등)는 묻지 않고 바로 진행", "민간 공사 중심 — 실내건축 면허가 필요한 규모·공공입찰은 하지 않는다", "끝났거나 멈춘 일은 마무리 표시 후 보관 창고로", "보고는 하루 두 번, 리스트로 짧게 — 자세한 건 필요할 때", "돈·서명·로그인·외부 발송은 대표가 직접"], "recs": [], "autos": [["가동", "08:00·17:00 보고의 「결정 필요」마다 분신 추천 한 줄"], ["가동", "작은 결정(파일 정리 위치·일정 초안)은 분신 기준으로 처리 후 보고"]]};
+var CLONE={"id": "alt", "code": "ELMO-α", "name": "대표 분신", "agent": "대표 분신", "color": "#ffcf8a", "icon": "α", "mission": "대표가 정한 원칙과 프로젝트 진행 방식을 기준으로, 총괄 비서가 일을 진행할 때 「엘모라면 이렇게」를 대신 정합니다. 대표에게 묻지 않고 진행한 뒤 결과에 「이렇게 정했어요」 한 줄을 남기고, 대표가 피드백하면 그대로 고칩니다. 돈·서명·로그인·발송·삭제는 분신도 하지 않습니다.", "principles": ["완성도 우선 — 어설픈 결과물은 내지 않고, 부족하면 먼저 말한다", "추천·비교는 최신 가격·후기를 확인한 뒤", "파일은 Drive 2026 cowork 규칙 (11 작업 → 99 최종), 원본은 지우지 않는다", "반복 실무(AutoCAD 등)는 묻지 않고 바로 진행", "민간 공사 중심 — 실내건축 면허가 필요한 규모·공공입찰은 하지 않는다", "끝났거나 멈춘 일은 마무리 표시 후 보관 창고로", "보고는 하루 두 번, 리스트로 짧게 — 자세한 건 필요할 때", "돈·서명·로그인·외부 발송은 대표가 직접"], "recs": [], "autos": [["가동", "지시를 받으면 분신 기준으로 바로 진행 → 결과물 + 「이렇게 정했어요」 한 줄 → 피드백 대기"], ["가동", "대표 피드백은 다음 일부터 판단 기준에 반영"]]};
 var SECURITY={"id": "sec", "code": "ELMO-S", "name": "보안실", "agent": "보안 전문가", "color": "#9ff5d6", "icon": "⛨", "mission": "누가 이 공간과 엘모가 관리하는 사이트에 들어오는지 지켜봅니다. 방문 기록·통계를 정리하고, 공유 링크·연결된 앱 권한·의심 메일(가짜 송금 영수증 등)을 점검해 대표께 알립니다.", "duties": ["AI HQ 방문자·접근 기록 정리 (대표 본인 제외)", "엘모 관리 사이트 방문 통계 정리 (GA4 등 연결 후)", "공유 링크·연결 앱 권한 점검 — 필요 없는 권한 정리 제안", "의심 메일·송금 영수증·피싱 링크 점검", "비밀번호·인증 정보는 다루지 않음 — 로그인은 대표 본인 또는 비밀번호 관리자"], "rules": ["비밀번호·인증 코드·계좌번호 저장 금지", "권한 변경은 제안까지만, 적용은 대표가 직접", "방문자 정보는 이름·횟수·시간만 (대표만 열람)"], "autos": [["가동", "방문할 때마다 접근 기록 저장 (대표만 열람)"], ["신설", "17:00 종합 보고에 방문 통계 한 줄"]]};
 var PARTNERS=[];
 var PARTNER_LEVELS=[["L1 메일", "파트너 메일을 Gmail 라벨로 자동 분류 → 담당 팀 브리핑. 회신은 초안까지만, 발송은 대표 승인 후."], ["L2 공유 폴더", "파트너별 Drive 폴더 (보기/수정 권한 분리). 새 파일이 올라오면 담당 팀이 확인하고 보고."], ["L3 노션 게스트", "진행 현황·요청 사항을 파트너 전용 노션 페이지로 공유. 우리 내부 기록은 보이지 않음."], ["L4 파트너 포털", "이 페이지처럼 파트너 전용 페이지를 지정한 사람에게만 공유. 파트너가 남긴 요청이 지시함으로 들어옴."]];
@@ -493,7 +519,7 @@ const CAP={sample:null,db:null,mcp:null,dict:null};
   claude.use('sample').then(v=>CAP.sample=v).catch(()=>{});
   claude.use('dictation').then(v=>{CAP.dict=v;if(v)setupMic()}).catch(()=>{});
   claude.use('mcp').then(v=>{CAP.mcp=v;if(v){notionSync();setInterval(notionSync,180000)}}).catch(()=>{});
-  (window.DBCAP?Promise.resolve(window.DBCAP):claude.use('db')).then(v=>{CAP.db=v;if(v){subscribeDB();subscribeVisits();subscribeSites()}}).catch(()=>{});
+  (window.DBCAP?Promise.resolve(window.DBCAP):claude.use('db')).then(v=>{CAP.db=v;if(v){subscribeDB();subscribeVisits();subscribeSites();loadChat()}}).catch(()=>{});
 }}catch(e){}})();
 
 /* ---------- feed ---------- */
@@ -504,7 +530,7 @@ function pushFeed(id,text){const k=kst();feedItems.unshift(`<span><i style="colo
 /* ================= ORDERS (지시 → 전달 → 보고) ================= */
 let ORDERS=[];
 function renderInbox(){$('#inboxN').textContent=ORDERS.length;if(panelState&&panelState.type==='ceo')openCEO(true)}
-function orderHTML(o){return `<div class="order"><div class="q">${esc(o.text)}</div>${o.reply?`<div class="a">총괄 비서: ${esc(o.reply)}</div>`:''}<div class="rt">${(o.routes||[]).map(r=>{const t=TEAM_BY[r.team];return t?`<span class="chip" style="background:${t.div.color}22;color:${t.div.color}">${t.div.code}·${esc(t.name)} — ${esc(r.task)}</span>`:''}).join('')}</div>${o.decision?`<div class="a" style="color:#ffc773">결정 필요: ${esc(o.decision)}</div>`:''}${o.result?`<div class="a" style="color:#a8dcb0">결과: ${esc(o.result)}${o.resultUrl?` · <a href="${esc(o.resultUrl)}" target="_blank" rel="noopener" style="text-decoration:underline">열기</a>`:''}</div>`:''}<div class="meta"><span>${o.notionUrl&&o.notionUrl.startsWith('http')?`<a href="${esc(o.notionUrl)}" target="_blank" rel="noopener" style="color:#b9a3ff">노션 ↗</a> · `:''}${esc(o.when||'')}${o.at?' · '+new Date(o.at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span><span class="chip s-${esc(o.status||'접수')}">${esc(o.status||'접수')}</span></div></div>`}
+function orderHTML(o){return `<div class="order"><div class="q">${esc(o.text)}</div>${o.reply?`<div class="a">총괄 비서: ${esc(o.reply)}</div>`:''}<div class="rt">${(o.routes||[]).map(r=>{const t=TEAM_BY[r.team];return t?`<span class="chip" style="background:${t.div.color}22;color:${t.div.color}">${t.div.code}·${esc(t.name)} — ${esc(r.task)}</span>`:''}).join('')}</div>${o.status==='피드백 대기'?`<button class="fbk" data-fb="${esc(o.text.slice(0,60))}">피드백 쓰기</button>`:''}${o.result?`<div class="a" style="color:#a8dcb0">결과: ${esc(o.result)}${o.resultUrl?` · <a href="${esc(o.resultUrl)}" target="_blank" rel="noopener" style="text-decoration:underline">열기</a>`:''}</div>`:''}<div class="meta"><span>${o.notionUrl&&o.notionUrl.startsWith('http')?`<a href="${esc(o.notionUrl)}" target="_blank" rel="noopener" style="color:#b9a3ff">노션 ↗</a> · `:''}${esc(o.when||'')}${o.at?' · '+new Date(o.at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):''}</span><span class="chip s-${esc(o.status||'접수')}">${esc(o.status||'접수')}</span></div></div>`}
 function subscribeDB(){
   try{
     const q=CAP.db.collection('orders').orderBy('at','desc').limit(40);
@@ -537,7 +563,7 @@ let busy=false;
 const NOTION_DS='42162081-6f83-8112-be00-000bb885bc97',NOTION_HQ='https://app.notion.com/p/421620816f838178a85ef8ba8eb5448c';let NOTION_ROWS=null,notionErr='';
 function findUrl(x){const m=JSON.stringify(x||'').match(/https:\/\/(?:app\.notion\.com|www\.notion\.so)\/[^"\\\s]+/);return m?m[0]:''}
 async function notionPush(o){if(!CAP.mcp||o.notionUrl)return;try{const codes=(o.routes||[]).map(r=>r.team);
-  const r=await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:{'지시':o.text.slice(0,190),'상태':'접수','출처':'AI HQ 페이지','담당 팀':JSON.stringify(codes),'할 일':(o.routes||[]).map(r=>r.team+': '+r.task).join(' / ').slice(0,1900),'총괄 비서 메모':((o.reply||'')+(o.decision?' · 결정 필요: '+o.decision:'')).slice(0,1900)}}]});
+  const r=await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:{'지시':o.text.slice(0,190),'상태':'접수','출처':'AI HQ 페이지','담당 팀':JSON.stringify(codes),'할 일':(o.routes||[]).map(r=>r.team+': '+r.task).join(' / ').slice(0,1900),'총괄 비서 메모':((o.reply||'')+'').slice(0,1900)}}]});
   o.notionUrl=findUrl(r)||'saved';saveOrder(o);renderInbox();setStatus('<b>노션 지시함</b>에 기록했어요 · 총괄 비서가 정해진 시간에 처리합니다')}catch(e){notionErr=(e&&e.code)||'error';setStatus('노션 기록은 Claude 앱에서 연결을 허용하면 됩니다 · 지시는 이 페이지에 저장됨')}}
 function rowsOf(p){if(Array.isArray(p))return p;if(!p||typeof p!=='object')return[];for(const k of ['results','rows','data','pages','items']){if(Array.isArray(p[k]))return p[k]}for(const v of Object.values(p)){if(v&&typeof v==='object'){const r=rowsOf(v);if(r.length)return r}}return[]}
 async function notionSync(){if(!CAP.mcp)return;try{const tb='collection://'+NOTION_DS;
@@ -545,24 +571,92 @@ async function notionSync(){if(!CAP.mcp)return;try{const tb='collection://'+NOTI
   const rows=rowsOf(r).filter(x=>x&&x['지시']);NOTION_ROWS=rows;
   rows.forEach(x=>{const o=ORDERS.find(q=>q.notionUrl&&x.url&&(q.notionUrl===x.url||x.url.includes(q.notionUrl.split('/').pop().split('?')[0])))||ORDERS.find(q=>q.text.slice(0,190)===x['지시']);if(o){const ch=o.status!==x['상태']||o.result!==(x['결과']||'');o.status=x['상태']||o.status;o.result=x['결과']||'';o.resultUrl=x['결과 링크']||'';if(!o.notionUrl&&x.url)o.notionUrl=x.url;if(ch)saveOrder(o)}});
   renderInbox()}catch(e){notionErr=(e&&e.code)||'error'}}
+/* ---------- 총괄 비서 대화 (Claude처럼 말하면 알아서 진행) ---------- */
+let CHAT=[],chatBusy=false,chatAbort=null;
+function mdLite(s){let h=esc(s||'');h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#{1,4} (.+)$/gm,'<b>$1</b>').replace(/^[-•] (.+)$/gm,'<span class="li">· $1</span>').replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');return h.replace(/<\/span>\n/g,'</span>').replace(/\n/g,'<br>')}
+function renderChat(){const el=$('#chatList');if(!el)return;el.innerHTML=CHAT.length?CHAT.map(m=>`<div class="msg ${m.role==='user'?'me':'bot'}">${m.role==='user'?'':'<i>★</i>'}<div class="bub">${mdLite(m.content)||'<span class="dots"><b></b><b></b><b></b></span>'}${m.tools&&m.tools.length?`<div class="tl">${m.tools.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}</div></div>`).join(''):'<div class="hint" style="padding:18px">Claude한테 말하듯 편하게 쓰세요. 총괄 비서가 대표님 스타일로 알아서 진행해 결과물을 바로 보여드리고, 노션 지시함에 「피드백 대기」로 남깁니다.<br><br>예) 스시미토 견적서 목차 잡아줘 · 이번 주 일정 정리해줘 · 봄바타 다리오 회신 초안</div>';el.scrollTop=el.scrollHeight}
+function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){closePanel&&panelState&&closePanel();renderChat()}}
+function saveChat(){if(!CAP.db)return;try{CAP.db.collection('chat').doc('main').set({msgs:CHAT.slice(-60).map(m=>({role:m.role,content:m.content,at:m.at||0})),at:Date.now()}).catch(()=>{})}catch(e){}}
+function loadChat(){try{CAP.db.collection('chat').limit(1).onSnapshot(snap=>{const arr=snap&&snap.docs?snap.docs.map(d=>typeof d.data==='function'?d.data():(d.data||d)):[];const m=arr[0]&&arr[0].msgs;if(Array.isArray(m)&&!chatBusy&&m.length>=CHAT.length){CHAT=m;renderChat()}},()=>{})}catch(e){}}
+function chatSys(){
+  const roster=TEAMS.map(t=>`${t.code}: ${t.div.name} ${t.name}`).join(' / ');
+  const proj=(typeof CLAUDE_PROJECTS!=='undefined'?CLAUDE_PROJECTS:[]).map(p=>`${p[0]} (${p[1]}) — ${p[2]} [${p[3]}]`).join('\n');
+  return `너는 엘모컴퍼니 조승완(엘모) 대표의 총괄 비서다. 대표는 너에게 Claude한테 말하듯 편하게 말한다. 오늘은 ${ymd(kst())} (한국 시간).
+[일하는 방식 — 가장 중요]
+- 지시를 받으면 되묻지 말고 바로 진행해서 결과물 자체를 이 답변에 만들어 보여준다(초안·목차·표·회신 문안·일정 정리 등). "어떻게 할까요?", "결정해 주세요"는 쓰지 않는다.
+- 정보가 부족하면 대표 스타일(아래 분신 기준)로 가장 그럴듯하게 정하고, 답 끝에 "이렇게 정했어요: …" 한 줄로 가정만 밝힌다. 대표가 피드백하면 그대로 고쳐서 다시 보여준다.
+- 일거리(지시)를 받았으면 log_task 도구로 노션 지시함에 기록한다: 결과물을 보여줬으면 상태 '피드백 대기', 대표 피드백으로 마무리되면 '보고'. 잡담·단순 질문은 기록하지 않는다.
+- 결제·송금·서명·로그인·비밀번호·대표 이름으로 외부 발송은 하지 않는다. 그런 단계는 준비까지 해 두고 "대표님 손이 필요한 일: …" 한 줄로 따로 적고, log_task 상태는 '대표 손 필요'.
+- 작업은 대표가 만들어 둔 기존 프로젝트 폴더에서 이어서 한다. 결과물 문서는 save_doc으로 [프로젝트 폴더] 목록 중 맞는 폴더에 [검토용]으로 저장하고 링크를 답에 넣는다. 새 폴더는 만들지 않는다. 완성 확정(대표가 좋다고 함) 후 최종본 정리는 지시함에 '보고'로 남기면 정해진 작업이 99_최종본에 옮긴다.
+- 대표가 파일을 올리면 내용을 읽고(사진은 직접 보고) 바로 일을 진행한다. 원본은 save_upload로 맞는 프로젝트 폴더에 저장한다.
+- 일정·메일·드라이브가 필요하면 도구로 직접 확인한다. 일정 추가 요청은 add_schedule.
+- 회사: 서울 인테리어 설계·시공. 실내건축공사업 면허 없음 → 공공입찰 제외, 전문공사 1,500만원 이상은 면허 보유 협력사 원도급.
+- 말투: 해요체, 짧고 실무적으로. 결과물은 바로 쓸 수 있게.
+[분신 기준 — 대표 스타일]
+${CLONE.principles.map(x=>'- '+x).join('\n')}
+[팀 코드] ${roster}
+[진행 중 프로젝트]
+${proj}
+[프로젝트 폴더 — 11_프로젝트 공용 작업파일]
+${(PF||[]).map(f=>f.name).join(' / ')||'(목록을 못 불러옴 — save_doc 호출 시 받은 목록을 쓴다)'}`}
+const CHAT_TOOLS=()=>[
+ {name:'save_doc',description:'결과물(문서)을 대표가 만들어 둔 기존 프로젝트 폴더(11_프로젝트 공용 작업파일/<프로젝트>)에 [검토용] 구글 문서로 저장하고 링크를 돌려준다. project는 [프로젝트 폴더] 목록의 이름 그대로.',inputSchema:{type:'object',properties:{project:{type:'string'},title:{type:'string'},content:{type:'string',description:'문서 본문 전체'}},required:['project','title','content']},
+  async execute(i){await projFolders();const f=pickFolder(i.project);if(!f)return{error:'그 이름의 프로젝트 폴더가 없어요. 목록에서 가장 가까운 폴더 이름으로 다시 저장하세요.',folders:(PF||[]).map(x=>x.name)};const t=/^\[검토용\]/.test(i.title)?i.title:'[검토용] '+i.title;const r=await mcpCall('Google Drive','create_file',{title:t,parentId:f.id,textContent:i.content,contentMimeType:'text/plain'});const id=fileId(r);return{saved:true,folder:f.name,url:id?`https://docs.google.com/document/d/${id}/edit`:''}}},
+ {name:'save_upload',description:'대표가 이번에 올린 첨부 파일을 해당 프로젝트 폴더에 원본 그대로 저장한다. index는 첨부 번호(1부터).',inputSchema:{type:'object',properties:{index:{type:'number'},project:{type:'string'}},required:['index','project']},
+  async execute(i){const file=(window.__curFiles||[])[Math.round(i.index)-1];if(!file)return{error:'그 번호의 첨부가 없어요'};await projFolders();const f=pickFolder(i.project);if(!f)return{error:'프로젝트 폴더를 못 찾았어요',folders:(PF||[]).map(x=>x.name)};const r=await mcpCall('Google Drive','create_file',{title:file.name,parentId:f.id,base64Content:await b64(file),contentMimeType:file.type||'application/octet-stream',disableConversionToGoogleType:true});const id=fileId(r);return{saved:true,folder:f.name,file:file.name,url:id?`https://drive.google.com/file/d/${id}/view`:''}}},
+ {name:'log_task',description:'대표 지시와 진행 결과를 노션 지시함에 기록한다. 결과물을 만들었으면 status=피드백 대기.',inputSchema:{type:'object',properties:{title:{type:'string',description:'지시 한 줄'},teams:{type:'array',items:{type:'string'},description:'담당 팀 코드 1~3개'},status:{type:'string',enum:['처리 중','피드백 대기','대표 손 필요','보고']},result:{type:'string',description:'만든 결과물 요약 3줄 이내'},due:{type:'string',description:'YYYY-MM-DD, 없으면 빈 값'}},required:['title','status']},
+  async execute(i){const teams=(i.teams||[]).filter(c=>TEAM_BY[c]).slice(0,3);const o={text:i.title,at:Date.now(),status:i.status,routes:teams.map(c=>({team:c,task:i.title.slice(0,40)})),result:i.result||'',reply:'',when:i.due||''};ORDERS.unshift(o);
+   teams.forEach((c,k)=>{const t=TEAM_BY[c];setTimeout(()=>{t.div.pulse=1;fly('hq',t.div.id,'#ffe08a',4);const a=agentOf(t);if(a)a.receive(o.text.slice(0,24));pushFeed(t.div.id,`${t.name} — ${o.text}`)},300+k*500)});
+   let url='';if(CAP.mcp){try{const props={'지시':i.title.slice(0,190),'상태':i.status,'출처':'AI HQ 페이지','담당 팀':JSON.stringify(teams),'결과':(i.result||'').slice(0,1900),'총괄 비서 메모':'AI HQ 대화에서 진행'};if(i.due&&/^\d{4}-\d{2}-\d{2}$/.test(i.due))props['date:기한:start']=i.due;const r=await mcpCall('Notion','notion-create-pages',{parent:{type:'data_source_id',data_source_id:NOTION_DS},pages:[{properties:props}]});url=findUrl(r)}catch(e){}}
+   o.notionUrl=url||'';saveOrder(o);renderInbox();return{saved:true,notion:url?'기록됨':'페이지에만 저장(노션 연결 안 됨)'}}},
+ {name:'calendar',description:'대표 구글 캘린더 일정을 기간으로 조회한다.',inputSchema:{type:'object',properties:{start:{type:'string',description:'YYYY-MM-DD'},end:{type:'string',description:'YYYY-MM-DD'}},required:['start','end']},
+  async execute(i){const p=await mcpCall('Google Calendar','list_events',{startTime:i.start+'T00:00:00',endTime:i.end+'T23:59:00',orderBy:'startTime',pageSize:40});return(p.events||[]).map(e=>({t:e.summary,s:(e.start&&(e.start.dateTime||e.start.date))||'',where:e.location||''}))}},
+ {name:'mail',description:'Gmail을 검색해 최근 메일 요약을 본다. 답장은 하지 않는다.',inputSchema:{type:'object',properties:{query:{type:'string',description:'Gmail 검색어, 예: from:dario newer_than:7d'}},required:['query']},
+  async execute(i){const p=await mcpCall('Gmail','search_threads',{query:i.query,pageSize:8,view:'THREAD_VIEW_SUMMARY'});return(p.threads||[]).map(t=>{const m=(t.messages||[])[0]||{};return{subj:m.subject||'',from:(m.sender||'').replace(/<.*>/,''),date:m.date||'',snip:(m.snippet||'').slice(0,160)}})}},
+ {name:'drive_recent',description:'구글 드라이브 최근 파일 목록.',inputSchema:{type:'object',properties:{}},
+  async execute(){const p=await mcpCall('Google Drive','list_recent_files',{pageSize:15});return(p.files||p.items||[]).slice(0,15).map(f=>({name:f.title||f.name,url:f.url||f.webViewLink||'',mod:f.modifiedTime||''}))}},
+ {name:'add_schedule',description:'AI HQ 스케줄에 일정을 추가한다(구글 캘린더 등록은 대표가).',inputSchema:{type:'object',properties:{date:{type:'string'},time:{type:'string'},title:{type:'string'}},required:['date','title']},
+  async execute(i){addUserEvent({date:i.date,time:i.time||'',title:i.title,div:'hq',src:'대화'});return{saved:true}}}
+];
+
+/* ---------- 첨부 파일 · 프로젝트 폴더 ---------- */
+let ATT=[],PF=null;const WORK_ID='1J_bCOfpTIPfMBkGMo4f3hFpOohtpE1L0';
+function fmtSize(n){return n>1048576?(n/1048576).toFixed(1)+'MB':Math.max(1,Math.round(n/1024))+'KB'}
+function renderAtt(){const el=$('#att');if(!el)return;el.innerHTML=ATT.map((f,i)=>`<span class="ac">📎 ${esc(f.name)} <small>${fmtSize(f.size)}</small><button type="button" data-rm="${i}" aria-label="빼기">×</button></span>`).join('');el.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ATT.splice(+b.dataset.rm,1);renderAtt()})}
+function addFiles(list){for(const f of list){if(ATT.length>=6){toast('한 번에 6개까지 올릴 수 있어요');break}if(f.size>20*1048576){toast(f.name+' — 20MB가 넘어서 뺐어요');continue}ATT.push(f)}renderAtt()}
+{const ci=$('#clipBtn'),fi=$('#fileIn');if(ci&&fi){ci.onclick=()=>{if(!window.IS_OWNER){toast(LOCK_MSG);return}fi.click()};fi.onchange=()=>{addFiles(fi.files);fi.value=''}}
+ const dk=document.querySelector('.dock');if(dk){dk.addEventListener('dragover',e=>{if(window.IS_OWNER){e.preventDefault()}});dk.addEventListener('drop',e=>{if(!window.IS_OWNER)return;e.preventDefault();addFiles(e.dataTransfer.files)})}
+ if(!window.IS_OWNER&&ci)ci.style.display='none'}
+function b64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]||'');r.onerror=rej;r.readAsDataURL(file)})}
+async function projFolders(){if(PF&&PF.length)return PF;try{const p=await mcpCall('Google Drive','search_files',{query:`parentId = '${WORK_ID}' and mimeType = 'application/vnd.google-apps.folder'`,pageSize:100,excludeContentSnippets:true});PF=(p.files||p.items||[]).map(f=>({id:f.id,name:f.title||f.name})).filter(f=>f.id&&f.name)}catch(e){PF=[]}return PF}
+function pickFolder(name){const n=String(name||'').replace(/\s+/g,'').toLowerCase();if(!PF||!n)return null;const nm=f=>f.name.replace(/\s+/g,'').toLowerCase();return PF.find(f=>nm(f)===n)||PF.find(f=>nm(f).includes(n)||n.includes(nm(f)))||null}
+const fileId=r=>r&&(r.id||(r.file&&r.file.id)||((JSON.stringify(r).match(/"id"\s*:\s*"([\w-]{20,})"/)||[])[1]))||'';
+const TOOL_KO={save_doc:'프로젝트 폴더에 저장',save_upload:'첨부 파일 폴더에 저장',log_task:'노션 지시함 기록',calendar:'캘린더 확인',mail:'메일 확인',drive_recent:'드라이브 확인',add_schedule:'일정 추가'};
 async function handleOrder(text){
   if(!window.IS_OWNER){toast(LOCK_MSG);return}
-  text=text.trim();if(!text||busy)return;busy=true;$('#cmdIn').value='';
-  const o={text,at:Date.now(),status:'접수'};ORDERS.unshift(o);renderInbox();
-  ceoAgent.say('지시: '+text,3.4);fly('ceo','hq','#ffd27a',3);
-  setStatus('<b>총괄 비서</b>가 지시를 분류하고 있어요…');pushFeed('ceo','지시: '+text);
-  const r=await classify(text);Object.assign(o,r);o.status='전달됨';
-  chief.interrupt(r.reply||'담당 팀에 전달했어요.');
-  r.routes.forEach((rt,i)=>{const t=TEAM_BY[rt.team];setTimeout(()=>{t.div.pulse=1;fly('hq',t.div.id,'#ffe08a',4);const a=agentOf(t);if(a){a.receive(rt.task)}pushFeed(t.div.id,`${t.name} 접수 — ${rt.task}`)},700+i*650)});
-  if(r.schedule&&r.schedule.date&&r.schedule.title){addUserEvent({date:r.schedule.date,time:r.schedule.time||'',title:r.schedule.title,div:r.routes[0]?TEAM_BY[r.routes[0].team].div.id:'hq',src:'지시'});}
-  setStatus(`<b>${esc(r.src)}</b> 분류 · ${r.routes.map(x=>TEAM_BY[x.team].name).join(', ')} 전달${CAP.db?' · 지시함에 저장됨':''}`);
-  saveOrder(o);renderInbox();notionPush(o);
-  setTimeout(()=>{o.status=o.status==='전달됨'?'전달 완료':o.status;const names=r.routes.map(x=>TEAM_BY[x.team].name).join(', ');chief.goReport(`보고 · ${names} 접수 완료`);pushFeed('hq',`대표실 보고 — ${names}`);saveOrder(o);renderInbox()},4200+r.routes.length*650);
-  busy=false;
+  text=text.trim();if((!text&&!ATT.length)||chatBusy)return;$('#cmdIn').value='';chatOpen(true);
+  const files=ATT.slice();ATT=[];renderAtt();window.__curFiles=files;let attTxt='',imgs=[];
+  if(files.length){const parts=[];for(let k=0;k<files.length;k++){const f=files[k];let line=`${k+1}. ${f.name} (${f.type||'파일'}, ${fmtSize(f.size)})`;if(/^text\/|json|csv|markdown/.test(f.type)||/\.(txt|md|csv|json)$/i.test(f.name)){try{line+='\n```\n'+(await f.text()).slice(0,15000)+'\n```'}catch(e){}}else if(/^image\//.test(f.type)){imgs.push(f);line+=' — 사진 첨부(직접 보세요)'}else{line+=' — 내용은 직접 못 읽음. 파일명·맥락으로 판단하고 원본은 save_upload로 저장'}parts.push(line)}attTxt='\n\n[첨부 파일]\n'+parts.join('\n')}
+  if(!text)text='(첨부 파일을 올렸어요. 알아서 정리·진행해 주세요)';
+  if(CAP.mcp)projFolders();
+  CHAT.push({role:'user',content:text+(files.length?'\n📎 '+files.map(f=>f.name).join(', '):''),at:Date.now(),send:text+attTxt});const bot={role:'assistant',content:'',at:Date.now(),tools:[]};CHAT.push(bot);renderChat();
+  ceoAgent.say(text.slice(0,30),3.4);fly('ceo','hq','#ffd27a',3);pushFeed('ceo',text);setStatus('<b>총괄 비서</b>가 진행하고 있어요…');
+  if(!CAP.sample){const r=localRoute(text);const o={text,at:Date.now(),status:'접수',...r};ORDERS.unshift(o);saveOrder(o);renderInbox();notionPush(o);bot.content='지금은 Claude 연결이 허용되지 않아 바로 진행하지 못했어요. 노션 지시함에 넣어 두었고, 다음 정해진 시간(07:31·16:31)에 처리해 결과를 보고에 올릴게요.';renderChat();saveChat();return}
+  chatBusy=true;chatAbort=new AbortController();
+  await (CAP.mcp?projFolders():null);const hist=CHAT.slice(0,-1).slice(-16).map(m=>({role:m.role,content:m.send||m.content||'…'}));
+  const msgs=[{role:'user',content:chatSys()+'\n\n(여기까지 업무 기준. 대표와의 대화가 이어집니다.)'},{role:'assistant',content:'네, 대표님. 말씀하시면 바로 진행할게요.'},...hist];
+  const tools=CHAT_TOOLS().map(t=>({...t,execute:async(i)=>{bot.tools.push(TOOL_KO[t.name]||t.name);renderChat();try{return await t.execute(i)}catch(e){return{error:(e&&e.code)||'실패'}}}}));
+  try{let canImg=false;try{canImg=!!(imgs.length&&(await CAP.sample.limits()).images)}catch(e){}
+    const res=await CAP.sample(msgs,{modelTier:'default',cache:false,tools,...(canImg?{images:imgs}:{}),signal:chatAbort.signal,onText:({text})=>{bot.content=text;renderChat()}});bot.content=(res&&res.text)||bot.content||'(답이 비어 있어요)';
+    chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
+  catch(e){if(e&&e.code==='not_granted')CAP.sample=null;bot.content=(e&&e.text)||('진행 중 문제가 생겼어요 ('+((e&&e.code)||'오류')+'). 다시 보내 주시면 이어서 할게요.');setStatus('총괄 비서 응답 오류')}
+  chatBusy=false;renderChat();saveChat();
 }
 function setStatus(h){$('#status').innerHTML=h}
+
 $('#cmdForm').addEventListener('submit',e=>{e.preventDefault();handleOrder($('#cmdIn').value)});
-$('#inboxBtn').addEventListener('click',()=>{setView('space');openCEO()});
+$('#inboxBtn').addEventListener('click',()=>{setView('space');chatOpen(false);openCEO()});
+{const cc=$('#chatClose');if(cc)cc.addEventListener('click',()=>chatOpen(false))}
 
 /* mic */
 function setupMic(){const b=$('#micBtn');b.style.display='grid';let on=false;
@@ -576,7 +670,7 @@ function setupMic(){const b=$('#micBtn');b.style.display='grid';let on=false;
 const panel=$('#panel');let panelState=null;
 function tagList(a){return (a||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join('')}
 function head(c,code,title,who,mission,back){panel.style.setProperty('--c',c);$('#ph').innerHTML=`${back?`<button class="bk" id="pbk">←</button>`:''}<button class="x" id="px">✕</button><div class="code">${esc(code)}</div><h2>${esc(title)}</h2><div class="who">${esc(who)}</div>${mission?`<div class="mission">${esc(mission)}</div>`:''}`;$('#px').onclick=closePanel;if(back)$('#pbk').onclick=back}
-function show(h){$('#pb').innerHTML=h;$('#pb').scrollTop=0;panel.classList.add('open');$('#pb').querySelectorAll('[data-team]').forEach(e=>e.onclick=()=>openTeam(e.dataset.team));$('#pb').querySelectorAll('[data-div]').forEach(e=>e.onclick=()=>focusOn(e.dataset.div));$('#pb').querySelectorAll('[data-cio]').forEach(e=>e.onclick=()=>focusOn('cio'));$('#pb').querySelectorAll('[data-alt]').forEach(e=>e.onclick=()=>focusOn('alt'))}
+function show(h){$('#pb').innerHTML=h;$('#pb').scrollTop=0;panel.classList.add('open');$('#pb').querySelectorAll('[data-team]').forEach(e=>e.onclick=()=>openTeam(e.dataset.team));$('#pb').querySelectorAll('[data-div]').forEach(e=>e.onclick=()=>focusOn(e.dataset.div));$('#pb').querySelectorAll('[data-cio]').forEach(e=>e.onclick=()=>focusOn('cio'));$('#pb').querySelectorAll('[data-alt]').forEach(e=>e.onclick=()=>focusOn('alt'));$('#pb').querySelectorAll('[data-fb]').forEach(e=>e.onclick=()=>{const ci=$('#cmdIn');ci.value='「'+e.dataset.fb+'」 피드백: ';chatOpen(true);ci.focus()})}
 function closePanel(){panel.classList.remove('open');panelState=null;selected=null;focusId=null}
 function openDiv(id){const d=DIV_BY[id];panelState={type:'div',id};selected=id;
   head(d.color,d.code+' · '+d.en,d.name,`팀 ${d.T.length} · 비서 ${d.T.length}`,d.mission);
@@ -612,9 +706,9 @@ function sidePanel(e,code,role,extra){panelState={type:e.id};selected=e.id;head(
   let h=`<div class="sec"><h3>맡은 일</h3>${e.duties.map(x=>`<div class="duty">${esc(x)}</div>`).join('')}</div>`;
   if(e.rules)h+=`<div class="sec"><h3>원칙</h3>${e.rules.map(x=>`<div class="duty">${esc(x)}</div>`).join('')}</div>`;
   h+=extra||'';h+=`<div class="sec"><h3>자동화</h3>${e.autos.map(a=>`<div class="rrow"><span class="chip s-${a[0]}">${a[0]}</span><span>${esc(a[1])}</span></div>`).join('')}</div>`;show(h)}
-function openClone(){panelState={type:'alt'};selected='alt';head(CLONE.color,CLONE.code+' · 대표실','대표 분신','엘모 스타일로 결정 초안을 만듭니다',CLONE.mission);
+function openClone(){panelState={type:'alt'};selected='alt';head(CLONE.color,CLONE.code+' · 대표실','대표 분신','엘모 스타일로 대신 정하고 진행합니다',CLONE.mission);
   let h=`<div class="sec"><h3>판단 기준 (대표가 정한 원칙)</h3>${CLONE.principles.map(x=>`<div class="duty">${esc(x)}</div>`).join('')}</div>`;
-  h+=`<div class="sec"><h3>지금 결정 필요 → 분신 추천</h3>${CLONE.recs.map(r=>`<div class="prow"><span>${esc(r[0])}<small>추천: ${esc(r[1])}<br>이유: ${esc(r[2])}</small></span><span class="chip s-대표">확인</span></div>`).join('')||'<div class="hint">결정할 일이 없어요.</div>'}</div><p class="hint">분신은 초안만 냅니다. 확정은 대표가 하고, 지시함에 「분신 추천대로」라고 남기면 총괄 비서가 진행합니다.</p>`;
+  h+=`<div class="sec"><h3>분신이 대신 정한 것 — 바꾸려면 말씀만</h3>${CLONE.recs.map(r=>`<div class="prow"><span>${esc(r[0])}<small>${esc(r[1])}<br>이유: ${esc(r[2])}</small></span><span class="chip s-진행">적용</span></div>`).join('')||'<div class="hint">아직 없어요.</div>'}</div><p class="hint">분신은 묻지 않고 진행합니다. 다르게 하고 싶으면 총괄 비서에게 한마디만 하세요 — 바로 고치고 다음부터 기준에 반영합니다.</p>`;
   h+=`<div class="sec"><h3>자동화</h3>${CLONE.autos.map(a=>`<div class="rrow"><span class="chip s-${a[0]}">${a[0]}</span><span>${esc(a[1])}</span></div>`).join('')}</div>`;show(h)}
 function openInspector(){const L=archived();sidePanel(INSPECTOR,INSPECTOR.code+' · 총괄 비서 직속','감리 팀장 · 검수 → 보관 창고',`<div class="sec"><h3>보관 대상 (완료·보류) ${L.length}</h3>${L.map(o=>`<div class="prow"><span>${esc(o.name)}<small>${esc(o.team?o.team.div.code+'·'+o.team.name:'')}</small></span><span class="chip s-${o.st}">${o.st}</span></div>`).join('')}</div>`)}
 function openVault(){const L=archived();panelState={type:'vault'};selected='vault';head(VAULT.color,'ARCHIVE · 보관 창고','보관 창고','감리 팀장이 검수한 뒤 옮겨 두는 곳','끝났거나 멈춘 일의 작업 파일·기록을 모아 둡니다. Drive에서는 「11_프로젝트 공용 작업파일 / 00_보관 창고」, 노션에서는 단계 「보관」입니다. 지우지 않고 옮기기만 하며, 99_최종본은 그대로 둡니다.');
@@ -624,14 +718,15 @@ function openPartner(id){const p=ENT[id];const d=DIV_BY[p.div],t=TEAM_BY[p.team]
   let h=`<div class="sec"><h3>연결 채널</h3><div class="tags">${tagList(p.ch)}</div></div><div class="sec"><h3>공유 범위</h3><div class="duty">${esc(p.share)}</div><p class="hint">내부 기록·금액·대표 개인 정보는 공유하지 않습니다.</p></div><div class="sec"><h3>자동화</h3><div class="rrow"><span class="chip s-${p.status}">${p.status}</span><span>${esc(p.auto)}</span></div></div>`;
   h+=`<div class="sec"><h3>담당 팀</h3><button class="prow" data-team="${t.code}"><span><b style="color:${d.color}">${t.code}</b>&nbsp; ${esc(t.name)}<small>${esc(t.mission)}</small></span><span class="chip s-진행">열기</span></button></div>`;
   show(h)}
-function openCEO(keep){panelState={type:'ceo'};selected='ceo';head(CEO.color,'CEO · 대표실','대표 · 엘모','내 자리 · 지시 / 보고 / 결정',CEO.mission);
+function openCEO(keep){panelState={type:'ceo'};selected='ceo';head(CEO.color,'CEO · 대표실','대표 · 엘모','내 자리 · 지시 / 피드백',CEO.mission);
   const td=ymd(kst()),tm=ymd(new Date(kst().getTime()+864e5));const ev=allEvents();
   const day=(d,l)=>{const e=ev.filter(x=>x.date===d);return `<div class="sec"><h3>${l}</h3>${e.length?e.map(x=>`<div class="rrow"><span class="chip" style="background:${colorOf(x.div)}22;color:${colorOf(x.div)}">${x.time||'종일'}</span><span>${esc(x.title)}</span></div>`).join(''):'<div class="hint">등록된 일정 없음</div>'}</div>`};
   let h=day(td,'오늘 일정')+day(tm,'내일 일정');
-  h+=`<div class="sec"><h3>지시·보고함</h3>${ORDERS.length?ORDERS.slice(0,10).map(orderHTML).join(''):'<div class="hint">아래 입력창에 지시를 쓰거나 🎙 버튼으로 말하면 총괄 비서가 담당 팀에 전달하고, 여기로 보고합니다.</div>'}</div>`;
+  h+=`<div class="sec"><h3>최근 지시</h3>${ORDERS.length?ORDERS.filter(o=>o.status!=='피드백 대기').slice(0,8).map(orderHTML).join(''):'<div class="hint">아래 입력창에 말을 걸거나 🎙 버튼으로 말하면 총괄 비서가 진행해 결과를 올립니다.</div>'}</div>`;
   if(NOTION_ROWS&&NOTION_ROWS.length){const mine=new Set(ORDERS.map(o=>o.notionUrl));const ext=NOTION_ROWS.filter(x=>!mine.has(x.url)).slice(0,6);if(ext.length)h+=`<div class="sec"><h3>노션 지시함 (다른 곳에서 들어온 것)</h3>${ext.map(x=>`<a class="prow" href="${esc(x.url||NOTION_HQ)}" target="_blank" rel="noopener"><span>${esc(x['지시'])}<small>${esc(x['출처']||'')}${x['결과']?' · '+esc(x['결과']):''}</small></span><span class="chip s-${esc(x['상태']||'접수')}">${esc(x['상태']||'접수')}</span></a>`).join('')}</div>`}
   h+=`<div class="sec"><h3>개선 실장 제안 (상위 3)</h3>${OFFICER.ideas.slice(0,3).map(i=>`<div class="prow"><span>${esc(i[1])}<small>${esc(i[0])}</small></span><span class="chip s-신설">${esc(i[2])}</span></div>`).join('')}<button class="prow" data-cio="1"><span>전체 개선안 ${OFFICER.ideas.length}건 보기</span><span class="chip s-진행">→</span></button></div>`;
-  h+=`<div class="sec"><h3>결정 필요 · 분신 추천</h3>${CEO.decisions.map((d,i)=>{const r=CLONE.recs[i];return `<div class="prow"><span>${esc(d[0])}${r?`<small>α 추천: ${esc(r[1])}</small>`:''}</span><span class="chip s-신설">${esc(d[1])}</span></div>`}).join('')}<button class="prow" data-alt="1"><span>대표 분신 열기</span><span class="chip s-진행">→</span></button></div>`;
+  {const fb=ORDERS.filter(o=>o.status==='피드백 대기');const ext=(NOTION_ROWS||[]).filter(x=>x['상태']==='피드백 대기'&&!ORDERS.some(o=>o.notionUrl===x.url));h+=`<div class="sec"><h3>피드백 대기 — 총괄 비서가 진행한 일</h3>${fb.map(orderHTML).join('')}${ext.map(x=>`<a class="prow" href="${esc(x.url||NOTION_HQ)}" target="_blank" rel="noopener"><span>${esc(x['지시'])}<small>${esc(x['결과']||'')}</small></span><span class="chip s-피드백">피드백</span></a>`).join('')}${!fb.length&&!ext.length?'<div class="hint">지금 피드백할 일이 없어요. 아래 입력창에 말을 걸면 총괄 비서가 진행해서 여기에 올립니다.</div>':''}</div>`;}
+  h+=`<div class="sec"><h3>대표님 손이 필요한 일 (결제·서명·로그인·발송)</h3>${(CEO.hands||[]).map(d=>`<div class="prow"><span>${esc(d[0])}<small>${esc(d[1])}</small></span><span class="chip s-대표">대표</span></div>`).join('')||'<div class="hint">없어요.</div>'}<button class="prow" data-alt="1"><span>분신이 대신 정한 것 보기</span><span class="chip s-진행">→</span></button></div>`;
   h+=`<div class="sec"><h3>바로가기</h3><div class="tags"><a class="tag" href="https://mail.google.com" target="_blank" rel="noopener">Gmail</a><a class="tag" href="https://drive.google.com/drive/folders/1rd6q6SfAaulDDwwHzxFPNa1vgmUzl1iC" target="_blank" rel="noopener">2026 cowork</a><a class="tag" href="https://calendar.google.com" target="_blank" rel="noopener">캘린더</a><a class="tag" href="${NOTION_HQ}" target="_blank" rel="noopener">노션 HQ</a><a class="tag" href="https://www.elmocompany.com" target="_blank" rel="noopener">elmocompany.com</a></div></div>`;
   const sc=keep?$('#pb').scrollTop:0;show(h);if(keep)$('#pb').scrollTop=sc}
 
@@ -821,7 +916,7 @@ function chiefUpdate(dt){patrol.t-=dt;
   if(patrol.phase==='walk'){if(!chief.moving&&patrol.t<=0){patrol.phase='check';patrol.t=3.2;const d=DIVS[patrol.i];d.pulse=1;const t=d.T[Math.floor(Math.random()*d.T.length)];chief.say('점검 · '+d.name,3);const a=agentOf(t);if(a&&a.mode==='wander'){a.busy=true;a.set(chief.gx+(d.cx-chief.gx)*.35,chief.gy+(d.cy-chief.gy)*.35);setTimeout(()=>{const pj=t.projects[0];a.say('보고 · '+(pj?pj[0]+' '+pj[1]:'이상 없음'),2.6)},1000);setTimeout(()=>{a.busy=false;a.wait=.4},3300)}pushFeed(d.id,d.name+' 점검')}return}
   if(patrol.t>0)return;
   patrol.i++;
-  if(patrol.i>=DIVS.length){patrol.i=-1;chief.goReport(DIVS.length+'개 본부·실 점검 완료 · 결정 필요 '+CEO.decisions.length+'건');pushFeed('hq',DIVS.length+'개 본부·실 점검 완료 → 대표실 보고');patrol.phase='idle';patrol.t=6;return}
+  if(patrol.i>=DIVS.length){patrol.i=-1;chief.goReport(DIVS.length+'개 본부·실 점검 완료 · 피드백 대기 '+ORDERS.filter(o=>o.status==='피드백 대기').length+'건');pushFeed('hq',DIVS.length+'개 본부·실 점검 완료 → 대표실 보고');patrol.phase='idle';patrol.t=6;return}
   const d=DIVS[patrol.i];const ang=Math.atan2(d.cy,d.cx);const rr=Math.hypot(d.cx,d.cy)-HALF*1.15;chief.anchor=d;chief.set(Math.cos(ang)*rr,Math.sin(ang)*rr);patrol.phase='walk';patrol.t=.2}
 function officerUpdate(dt){const a=officer;if(a.moving)return;a.wait-=dt;if(a.wait>0)return;if(!OFFICER.ideas.length){a.anchor=null;a.set(OFFICER.cx+(Math.random()-.5)*1.4,OFFICER.cy+(Math.random()-.5)*1.4);a.wait=4+Math.random()*4;return}
   if(a.state==='go'){const i=OFFICER.ideas[a.idea%OFFICER.ideas.length];a.say('개선안 · '+i[1],3.6);const dc=i[0].split('·')[0];const d=DIVS.find(v=>v.code===dc);if(d){d.pulse=1}pushFeed('cio','개선안 — '+i[1]);a.idea++;a.state='back';a.wait=3.8;return}
@@ -895,7 +990,7 @@ function hqTower(t){const p=iso(0,0,.45),c='#ffe08a',gr=128,gy=p[1]-162+Math.sin
 function ceoRoom(t){const e=CEO,x=e.cx,y=e.cy,c=e.color;
   box(x-1.6,y-.6,2.4,.9,.5,'#3a2f1c',.35);box(x-1.5,y-.55,.08,.8,.55,'#ffd27a',.85,.9);box(x-.2,y-.55,.08,.8,.55,'#ffd27a',.85,.9);
   box(x+.3,y+.5,.7,.7,.35,'#2b2238',.35);box(x+.3,y+.5,.12,.7,.75,'#2b2238',.7);
-  const p=iso(x-1.4,y-2.4,2.1);ctx.save();ctx.translate(p[0],p[1]);ctx.fillStyle=hexA(c,.12);ctx.strokeStyle=hexA(c,.6);ctx.lineWidth=1;ctx.beginPath();ctx.rect(-6,-34,118,46);ctx.fill();ctx.stroke();ctx.fillStyle=c;ctx.font='700 10px "Space Grotesk",sans-serif';ctx.textBaseline='top';ctx.fillText('CEO · '+pad(kst().getHours())+':'+pad(kst().getMinutes()),2,-29);ctx.fillStyle='#e9eefc';ctx.font='700 10px "Noto Sans KR",sans-serif';ctx.fillText('지시 '+ORDERS.length+' · 결정 '+CEO.decisions.length,2,-14);ctx.restore()}
+  const p=iso(x-1.4,y-2.4,2.1);ctx.save();ctx.translate(p[0],p[1]);ctx.fillStyle=hexA(c,.12);ctx.strokeStyle=hexA(c,.6);ctx.lineWidth=1;ctx.beginPath();ctx.rect(-6,-34,118,46);ctx.fill();ctx.stroke();ctx.fillStyle=c;ctx.font='700 10px "Space Grotesk",sans-serif';ctx.textBaseline='top';ctx.fillText('CEO · '+pad(kst().getHours())+':'+pad(kst().getMinutes()),2,-29);ctx.fillStyle='#e9eefc';ctx.font='700 10px "Noto Sans KR",sans-serif';ctx.fillText('지시 '+ORDERS.length+' · 피드백 '+ORDERS.filter(o=>o.status==='피드백 대기').length,2,-14);ctx.restore()}
 function officerPad(t,e=OFFICER,pid='cio'){const c=e.color,p=iso(e.cx,e.cy,0),r=OHALF,rx=r*TW/2*Math.SQRT2,ry=r*TH/2*Math.SQRT2,top=p[1]-.3*ZH;
   const rg=ctx.createRadialGradient(p[0],p[1],5,p[0],p[1],160);rg.addColorStop(0,hexA(c,.18));rg.addColorStop(1,hexA(c,0));ctx.fillStyle=rg;ctx.beginPath();ctx.ellipse(p[0],p[1],170,85,0,0,7);ctx.fill();
   ctx.fillStyle=hexA(c,.18);ctx.beginPath();ctx.ellipse(p[0],p[1],rx,ry,0,0,Math.PI);ctx.lineTo(p[0]-rx,top);ctx.ellipse(p[0],top,rx,ry,0,Math.PI,0,true);ctx.closePath();ctx.fill();
