@@ -321,6 +321,11 @@ body.visitor .cbtn.clip{display:none}
 .bub .cp.ok{color:#9be7b5;border-color:rgba(155,231,181,.5)}
 .resume{margin:10px 6px;padding:11px 13px;border-radius:14px;background:rgba(255,200,90,.12);border:1px solid rgba(255,200,90,.4);font-size:13px;line-height:1.55;color:#ffe2a8}
 .resume button{margin-top:8px;padding:7px 14px;border-radius:999px;border:0;background:#ffd27a;color:#2a2108;font-weight:700;font-size:13px;cursor:pointer}
+
+.chat{bottom:calc(var(--dockGap,150px) + 10px)}
+@media (max-width:760px){.chat{bottom:calc(var(--dockGap,128px) + 8px);height:auto;top:max(70px,calc(100vh - var(--dockGap,128px) - 8px - 64vh))}}
+.cmd textarea::placeholder{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bub .cp{display:table;margin:10px 0 0}
 </style>
 </head>
 <body>
@@ -349,7 +354,7 @@ body.visitor .cbtn.clip{display:none}
   <div class="att" id="att"></div>
   <form class="cmd" id="cmdForm" autocomplete="off" onsubmit="return false">
     <div class="who"><i>★</i><span>총괄 비서</span></div>
-    <textarea id="cmdIn" rows="1" placeholder="총괄 비서에게 말하기 — Claude한테 말하듯 편하게 (붙여넣기 가능)" enterkeyhint="send"></textarea>
+    <textarea id="cmdIn" rows="1" placeholder="총괄 비서에게 편하게 말하기 · 붙여넣기 OK" enterkeyhint="send"></textarea>
     <input type="file" id="fileIn" multiple hidden><button type="button" class="cbtn clip" id="clipBtn" aria-label="파일 올리기" title="파일 올리기 (사진·PDF·문서)">📎</button><button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
     <button type="button" class="cbtn inbox" id="inboxBtn"><span>보고함</span><em id="inboxN">0</em></button>
     <button type="submit" class="cbtn send">보내기</button>
@@ -740,6 +745,7 @@ async function handleOrder(text){
 }
 function setStatus(h){$('#status').innerHTML=h}
 
+{const dk=document.querySelector('.dock');const upd=()=>{if(!dk)return;const r=dk.getBoundingClientRect();document.documentElement.style.setProperty('--dockGap',Math.max(60,Math.round(innerHeight-r.top))+'px')};upd();addEventListener('resize',upd);try{new ResizeObserver(upd).observe(dk)}catch(e){}}
 $('#cmdForm').addEventListener('submit',e=>{e.preventDefault();handleOrder($('#cmdIn').value)});{const ci=$('#cmdIn');ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();handleOrder(ci.value)}});const grow=()=>{ci.style.height='auto';ci.style.height=Math.min(132,ci.scrollHeight)+'px'};ci.addEventListener('input',grow);ci.addEventListener('paste',()=>setTimeout(grow,0))}setTimeout(()=>{if(window.IS_OWNER)checkCut()},4000);
 $('#inboxBtn').addEventListener('click',()=>{setView('space');chatOpen(false);openCEO()});
 {const cc=$('#chatClose');if(cc)cc.addEventListener('click',()=>chatOpen(false))}
