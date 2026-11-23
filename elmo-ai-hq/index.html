@@ -297,20 +297,16 @@ body.visitor .chat{display:none}
 .ac small{color:#9aa6c8}.ac button{background:none;border:0;color:#cfd8f5;cursor:pointer;font-size:14px;line-height:1}
 .cbtn.clip{font-size:16px}
 body.visitor .cbtn.clip{display:none}
-/* ---- 폰 최적화: 세로 메뉴 → 상단 가로 메뉴, 입력 확대 방지 ---- */
+/* ---- 폰 최적화: 세로 사이드바 유지, 대화창·패널이 열리면 잠시 숨김 ---- */
 @media (max-width:760px){
- .rail{top:calc(86px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);flex-direction:row;gap:2px;padding:3px;border-radius:14px;max-width:calc(100% - 12px);overflow-x:auto;scrollbar-width:none}
- .rail::-webkit-scrollbar{display:none}
- .rail button{width:42px;flex:none;padding:5px 0 4px;border-radius:11px;gap:2px}
- .rail button i{font-size:13px}.rail button span{font-size:9px;white-space:nowrap}
- .view{top:calc(138px + env(safe-area-inset-top,0px))}
- .sites{left:8px;right:56px}
+ .rail{top:46%}
+ body.chatting .rail,body:has(.panel.open) .rail{opacity:0;pointer-events:none}
+ .view{left:60px}
  .cmd input,#cmdIn{font-size:16px}
  .chat{height:min(58vh,calc(100vh - 300px))}
  .bub{font-size:14px}
  .ac{max-width:200px}
 }
-@media (max-width:380px){.rail button{width:40px}.rail button span{font-size:8.5px}}
 
 @media (max-width:760px){.fab button{width:44px;height:44px;font-size:18px}}
 </style>
