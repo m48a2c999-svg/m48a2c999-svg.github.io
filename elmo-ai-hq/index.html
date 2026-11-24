@@ -1181,7 +1181,7 @@ const BGC=document.createElement('canvas'),bgx=BGC.getContext('2d');let bgAt=-99
 function drawBG(t){if(t-bgAt>2.5||bgW!==W||bgH!==H){bgAt=t;bgW=W;bgH=H;BGC.width=Math.max(1,Math.round(W*DPR));BGC.height=Math.max(1,Math.round(H*DPR));const ctx=bgx;ctx.setTransform(DPR,0,0,DPR,0,0);const bg=ctx.createRadialGradient(W/2,H*.45,50,W/2,H*.5,Math.max(W,H)*.8);const hu=218+14*Math.sin(t*.04),hu2=196+20*Math.sin(t*.031+1.3);bg.addColorStop(0,`hsl(${hu},48%,36%)`);bg.addColorStop(.5,`hsl(${hu+6},50%,21%)`);bg.addColorStop(1,`hsl(${hu+10},52%,11%)`);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);[[W*(.8+.06*Math.cos(t*.025)),H*.18,hu+14,.2],[W*(.15+.07*Math.sin(t*.03)),H*.82,hu2,.2],[W*(.55+.12*Math.sin(t*.018+2)),H*.5,192,.08]].forEach(([nx,ny,h,al])=>{const nb=ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(W,H)*.5);nb.addColorStop(0,`hsla(${h},80%,70%,${al*1.7})`);nb.addColorStop(1,`hsla(${h},80%,62%,0)`);ctx.fillStyle=nb;ctx.fillRect(0,0,W,H)});
   stars.forEach(s=>{ctx.fillStyle=`rgba(220,225,255,${.12+.3*Math.sin(t*.6+s.p)**2})`;ctx.fillRect(s.x*W,s.y*H,s.r,s.r)});}ctx.drawImage(BGC,0,0,W,H)}
 let last=performance.now(),acc=0;
-function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const bc=document.body.classList;const minDt=view!=='space'?160:(bc.contains('chatting')||panelState)?110:bc.contains('idle')?66:(LOW?42:30);if(now-last<minDt)return;
+function frame(now){requestAnimationFrame(frame);if(document.hidden)return;const bc=document.body.classList;const minDt=(window.__deep||(idleT>=10&&!document.hasFocus()))?250:view!=='space'?160:(bc.contains('chatting')||panelState)?110:bc.contains('idle')?100:(LOW?42:33);if(now-last<minDt)return;
   const dt=Math.min(.06,(now-last)/1000);last=now;const t=(now-T0)/1000;
   zoom+=(tZoom-zoom)*.09;camX+=(tCamX-camX)*.09;camY+=(tCamY-camY)*.09;
   orbitStep(dt);teamAgents.forEach(a=>{teamUpdate(a,dt);a.update(dt)});chiefUpdate(dt);chief.update(dt);officerUpdate(dt);officer.update(dt);inspectorUpdate(dt);inspector.update(dt);guardUpdate(dt);guard.update(dt);ceoUpdate(dt);ceoAgent.update(dt);cloneUpdate(dt);cloneAgent.update(dt);
@@ -1227,7 +1227,7 @@ cv.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,tZ
 window.addEventListener('keydown',e=>{if(e.key==='Escape'){closePanel();setView('space')}});
 
 fit();fromHash();
-let idleT=0;const wake=()=>{idleT=0;document.body.classList.remove('idle')};['pointermove','pointerdown','keydown','wheel','touchstart'].forEach(ev=>window.addEventListener(ev,wake,{passive:true}));setInterval(()=>{idleT+=1;if(idleT>=30&&view==='space'&&!panelState&&document.activeElement!==$('#cmdIn'))document.body.classList.add('idle')},1000);
+let idleT=0;const wake=()=>{idleT=0;window.__deep=false;document.body.classList.remove('idle')};['pointermove','pointerdown','keydown','wheel','touchstart'].forEach(ev=>window.addEventListener(ev,wake,{passive:true}));setInterval(()=>{idleT+=1;window.__deep=idleT>=90;if(idleT>=20&&view==='space'&&!panelState&&document.activeElement!==$('#cmdIn'))document.body.classList.add('idle')},1000);
 let started=false;const start=()=>{if(!started){started=true;last=performance.now();requestAnimationFrame(frame);chief.say('오늘도 '+DIVS.length+'개 본부·실을 점검합니다',3.5)}};
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);setTimeout(start,1500);
 window.__hq={focusOn,closePanel,setView,openTeam};
