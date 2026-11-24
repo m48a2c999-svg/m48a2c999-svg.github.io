@@ -334,6 +334,16 @@ body.visitor .cbtn.clip{display:none}
 .fab button{background:rgba(12,17,36,.86)}
 .sites a,.sites button{background:rgba(12,15,32,.84)}
 .chat,.panel,.view{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(14,20,40,.97)}
+
+.chatbtn{display:flex;align-items:center;gap:6px;position:relative}
+.chatbtn i{font-style:normal;font-size:14px}
+.chatbtn .dot{display:none;position:absolute;top:5px;right:6px;width:8px;height:8px;border-radius:50%;background:#ff7a7a;box-shadow:0 0 0 2px rgba(12,17,36,.92)}
+.chatbtn.unread .dot{display:block}
+body.chatting .chatbtn{background:rgba(255,210,122,.18);border-color:rgba(255,210,122,.5)}
+#whoBtn{cursor:pointer}
+body.visitor .chatbtn{display:none}
+@media (max-width:760px){.chatbtn span{display:none}}
+#whoBtn:focus{outline:none}#whoBtn:focus-visible{outline:2px solid rgba(255,210,122,.6);outline-offset:2px;border-radius:10px}
 </style>
 </head>
 <body>
@@ -361,10 +371,10 @@ body.visitor .cbtn.clip{display:none}
   <div class="ticker"><div class="lab">LIVE</div><div class="feed" id="feed"></div></div>
   <div class="att" id="att"></div>
   <form class="cmd" id="cmdForm" autocomplete="off" onsubmit="return false">
-    <div class="who"><i>★</i><span>총괄 비서</span></div>
+    <div class="who" id="whoBtn" role="button" tabindex="0" title="대화창 열기"><i>★</i><span>총괄 비서</span></div>
     <textarea id="cmdIn" rows="1" placeholder="총괄 비서에게 편하게 말하기 · 붙여넣기 OK" enterkeyhint="send"></textarea>
     <input type="file" id="fileIn" multiple hidden><button type="button" class="cbtn clip" id="clipBtn" aria-label="파일 올리기" title="파일 올리기 (사진·PDF·문서)">📎</button><button type="button" class="cbtn mic" id="micBtn" style="display:none" aria-label="말로 지시">🎙</button>
-    <button type="button" class="cbtn inbox" id="inboxBtn"><span>보고함</span><em id="inboxN">0</em></button>
+    <button type="button" class="cbtn chatbtn" id="chatBtn" aria-label="대화창 열기·닫기"><i>💬</i><span>대화</span><b class="dot"></b></button><button type="button" class="cbtn inbox" id="inboxBtn"><span>보고함</span><em id="inboxN">0</em></button>
     <button type="submit" class="cbtn send">보내기</button>
   </form>
   <div class="status" id="status">공간을 눌러 본부·팀·파트너를 열거나, 아래에 말을 걸면 총괄 비서가 알아서 진행해 결과를 가져옵니다.</div>
@@ -640,7 +650,7 @@ async function finishTask(status,result){const T=CUR_TASK;CUR_TASK=null;setPendi
 async function checkCut(){if(!CAP.db)return;if(chatBusy){if(Date.now()-chatStart>60000){try{chatAbort&&chatAbort.abort()}catch(e){}chatBusy=false;const b=CHAT[CHAT.length-1];if(b&&b.role==='assistant'&&!b.content)b.content='(화면이 꺼져서 여기서는 중단됐어요)'}else return}try{const g=await pendRef().get();const v=g&&(typeof g.data==='function'?g.data():g.data);if(v&&v.at&&Date.now()-v.at>20000){const ans=CHAT.find(m=>m.role==='assistant'&&m.at===v.at&&m.content&&!/중단됐어요/.test(m.content));CUT=ans?null:v;if(ans)setPending({at:0})}else CUT=null}catch(e){}renderChat()}
 function resumeCut(){const v=CUT;CUT=null;if(!v)return;NEXT_TASK_URL=v.url||'';handleOrder(v.text+'\n\n(앞에서 화면이 꺼져 끊긴 작업이에요. 처음부터 다시 확인해서 끝까지 진행해 주세요.)')}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(checkCut,800)});
-function chatOpen(on){document.body.classList.toggle('chatting',on!==false);if(on!==false){if(typeof loadShared==='function'&&!CHAT.length)loadShared().then(renderChat);closePanel&&panelState&&closePanel();renderChat()}}
+function chatOpen(on){document.body.classList.toggle('chatting',on!==false);{const cb=document.getElementById('chatBtn');if(cb&&on!==false)cb.classList.remove('unread')}if(on!==false){if(typeof loadShared==='function'&&!CHAT.length)loadShared().then(renderChat);closePanel&&panelState&&closePanel();renderChat()}}
 const ckey=m=>m.role+'|'+(m.at||0);
 function mergeMsgs(a,b){const M=new Map();(a||[]).forEach(m=>M.set(ckey(m),{role:m.role,content:m.content,at:m.at||0}));(b||[]).forEach(m=>{const k=ckey(m),o=M.get(k);if(!o||String(m.content||'').length>=String(o.content||'').length)M.set(k,{role:m.role,content:m.content,at:m.at||0})});return[...M.values()].sort((x,y)=>(x.at-y.at)||(x.role==='user'?-1:1)).slice(-80)}
 async function saveChat(){if(!CAP.db)return;try{const ref=CAP.db.collection('chat').doc('main');let remote=[];try{const g=await ref.get();const v=g&&(typeof g.data==='function'?g.data():g.data);remote=(v&&v.msgs)||[]}catch(e){}const merged=mergeMsgs(remote,CHAT.filter(m=>m.content));await ref.set({msgs:merged,at:Date.now()}).catch(()=>{});if(!chatBusy&&merged.length>CHAT.length){CHAT=merged.map(x=>({...x}));renderChat()}}catch(e){}}
@@ -752,7 +762,7 @@ async function runTurn(text,imgs){imgs=imgs||[];const bot={role:'assistant',cont
     let res,lastErr;for(let tr=0;tr<3;tr++){try{res=await CAP.sample(msgs,{modelTier:tr<2?'complex':'default',cache:false,tools,...(canImg?{images:imgs}:{}),signal:chatAbort.signal,onText:({text})=>{bot.content=text;chatStart=Date.now();renderChat()}});lastErr=null;break}catch(e){lastErr=e;const c=(e&&e.code)||'';if(c==='not_granted'||c==='aborted'||(e&&e.name==='AbortError')||tr===2)break;bot.content='연결이 잠깐 흔들려서 다시 시도하고 있어요… ('+(tr+1)+'/2)';renderChat();await new Promise(r=>setTimeout(r,tr?6000:2500));chatStart=Date.now();bot.content=''}}if(lastErr)throw lastErr;bot.content=(res&&res.text)||bot.content||'(답이 비어 있어요)';
     finishTask('보관',bot.content.replace(/\s+/g,' ').slice(0,300));chief.interrupt('진행 완료 · 피드백 대기');setStatus('<b>총괄 비서</b>가 결과를 올렸어요 · 이어서 피드백을 쓰면 바로 고칩니다')}
   catch(e){if(e&&e.code==='not_granted')CAP.sample=null;bot.content=(e&&e.text)||('세 번 시도했는데 연결이 안 됐어요 ('+((e&&e.code)||'오류')+'). 지시는 노션 지시함에 「처리 중」으로 남아 있어서 다음 정해진 처리 때 클라우드가 이어서 해요. 지금 바로 원하시면 한 번 더 보내 주세요.');setStatus('총괄 비서 응답 오류');CUR_TASK=null}
-  chatBusy=false;try{renderChat();saveChat()}catch(e){}
+  chatBusy=false;try{renderChat();saveChat()}catch(e){}if(!document.body.classList.contains('chatting')){const cb=document.getElementById('chatBtn');if(cb)cb.classList.add('unread');toast('총괄 비서 답이 왔어요 — 💬 대화를 눌러 보세요')}
   if(QUEUE.length){const q=QUEUE.splice(0);setTimeout(()=>runTurn(q.map(x=>x.text).join('\n'),q.flatMap(x=>x.imgs||[])),300)}
   if(CAP.mcp&&!window.__logged&&bot.content&&!/문제가 생겼어요/.test(bot.content)){shareLog('미분류',(text.slice(0,80)+' → '+bot.content.replace(/\s+/g,' ').slice(0,100)))}
 }
@@ -762,6 +772,9 @@ function setStatus(h){$('#status').innerHTML=h}
 $('#cmdForm').addEventListener('submit',e=>{e.preventDefault();handleOrder($('#cmdIn').value)});{const ci=$('#cmdIn');ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&e.keyCode!==229){e.preventDefault();handleOrder(ci.value)}});const grow=()=>{ci.style.height='auto';ci.style.height=Math.min(132,ci.scrollHeight)+'px'};ci.addEventListener('input',grow);ci.addEventListener('paste',()=>setTimeout(grow,0))}setTimeout(()=>{if(window.IS_OWNER)checkCut()},4000);
 $('#inboxBtn').addEventListener('click',()=>{setView('space');chatOpen(false);openCEO()});
 {const cc=$('#chatClose');if(cc)cc.addEventListener('click',()=>chatOpen(false))}
+{const tog=()=>{if(!window.IS_OWNER){toast(LOCK_MSG);return}chatOpen(!document.body.classList.contains('chatting'))};const cb=$('#chatBtn');if(cb)cb.addEventListener('click',tog);const wb=$('#whoBtn');if(wb){wb.addEventListener('click',tog);wb.addEventListener('keydown',e=>{if(e.key==='Enter')tog()})}
+ const ci=$('#cmdIn');if(ci)ci.addEventListener('focus',()=>{if(window.IS_OWNER&&CHAT.length&&!document.body.classList.contains('chatting')&&view==='space')chatOpen(true)});
+ addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('chatting'))chatOpen(false)})}
 
 /* mic */
 function setupMic(){const b=$('#micBtn');b.style.display='grid';let on=false;
@@ -837,7 +850,7 @@ function openCEO(keep){panelState={type:'ceo'};selected='ceo';head(CEO.color,'CE
 
 /* ================= VIEWS ================= */
 let view='space';
-function setView(v){if(!window.IS_OWNER&&v!=='space'){toast(LOCK_MSG);v='space'}view=v;document.body.classList.toggle('viewing',v!=='space');document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));if(v!=='space')closePanel();
+function setView(v){if(!window.IS_OWNER&&v!=='space'){toast(LOCK_MSG);v='space'}if(v!=='space')document.body.classList.remove('chatting');view=v;document.body.classList.toggle('viewing',v!=='space');document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));if(v!=='space')closePanel();
   if(v==='hub')loadHub();if(v==='stats')buildStats();if(v==='schedule'){loadCalendar();renderSchedule()}
   const h=v==='space'?'':'#'+v;try{history.replaceState(null,'',h||location.pathname)}catch(e){}}
 $('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setView(b.dataset.v)});
