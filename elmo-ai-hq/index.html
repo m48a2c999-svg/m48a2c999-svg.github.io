@@ -326,6 +326,14 @@ body.visitor .cbtn.clip{display:none}
 @media (max-width:760px){.chat{bottom:calc(var(--dockGap,128px) + 8px);height:auto;top:max(70px,calc(100vh - var(--dockGap,128px) - 8px - 64vh))}}
 .cmd textarea::placeholder{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bub .cp{display:table;margin:10px 0 0}
+/* perf: 움직이는 캔버스 위 흐림 효과 제거 (매 프레임 다시 흐리게 계산하던 부분) */
+.rail,.ticker,.cmd,.fab button,.sites a,.sites button{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.rail{background:rgba(10,14,30,.86)}
+.ticker{background:rgba(10,14,30,.84)}
+.cmd{background:rgba(12,17,36,.92)}
+.fab button{background:rgba(12,17,36,.86)}
+.sites a,.sites button{background:rgba(12,15,32,.84)}
+.chat,.panel,.view{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(14,20,40,.97)}
 </style>
 </head>
 <body>
@@ -955,7 +963,7 @@ function orbitStep(dt){if(!orbitOn)return;const prev=new Map();ORB.forEach(e=>pr
   const mv=(a,e)=>{if(!e||!prev.has(e))return;const q=prev.get(e),dx=e.cx-q[0],dy=e.cy-q[1];a.gx+=dx;a.gy+=dy;a.tx+=dx;a.ty+=dy};
   teamAgents.forEach(a=>mv(a,a.team.div));mv(chief,chief.anchor);mv(officer,officer.anchor);mv(inspector,inspector.anchor);mv(ceoAgent,CEO);mv(cloneAgent,CEO);
   if(focusId&&panelState){const e=ENT[focusId];if(e&&prev.has(e)){const p=iso(e.cx,e.cy,0),wide=W>760;tCamX=(W-(wide?420:0))/2-p[0]*tZoom;tCamY=(wide?H/2-40:H*.2)-p[1]*tZoom+30}}}
-function fit(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.min(window.devicePixelRatio||1,1.5);cv.width=W*DPR;cv.height=H*DPR;
+function fit(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.max(1,Math.min(window.devicePixelRatio||1,1.5,Math.sqrt(2400000/Math.max(1,W*H))));cv.width=W*DPR;cv.height=H*DPR;
   const z0=W<=760?Math.max(.2,Math.min(.42,(W-40)/1350)):Math.min((W-150)/2380,(H-190)/1300);tZoom=Math.max(.15,Math.min(1.15,z0));if(!fit.done){zoom=tZoom;camX=tCamX=W/2;camY=tCamY=W>760?H/2-10:H*.5;fit.done=1}}
 window.addEventListener('resize',()=>{fit.done=0;fit()});
 function resetView(){fit.done=0;fit();closePanel()}
