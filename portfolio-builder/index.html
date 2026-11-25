@@ -1765,6 +1765,19 @@ const REC = (() => {
   }
 
   /* --- 그림 이름 짓기 --- */
+  /* 쪽 그림의 흰 여백 잘라내기 */
+  function trimCanvas(cv) {
+    const w = cv.width, h = cv.height, d = cv.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, w, h).data;
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (let y = 0; y < h; y += 2) for (let x = 0; x < w; x += 2) { const i = (y * w + x) * 4; if (d[i] < 245 || d[i + 1] < 245 || d[i + 2] < 245) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } }
+    if (x1 < 0) return cv;
+    const pad = Math.round(Math.max(w, h) * 0.02);
+    x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(w, x1 + pad); y1 = Math.min(h, y1 + pad);
+    if ((x1 - x0) * (y1 - y0) > w * h * 0.92) return cv;
+    const o = document.createElement('canvas'); o.width = x1 - x0; o.height = y1 - y0;
+    const x = o.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, o.width, o.height); x.drawImage(cv, x0, y0, o.width, o.height, 0, 0, o.width, o.height);
+    return o;
+  }
   async function canvasBlob(c, q) { return new Promise(r => c.toBlob(r, 'image/jpeg', q || 0.88)); }
   function hashCanvas(c) {
     // 똑같은 그림(반복되는 로고 등)만 거른다 — 1층·2층 평면처럼 비슷한 그림은 남김
@@ -1781,7 +1794,7 @@ const REC = (() => {
     const doc = await L.getDocument({ data: buf, isEvalSupported: false }).promise;
     const small = window.matchMedia('(max-width:860px)').matches || (navigator.deviceMemory && navigator.deviceMemory <= 4);
     const N = Math.min(doc.numPages, small ? 40 : 60);
-    const pages = [], images = [], pageImgs = [], seen = new Set();
+    const pages = [], images = [], pageImgs = [], flats = [], seen = new Set();
     for (let p = 1; p <= N; p++) {
       onStep && onStep(p, N);
       const page = await doc.getPage(p);
@@ -1799,11 +1812,31 @@ const REC = (() => {
       await page.render({ canvasContext: cx, viewport: vp }).promise;
       const textLen = lines.reduce((a, l) => a + l.text.length, 0);
       pageImgs.push({ blob: await canvasBlob(cv, 0.85), name: `${name.replace(/\.pdf$/i, '')}_p${String(p).padStart(2, '0')}.jpg`, w: cv.width, h: cv.height, page: p, textLen, cue, head: lines[0] ? lines[0].text : '' });
-      // 안에 들어 있는 그림 꺼내기
+      // 안에 들어 있는 그림 꺼내기 + 쪽 구성 보기 (선·도형 수, 그림 조각 수, 가장 큰 그림이 쪽을 덮는 비율)
+      const pageImgsHere = [];
+      let meta = { paths: 0, pieces: 0, big: 0 };
       try {
         const ops = await page.getOperatorList();
+        const O = L.OPS, F = ops.fnArray, A = ops.argsArray;
+        const mul = (m, n) => [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]];
+        let ctm = [1, 0, 0, 1, 0, 0]; const stack = [];
+        const pageArea = vp1.width * vp1.height;
         const names = [];
-        for (let i = 0; i < ops.fnArray.length; i++) if (ops.fnArray[i] === L.OPS.paintImageXObject || ops.fnArray[i] === L.OPS.paintJpegXObject) names.push(ops.argsArray[i][0]);
+        for (let i = 0; i < F.length; i++) {
+          const f = F[i];
+          if (f === O.save) stack.push(ctm);
+          else if (f === O.restore) ctm = stack.pop() || [1, 0, 0, 1, 0, 0];
+          else if (f === O.transform) ctm = mul(ctm, A[i]);
+          else if (f === O.paintFormXObjectBegin) { stack.push(ctm); if (A[i] && A[i][0]) ctm = mul(ctm, A[i][0]); }
+          else if (f === O.paintFormXObjectEnd) ctm = stack.pop() || [1, 0, 0, 1, 0, 0];
+          else if (f === O.constructPath) meta.paths++;
+          else if (f === O.paintImageXObject || f === O.paintJpegXObject || f === O.paintInlineImageXObject || f === O.paintImageMaskXObject || f === O.paintImageXObjectRepeat) {
+            meta.pieces++;
+            const cov = Math.abs(ctm[0] * ctm[3] - ctm[1] * ctm[2]) / pageArea;
+            if (cov > meta.big) meta.big = Math.min(1, cov);
+            if (f === O.paintImageXObject || f === O.paintJpegXObject) names.push(A[i][0]);
+          }
+        }
         for (const nm of [...new Set(names)]) {
           const store = nm.startsWith('g_') ? page.commonObjs : page.objs;
           const obj = await new Promise(res => { try { store.get(nm, res); } catch (e) { res(null); } setTimeout(() => res(null), 4000); });
@@ -1820,15 +1853,29 @@ const REC = (() => {
             else continue;
             x.putImageData(id, 0, 0);
           } else continue;
-          const hsh = hashCanvas(c); if (seen.has(hsh)) continue; seen.add(hsh);
+          const hsh = hashCanvas(c); if (seen.has(hsh)) continue;
           const st = imageStats(c);
           if (st.white > 0.995 || st.dark > 0.995) continue; // 거의 빈 그림만 버림 (흰 바탕 도면은 살림)
-          images.push({ canvas: c, w, h, page: p, cue, st, name: `${name.replace(/\.pdf$/i, '')}_p${String(p).padStart(2, '0')}_${images.length + 1}.jpg` });
+          pageImgsHere.push({ canvas: c, w, h, page: p, cue, st, hsh });
         }
       } catch (e) {}
+      // 다이어그램처럼 「그림 + 선·글자」나 여러 조각으로 짜인 쪽은 조각을 따로 꺼내지 않고 쪽 그림 그대로 씀
+      const composed =
+        (cue === 'diagram' && (meta.paths >= 8 || meta.pieces >= 2)) ||
+        (cue === 'drawing' && meta.paths >= 8 && meta.big < 0.6) ||
+        (meta.paths >= 25 && meta.big < 0.6) ||
+        (meta.pieces - pageImgsHere.length >= 3 && meta.big < 0.5) ||
+        (meta.pieces >= 2 && meta.paths >= 12 && meta.big < 0.6);
+      const textHeavy = textLen > 1200 && meta.paths < 60;
+      if (composed && !textHeavy && (meta.paths || meta.pieces)) {
+        const tc2 = trimCanvas(cv);
+        flats.push({ blob: await canvasBlob(tc2, 0.88), w: tc2.width, h: tc2.height, page: p, cue, st: imageStats(tc2), name: `${name.replace(/\.pdf$/i, '')}_p${String(p).padStart(2, '0')}.jpg`, head: lines[0] ? lines[0].text : '' });
+      } else {
+        pageImgsHere.forEach(im => { if (seen.has(im.hsh)) return; seen.add(im.hsh); im.name = `${name.replace(/\.pdf$/i, '')}_p${String(p).padStart(2, '0')}_${images.length + 1}.jpg`; delete im.hsh; images.push(im); });
+      }
       page.cleanup();
     }
-    return { pages, images, pageImgs, numPages: doc.numPages, readPages: N };
+    return { pages, images, pageImgs, flats, numPages: doc.numPages, readPages: N };
   }
 
   /* --- PPTX / DOCX --- */
@@ -2280,8 +2327,16 @@ async function addDoc(f, imgs, pages, log, srcText) {
       log.extracted += content.length;
       const base = imgs.length;
       content.forEach((im, k) => imgs.push({ src: im.canvas, name: im.name, cue: im.cue, page: im.page, order: base + im.page * 100 + k, cat: REC.decideCat(im.cue, im.st, im.w, im.h) }));
-      const usePages = content.length < 4;
+      // 다이어그램처럼 여러 조각으로 짜인 쪽 → 쪽 그림 하나로
+      const flatPages = new Set((r.flats || []).map(fp => fp.page));
+      (r.flats || []).forEach(fp => {
+        const cat = fp.cue === 'drawing' ? 'drawing' : fp.cue === 'process' ? 'process' : fp.cue === 'render' ? REC.decideCat('', fp.st, fp.w, fp.h) : fp.cue === 'diagram' ? 'diagram' : (REC.decideCat('', fp.st, fp.w, fp.h) === 'render' ? 'panel' : 'diagram');
+        imgs.push({ src: fp.blob, name: fp.name, page: fp.page, order: base + fp.page * 100, cat, flat: true, caption: fp.head && fp.head.length < 40 ? fp.head : '' });
+      });
+      log.extracted += flatPages.size;
+      const usePages = content.length + flatPages.size < 4;
       if (usePages) r.pageImgs.forEach(pi => {
+        if (flatPages.has(pi.page)) return;
         if (pi.textLen > 900) return; // 글만 있는 쪽은 그림으로 쓰지 않음
         const cat = pi.cue === 'drawing' ? 'drawing' : pi.cue === 'diagram' ? 'diagram' : pi.cue === 'process' ? 'process' : '';
         imgs.push({ src: pi.blob, name: pi.name, page: pi.page, order: base + pi.page * 100 + 99, cat, flat: true, caption: pi.head && pi.head.length < 40 ? pi.head : '' });
