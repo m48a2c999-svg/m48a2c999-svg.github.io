@@ -326,6 +326,57 @@ a{color:inherit}
   .mobonly{display:block}
 }
 
+/* 수정사항 보고서 */
+.rpbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid #3a3a3a;background:none;color:#e9e7e2;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+.rpbtn:hover{border-color:var(--accent);color:#fff}
+.rpbtn i{font-style:normal;min-width:18px;height:18px;border-radius:9px;background:var(--bad);color:#fff;font-size:11px;display:none;align-items:center;justify-content:center;padding:0 5px}
+.rpbtn i.on{display:inline-flex}
+.rpbtn i.zero{background:var(--ok)}
+.rpbtn .lb2{display:none}
+.rpt{position:fixed;inset:0;z-index:80;background:rgba(20,20,20,.55);display:none;align-items:stretch;justify-content:center;padding:24px}
+.rpt.on{display:flex}
+.rpt-in{background:#F2F1EE;border-radius:14px;max-width:880px;width:100%;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+.rpt-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;background:#141414;color:#fff;flex-wrap:wrap}
+.rpt-bar b{flex:1;font-size:14px;min-width:140px}
+.rpt-bar .btn{background:#fff;color:#141414}
+.rpt-bar .btn.dark{background:var(--accent);border-color:var(--accent);color:#fff}
+.rpt-body{overflow:auto;padding:22px clamp(14px,3vw,30px) 40px;-webkit-overflow-scrolling:touch}
+.rpt-note{font-size:12px;color:var(--muted);padding:8px 16px;background:#fff;border-top:1px solid var(--line)}
+.rp{font-family:var(--font);color:#141414;line-height:1.55;font-size:14px}
+.rp h1{font-size:22px;margin:0 0 4px;letter-spacing:-.01em}
+.rp .meta{color:#6E6D69;font-size:12.5px;margin:0 0 16px}
+.rp .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 20px}
+.rp .sum div{background:#fff;border:1px solid #E4E2DD;border-radius:10px;padding:12px 14px}
+.rp .sum b{display:block;font-size:26px;line-height:1.1}
+.rp .sum span{font-size:12px;color:#6E6D69}
+.rp .sum .bad b{color:#C8412E}.rp .sum .warn b{color:#C27C12}.rp .sum .ok b{color:#2F8F5B}
+.rp h2{font-size:15px;margin:22px 0 8px;display:flex;align-items:baseline;gap:8px}
+.rp h2 small{font-weight:400;color:#6E6D69;font-size:12px}
+.rp ul.it{list-style:none;margin:0;padding:0;background:#fff;border:1px solid #E4E2DD;border-radius:10px;overflow:hidden}
+.rp ul.it li{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:11px 14px;border-top:1px solid #EEECE8}
+.rp ul.it li:first-child{border-top:0}
+.rp ul.it li>i{font-style:normal;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;margin-top:1px}
+.rp li.bad>i{background:#C8412E}.rp li.warn>i{background:#C27C12}.rp li.ok>i{background:#2F8F5B}.rp li.info>i{background:#8a8883}
+.rp li b{font-weight:600}
+.rp li .d{color:#55534f;font-size:13px}
+.rp li .fx{display:block;margin-top:4px;font-size:13px;color:#141414;background:#FCEDE8;border-radius:6px;padding:5px 9px}
+.rp li.warn .fx{background:#FBF1DE}
+.rp table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #E4E2DD;border-radius:10px;overflow:hidden;font-size:12.5px;margin-top:10px}
+.rp th{background:#141414;color:#fff;text-align:left;padding:8px 10px;font-weight:600;white-space:nowrap}
+.rp td{padding:8px 10px;border-top:1px solid #EEECE8;vertical-align:top}
+.rp td.n{white-space:nowrap;font-weight:600}
+.rp td .no{color:#C8412E;font-weight:600}.rp td .yes{color:#2F8F5B}
+.rp .tw{overflow-x:auto}
+.rp .ft{margin-top:22px;font-size:12px;color:#8a8883}
+.rp .spec{background:#fff;border:1px solid #E4E2DD;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#55534f;margin-top:10px}
+.rec-a .rpgo{border-color:var(--accent);color:var(--accent)}
+@media (max-width:860px){
+  .rpbtn{padding:5px 9px}.rpbtn .lb1{display:none}.rpbtn .lb2{display:inline}
+  .brand{min-width:0;flex:1 1 auto}.brand>div{min-width:0}.brand b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.top-r{flex:none;gap:6px}
+  .rpt{padding:0}.rpt-in{border-radius:0}
+  .rp .sum b{font-size:22px}
+}
+
 </style>
 </head>
 <body>
@@ -341,6 +392,7 @@ a{color:inherit}
     </nav>
     <div class="top-r">
       <span class="save" id="saveState" data-t>자동 저장됨</span>
+      <button class="rpbtn" id="rpBtn" type="button"><span class="lb1" data-t>수정사항 보고서</span><span class="lb2" data-t>보고서</span><i id="rpCnt"></i></button>
       <div class="lang"><button data-lang="ko" class="on">한국어</button><button data-lang="zh">中文</button></div>
     </div>
   </header>
@@ -474,7 +526,7 @@ a{color:inherit}
           <p class="hint" data-th>혼자 GitHub에 올리기 어려우면 <b>zip만 받아 두세요.</b> 수업 시간에 같이 올립니다.</p>
           <p class="hint mobonly" data-th><b>GitHub에 올리는 건 PC에서 하세요.</b> 폰에서는 zip을 풀어 올리기가 어렵습니다. 폰에서는 미리보기와 QR 확인만 하면 됩니다.</p>
 
-          <div class="grp"><h3 data-t>게시 전 점검</h3><div class="checks" id="checks"></div></div>
+          <div class="grp"><h3 data-t>게시 전 점검</h3><div class="checks" id="checks"></div><button class="btn" id="rpBtn4" type="button" style="margin-top:10px;width:100%" data-t>수정사항 보고서 열기 · 내려받기</button></div>
 
           <div class="grp"><h3 data-t>내 사이트 주소</h3>
             <label class="f"><span data-t>GitHub 아이디</span><input data-k="info.github" placeholder="hong-gildong" autocapitalize="off" spellcheck="false"><small data-t>영문 소문자·숫자·하이픈. 아이디가 곧 주소가 됩니다.</small></label>
@@ -525,6 +577,11 @@ a{color:inherit}
 <div class="full" id="full"><div class="fb"><span id="fullUrl"></span><button class="btn sm" id="fullClose" type="button" data-t>닫기 ✕</button></div><iframe id="pvFull" title="full preview"></iframe></div>
 <div class="modal" id="modal"><div class="box"><b id="mTitle"></b><p id="mText"></p><div class="acts"><button class="btn" id="mNo" type="button" data-t>취소</button><button class="btn dark" id="mYes" type="button" data-t>확인</button></div></div></div>
 <div class="toast" id="toast"></div>
+<div class="rpt" id="rpt" role="dialog" aria-modal="true"><div class="rpt-in">
+  <div class="rpt-bar"><b data-t>수정사항 보고서</b><button class="btn sm" id="rpCopy" type="button" data-t>글로 복사</button><button class="btn sm dark" id="rpSave" type="button" data-t>보고서 내려받기</button><button class="btn sm" id="rpClose" type="button" data-t>닫기</button></div>
+  <div class="rpt-body"><div class="rp" id="rpBody"></div></div>
+  <div class="rpt-note" data-t>보고서는 이 브라우저 안에서 만들어집니다. 로그인·사용량 없이 몇 번이든 다시 받을 수 있고, 파일을 고쳐 다시 올리면 바로 새로 점검합니다. 내려받기가 막히면 「글로 복사」하거나 화면을 캡처하세요.</div>
+</div></div>
 
 <script>
 var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],f={},c=function(t,r){o=function(t){for(var r=new Array(t),e=0;e<t;e+=1){r[e]=new Array(t);for(var n=0;n<t;n+=1)r[e][n]=null}return r}(i=4*e+17),l(0,0),l(i-7,0),l(0,i-7),s(),h(),d(t,r),e>=7&&v(t),null==a&&(a=p(e,n,u)),w(a,r)},l=function(t,r){for(var e=-1;e<=7;e+=1)if(!(t+e<=-1||i<=t+e))for(var n=-1;n<=7;n+=1)r+n<=-1||i<=r+n||(o[t+e][r+n]=0<=e&&e<=6&&(0==n||6==n)||0<=n&&n<=6&&(0==e||6==e)||2<=e&&e<=4&&2<=n&&n<=4)},h=function(){for(var t=8;t<i-8;t+=1)null==o[t][6]&&(o[t][6]=t%2==0);for(var r=8;r<i-8;r+=1)null==o[6][r]&&(o[6][r]=r%2==0)},s=function(){for(var t=B.getPatternPosition(e),r=0;r<t.length;r+=1)for(var n=0;n<t.length;n+=1){var i=t[r],a=t[n];if(null==o[i][a])for(var u=-2;u<=2;u+=1)for(var f=-2;f<=2;f+=1)o[i+u][a+f]=-2==u||2==u||-2==f||2==f||0==u&&0==f}},v=function(t){for(var r=B.getBCHTypeNumber(e),n=0;n<18;n+=1){var a=!t&&1==(r>>n&1);o[Math.floor(n/3)][n%3+i-8-3]=a}for(n=0;n<18;n+=1){a=!t&&1==(r>>n&1);o[n%3+i-8-3][Math.floor(n/3)]=a}},d=function(t,r){for(var e=n<<3|r,a=B.getBCHTypeInfo(e),u=0;u<15;u+=1){var f=!t&&1==(a>>u&1);u<6?o[u][8]=f:u<8?o[u+1][8]=f:o[i-15+u][8]=f}for(u=0;u<15;u+=1){f=!t&&1==(a>>u&1);u<8?o[8][i-u-1]=f:u<9?o[8][15-u-1+1]=f:o[8][15-u-1]=f}o[i-8][8]=!t},w=function(t,r){for(var e=-1,n=i-1,a=7,u=0,f=B.getMaskFunction(r),c=i-1;c>0;c-=2)for(6==c&&(c-=1);;){for(var g=0;g<2;g+=1)if(null==o[n][c-g]){var l=!1;u<t.length&&(l=1==(t[u]>>>a&1)),f(n,c-g)&&(l=!l),o[n][c-g]=l,-1==(a-=1)&&(u+=1,a=7)}if((n+=e)<0||i<=n){n-=e,e=-e;break}}},p=function(t,r,e){for(var n=A.getRSBlocks(t,r),o=b(),i=0;i<e.length;i+=1){var a=e[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var u=0;for(i=0;i<n.length;i+=1)u+=n[i].dataCount;if(o.getLengthInBits()>8*u)throw"code length overflow. ("+o.getLengthInBits()+">"+8*u+")";for(o.getLengthInBits()+4<=8*u&&o.put(0,4);o.getLengthInBits()%8!=0;)o.putBit(!1);for(;!(o.getLengthInBits()>=8*u||(o.put(236,8),o.getLengthInBits()>=8*u));)o.put(17,8);return function(t,r){for(var e=0,n=0,o=0,i=new Array(r.length),a=new Array(r.length),u=0;u<r.length;u+=1){var f=r[u].dataCount,c=r[u].totalCount-f;n=Math.max(n,f),o=Math.max(o,c),i[u]=new Array(f);for(var g=0;g<i[u].length;g+=1)i[u][g]=255&t.getBuffer()[g+e];e+=f;var l=B.getErrorCorrectPolynomial(c),h=k(i[u],l.getLength()-1).mod(l);for(a[u]=new Array(l.getLength()-1),g=0;g<a[u].length;g+=1){var s=g+h.getLength()-a[u].length;a[u][g]=s>=0?h.getAt(s):0}}var v=0;for(g=0;g<r.length;g+=1)v+=r[g].totalCount;var d=new Array(v),w=0;for(g=0;g<n;g+=1)for(u=0;u<r.length;u+=1)g<i[u].length&&(d[w]=i[u][g],w+=1);for(g=0;g<o;g+=1)for(u=0;u<r.length;u+=1)g<a[u].length&&(d[w]=a[u][g],w+=1);return d}(o,n)};f.addData=function(t,r){var e=null;switch(r=r||"Byte"){case"Numeric":e=M(t);break;case"Alphanumeric":e=x(t);break;case"Byte":e=m(t);break;case"Kanji":e=L(t);break;default:throw"mode:"+r}u.push(e),a=null},f.isDark=function(t,r){if(t<0||i<=t||r<0||i<=r)throw t+","+r;return o[t][r]},f.getModuleCount=function(){return i},f.make=function(){if(e<1){for(var t=1;t<40;t++){for(var r=A.getRSBlocks(t,n),o=b(),i=0;i<u.length;i++){var a=u[i];o.put(a.getMode(),4),o.put(a.getLength(),B.getLengthInBits(a.getMode(),t)),a.write(o)}var g=0;for(i=0;i<r.length;i++)g+=r[i].dataCount;if(o.getLengthInBits()<=8*g)break}e=t}c(!1,function(){for(var t=0,r=0,e=0;e<8;e+=1){c(!0,e);var n=B.getLostPoint(f);(0==e||t>n)&&(t=n,r=e)}return r}())},f.createTableTag=function(t,r){t=t||2;var e="";e+='<table style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: "+(r=void 0===r?4*t:r)+"px;",e+='">',e+="<tbody>";for(var n=0;n<f.getModuleCount();n+=1){e+="<tr>";for(var o=0;o<f.getModuleCount();o+=1)e+='<td style="',e+=" border-width: 0px; border-style: none;",e+=" border-collapse: collapse;",e+=" padding: 0px; margin: 0px;",e+=" width: "+t+"px;",e+=" height: "+t+"px;",e+=" background-color: ",e+=f.isDark(n,o)?"#000000":"#ffffff",e+=";",e+='"/>';e+="</tr>"}return e+="</tbody>",e+="</table>"},f.createSvgTag=function(t,r,e,n){var o={};"object"==typeof arguments[0]&&(t=(o=arguments[0]).cellSize,r=o.margin,e=o.alt,n=o.title),t=t||2,r=void 0===r?4*t:r,(e="string"==typeof e?{text:e}:e||{}).text=e.text||null,e.id=e.text?e.id||"qrcode-description":null,(n="string"==typeof n?{text:n}:n||{}).text=n.text||null,n.id=n.text?n.id||"qrcode-title":null;var i,a,u,c,g=f.getModuleCount()*t+2*r,l="";for(c="l"+t+",0 0,"+t+" -"+t+",0 0,-"+t+"z ",l+='<svg version="1.1" xmlns="http://www.w3.org/2000/svg"',l+=o.scalable?"":' width="'+g+'px" height="'+g+'px"',l+=' viewBox="0 0 '+g+" "+g+'" ',l+=' preserveAspectRatio="xMinYMin meet"',l+=n.text||e.text?' role="img" aria-labelledby="'+y([n.id,e.id].join(" ").trim())+'"':"",l+=">",l+=n.text?'<title id="'+y(n.id)+'">'+y(n.text)+"</title>":"",l+=e.text?'<description id="'+y(e.id)+'">'+y(e.text)+"</description>":"",l+='<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>',l+='<path d="',a=0;a<f.getModuleCount();a+=1)for(u=a*t+r,i=0;i<f.getModuleCount();i+=1)f.isDark(a,i)&&(l+="M"+(i*t+r)+","+u+c);return l+='" stroke="transparent" fill="black"/>',l+="</svg>"},f.createDataURL=function(t,r){t=t||2,r=void 0===r?4*t:r;var e=f.getModuleCount()*t+2*r,n=r,o=e-r;return I(e,e,function(r,e){if(n<=r&&r<o&&n<=e&&e<o){var i=Math.floor((r-n)/t),a=Math.floor((e-n)/t);return f.isDark(a,i)?0:1}return 1})},f.createImgTag=function(t,r,e){t=t||2,r=void 0===r?4*t:r;var n=f.getModuleCount()*t+2*r,o="";return o+="<img",o+=' src="',o+=f.createDataURL(t,r),o+='"',o+=' width="',o+=n,o+='"',o+=' height="',o+=n,o+='"',e&&(o+=' alt="',o+=y(e),o+='"'),o+="/>"};var y=function(t){for(var r="",e=0;e<t.length;e+=1){var n=t.charAt(e);switch(n){case"<":r+="&lt;";break;case">":r+="&gt;";break;case"&":r+="&amp;";break;case'"':r+="&quot;";break;default:r+=n}}return r};return f.createASCII=function(t,r){if((t=t||1)<2)return function(t){t=void 0===t?2:t;var r,e,n,o,i,a=1*f.getModuleCount()+2*t,u=t,c=a-t,g={"██":"█","█ ":"▀"," █":"▄","  ":" "},l={"██":"▀","█ ":"▀"," █":" ","  ":" "},h="";for(r=0;r<a;r+=2){for(n=Math.floor((r-u)/1),o=Math.floor((r+1-u)/1),e=0;e<a;e+=1)i="█",u<=e&&e<c&&u<=r&&r<c&&f.isDark(n,Math.floor((e-u)/1))&&(i=" "),u<=e&&e<c&&u<=r+1&&r+1<c&&f.isDark(o,Math.floor((e-u)/1))?i+=" ":i+="█",h+=t<1&&r+1>=c?l[i]:g[i];h+="\n"}return a%2&&t>0?h.substring(0,h.length-a-1)+Array(a+1).join("▀"):h.substring(0,h.length-1)}(r);t-=1,r=void 0===r?2*t:r;var e,n,o,i,a=f.getModuleCount()*t+2*r,u=r,c=a-r,g=Array(t+1).join("██"),l=Array(t+1).join("  "),h="",s="";for(e=0;e<a;e+=1){for(o=Math.floor((e-u)/t),s="",n=0;n<a;n+=1)i=1,u<=n&&n<c&&u<=e&&e<c&&f.isDark(o,Math.floor((n-u)/t))&&(i=0),s+=i?g:l;for(o=0;o<t;o+=1)h+=s+"\n"}return h.substring(0,h.length-1)},f.renderTo2dContext=function(t,r){r=r||2;for(var e=f.getModuleCount(),n=0;n<e;n++)for(var o=0;o<e;o++)t.fillStyle=f.isDark(n,o)?"black":"white",t.fillRect(o*r,n*r,r,r)},f};t.stringToBytes=(t.stringToBytesFuncs={default:function(t){for(var r=[],e=0;e<t.length;e+=1){var n=t.charCodeAt(e);r.push(255&n)}return r}}).default,t.createStringToBytes=function(t,r){var e=function(){for(var e=S(t),n=function(){var t=e.read();if(-1==t)throw"eof";return t},o=0,i={};;){var a=e.read();if(-1==a)break;var u=n(),f=n()<<8|n();i[String.fromCharCode(a<<8|u)]=f,o+=1}if(o!=r)throw o+" != "+r;return i}(),n="?".charCodeAt(0);return function(t){for(var r=[],o=0;o<t.length;o+=1){var i=t.charCodeAt(o);if(i<128)r.push(i);else{var a=e[t.charAt(o)];"number"==typeof a?(255&a)==a?r.push(a):(r.push(a>>>8),r.push(255&a)):r.push(n)}}return r}};var r,e,n,o,i,a=1,u=2,f=4,c=8,g={L:1,M:0,Q:3,H:2},l=0,h=1,s=2,v=3,d=4,w=5,p=6,y=7,B=(r=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],e=1335,n=7973,i=function(t){for(var r=0;0!=t;)r+=1,t>>>=1;return r},(o={}).getBCHTypeInfo=function(t){for(var r=t<<10;i(r)-i(e)>=0;)r^=e<<i(r)-i(e);return 21522^(t<<10|r)},o.getBCHTypeNumber=function(t){for(var r=t<<12;i(r)-i(n)>=0;)r^=n<<i(r)-i(n);return t<<12|r},o.getPatternPosition=function(t){return r[t-1]},o.getMaskFunction=function(t){switch(t){case l:return function(t,r){return(t+r)%2==0};case h:return function(t,r){return t%2==0};case s:return function(t,r){return r%3==0};case v:return function(t,r){return(t+r)%3==0};case d:return function(t,r){return(Math.floor(t/2)+Math.floor(r/3))%2==0};case w:return function(t,r){return t*r%2+t*r%3==0};case p:return function(t,r){return(t*r%2+t*r%3)%2==0};case y:return function(t,r){return(t*r%3+(t+r)%2)%2==0};default:throw"bad maskPattern:"+t}},o.getErrorCorrectPolynomial=function(t){for(var r=k([1],0),e=0;e<t;e+=1)r=r.multiply(k([1,C.gexp(e)],0));return r},o.getLengthInBits=function(t,r){if(1<=r&&r<10)switch(t){case a:return 10;case u:return 9;case f:case c:return 8;default:throw"mode:"+t}else if(r<27)switch(t){case a:return 12;case u:return 11;case f:return 16;case c:return 10;default:throw"mode:"+t}else{if(!(r<41))throw"type:"+r;switch(t){case a:return 14;case u:return 13;case f:return 16;case c:return 12;default:throw"mode:"+t}}},o.getLostPoint=function(t){for(var r=t.getModuleCount(),e=0,n=0;n<r;n+=1)for(var o=0;o<r;o+=1){for(var i=0,a=t.isDark(n,o),u=-1;u<=1;u+=1)if(!(n+u<0||r<=n+u))for(var f=-1;f<=1;f+=1)o+f<0||r<=o+f||0==u&&0==f||a==t.isDark(n+u,o+f)&&(i+=1);i>5&&(e+=3+i-5)}for(n=0;n<r-1;n+=1)for(o=0;o<r-1;o+=1){var c=0;t.isDark(n,o)&&(c+=1),t.isDark(n+1,o)&&(c+=1),t.isDark(n,o+1)&&(c+=1),t.isDark(n+1,o+1)&&(c+=1),0!=c&&4!=c||(e+=3)}for(n=0;n<r;n+=1)for(o=0;o<r-6;o+=1)t.isDark(n,o)&&!t.isDark(n,o+1)&&t.isDark(n,o+2)&&t.isDark(n,o+3)&&t.isDark(n,o+4)&&!t.isDark(n,o+5)&&t.isDark(n,o+6)&&(e+=40);for(o=0;o<r;o+=1)for(n=0;n<r-6;n+=1)t.isDark(n,o)&&!t.isDark(n+1,o)&&t.isDark(n+2,o)&&t.isDark(n+3,o)&&t.isDark(n+4,o)&&!t.isDark(n+5,o)&&t.isDark(n+6,o)&&(e+=40);var g=0;for(o=0;o<r;o+=1)for(n=0;n<r;n+=1)t.isDark(n,o)&&(g+=1);return e+=Math.abs(100*g/r/r-50)/5*10},o),C=function(){for(var t=new Array(256),r=new Array(256),e=0;e<8;e+=1)t[e]=1<<e;for(e=8;e<256;e+=1)t[e]=t[e-4]^t[e-5]^t[e-6]^t[e-8];for(e=0;e<255;e+=1)r[t[e]]=e;var n={glog:function(t){if(t<1)throw"glog("+t+")";return r[t]},gexp:function(r){for(;r<0;)r+=255;for(;r>=256;)r-=255;return t[r]}};return n}();function k(t,r){if(void 0===t.length)throw t.length+"/"+r;var e=function(){for(var e=0;e<t.length&&0==t[e];)e+=1;for(var n=new Array(t.length-e+r),o=0;o<t.length-e;o+=1)n[o]=t[o+e];return n}(),n={getAt:function(t){return e[t]},getLength:function(){return e.length},multiply:function(t){for(var r=new Array(n.getLength()+t.getLength()-1),e=0;e<n.getLength();e+=1)for(var o=0;o<t.getLength();o+=1)r[e+o]^=C.gexp(C.glog(n.getAt(e))+C.glog(t.getAt(o)));return k(r,0)},mod:function(t){if(n.getLength()-t.getLength()<0)return n;for(var r=C.glog(n.getAt(0))-C.glog(t.getAt(0)),e=new Array(n.getLength()),o=0;o<n.getLength();o+=1)e[o]=n.getAt(o);for(o=0;o<t.getLength();o+=1)e[o]^=C.gexp(C.glog(t.getAt(o))+r);return k(e,0).mod(t)}};return n}var A=function(){var t=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],r=function(t,r){var e={};return e.totalCount=t,e.dataCount=r,e},e={};return e.getRSBlocks=function(e,n){var o=function(r,e){switch(e){case g.L:return t[4*(r-1)+0];case g.M:return t[4*(r-1)+1];case g.Q:return t[4*(r-1)+2];case g.H:return t[4*(r-1)+3];default:return}}(e,n);if(void 0===o)throw"bad rs block @ typeNumber:"+e+"/errorCorrectionLevel:"+n;for(var i=o.length/3,a=[],u=0;u<i;u+=1)for(var f=o[3*u+0],c=o[3*u+1],l=o[3*u+2],h=0;h<f;h+=1)a.push(r(c,l));return a},e}(),b=function(){var t=[],r=0,e={getBuffer:function(){return t},getAt:function(r){var e=Math.floor(r/8);return 1==(t[e]>>>7-r%8&1)},put:function(t,r){for(var n=0;n<r;n+=1)e.putBit(1==(t>>>r-n-1&1))},getLengthInBits:function(){return r},putBit:function(e){var n=Math.floor(r/8);t.length<=n&&t.push(0),e&&(t[n]|=128>>>r%8),r+=1}};return e},M=function(t){var r=a,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+2<r.length;)t.put(o(r.substring(n,n+3)),10),n+=3;n<r.length&&(r.length-n==1?t.put(o(r.substring(n,n+1)),4):r.length-n==2&&t.put(o(r.substring(n,n+2)),7))}},o=function(t){for(var r=0,e=0;e<t.length;e+=1)r=10*r+i(t.charAt(e));return r},i=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);throw"illegal char :"+t};return n},x=function(t){var r=u,e=t,n={getMode:function(){return r},getLength:function(t){return e.length},write:function(t){for(var r=e,n=0;n+1<r.length;)t.put(45*o(r.charAt(n))+o(r.charAt(n+1)),11),n+=2;n<r.length&&t.put(o(r.charAt(n)),6)}},o=function(t){if("0"<=t&&t<="9")return t.charCodeAt(0)-"0".charCodeAt(0);if("A"<=t&&t<="Z")return t.charCodeAt(0)-"A".charCodeAt(0)+10;switch(t){case" ":return 36;case"$":return 37;case"%":return 38;case"*":return 39;case"+":return 40;case"-":return 41;case".":return 42;case"/":return 43;case":":return 44;default:throw"illegal char :"+t}};return n},m=function(r){var e=f,n=t.stringToBytes(r),o={getMode:function(){return e},getLength:function(t){return n.length},write:function(t){for(var r=0;r<n.length;r+=1)t.put(n[r],8)}};return o},L=function(r){var e=c,n=t.stringToBytesFuncs.SJIS;if(!n)throw"sjis not supported.";!function(){var t=n("友");if(2!=t.length||38726!=(t[0]<<8|t[1]))throw"sjis not supported."}();var o=n(r),i={getMode:function(){return e},getLength:function(t){return~~(o.length/2)},write:function(t){for(var r=o,e=0;e+1<r.length;){var n=(255&r[e])<<8|255&r[e+1];if(33088<=n&&n<=40956)n-=33088;else{if(!(57408<=n&&n<=60351))throw"illegal char at "+(e+1)+"/"+n;n-=49472}n=192*(n>>>8&255)+(255&n),t.put(n,13),e+=2}if(e<r.length)throw"illegal char at "+(e+1)}};return i},D=function(){var t=[],r={writeByte:function(r){t.push(255&r)},writeShort:function(t){r.writeByte(t),r.writeByte(t>>>8)},writeBytes:function(t,e,n){e=e||0,n=n||t.length;for(var o=0;o<n;o+=1)r.writeByte(t[o+e])},writeString:function(t){for(var e=0;e<t.length;e+=1)r.writeByte(t.charCodeAt(e))},toByteArray:function(){return t},toString:function(){var r="";r+="[";for(var e=0;e<t.length;e+=1)e>0&&(r+=","),r+=t[e];return r+="]"}};return r},S=function(t){var r=t,e=0,n=0,o=0,i={read:function(){for(;o<8;){if(e>=r.length){if(0==o)return-1;throw"unexpected end of file./"+o}var t=r.charAt(e);if(e+=1,"="==t)return o=0,-1;t.match(/^\s$/)||(n=n<<6|a(t.charCodeAt(0)),o+=6)}var i=n>>>o-8&255;return o-=8,i}},a=function(t){if(65<=t&&t<=90)return t-65;if(97<=t&&t<=122)return t-97+26;if(48<=t&&t<=57)return t-48+52;if(43==t)return 62;if(47==t)return 63;throw"c:"+t};return i},I=function(t,r,e){for(var n=function(t,r){var e=t,n=r,o=new Array(t*r),i={setPixel:function(t,r,n){o[r*e+t]=n},write:function(t){t.writeString("GIF87a"),t.writeShort(e),t.writeShort(n),t.writeByte(128),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(0),t.writeByte(255),t.writeByte(255),t.writeByte(255),t.writeString(","),t.writeShort(0),t.writeShort(0),t.writeShort(e),t.writeShort(n),t.writeByte(0);var r=a(2);t.writeByte(2);for(var o=0;r.length-o>255;)t.writeByte(255),t.writeBytes(r,o,255),o+=255;t.writeByte(r.length-o),t.writeBytes(r,o,r.length-o),t.writeByte(0),t.writeString(";")}},a=function(t){for(var r=1<<t,e=1+(1<<t),n=t+1,i=u(),a=0;a<r;a+=1)i.add(String.fromCharCode(a));i.add(String.fromCharCode(r)),i.add(String.fromCharCode(e));var f,c,g,l=D(),h=(f=l,c=0,g=0,{write:function(t,r){if(t>>>r!=0)throw"length over";for(;c+r>=8;)f.writeByte(255&(t<<c|g)),r-=8-c,t>>>=8-c,g=0,c=0;g|=t<<c,c+=r},flush:function(){c>0&&f.writeByte(g)}});h.write(r,n);var s=0,v=String.fromCharCode(o[s]);for(s+=1;s<o.length;){var d=String.fromCharCode(o[s]);s+=1,i.contains(v+d)?v+=d:(h.write(i.indexOf(v),n),i.size()<4095&&(i.size()==1<<n&&(n+=1),i.add(v+d)),v=d)}return h.write(i.indexOf(v),n),h.write(e,n),h.flush(),l.toByteArray()},u=function(){var t={},r=0,e={add:function(n){if(e.contains(n))throw"dup key:"+n;t[n]=r,r+=1},size:function(){return r},indexOf:function(r){return t[r]},contains:function(r){return void 0!==t[r]}};return e};return i}(t,r),o=0;o<r;o+=1)for(var i=0;i<t;i+=1)n.setPixel(i,o,e(i,o));var a=D();n.write(a);for(var u=function(){var t=0,r=0,e=0,n="",o={},i=function(t){n+=String.fromCharCode(a(63&t))},a=function(t){if(t<0);else{if(t<26)return 65+t;if(t<52)return t-26+97;if(t<62)return t-52+48;if(62==t)return 43;if(63==t)return 47}throw"n:"+t};return o.writeByte=function(n){for(t=t<<8|255&n,r+=8,e+=1;r>=6;)i(t>>>r-6),r-=6},o.flush=function(){if(r>0&&(i(t<<6-r),t=0,r=0),e%3!=0)for(var o=3-e%3,a=0;a<o;a+=1)n+="="},o.toString=function(){return n},o}(),f=a.toByteArray(),c=0;c<f.length;c+=1)u.writeByte(f[c]);return u.flush(),"data:image/gif;base64,"+u};return t}();qrcode.stringToBytesFuncs["UTF-8"]=function(t){return function(t){for(var r=[],e=0;e<t.length;e++){var n=t.charCodeAt(e);n<128?r.push(n):n<2048?r.push(192|n>>6,128|63&n):n<55296||n>=57344?r.push(224|n>>12,128|n>>6&63,128|63&n):(e++,n=65536+((1023&n)<<10|1023&t.charCodeAt(e)),r.push(240|n>>18,128|n>>12&63,128|n>>6&63,128|63&n))}return r}(t)},function(t){"function"==typeof define&&define.amd?define([],t):"object"==typeof exports&&(module.exports=t())}(function(){return qrcode});
@@ -779,7 +836,103 @@ const ZH = {
 "파일이 내려받아졌나요?": "文件下载了吗？",
 "다운로드 폴더에서 이 파일을 찾으세요:": "请在下载文件夹中找到这个文件：",
 "안 보이면 ① 카톡·인스타 안이 아닌 <b>크롬·사파리</b>에서 열었는지 ② 폰이면 <b>PC에서 다시</b> 시도 ③ 그래도 안 되면 지금 화면을 캡처해 수업 때 가져오세요. 작업 내용은 이 브라우저에 저장돼 있습니다.": "如果没有：① 确认不是在 KakaoTalk·Instagram 内，而是在<b>Chrome·Safari</b>中打开 ② 手机的话请<b>在电脑上再试</b> ③ 仍不行就截图，上课时带来。作业内容已保存在此浏览器中。",
-"글자는 읽었지만 작품명·이름 같은 정보를 찾지 못했습니다. 2단계에서 직접 적어 주세요.": "已读取文字，但没有找到作品名·姓名等信息。请在第 2 步手动填写。"
+"글자는 읽었지만 작품명·이름 같은 정보를 찾지 못했습니다. 2단계에서 직접 적어 주세요.": "已读取文字，但没有找到作品名·姓名等信息。请在第 2 步手动填写。",
+"비어 있음": "空",
+"2단계 「내용 적기」에서 이름을 적으세요": "请在第2步「填写内容」中填写姓名",
+"SPACE LAB 목록 카드에 들어갑니다. 예: Hong, Gil-Dong": "会显示在 SPACE LAB 列表卡片上。例：Hong, Gil-Dong",
+"2단계에서 작품명을 적으세요": "请在第2步填写作品名",
+"작품을 한 줄로 설명하는 부제를 적으세요": "请写一行说明作品的副标题",
+"비어 있으면 컨셉 섹션이 짧아집니다. 한 문장으로 적으세요": "空着的话概念部分会很短。请用一句话写出来",
+"작품을 나타내는 단어 3개를 채우세요": "请填写代表作品的 3 个关键词",
+"노란 칸 확인": "确认黄色栏",
+"개 칸이 자동으로 채워졌습니다": "个栏位是自动填写的",
+"자동 인식은 틀릴 수 있습니다. 2단계에서 노란 칸을 확인하세요. 내용을 고치면 노란색이 사라집니다": "自动识别可能有误。请在第2步确认黄色栏，修改内容后黄色会消失",
+"지정 안 됨 — 첫 이미지가 대표로 쓰입니다": "未指定 —— 将使用第一张图片作为代表图",
+"이미지가 없습니다": "没有图片",
+"가장 강한 렌더 한 장의 분류를 「대표 이미지」로 바꾸세요": "请把最有冲击力的一张渲染图分类改为「代表图片」",
+"1단계에서 이미지를 올리세요": "请在第1步上传图片",
+"과정 (필수)": "过程（必须）",
+"과정 이미지가 없습니다": "没有过程图片",
+"스케치 → 다이어그램 → 모형 사진을 올리고 분류를 「과정·스케치」로 바꾸세요": "请上传草图 → 分析图 → 模型照片，并把分类改为「过程·草图」",
+"동선·컨셉·형태 다이어그램을 1장 이상 넣으세요": "请放入至少 1 张动线·概念·形态分析图",
+"평면도·단면도를 1장 이상 넣으세요": "请放入至少 1 张平面图·剖面图",
+"GitHub 웹 업로드가 안 됩니다. 유튜브 주소로 바꾸거나 용량을 줄이세요": "无法通过 GitHub 网页上传。请改用 YouTube 地址或压缩文件大小",
+"youtu.be/… 또는 youtube.com/watch?v=… 주소를 그대로 붙여 넣으세요": "请直接粘贴 youtu.be/… 或 youtube.com/watch?v=… 地址",
+"없음 — 영상 섹션이 빠집니다": "无 —— 视频部分会被省略",
+"졸업 영상 파일이나 유튜브 주소를 넣으세요": "请放入毕业视频文件或 YouTube 地址",
+"이메일이나 인스타그램 중 하나는 넣으세요": "请至少填写邮箱或 Instagram 其中一个",
+"사이트 전체 용량": "网站总大小",
+"무거우면 로딩이 느립니다. 쓰지 않는 이미지는 「사용 안 함」으로 두세요": "太大加载会很慢。不用的图片请设为「不使用」",
+"SPACE LAB 제출 파일": "SPACE LAB 提交文件",
+"아직 올라온 제출 파일이 없습니다": "还没有上传提交文件",
+"01.jpg~08.jpg와 이름.jpg(썸네일)를 같이 올리면 학과 규격(가로 1280px · 72dpi · JPG · 장당 1MB)도 한 장씩 점검합니다": "同时上传 01.jpg~08.jpg 和 姓名.jpg（缩略图），会逐张检查系里规格（宽 1280px · 72dpi · JPG · 每张 1MB）",
+"일러스트 「웹용으로 저장(레거시)」에서 폭 1280으로 다시 내보내세요": "请在 Illustrator「存储为 Web 所用格式（旧版）」中以宽 1280 重新导出",
+"1191px = 대지를 1x 그대로 내보낸 크기입니다. 폭을 1280으로 지정하세요": "1191px = 画板按 1x 直接导出的尺寸。请把宽度指定为 1280",
+"1200px = 작년 기준입니다. 올해는 1280px입니다": "1200px = 去年的标准。今年是 1280px",
+"폭은 맞고 높이가 다릅니다. 대지 크기(": "宽度正确但高度不对。请确认画板尺寸（",
+")와 「대지에 맞게 자르기」를 확인하세요": "）和「剪切到画板」",
+"원본 크기 그대로입니다. 폭 1280으로 줄여 다시 저장하세요": "这是原始尺寸。请缩小到宽 1280 后重新存储",
+"크기": "尺寸",
+"형식": "格式",
+"JPEG, 품질 Maximum으로 저장하세요": "请以 JPEG、品质 最佳 (Maximum) 存储",
+"색 모드": "颜色模式",
+"인쇄용 CMYK 파일입니다. 문서 색상 모드를 RGB로 바꾼 뒤 저장하세요": "这是印刷用 CMYK 文件。请把文档颜色模式改为 RGB 后再存储",
+"용량": "大小",
+"이하": "以下",
+"품질을 한 단계 내리세요 (Maximum → Very High). 폭이 1280인지도 확인하세요": "请把品质降低一级（最佳 → 非常高），并确认宽度是否为 1280",
+"헤더": "页眉",
+"본문": "正文",
+"빠진 번호": "缺少的编号",
+"01부터 번호가 끊기지 않게 파일 이름을 맞추세요": "请从 01 开始连续编号命名文件",
+"헤더 01.jpg": "页眉 01.jpg",
+"학과 템플릿으로 헤더(1280 × 579)를 만들어 01.jpg로 저장하세요": "请用系里模板制作页眉（1280 × 579）并存为 01.jpg",
+"본문 장수": "正文张数",
+"장 (8장 기준)": "张（标准 8 张）",
+"01 헤더 + 02~08 본문, 8장을 기준으로 채우세요. 과정(04)과 영상 QR(08)은 빼지 않습니다": "以 01 页眉 + 02~08 正文共 8 张为标准。过程（04）和视频二维码（08）不能省略",
+"파일 이름": "文件名",
+"확장자가 .jpg가 아닌 파일이 있습니다": "有扩展名不是 .jpg 的文件",
+"01.jpg처럼 JPG로 저장하세요": "请像 01.jpg 一样存为 JPG",
+"포토샵에서 대표 렌더를 600 × 424로 자르고 흑백으로 바꿔 「본인 이름.jpg」로 저장하세요": "请在 Photoshop 中把代表渲染图裁剪为 600 × 424，转为黑白，存为「本人姓名.jpg」",
+"자르기 도구에 600 × 424를 입력해 다시 자르세요": "请在裁剪工具中输入 600 × 424 重新裁剪",
+"색": "颜色",
+"컬러 → 흑백": "彩色 → 黑白",
+"이미지 › 조정 › 흑백으로 바꾸세요": "请用 图像 › 调整 › 黑白 转换",
+"JPG로 저장하세요": "请存为 JPG",
+"RGB로 바꾼 뒤 저장하세요": "请转为 RGB 后再存储",
+"썸네일 파일 이름은 본인 이름으로 합니다": "缩略图文件名请用本人姓名",
+"컬러": "彩色",
+"흑백": "黑白",
+"제출 파일 합계": "提交文件合计",
+"장당 1MB를 넘는 파일부터 줄이세요": "请先压缩超过 1MB 的文件",
+"본문 파일 규격": "正文文件规格",
+"장 모두 크기·형식·용량이 맞습니다": "张的尺寸·格式·大小全部正确",
+"파일": "文件",
+"역할": "用途",
+"지금 크기": "当前尺寸",
+"맞는 크기": "正确尺寸",
+"결과": "结果",
+"통과": "通过",
+"이름 없음": "无姓名",
+"작품명 없음": "无作品名",
+"수정사항 보고서": "修改报告",
+"꼭 고칠 것": "必须修改",
+"확인할 것": "需要确认",
+"웹 포트폴리오": "网页作品集",
+"GitHub에 올릴 내 사이트": "要上传到 GitHub 的个人网站",
+"SPACE LAB 제출 규격": "SPACE LAB 提交规格",
+"학과 사이트 일괄 업로드용": "用于系里网站批量上传",
+"기준": "标准",
+"헤더 01.jpg 1280 × 579 · 본문 02~08.jpg 1280 × 905 · 썸네일 이름.jpg 600 × 424 흑백 · JPG · RGB · 72dpi · 장당 1MB · 합계 8MB · 학번_이름.zip으로 LMS 제출": "页眉 01.jpg 1280 × 579 · 正文 02~08.jpg 1280 × 905 · 缩略图 姓名.jpg 600 × 424 黑白 · JPG · RGB · 72dpi · 每张 1MB · 合计 8MB · 以 学号_姓名.zip 提交到 LMS",
+"수정사항보고서": "修改报告",
+"보고서를 내려받았습니다": "报告已下载",
+"보고서를 글로 복사했습니다. 카톡·메모에 붙여 넣으세요": "报告已复制为文字，可以粘贴到聊天或备忘录",
+"복사가 막혀 있습니다. 화면을 캡처하세요": "无法复制，请截屏保存",
+"글로 복사": "复制为文字",
+"보고서 내려받기": "下载报告",
+"닫기": "关闭",
+"보고서는 이 브라우저 안에서 만들어집니다. 로그인·사용량 없이 몇 번이든 다시 받을 수 있고, 파일을 고쳐 다시 올리면 바로 새로 점검합니다. 내려받기가 막히면 「글로 복사」하거나 화면을 캡처하세요.": "报告在这个浏览器里生成。无需登录、不消耗用量，可以随时重新获取；修改文件后重新上传会立即重新检查。如果无法下载，请「复制为文字」或截屏。",
+"수정사항 보고서 열기 · 내려받기": "打开 · 下载修改报告",
+"보고서": "报告",
 };
 
 /* ===== 결과 사이트 생성기 — 학생 포트폴리오 HTML을 만든다 ===== */
@@ -1717,6 +1870,7 @@ function applyLang() {
   $$('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
   updateRepoName();
   renderAll(true);
+  if ($('#rpt') && $('#rpt').classList.contains('on')) openReport();
 }
 
 /* ---------- 상태 ---------- */
@@ -1770,7 +1924,7 @@ function persist() {
   clearTimeout(saveT);
   saveT = setTimeout(async () => {
     const snap = JSON.parse(JSON.stringify({ ...S, images: [], videos: [] }));
-    snap.images = S.images.map(im => ({ id: im.id, name: im.name, cat: im.cat, caption: im.caption, w: im.w, h: im.h, size: im.size, blob: im.blob }));
+    snap.images = S.images.map(im => ({ id: im.id, name: im.name, cat: im.cat, caption: im.caption, w: im.w, h: im.h, size: im.size, blob: im.blob, w0: im.w0, h0: im.h0, srcSize: im.srcSize, srcType: im.srcType, cmyk: im.cmyk, fromDoc: im.fromDoc, st: im.st, page: im.page }));
     snap.videos = (S.videos || []).map(v => ({ id: v.id, name: v.name, kind: v.kind, caption: v.caption, w: v.w, h: v.h, dur: v.dur, size: v.size, blob: v.blob }));
     const ok = await dbPut('project', snap);
     $('#saveState').classList.remove('busy');
@@ -1951,6 +2105,23 @@ async function processImage(src, name, cueHint) {
   if (bmp.close && !isCanvas) bmp.close();
   return { blob: out, w, h, w0, h0, st };
 }
+/* JPG 색 모드 확인 (SOF 마커의 채널 수: 3 = RGB, 4 = CMYK) */
+async function jpegComps(blob) {
+  try {
+    const u = new Uint8Array(await blob.slice(0, 262144).arrayBuffer());
+    if (u[0] !== 0xFF || u[1] !== 0xD8) return 0;
+    let i = 2;
+    while (i + 9 < u.length) {
+      if (u[i] !== 0xFF) { i++; continue; }
+      const m = u[i + 1];
+      if (m === 0xD8 || m === 0x01 || (m >= 0xD0 && m <= 0xD7)) { i += 2; continue; }
+      const len = (u[i + 2] << 8) | u[i + 3];
+      if ((m >= 0xC0 && m <= 0xC3) || (m >= 0xC5 && m <= 0xC7) || (m >= 0xC9 && m <= 0xCB) || (m >= 0xCD && m <= 0xCF)) return u[i + 9];
+      i += 2 + len;
+    }
+  } catch (e) {}
+  return 0;
+}
 function applyInfo(info) {
   const got = [];
   S.auto = S.auto || {};
@@ -2034,10 +2205,13 @@ async function addFiles(list) {
     recStatus(t('그림 정리 중… ') + (i + 1) + ' / ' + imgs.length);
     try {
       const it = imgs[i];
+      const isFile = !(it.src instanceof HTMLCanvasElement);
+      const srcType = isFile ? (/png$/i.test(it.src.type) || /\.png$/i.test(it.name) ? 'PNG' : /webp$/i.test(it.src.type) || /\.webp$/i.test(it.name) ? 'WEBP' : 'JPG') : '';
+      const comps = isFile && srcType === 'JPG' ? await jpegComps(it.src) : 0;
       const r = await processImage(it.src, it.name);
       const base = it.name.split('/').pop();
       const cat = it.cat || (it.flat ? (r.st.white > 0.3 || r.st.edges > 0.25 ? 'panel' : 'render') : guessCat(base, r.w0, r.h0, r.st, it.cue));
-      const rec = { id: 'i' + (uid++), name: base, cat, caption: it.caption || (cat === 'skip' && r.w0 === 600 ? t('썸네일') : ''), w: r.w, h: r.h, size: r.blob.size, blob: r.blob, url: URL.createObjectURL(r.blob), st: r.st, page: it.page || 0, srcSize: it.src instanceof HTMLCanvasElement ? 0 : it.src.size };
+      const rec = { id: 'i' + (uid++), name: base, cat, caption: it.caption || (cat === 'skip' && r.w0 === 600 ? t('썸네일') : ''), w: r.w, h: r.h, size: r.blob.size, blob: r.blob, url: URL.createObjectURL(r.blob), st: r.st, page: it.page || 0, srcSize: it.src instanceof HTMLCanvasElement ? 0 : it.src.size, w0: r.w0, h0: r.h0, srcType, cmyk: comps === 4, fromDoc: !isFile || !!it.page };
       S.images.push(rec); batch.push(rec);
       added++;
     } catch (e) { toast(t('열 수 없는 이미지: ') + imgs[i].name, 3500); }
@@ -2132,7 +2306,7 @@ function renderRec() {
   box.innerHTML = `<div class="rec-h"><b>${esc(t('자동 인식 결과'))}</b><span>${esc(L.files.join(', '))}${L.pages ? ' · ' + L.pages + t('쪽') : ''}</span></div>
     ${rows ? `<ul class="rec-l">${rows}</ul>` : L.pages ? `<p class="rec-e">${esc(L.chars > 40 ? t('글자는 읽었지만 작품명·이름 같은 정보를 찾지 못했습니다. 2단계에서 직접 적어 주세요.') : t('글자를 찾지 못했습니다. 그림으로만 된 PDF일 수 있습니다. 2단계에서 직접 적거나 AI 정리를 쓰세요.'))}</p>` : ''}
     <p class="rec-n">${esc(t('그림'))} ${S.images.length}${esc(t('장'))} — ${CATS.filter(c => cnt[c]).map(c => esc(t(CAT_KO[c])) + ' ' + cnt[c]).join(' · ')}</p>
-    <div class="rec-a"><button class="btn sm dark" type="button" id="aiBtn" style="display:none">${esc(t('AI로 더 정확하게 정리'))}</button><button class="btn sm" type="button" data-go2="2">${esc(t('내용 확인하기 →'))}</button></div>
+    <div class="rec-a"><button class="btn sm dark" type="button" id="aiBtn" style="display:none">${esc(t('AI로 더 정확하게 정리'))}</button><button class="btn sm rpgo" type="button" data-rp="1">${esc(t('수정사항 보고서'))}</button><button class="btn sm" type="button" data-go2="2">${esc(t('내용 확인하기 →'))}</button></div>
     ${rows ? `<p class="rec-n">${esc(t('자동으로 채운 칸은 노란색으로 표시됩니다. 꼭 확인하고 고치세요.'))}</p>` : ''}`;
   aiAvail().then(ok => { const b = $('#aiBtn'); if (b && ok) b.style.display = ''; });
 }
@@ -2456,12 +2630,14 @@ function layoutFrame() {
 
 /* ---------- 변경 처리 ---------- */
 function changed(kind) {
+  clearTimeout(window.__rpT); window.__rpT = setTimeout(updateReportBadge, 400);
   if (kind === 'vars') pushVars();
   else { if (kind === 'intro') introNext = true; if (kind === 'text') instantNext = true; else instantNext = false; refreshPreview(); }
   if (step === 4) renderChecks();
   persist();
 }
 function renderAll(keepPreview) {
+  setTimeout(updateReportBadge, 0);
   fillInputs(); renderImages(); renderVideos(); renderDesign(); renderChecks(); updateRepoName(); emptyState();
   if (!keepPreview) refreshPreview(true); else refreshPreview();
 }
@@ -2498,6 +2674,164 @@ function checks() {
 function renderChecks() {
   const box = $('#checks'); if (!box) return;
   box.innerHTML = checks().map(([s, a, b]) => `<div class="ck ${s}"><i>${s === 'ok' ? '✓' : s === 'warn' ? '!' : '✕'}</i><div>${esc(a)}<small>${esc(b)}</small></div></div>`).join('');
+}
+
+
+/* ---------- 수정사항 보고서 ---------- */
+const SL = { head: [1280, 579], body: [1280, 905], thumb: [600, 424], perMB: 1e6, totalMB: 8e6 };
+function slFiles() {
+  const imgs = S.images.filter(i => !i.fromDoc && i.w0);
+  const num = imgs.filter(i => /^\d{1,2}\.(jpe?g|png|webp)$/i.test(i.name)).map(i => ({ im: i, no: parseInt(i.name, 10) })).sort((a, b) => a.no - b.no);
+  let thumb = imgs.filter(i => i.w0 === 600 && i.h0 === 424);
+  if (!thumb.length && num.length) thumb = imgs.filter(i => !/^\d{1,2}\./.test(i.name) && i.w0 <= 900 && i.w0 > i.h0 && Math.abs(i.w0 / i.h0 - 1.414) < 0.12);
+  return { num, thumb: thumb[0] || null };
+}
+function px(w, h) { return w + ' × ' + h; }
+function buildReport() {
+  const I = S.info, use = S.images.filter(i => i.cat !== 'skip');
+  const cnt = c => S.images.filter(i => i.cat === c).length;
+  const A = [], B = [];
+  const add = (arr, s, label, detail, fix) => arr.push({ s, label, detail: detail || '', fix: fix || '' });
+  // A. 웹 포트폴리오
+  const nm = (I.nameKo + ' ' + (I.nameEn || '')).trim();
+  add(A, I.nameKo || I.nameEn ? 'ok' : 'bad', t('이름'), nm || t('비어 있음'), I.nameKo || I.nameEn ? '' : t('2단계 「내용 적기」에서 이름을 적으세요'));
+  add(A, I.nameEn ? 'ok' : 'warn', t('영문 이름'), I.nameEn || t('비어 있음'), I.nameEn ? '' : t('SPACE LAB 목록 카드에 들어갑니다. 예: Hong, Gil-Dong'));
+  add(A, I.titleKo || I.titleEn ? 'ok' : 'bad', t('작품명'), I.titleKo || I.titleEn || t('비어 있음'), I.titleKo || I.titleEn ? '' : t('2단계에서 작품명을 적으세요'));
+  add(A, I.subtitle ? 'ok' : 'warn', t('부제'), I.subtitle || t('비어 있음'), I.subtitle ? '' : t('작품을 한 줄로 설명하는 부제를 적으세요'));
+  add(A, I.concept ? 'ok' : 'warn', t('컨셉 한 문장'), I.concept ? t('있음') : t('비어 있음'), I.concept ? '' : t('비어 있으면 컨셉 섹션이 짧아집니다. 한 문장으로 적으세요'));
+  const kw = (I.keywords || []).filter(Boolean).length;
+  add(A, kw >= 3 ? 'ok' : 'warn', t('키워드 3개'), kw + ' / 3', kw >= 3 ? '' : t('작품을 나타내는 단어 3개를 채우세요'));
+  const autoLeft = Object.keys(S.auto || {}).filter(k => S.auto[k]).length;
+  if (autoLeft) add(A, 'warn', t('노란 칸 확인'), autoLeft + t('개 칸이 자동으로 채워졌습니다'), t('자동 인식은 틀릴 수 있습니다. 2단계에서 노란 칸을 확인하세요. 내용을 고치면 노란색이 사라집니다'));
+  add(A, cnt('hero') ? 'ok' : (use.length ? 'warn' : 'bad'), t('대표 이미지'), cnt('hero') ? t('지정됨') : use.length ? t('지정 안 됨 — 첫 이미지가 대표로 쓰입니다') : t('이미지가 없습니다'), cnt('hero') ? '' : use.length ? t('가장 강한 렌더 한 장의 분류를 「대표 이미지」로 바꾸세요') : t('1단계에서 이미지를 올리세요'));
+  add(A, use.length >= 6 ? 'ok' : use.length ? 'warn' : 'bad', t('이미지 수'), use.length + t('장'), use.length >= 6 ? '' : t('6장 이상을 권장합니다'));
+  add(A, cnt('process') ? 'ok' : 'bad', t('과정 (필수)'), cnt('process') ? cnt('process') + t('장') : t('과정 이미지가 없습니다'), cnt('process') ? '' : t('스케치 → 다이어그램 → 모형 사진을 올리고 분류를 「과정·스케치」로 바꾸세요'));
+  add(A, cnt('diagram') ? 'ok' : 'warn', t('다이어그램'), cnt('diagram') ? cnt('diagram') + t('장') : t('없음'), cnt('diagram') ? '' : t('동선·컨셉·형태 다이어그램을 1장 이상 넣으세요'));
+  add(A, cnt('drawing') ? 'ok' : 'warn', t('도면'), cnt('drawing') ? cnt('drawing') + t('장') : t('없음'), cnt('drawing') ? '' : t('평면도·단면도를 1장 이상 넣으세요'));
+  const V = (S.videos || []).filter(v => v.kind !== 'skip'), bigV = V.filter(v => v.size > VMAX);
+  if (bigV.length) add(A, 'warn', t('영상'), t('25MB 넘는 영상 ') + bigV.length + t('개'), t('GitHub 웹 업로드가 안 됩니다. 유튜브 주소로 바꾸거나 용량을 줄이세요'));
+  else if (V.length) add(A, 'ok', t('영상'), t('영상 파일 ') + V.length + t('개') + (I.youtube && ytId(I.youtube) ? ' + YouTube' : ''));
+  else if (I.youtube) add(A, ytId(I.youtube) ? 'ok' : 'bad', t('영상'), ytId(I.youtube) ? t('유튜브 연결됨') : t('주소를 인식하지 못했습니다'), ytId(I.youtube) ? '' : t('youtu.be/… 또는 youtube.com/watch?v=… 주소를 그대로 붙여 넣으세요'));
+  else add(A, 'warn', t('영상'), t('없음 — 영상 섹션이 빠집니다'), t('졸업 영상 파일이나 유튜브 주소를 넣으세요'));
+  add(A, I.email || I.insta ? 'ok' : 'warn', t('연락처'), I.email || I.insta || t('없음'), I.email || I.insta ? '' : t('이메일이나 인스타그램 중 하나는 넣으세요'));
+  const total = use.reduce((a, i) => a + i.size, 0);
+  add(A, total < 25e6 ? 'ok' : 'warn', t('사이트 전체 용량'), fmtSize(total), total < 25e6 ? '' : t('무거우면 로딩이 느립니다. 쓰지 않는 이미지는 「사용 안 함」으로 두세요'));
+
+  // B. SPACE LAB 제출 규격
+  const F = slFiles(), rows = [];
+  if (!F.num.length && !F.thumb) {
+    add(B, 'info', t('SPACE LAB 제출 파일'), t('아직 올라온 제출 파일이 없습니다'), t('01.jpg~08.jpg와 이름.jpg(썸네일)를 같이 올리면 학과 규격(가로 1280px · 72dpi · JPG · 장당 1MB)도 한 장씩 점검합니다'));
+  } else {
+    let badN = 0, sum = 0;
+    F.num.forEach(({ im, no }) => {
+      const want = no === 1 ? SL.head : SL.body, probs = [];
+      const sizeOk = im.w0 === want[0] && Math.abs(im.h0 - want[1]) <= 2;
+      if (!sizeOk) {
+        let tip = t('일러스트 「웹용으로 저장(레거시)」에서 폭 1280으로 다시 내보내세요');
+        if (im.w0 === 1191) tip = t('1191px = 대지를 1x 그대로 내보낸 크기입니다. 폭을 1280으로 지정하세요');
+        else if (im.w0 === 1200) tip = t('1200px = 작년 기준입니다. 올해는 1280px입니다');
+        else if (im.w0 === 1280) tip = t('폭은 맞고 높이가 다릅니다. 대지 크기(') + (no === 1 ? '1191 × 539pt' : '1191 × 842pt') + t(')와 「대지에 맞게 자르기」를 확인하세요');
+        else if (im.w0 > 1280) tip = t('원본 크기 그대로입니다. 폭 1280으로 줄여 다시 저장하세요');
+        probs.push([t('크기'), px(im.w0, im.h0) + ' → ' + px(want[0], want[1]), tip]);
+      }
+      if (im.srcType !== 'JPG') probs.push([t('형식'), im.srcType + ' → JPG', t('JPEG, 품질 Maximum으로 저장하세요')]);
+      if (im.cmyk) probs.push([t('색 모드'), 'CMYK → RGB', t('인쇄용 CMYK 파일입니다. 문서 색상 모드를 RGB로 바꾼 뒤 저장하세요')]);
+      if (im.srcSize > SL.perMB) probs.push([t('용량'), fmtSize(im.srcSize) + ' → 1MB ' + t('이하'), t('품질을 한 단계 내리세요 (Maximum → Very High). 폭이 1280인지도 확인하세요')]);
+      sum += im.srcSize || 0;
+      if (probs.length) badN++;
+      rows.push({ name: im.name, role: no === 1 ? t('헤더') : t('본문'), size: px(im.w0, im.h0), want: px(want[0], want[1]), kb: fmtSize(im.srcSize || im.size), type: im.srcType + (im.cmyk ? ' · CMYK' : ''), probs });
+      probs.forEach(p => add(B, 'bad', im.name + ' — ' + p[0], p[1], p[2]));
+    });
+    // 번호 빠짐
+    if (F.num.length) {
+      const nos = F.num.map(x => x.no), max = Math.max(...nos);
+      const miss = []; for (let k = 1; k <= max; k++) if (!nos.includes(k)) miss.push(String(k).padStart(2, '0') + '.jpg');
+      if (miss.length) add(B, 'bad', t('빠진 번호'), miss.join(', '), t('01부터 번호가 끊기지 않게 파일 이름을 맞추세요'));
+      if (!nos.includes(1)) add(B, 'bad', t('헤더 01.jpg'), t('없음'), t('학과 템플릿으로 헤더(1280 × 579)를 만들어 01.jpg로 저장하세요'));
+      if (F.num.length < 8) add(B, 'warn', t('본문 장수'), F.num.length + t('장 (8장 기준)'), t('01 헤더 + 02~08 본문, 8장을 기준으로 채우세요. 과정(04)과 영상 QR(08)은 빼지 않습니다'));
+    }
+    // 썸네일
+    const th = F.thumb;
+    if (!th) add(B, 'bad', t('썸네일'), t('없음'), t('포토샵에서 대표 렌더를 600 × 424로 자르고 흑백으로 바꿔 「본인 이름.jpg」로 저장하세요'));
+    else {
+      const probs = [];
+      if (!(th.w0 === 600 && th.h0 === 424)) probs.push([t('크기'), px(th.w0, th.h0) + ' → 600 × 424', t('자르기 도구에 600 × 424를 입력해 다시 자르세요')]);
+      if (th.st && th.st.sat > 0.035) probs.push([t('색'), t('컬러 → 흑백'), t('이미지 › 조정 › 흑백으로 바꾸세요')]);
+      if (th.srcType !== 'JPG') probs.push([t('형식'), th.srcType + ' → JPG', t('JPG로 저장하세요')]);
+      if (th.cmyk) probs.push([t('색 모드'), 'CMYK → RGB', t('RGB로 바꾼 뒤 저장하세요')]);
+      if (I.nameKo && th.name.replace(/\.(jpe?g|png|webp)$/i, '').normalize('NFC') !== I.nameKo.trim().normalize('NFC')) probs.push([t('파일 이름'), th.name + ' → ' + I.nameKo.trim() + '.jpg', t('썸네일 파일 이름은 본인 이름으로 합니다')]);
+      sum += th.srcSize || 0;
+      rows.push({ name: th.name, role: t('썸네일'), size: px(th.w0, th.h0), want: '600 × 424', kb: fmtSize(th.srcSize || th.size), type: th.srcType + (th.st && th.st.sat > 0.035 ? ' · ' + t('컬러') : ' · ' + t('흑백')), probs });
+      probs.forEach(p => add(B, p[0] === t('파일 이름') ? 'warn' : 'bad', th.name + ' — ' + p[0], p[1], p[2]));
+    }
+    add(B, sum <= SL.totalMB ? 'ok' : 'bad', t('제출 파일 합계'), fmtSize(sum) + ' / 8MB', sum <= SL.totalMB ? '' : t('장당 1MB를 넘는 파일부터 줄이세요'));
+    if (!badN && F.num.length) add(B, 'ok', t('본문 파일 규격'), F.num.length + t('장 모두 크기·형식·용량이 맞습니다'));
+    B.rows = rows;
+  }
+  const all = A.concat(B);
+  return { A, B, rows: B.rows || [], n: { bad: all.filter(x => x.s === 'bad').length, warn: all.filter(x => x.s === 'warn').length, ok: all.filter(x => x.s === 'ok').length }, at: new Date() };
+}
+function stamp(d) { const p = n => String(n).padStart(2, '0'); return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); }
+function reportHTML(R) {
+  const I = S.info, sym = { bad: '✕', warn: '!', ok: '✓', info: 'i' };
+  const order = { bad: 0, warn: 1, info: 2, ok: 3 };
+  const list = arr => `<ul class="it">${arr.slice().sort((a, b) => order[a.s] - order[b.s]).map(x => `<li class="${x.s}"><i>${sym[x.s]}</i><div><b>${esc(x.label)}</b>${x.detail ? ` <span class="d">— ${esc(x.detail)}</span>` : ''}${x.fix ? `<span class="fx">${esc(x.fix)}</span>` : ''}</div></li>`).join('')}</ul>`;
+  const table = R.rows.length ? `<div class="tw"><table><thead><tr><th>${esc(t('파일'))}</th><th>${esc(t('역할'))}</th><th>${esc(t('지금 크기'))}</th><th>${esc(t('맞는 크기'))}</th><th>${esc(t('용량'))}</th><th>${esc(t('형식'))}</th><th>${esc(t('결과'))}</th></tr></thead><tbody>${R.rows.map(r => `<tr><td class="n">${esc(r.name)}</td><td>${esc(r.role)}</td><td>${esc(r.size)}</td><td>${esc(r.want)}</td><td>${esc(r.kb)}</td><td>${esc(r.type)}</td><td>${r.probs.length ? `<span class="no">${esc(r.probs.map(p => p[0]).join(' · '))}</span>` : `<span class="yes">${esc(t('통과'))}</span>`}</td></tr>`).join('')}</tbody></table></div>` : '';
+  const who = [I.nameKo, I.nameEn].filter(Boolean).join(' · ') || t('이름 없음');
+  const title = I.titleKo || I.titleEn || t('작품명 없음');
+  return `<h1>${esc(t('수정사항 보고서'))}</h1>
+<p class="meta">${esc(who)} · ${esc(title)} · ${esc(stamp(R.at))}</p>
+<div class="sum"><div class="bad"><b>${R.n.bad}</b><span>${esc(t('꼭 고칠 것'))}</span></div><div class="warn"><b>${R.n.warn}</b><span>${esc(t('확인할 것'))}</span></div><div class="ok"><b>${R.n.ok}</b><span>${esc(t('통과'))}</span></div></div>
+<h2>1. ${esc(t('웹 포트폴리오'))} <small>${esc(t('GitHub에 올릴 내 사이트'))}</small></h2>${list(R.A)}
+<h2>2. ${esc(t('SPACE LAB 제출 규격'))} <small>${esc(t('학과 사이트 일괄 업로드용'))}</small></h2>${list(R.B)}${table}
+<div class="spec">${esc(t('기준'))}: ${esc(t('헤더 01.jpg 1280 × 579 · 본문 02~08.jpg 1280 × 905 · 썸네일 이름.jpg 600 × 424 흑백 · JPG · RGB · 72dpi · 장당 1MB · 합계 8MB · 학번_이름.zip으로 LMS 제출'))}</div>
+<p class="ft">SPACE LAB Portfolio Builder · ${esc(t('호서대학교 실내디자인학과 · 졸업연구'))}</p>`;
+}
+function reportText(R) {
+  const I = S.info, sym = { bad: '[고칠 것]', warn: '[확인]', ok: '[통과]', info: '[안내]' };
+  const symZ = { bad: '[需修改]', warn: '[确认]', ok: '[通过]', info: '[提示]' };
+  const sy = LANG === 'zh' ? symZ : sym;
+  const order = { bad: 0, warn: 1, info: 2, ok: 3 };
+  const line = x => `${sy[x.s]} ${x.label}${x.detail ? ' — ' + x.detail : ''}${x.fix ? '\n    → ' + x.fix : ''}`;
+  const sec = arr => arr.slice().sort((a, b) => order[a.s] - order[b.s]).map(line).join('\n');
+  return `${t('수정사항 보고서')} · ${[I.nameKo, I.nameEn].filter(Boolean).join(' · ') || t('이름 없음')} · ${I.titleKo || I.titleEn || t('작품명 없음')} · ${stamp(R.at)}
+${t('꼭 고칠 것')} ${R.n.bad} / ${t('확인할 것')} ${R.n.warn} / ${t('통과')} ${R.n.ok}
+
+1. ${t('웹 포트폴리오')}
+${sec(R.A)}
+
+2. ${t('SPACE LAB 제출 규격')}
+${sec(R.B)}
+${R.rows.length ? '\n' + R.rows.map(r => `- ${r.name} (${r.role}) ${r.size} / ${r.kb} / ${r.type} → ${r.probs.length ? r.probs.map(p => p[0]).join(', ') : t('통과')}`).join('\n') + '\n' : ''}`;
+}
+let lastR = null;
+function updateReportBadge() {
+  const el = $('#rpCnt'); if (!el) return;
+  if (!S.images.length && !S.info.titleKo && !S.info.nameKo) { el.classList.remove('on'); return; }
+  const R = buildReport();
+  el.textContent = R.n.bad ? R.n.bad : '✓';
+  el.classList.add('on'); el.classList.toggle('zero', !R.n.bad);
+}
+function openReport() {
+  lastR = buildReport();
+  $('#rpBody').innerHTML = reportHTML(lastR);
+  $('#rpt').classList.add('on');
+  $('#rpt .rpt-body').scrollTop = 0;
+}
+async function saveReport() {
+  const R = lastR || buildReport();
+  const own = [...document.styleSheets].find(ss => ss.ownerNode && ss.ownerNode.tagName === 'STYLE' && ss.ownerNode.parentNode === document.head);
+  const css = [...(own ? own.cssRules : [])].map(r => r.cssText).filter(c => /\.rp[ .{:]|\.rp$|:root/.test(c) && !/\.rpt|\.rpbtn/.test(c)).join('\n');
+  const doc = `<!DOCTYPE html><html lang="${LANG === 'zh' ? 'zh-CN' : 'ko'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(t('수정사항 보고서'))} — ${esc(S.info.nameKo || S.info.nameEn || '')}</title><style>${css}body{margin:0;background:#F2F1EE}.wrap{max-width:860px;margin:0 auto;padding:28px 18px 50px}</style></head><body><div class="wrap"><div class="rp">${reportHTML(R)}</div></div></body></html>`;
+  const d = R.at, p = n => String(n).padStart(2, '0');
+  const who = (S.info.nameKo || S.info.nameEn || 'portfolio').trim().replace(/[\\/:*?"<>|\s]+/g, '_');
+  const ok = await saveFile(`${t('수정사항보고서')}_${who}_${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.html`, new Blob([doc], { type: 'text/html' }));
+  if (ok) toast(t('보고서를 내려받았습니다'));
+}
+async function copyReport() {
+  const txt = reportText(lastR || buildReport());
+  try { await navigator.clipboard.writeText(txt); toast(t('보고서를 글로 복사했습니다. 카톡·메모에 붙여 넣으세요')); }
+  catch (e) { toast(t('복사가 막혀 있습니다. 화면을 캡처하세요'), 3500); }
 }
 
 /* ---------- 주소·QR ---------- */
@@ -2638,7 +2972,7 @@ async function init() {
   document.addEventListener('drop', e => { if (!e.target.closest('#drop') && !e.target.closest('#imgList') && e.dataTransfer.files.length) { e.preventDefault(); addFiles(e.dataTransfer.files); } });
   $('#fileIn').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
   $('#dirIn').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
-  $('#recBox').addEventListener('click', e => { if (e.target.closest('#aiBtn')) aiOrganize(); const g = e.target.closest('[data-go2]'); if (g) go(+g.dataset.go2); });
+  $('#recBox').addEventListener('click', e => { if (e.target.closest('#aiBtn')) aiOrganize(); if (e.target.closest('[data-rp]')) openReport(); const g = e.target.closest('[data-go2]'); if (g) go(+g.dataset.go2); });
   $$('#stepper button').forEach(b => b.addEventListener('click', () => go(+b.dataset.go)));
   $('#prevBtn').addEventListener('click', () => go(step - 1));
   $('#nextBtn').addEventListener('click', () => go(step + 1));
@@ -2659,6 +2993,13 @@ async function init() {
   $('#copyUrl').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('#siteUrl').textContent); toast(t('주소를 복사했습니다')); } catch (e) { toast($('#siteUrl').textContent); } });
   $('#qrSave').addEventListener('click', saveQR);
   $('#exportBtn').addEventListener('click', exportZip);
+  $('#rpBtn').addEventListener('click', openReport);
+  $('#rpBtn4').addEventListener('click', openReport);
+  $('#rpClose').addEventListener('click', () => $('#rpt').classList.remove('on'));
+  $('#rpt').addEventListener('click', e => { if (e.target.id === 'rpt') $('#rpt').classList.remove('on'); });
+  $('#rpSave').addEventListener('click', saveReport);
+  $('#rpCopy').addEventListener('click', copyReport);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') $('#rpt').classList.remove('on'); });
   new ResizeObserver(layoutFrame).observe($('#viewport'));
   await openDB();
   const had = await restore();
