@@ -96,7 +96,18 @@ a{color:inherit}
 .im{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:7px;background:#fff;transition:box-shadow .2s,border-color .2s,opacity .2s}
 .im.drag{opacity:.4}
 .im.over{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
-.im .th{width:64px;height:48px;border-radius:6px;object-fit:cover;background:#eee;cursor:grab}
+.im{user-select:none;-webkit-user-select:none}
+.im input{user-select:text;-webkit-user-select:text}
+.im .hd{position:relative;width:64px;height:48px;cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.im .th{width:100%;height:100%;border-radius:6px;object-fit:cover;background:#eee;display:block;pointer-events:none;-webkit-user-drag:none}
+.im .grip{position:absolute;left:3px;top:3px;background:rgba(17,17,17,.62);color:#fff;font-size:10px;line-height:1;letter-spacing:-1px;padding:3px 4px 3px 3px;border-radius:4px;pointer-events:none}
+.im.over-top{box-shadow:0 -3px 0 0 var(--accent)}
+.im.over-bot{box-shadow:0 3px 0 0 var(--accent)}
+.ghd{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);padding:8px 2px 0;border-radius:6px}
+.ghd:first-child{padding-top:2px}
+.ghd.over{color:var(--accent);box-shadow:0 3px 0 0 var(--accent)}
+.imghint{font-size:12px;color:var(--muted);margin:6px 0 0;line-height:1.5}
+body.dragging,body.dragging *{cursor:grabbing!important;user-select:none!important;-webkit-user-select:none!important}
 .im .mid{min-width:0;display:flex;flex-direction:column;gap:5px}
 .im .nm{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .im .nm b{color:var(--ink);font-weight:600;margin-right:4px}
@@ -295,7 +306,7 @@ a{color:inherit}
   .drop{padding:22px 14px}
   .drop .btns .btn{flex:1 1 40%;padding:11px 10px}
   .im{grid-template-columns:56px minmax(0,1fr) 26px;padding:8px;align-items:start}
-  .im .th{width:56px;height:56px}
+  .im .hd{width:56px;height:56px}
   .im .ctl{flex-direction:column}
   .im select{max-width:none;width:100%;padding:7px 8px}
   .im input{padding:7px 8px}
@@ -423,6 +434,7 @@ a{color:inherit}
           <div class="grp">
             <h3><span data-t>올린 이미지</span><span class="h3r"><em id="imgCount">0</em><button class="btn sm ghost" id="resetBtn" type="button" data-t>처음부터 다시</button></span></h3>
             <div class="summary" id="catSummary"></div>
+            <p class="imghint" id="imgHint" data-t>위에서부터 사이트에 나오는 순서입니다. 왼쪽 사진을 잡고 끌어 옮기세요 · 다른 칸으로 끌면 그 칸으로 들어갑니다.</p>
             <div class="imgs" id="imgList"></div>
             <p class="empty" id="imgEmpty" data-t>아직 올린 이미지가 없습니다.</p>
             <div id="vidGrp" style="display:none;margin-top:18px"><h3 class="sub3" data-t>영상</h3><div class="imgs" id="vidList"></div><p class="hint" data-th>가로 영상은 <b>본 영상</b>, 세로 영상은 <b>숏폼</b>으로 자동 분류됩니다. 파일당 <b>25MB</b>가 넘으면 GitHub에 올라가지 않으니 유튜브 주소를 쓰세요.</p></div>
@@ -837,6 +849,10 @@ const ZH = {
 "다운로드 폴더에서 이 파일을 찾으세요:": "请在下载文件夹中找到这个文件：",
 "안 보이면 ① 카톡·인스타 안이 아닌 <b>크롬·사파리</b>에서 열었는지 ② 폰이면 <b>PC에서 다시</b> 시도 ③ 그래도 안 되면 지금 화면을 캡처해 수업 때 가져오세요. 작업 내용은 이 브라우저에 저장돼 있습니다.": "如果没有：① 确认不是在 KakaoTalk·Instagram 内，而是在<b>Chrome·Safari</b>中打开 ② 手机的话请<b>在电脑上再试</b> ③ 仍不行就截图，上课时带来。作业内容已保存在此浏览器中。",
 "글자는 읽었지만 작품명·이름 같은 정보를 찾지 못했습니다. 2단계에서 직접 적어 주세요.": "已读取文字，但没有找到作品名·姓名等信息。请在第 2 步手动填写。",
+"갤러리 (렌더·공간)": "画廊（渲染·空间）",
+"과정·다이어그램": "过程·图解",
+"(으)로 옮겼습니다": " — 已移动",
+"위에서부터 사이트에 나오는 순서입니다. 왼쪽 사진을 잡고 끌어 옮기세요 · 다른 칸으로 끌면 그 칸으로 들어갑니다.": "从上到下就是网站上显示的顺序。按住左侧图片拖动即可 · 拖到其他分组会移入该分组。",
 "비어 있음": "空",
 "2단계 「내용 적기」에서 이름을 적으세요": "请在第2步「填写内容」中填写姓名",
 "SPACE LAB 목록 카드에 들어갑니다. 예: Hong, Gil-Dong": "会显示在 SPACE LAB 列表卡片上。例：Hong, Gil-Dong",
@@ -1422,7 +1438,7 @@ function buildSite(S, opt) {
   const by = c => use.filter(i => i.cat === c);
   const heroIm = by('hero')[0] || by('render')[0] || use[0] || null;
   const gal = [...by('hero'), ...by('render')].filter(x => x !== heroIm);
-  const proc = [...by('process'), ...by('diagram')];
+  const proc = use.filter(i => i.cat === 'process' || i.cat === 'diagram');
   const draw = by('drawing'), pan = by('panel');
   const vid = ytId(I.youtube);
   const title = I.titleKo || I.titleEn || 'Untitled Project';
@@ -2459,21 +2475,59 @@ function bindVideoList() {
 
 /* ---------- 이미지 목록 ---------- */
 function fmtSize(b) { return b > 1e6 ? (b / 1e6).toFixed(1) + 'MB' : Math.round(b / 1e3) + 'KB'; }
+const GROUPS = [
+  { key: 'hero', cats: ['hero'], ko: '대표 이미지' },
+  { key: 'render', cats: ['render'], ko: '갤러리 (렌더·공간)' },
+  { key: 'process', cats: ['process', 'diagram'], ko: '과정·다이어그램' },
+  { key: 'drawing', cats: ['drawing'], ko: '도면' },
+  { key: 'panel', cats: ['panel'], ko: '패널(보드)' },
+  { key: 'skip', cats: ['skip'], ko: '사용 안 함' }
+];
+const grpOf = c => GROUPS.findIndex(g => g.cats.includes(c));
+/* 사이트에 나오는 순서대로 정렬 (같은 칸 안의 순서는 그대로) */
+function sortImages() {
+  const r = S.images.map((im, i) => [grpOf(im.cat), i, im]);
+  r.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  S.images = r.map(x => x[2]);
+}
 function renderImages() {
+  sortImages();
   const box = $('#imgList');
   $('#imgEmpty').style.display = S.images.length ? 'none' : 'block';
   $('#imgCount').textContent = S.images.length ? S.images.length + t('장') + ' · ' + fmtSize(S.images.reduce((a, i) => a + i.size, 0)) : '0';
-  box.innerHTML = S.images.map((im, i) => `
-    <div class="im ${im.cat === 'hero' ? 'cat-hero' : ''}" draggable="true" data-i="${i}">
-      <img class="th" src="${im.url}" alt="">
+  let html = '', lastG = -1;
+  S.images.forEach((im, i) => {
+    const g = grpOf(im.cat);
+    if (g !== lastG) { lastG = g; html += `<div class="ghd" data-g="${g}">${esc(t(GROUPS[g].ko))}</div>`; }
+    html += `
+    <div class="im ${im.cat === 'hero' ? 'cat-hero' : ''}" data-i="${i}">
+      <div class="hd" title="drag"><img class="th" src="${im.url}" alt="" draggable="false"><span class="grip" aria-hidden="true">⋮⋮</span></div>
       <div class="mid">
         <div class="nm"><b>${String(i + 1).padStart(2, '0')}</b>${esc(im.name)} · ${im.w}×${im.h} · ${fmtSize(im.size)}</div>
         <div class="ctl"><select data-cat="${i}">${CATS.map(c => `<option value="${c}"${c === im.cat ? ' selected' : ''}>${esc(t(CAT_KO[c]))}</option>`).join('')}</select><input data-cap="${i}" value="${esc(im.caption)}" placeholder="${esc(t('설명 (캡션)'))}"></div>
       </div>
       <div class="acts"><button data-up="${i}" title="up">↑</button><button data-dn="${i}" title="down">↓</button><button data-del="${i}" title="delete">✕</button></div>
-    </div>`).join('');
+    </div>`;
+  });
+  box.innerHTML = html;
   const cnt = {}; S.images.forEach(i => { cnt[i.cat] = (cnt[i.cat] || 0) + 1; });
   $('#catSummary').innerHTML = S.images.length ? CATS.filter(c => cnt[c]).map(c => `<span class="chip ${c === 'hero' ? 'ok' : ''}">${esc(t(CAT_KO[c]))} ${cnt[c]}</span>`).join('') + (cnt.hero ? '' : `<span class="chip warn">${esc(t('대표 이미지를 하나 지정하세요'))}</span>`) : '';
+  const hint = $('#imgHint'); if (hint) hint.style.display = S.images.length > 1 ? 'block' : 'none';
+}
+/* 그림 한 장을 옮김: to = 끼워 넣을 자리(0..length), cat = 새 분류(없으면 그대로) */
+function moveImage(from, to, cat) {
+  const m = S.images[from]; if (!m) return;
+  const oldCat = m.cat;
+  if (cat && cat !== m.cat) {
+    if (cat === 'hero') S.images.forEach(im => { if (im.cat === 'hero') im.cat = 'render'; });
+    m.cat = cat;
+    if (oldCat === 'hero' && !S.images.some(im => im.cat === 'hero')) { const nx = S.images.find(im => im !== m && im.cat === 'render'); if (nx) nx.cat = 'hero'; }
+  }
+  S.images.splice(from, 1);
+  if (to > from) to--;
+  S.images.splice(Math.max(0, Math.min(to, S.images.length)), 0, m);
+  renderImages(); changed();
+  if (m.cat !== oldCat) toast('「' + t(GROUPS[grpOf(m.cat)].ko) + '」' + t('(으)로 옮겼습니다'));
 }
 function bindImageList() {
   const box = $('#imgList');
@@ -2489,21 +2543,76 @@ function bindImageList() {
   box.addEventListener('click', async e => {
     const b = e.target.closest('button'); if (!b) return;
     const d = b.dataset;
-    if (d.up != null && +d.up > 0) { const i = +d.up; [S.images[i - 1], S.images[i]] = [S.images[i], S.images[i - 1]]; }
-    else if (d.dn != null && +d.dn < S.images.length - 1) { const i = +d.dn; [S.images[i + 1], S.images[i]] = [S.images[i], S.images[i + 1]]; }
-    else if (d.del != null) { const im = S.images.splice(+d.del, 1)[0]; if (im) URL.revokeObjectURL(im.url); }
+    if (d.up != null) { const i = +d.up; if (i > 0) { const n = S.images[i - 1]; moveImage(i, i - 1, grpOf(n.cat) === grpOf(S.images[i].cat) ? null : n.cat); } return; }
+    if (d.dn != null) { const i = +d.dn; if (i < S.images.length - 1) { const n = S.images[i + 1]; moveImage(i, i + 2, grpOf(n.cat) === grpOf(S.images[i].cat) ? null : n.cat); } return; }
+    if (d.del != null) { const im = S.images.splice(+d.del, 1)[0]; if (im) URL.revokeObjectURL(im.url); }
     else return;
     renderImages(); changed();
   });
-  let from = -1;
-  box.addEventListener('dragstart', e => { const el = e.target.closest('.im'); if (!el) return; from = +el.dataset.i; el.classList.add('drag'); e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', 'x'); } catch (er) {} });
-  box.addEventListener('dragend', () => { $$('.im', box).forEach(x => x.classList.remove('drag', 'over')); from = -1; });
-  box.addEventListener('dragover', e => { if (from < 0) return; e.preventDefault(); e.stopPropagation(); $$('.im', box).forEach(x => x.classList.remove('over')); const el = e.target.closest('.im'); if (el) el.classList.add('over'); });
-  box.addEventListener('drop', e => {
-    if (from < 0) return; e.preventDefault(); e.stopPropagation();
-    const el = e.target.closest('.im'); if (!el) return; const to = +el.dataset.i;
-    if (to !== from) { const [m] = S.images.splice(from, 1); S.images.splice(to, 0, m); renderImages(); changed(); }
+  /* 끌어서 순서 바꾸기 — 마우스·터치 공통 (포인터 이벤트) */
+  let drag = null;
+  const scroller = () => box.closest('.pscroll') || document.scrollingElement;
+  const clearMarks = () => $$('.over-top,.over-bot,.over', box).forEach(x => x.classList.remove('over-top', 'over-bot', 'over'));
+  function target(x, y) {
+    const el = document.elementFromPoint(x, y); if (!el || !box.contains(el)) return null;
+    const row = el.closest('.im'); if (row) { const r = row.getBoundingClientRect(); const i = +row.dataset.i; return { row, i, before: y < r.top + r.height / 2 }; }
+    const gh = el.closest('.ghd'); if (gh) return { gh, g: +gh.dataset.g };
+    return null;
+  }
+  function autoScroll() {
+    if (!drag) return;
+    const sc = scroller(), r = sc === document.scrollingElement ? { top: 0, bottom: innerHeight } : sc.getBoundingClientRect();
+    const edge = 70; let dy = 0;
+    if (drag.y < r.top + edge) dy = -Math.ceil((r.top + edge - drag.y) / 5);
+    else if (drag.y > r.bottom - edge) dy = Math.ceil((drag.y - (r.bottom - edge)) / 5);
+    if (dy) { sc.scrollTop += dy; mark(); }
+    drag.raf = requestAnimationFrame(autoScroll);
+  }
+  function mark() {
+    clearMarks(); drag.tg = target(drag.x, drag.y); const tg = drag.tg; if (!tg) return;
+    if (tg.row) { if (tg.i !== drag.from) tg.row.classList.add(tg.before ? 'over-top' : 'over-bot'); }
+    else tg.gh.classList.add('over');
+  }
+  box.addEventListener('pointerdown', e => {
+    if (e.button > 0) return;
+    const row = e.target.closest('.im'); if (!row) return;
+    if (e.target.closest('input,select,button,textarea')) return;
+    const onHandle = !!e.target.closest('.hd');
+    if (e.pointerType !== 'mouse' && !onHandle) return; // 터치는 왼쪽 사진을 잡고 끌기 (나머지는 화면 스크롤)
+    drag = { from: +row.dataset.i, row, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, on: false, id: e.pointerId };
+    if (onHandle) e.preventDefault();
   });
+  window.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.x = e.clientX; drag.y = e.clientY;
+    if (!drag.on) {
+      if (Math.hypot(drag.x - drag.sx, drag.y - drag.sy) < 6) return;
+      drag.on = true; drag.row.classList.add('drag'); document.body.classList.add('dragging');
+      try { drag.row.setPointerCapture(e.pointerId); } catch (er) {}
+      drag.raf = requestAnimationFrame(autoScroll);
+    }
+    e.preventDefault(); mark();
+  }, { passive: false });
+  function endDrag(ok) {
+    if (!drag) return; const d = drag; drag = null;
+    cancelAnimationFrame(d.raf); clearMarks(); d.row.classList.remove('drag'); document.body.classList.remove('dragging');
+    if (!ok || !d.on || !d.tg) return;
+    const tg = d.tg;
+    if (tg.row) {
+      if (tg.i === d.from) return;
+      const to = tg.before ? tg.i : tg.i + 1;
+      const tc = S.images[tg.i].cat, fc = S.images[d.from].cat;
+      const cat = grpOf(tc) === grpOf(fc) ? null : tc;
+      if (!cat && (to === d.from || to === d.from + 1)) return;
+      moveImage(d.from, to, cat);
+    } else {
+      const G = GROUPS[tg.g]; const first = S.images.findIndex(im => grpOf(im.cat) === tg.g);
+      moveImage(d.from, first < 0 ? S.images.length : first, G.cats.includes(S.images[d.from].cat) ? null : G.cats[0]);
+    }
+  }
+  window.addEventListener('pointerup', e => { if (drag && e.pointerId === drag.id) endDrag(true); });
+  window.addEventListener('pointercancel', e => { if (drag && e.pointerId === drag.id) endDrag(false); });
+  box.addEventListener('dragstart', e => e.preventDefault());
 }
 
 /* ---------- 입력 바인딩 ---------- */
