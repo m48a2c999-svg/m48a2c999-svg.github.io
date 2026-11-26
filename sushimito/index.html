@@ -4,7 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#121110">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* course scenes */
+.scenes{margin-top:clamp(40px,5vw,72px);padding-top:clamp(28px,4vw,48px);border-top:1px solid var(--hair)}
+.scenes-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.scenes-head h3{font-family:var(--f-disp);font-size:clamp(22px,2.6vw,30px);line-height:1.2;margin:6px 0 10px;color:var(--ink)}
+.scenes-link{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:15px;white-space:nowrap}
+.scenes-link:hover,.scenes-link:focus-visible{background:var(--brass-ink)}
+.scenes-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.scenes-grid figure{margin:0}
+.scenes-grid img{display:block;width:100%;height:auto;aspect-ratio:960/702;object-fit:cover;background:#111}
+.scenes-grid figcaption{display:grid;gap:4px;padding-top:10px;text-align:left;justify-items:start;font-size:14px;color:var(--ink2)}
+.scenes-grid figcaption b{color:var(--ink);font-size:15px}
+.scenes-note{font-size:13px;color:var(--mute);margin:16px 0 0}
+@media (max-width:760px){.scenes-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
 <title>스시미토 센터플레이스</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="스시미토 이전 신축 — 서울 중구 남대문로9길 40 센터플레이스 2층. 설계 · 시공 엘모컴퍼니.">
@@ -623,7 +637,24 @@ footer a:hover{color:var(--cream)}
       </ul>
     </div>
     <p class="note">조명 시뮬레이션 R3 (2026.10.15) 기준. 직접광과 상호반사를 계산해 렌더로 확인한 값이며, 일부 기구 위치와 광속은 가정값입니다. 발주 사양이 확정되면 다시 계산합니다.</p>
-  </div>
+  
+    <div class="scenes">
+      <div class="scenes-head">
+        <div>
+          <span class="eyebrow">Course Scenes · 제안</span>
+          <h3>초밥 코스를 따라 바뀌는 카운터 빛</h3>
+          <p class="lede">카운터 구간만 코스 흐름에 맞춰 밝기를 바꿉니다. 웰컴은 낮게, 초밥이 나올 때 가장 밝게, 마무리에서 다시 낮춥니다. 빛의 색을 함께 바꾸는 두 가지 안과 3,000K 그대로 밝기만 바꾸는 안을 비교했습니다.</p>
+        </div>
+        <a class="scenes-link" href="../sushimito-lighting/">자동 발표로 보기 →</a>
+      </div>
+      <div class="scenes-grid">
+        <figure><img src="img/scene-a.webp" alt="A안 초밥 장면, 3,500K 중성 빛" width="960" height="702" loading="lazy"><figcaption><b>A안 · 따뜻하게 시작</b><span>웰컴 2,700K → 초밥 3,500K 중성 빛. 생선 본래 색과 윤기를 또렷하게.</span></figcaption></figure>
+        <figure><img src="img/scene-b.webp" alt="B안 초밥 장면, 2,700K 노란빛" width="960" height="702" loading="lazy"><figcaption><b>B안 · 흰빛으로 시작</b><span>웰컴 4,000K 흰빛 → 초밥 2,700K 노란빛. 따뜻하고 깊은 무드로 몰입.</span></figcaption></figure>
+        <figure><img src="img/scene-c.webp" alt="C안 초밥 장면, 3,000K 그대로 가장 밝게" width="960" height="702" loading="lazy"><figcaption><b>C안 · 3,000K 디밍</b><span>천장 조명 3,000K 고정, 밝기만 디밍. 기구와 운영이 가장 단순.</span></figcaption></figure>
+      </div>
+      <p class="scenes-note">카운터 조도 600 → 900 → 1,300 → 700 → 400 lx (웰컴 · 전체 · 초밥 · 디저트 · 마무리) · 세 안 공통 · 장면 이미지는 렌더 보정, 값은 가설 목표</p>
+    </div>
+</div>
 </section>
 
 <!-- 06 -->
