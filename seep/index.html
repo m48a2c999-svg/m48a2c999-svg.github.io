@@ -86,6 +86,9 @@ html,body{height:100%;overflow:hidden}
 .steps li b{display:block;font-family:Hahmlet,serif;font-weight:400;font-size:20px;color:inherit}
 .steps li span{font-size:14.5px;line-height:1.6;display:block;margin-top:2px}
 .steps li.on{color:var(--ink);border-color:var(--light)}
+#form .steps li b{font-size:22px}
+#form .steps li span{font-size:15.5px}
+#form .steps li.on span{color:#dcd4c7}
 .fig{position:relative;min-height:340px;height:100%}
 .fig>svg{position:absolute;inset:0;width:100%;height:100%}
 /* living section */
@@ -148,6 +151,8 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radiu
 footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:13px;color:var(--mute);border-top:1px solid var(--line)}
 @media(max-width:900px){
   .page.band{align-items:flex-start}
+  .pips{display:none}
+  .split{padding-bottom:76px}
   .hint{display:none}
   .split{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;padding-top:64px;gap:12px}
   .split .fig,.split .frames{order:-1;min-height:0;height:100%;align-self:stretch}
@@ -206,7 +211,20 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
 </section>
 <section class="page" id="form" data-steps="5">
   <div class="stage">
-    <div class="fig solo" id="isoFig"><svg id="iso" role="img" aria-label="형태 프로세스: 두 큐브가 땅속과 하늘로 나뉘고 기둥과 조명판이 더해지는 등각 투상도"></svg></div>
+    <div class="split">
+      <div class="copy">
+        <h2>형태 프로세스</h2>
+        <p class="mute" style="margin-top:10px">같은 크기의 두 상자에서 하나의 수직으로. 클릭할 때마다 한 단계씩 진행된다.</p>
+        <ol class="steps" id="steps">
+          <li class="on"><b>1 · 재료</b><span>6,000 큐브 두 개. 하나는 유리, 하나는 거울.</span></li>
+          <li><b>2 · 땅속으로</b><span>유리 큐브를 6m 묻고, 사방에 1,500 틈을 남겨 흙의 단면을 연다.</span></li>
+          <li><b>3 · 하늘로</b><span>거울 큐브를 지면 위 2,200에 띄운다. 그 사이로 사람이 드나든다.</span></li>
+          <li><b>4 · 꿰기</b><span>□1,000 기둥 하나가 바닥에서 꼭대기까지 오르고, 계단이 그 둘레를 감는다.</span></li>
+          <li><b>5 · 빛</b><span>큐브와 같은 6,000 조명판을 기둥 머리에 얹어, 빛을 아래로 흘려보낸다.</span></li>
+        </ol>
+      </div>
+      <div class="fig" id="isoFig"><svg id="iso" role="img" aria-label="형태 프로세스: 두 큐브가 땅속과 하늘로 나뉘고 기둥과 조명판이 더해지는 등각 투상도"></svg></div>
+    </div>
     <div class="pips" id="pips" aria-hidden="true"><b class="on"></b><b></b><b></b><b></b><b></b></div>
   </div>
 </section>
@@ -356,7 +374,8 @@ function setHero(k){
 const iso = document.getElementById('iso');
 const isoFig = document.getElementById('isoFig');
 const formSec = document.getElementById('form');
-const stepsLi = [...document.querySelectorAll('#pips b')];
+const stepsLi = [...document.querySelectorAll('#steps li')];
+const pipsB = [...document.querySelectorAll('#pips b')];
 const LV = [-6, -5, -4, -3, -2, -1, 0, 2.6/3, 5.2/3, 2.6, 2.6 + 2.6/3, 2.6 + 5.2/3, 5.2];
 let isoS = 0;
 function drawIso(s){
@@ -445,6 +464,7 @@ function drawIso(s){
 let tween = null;
 function setForm(k){
   stepsLi.forEach((li, i) => li.classList.toggle('on', i === k));
+  pipsB.forEach((b, i) => b.classList.toggle('on', i === k));
   if (reduce){ isoS = k; drawIso(isoS); return; }
   const from = isoS, to = k, t0 = performance.now(), dur = 900 + 500*Math.min(2, Math.abs(to - from));
   if (tween) cancelAnimationFrame(tween);
@@ -665,8 +685,7 @@ function show(p, st){
   countEl.textContent = `${pi + 1} / ${pages.length}`;
   prevB.disabled = beat === 0; nextB.disabled = beat === total - 1;
   navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
-  nav.classList.toggle('solid', id !== 'render' && id !== 'end' && id !== 'form');
-  nav.classList.toggle('quiet', id === 'form');
+  nav.classList.toggle('solid', id !== 'render' && id !== 'end');
   if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
 }
 function next(){ if (si < nSteps[pi] - 1) show(pi, si + 1); else if (pi < pages.length - 1) show(pi + 1, 0); }
@@ -677,6 +696,7 @@ fsB.addEventListener('click', e => { e.stopPropagation(); const d = document; tr
 navLinks.forEach(a => a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const i = pages.findIndex(p => '#' + p.id === a.getAttribute('href')); if (i >= 0) show(i, 0); }));
 document.querySelector('.brand').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); show(0, 0); });
 bLi.forEach((li, i) => li.addEventListener('click', e => { e.stopPropagation(); show(pi, i); }));
+stepsLi.forEach((li, i) => li.addEventListener('click', e => { e.stopPropagation(); show(pi, i); }));
 // click anywhere: right side forward, left edge back; interactive parts are left alone
 document.addEventListener('click', e => {
   if (e.target.closest('button, a, input, label, select, .ctl, .scenebox, .seg')) return;
