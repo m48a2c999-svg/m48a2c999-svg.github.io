@@ -81,6 +81,71 @@ html,body{height:100%;overflow:hidden}
 .states svg{width:64px;height:64px;margin-bottom:18px}
 .states h3{margin-bottom:8px}
 .states p{color:var(--mute);font-size:15px}
+
+/* front: question, theory, references, concept, development */
+.two{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,4vw,64px);align-items:center}
+.kick{font-size:14px;color:var(--light);margin-bottom:18px}
+.body{margin-top:16px;color:#d8d0c3;max-width:36em}
+.pqs{margin:28px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.pqs div{display:grid;grid-template-columns:4.5em minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pqs dt{font-family:Hahmlet,serif;color:var(--light)}
+.pqs dd{margin:0;color:var(--ink)}
+.introfig svg{width:100%;height:auto;max-height:calc(100svh - 200px);display:block;border-radius:6px}
+.ibox{animation:fadebox 9s ease-in-out infinite}
+.imirror{opacity:0;animation:mirror 9s ease-in-out infinite}
+.iopen{opacity:0;animation:openup 9s ease-in-out infinite}
+.ilight{opacity:0;animation:beam 9s ease-in-out infinite}
+@keyframes fadebox{0%,15%{opacity:1}35%,100%{opacity:0}}
+@keyframes mirror{0%,15%{opacity:0}35%,60%{opacity:1}80%,100%{opacity:.35}}
+@keyframes openup{0%,40%{opacity:0}60%,100%{opacity:1}}
+@keyframes beam{0%,62%{opacity:0}80%,92%{opacity:.35}100%{opacity:0}}
+.skins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px);margin-top:36px;border-top:1px solid var(--line);padding-top:28px}
+.skins svg{width:100%;max-width:220px;height:auto;margin-bottom:16px}
+.skins h3{margin-bottom:10px}
+.skins p{font-size:15px;color:var(--mute)}
+.src{margin-top:12px;font-size:13.5px !important;color:#c9bfa9 !important}
+.take{margin-top:14px;font-size:15px;color:var(--ink) !important;border-left:2px solid var(--light);padding-left:12px}
+.flow{stroke-dasharray:6 6;animation:flow 1.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+.reftab{margin-top:34px;border-top:1px solid var(--line)}
+.rhead,.rrow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr) minmax(0,2.2fr) minmax(0,3fr);gap:20px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.rhead{font-size:13px;color:var(--mute);padding:12px 0}
+.rk{font-family:Hahmlet,serif;font-size:20px}
+.rs{color:var(--light)}
+.rr{font-size:14.5px;color:#c9bfa9}
+.rt{font-size:15px;color:var(--ink)}
+.cdiag{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+.sheet.tall{height:min(70svh,620px)}
+.pts{margin:20px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.pts li{color:#d8d0c3;padding-left:0}
+.pts b{display:inline-block;min-width:4em;font-family:Hahmlet,serif;font-weight:400;color:var(--light);margin-right:6px}
+.crit{margin-top:14px;font-size:14px;color:var(--mute);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.crit b{font-weight:500;color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:4px 12px}
+.devs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin-top:28px}
+.devs figure{margin:0;opacity:.38;transition:opacity .7s}
+.devs figure.on,.devs figure.seen{opacity:1}
+.devs .sheet{height:min(40svh,380px)}
+.devs p{font-size:14.5px;color:var(--mute);margin-top:6px}
+.devs .lv{margin-top:16px}
+.verdict{color:var(--ink) !important}
+@media(max-width:900px){.two,.cdiag{grid-template-columns:minmax(0,1fr)}.introfig{order:-1}.introfig svg{max-height:38svh}.skins,.devs{grid-template-columns:minmax(0,1fr)}.rhead{display:none}.rhead,.rrow{grid-template-columns:minmax(0,1fr);gap:4px}.sheet.tall{height:46svh}.devs figure{opacity:1}}
+@media(prefers-reduced-motion:reduce){.ibox,.imirror,.iopen,.ilight,.flow{animation:none}.imirror,.iopen{opacity:1}.ibox{opacity:0}}
+
+.gal{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr) minmax(0,5fr);gap:clamp(12px,1.6vw,22px);margin-top:24px}
+.glab{font-family:Hahmlet,serif;color:var(--light);margin-bottom:10px}
+.gg{display:grid;gap:8px;height:min(62svh,560px)}
+.g1{grid-auto-rows:minmax(0,1fr)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+.gg img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.res{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,30px);margin-top:26px;border-top:1px solid var(--line);padding-top:22px}
+.res article{display:flex;flex-direction:column;gap:10px}
+.rq{font-family:Hahmlet,serif;font-size:20px;line-height:1.35;color:var(--ink)}
+.rc{font-size:13px;color:#c9bfa9;line-height:1.5}
+.rf{font-size:14.5px;color:var(--mute);line-height:1.65}
+.ra{font-size:14.5px;color:var(--ink);border-left:2px solid var(--light);padding-left:12px;line-height:1.65;margin-top:auto}
+.refsrc{margin-top:18px;font-size:12.5px !important;overflow-wrap:anywhere}
+@media(max-width:1100px){.res{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){.gal{grid-template-columns:minmax(0,1fr)}.gg{height:auto}.g1{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:auto}.gg img{aspect-ratio:1/1;height:auto}.res{grid-template-columns:minmax(0,1fr)}}
 /* form morph */
 #form{background:var(--bg2)}
 .split{height:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;padding:72px max(5vw,16px) 32px;max-width:1400px;margin:0 auto}
@@ -183,36 +248,158 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
 </head>
 <body>
 <nav class="nav" id="nav">
-  <a class="brand" href="#concept">스밈<b>SEEP</b></a>
+  <a class="brand" href="#intro">스밈<b>SEEP</b></a>
   <div class="links">
-    <a href="#concept">개념</a><a href="#form">형태</a><a href="#living">빛과 바람</a><a href="#walk">경험</a><a href="#build">구조</a><a href="#numbers">규모</a><a href="#film">영상</a><a href="#render">렌더</a>
+    <a href="#intro">개념</a><a href="#develop">형태</a><a href="#living">빛과 바람</a><a href="#walk">경험</a><a href="#build">구조</a><a href="#numbers">규모</a><a href="#film">영상</a><a href="#render">렌더</a>
   </div>
 </nav>
 
-<section class="page band on" id="concept">
+<section class="page band on" id="intro" data-group="intro">
+  <div class="wrap two">
+    <div>
+      <p class="kick">스밈 SEEP · 땅과 하늘 사이에 스며드는 파빌리온</p>
+      <h2>땅은 늘 덮여 있고,<br>건축은 늘 서 있다</h2>
+      <p class="body">공원의 잔디 아래에는 흙이 켜켜이 쌓인 단면이 있지만 아무도 그것을 보지 않는다. 반대로 공원에 놓이는 파빌리온은 대개 풍경 위에 하나 더 세운 상자로 남는다.</p>
+      <p class="body">스밈은 이 관계를 뒤집는다. 보이던 상자는 거울로 지우고, 보이지 않던 땅은 유리로 연다. 건축이 무언가를 더하는 대신 땅과 하늘 사이로 스며들게 한다.</p>
+      <dl class="pqs">
+        <div><dt>문제</dt><dd>땅은 덮이고, 상자는 드러난다.</dd></div>
+        <div><dt>질문</dt><dd>건축이 풍경에 더하지 않고 스며들 수 있을까?</dd></div>
+        <div><dt>제안</dt><dd>위는 거울로 지우고, 아래는 유리로 드러내고, 그 사이를 빛으로 잇는다.</dd></div>
+      </dl>
+    </div>
+    <div class="introfig" aria-hidden="true">
+      <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="isky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3442"/><stop offset="1" stop-color="#55606a"/></linearGradient>
+          <linearGradient id="imir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfd6da"/><stop offset=".5" stop-color="#5c6d63"/><stop offset="1" stop-color="#9aa6ab"/></linearGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="210" fill="url(#isky)"/>
+        <g class="itrees" fill="#3b5640"><circle cx="40" cy="178" r="26"/><circle cx="74" cy="186" r="18"/><circle cx="352" cy="176" r="28"/><circle cx="320" cy="188" r="16"/></g>
+        <rect class="ibox" x="140" y="70" width="120" height="120" fill="#4b4741"/>
+        <rect class="imirror" x="140" y="70" width="120" height="120" fill="url(#imir)"/>
+        <g class="isoil">
+          <rect x="0" y="210" width="400" height="210" fill="#4d3824"/>
+          <rect x="0" y="232" width="400" height="26" fill="#5e4430"/><rect x="0" y="282" width="400" height="34" fill="#45321f"/><rect x="0" y="342" width="400" height="22" fill="#6b4f35"/><rect x="0" y="384" width="400" height="36" fill="#3e2c1b"/>
+        </g>
+        <rect class="iturf" x="0" y="204" width="400" height="10" fill="#4f6b3f"/>
+        <g class="iopen"><rect x="140" y="214" width="120" height="120" fill="rgba(169,208,228,.16)" stroke="#a9d0e4" stroke-width="1.5"/><path d="M110 214v126M290 214v126" stroke="#b98a55" stroke-dasharray="4 4"/></g>
+        <rect class="ilight" x="190" y="40" width="20" height="300" fill="#ffe7b0"/>
+        <line x1="0" y1="210" x2="400" y2="210" stroke="#efe9df" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+<section class="page band" id="theory" data-group="intro">
   <div class="wrap">
-    <h2>보이는 것을 지우고,<br>보이지 않던 것을 드러낸다</h2>
-    <p class="lead" style="margin-top:28px">같은 크기의 상자 두 개. 하나는 <em>땅속에 묻혀 투명해지고</em>, 하나는 <em>하늘에 떠 거울이 된다</em>. 투명한 상자는 늘 덮여 있던 흙을 보여 주고, 거울 상자는 풍경을 입고 사라진다.</p>
-    <div class="states">
+    <h2>세 가지 상태의 피부</h2>
+    <p class="body" style="max-width:46em">스며든다는 것은 형태를 세우는 대신 경계를 얇게 만드는 일이다. 건축의 경계면, 곧 피부가 바깥과 관계 맺는 방식을 셋으로 나눴다.</p>
+    <div class="skins">
       <div>
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="10" width="44" height="44" fill="rgba(169,208,228,.12)" stroke="#a9d0e4" stroke-width="1.5"/><path d="M10 40h44M10 46h44M10 51h44" stroke="#b98a55" stroke-width="1.2" opacity=".8"/></svg>
-        <h3>투명 · 아래</h3>
-        <p>땅속 유리 큐브. 흙막이 너머 1,500 틈으로 흙의 층이 그대로 드러난다.</p>
+        <svg viewBox="0 0 160 100" aria-hidden="true"><line x1="80" y1="8" x2="80" y2="92" stroke="#a9d0e4" stroke-width="3"/><path class="flow" d="M8 30H152M8 50H152M8 70H152" stroke="#ffe7b0" stroke-width="1.6" fill="none"/></svg>
+        <h3>투명 · 바깥을 들인다</h3>
+        <p>빛과 시선이 통과해 안팎이 한 장면이 된다. 로우와 슬러츠키는 재료가 비치는 실제의 투명과, 겹친 면이 동시에 읽히는 현상적 투명을 구분했다.</p>
+        <p class="src">케페스 『시각 언어』(1944) · 로우·슬러츠키 「투명성: 실제와 현상」(1963)</p>
+        <p class="take">스밈에서는 땅속 유리 큐브가 흙의 단면을 안으로 들인다.</p>
       </div>
       <div>
-        <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6f7"/><stop offset=".55" stop-color="#8d969c"/><stop offset="1" stop-color="#d9dee1"/></linearGradient></defs><rect x="10" y="10" width="44" height="44" fill="url(#mg)"/><path d="M14 50 L30 30 L38 38 L50 22" stroke="#4d6b52" stroke-width="2" fill="none" opacity=".7"/></svg>
-        <h3>반사 · 위</h3>
-        <p>공중의 거울 큐브. 숲과 하늘을 비추며 상자의 경계가 지워진다.</p>
+        <svg viewBox="0 0 160 100" aria-hidden="true"><rect x="76" y="8" width="8" height="84" fill="#c9d0d4"/><path class="flow" d="M8 26L76 50L8 74M8 40L76 50L8 60" stroke="#ffe7b0" stroke-width="1.6" fill="none"/></svg>
+        <h3>반사 · 바깥을 입는다</h3>
+        <p>표면이 주변을 비춰 형태가 풍경의 이미지로 바뀐다. 차경이 풍경을 빌려 오는 일이라면, 거울은 거꾸로 자신을 풍경에 내준다.</p>
+        <p class="src">스미스슨 「Mirror Displacements」(1969) · 에이트킨 「Mirage」(2017)</p>
+        <p class="take">스밈에서는 공중의 거울 큐브가 숲과 하늘을 입고 사라진다.</p>
       </div>
       <div>
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="27" y="4" width="10" height="56" fill="#9b968d"/><rect x="10" y="2" width="44" height="4" fill="#ffe7b0"/><path d="M32 8 L20 60 M32 8 L44 60" stroke="#ffe7b0" stroke-width="1" opacity=".6"/></svg>
-        <h3>겹침 · 사이</h3>
-        <p>기둥과 계단, 그리고 빛. 위와 아래가 한 줄기로 이어지고 서로 겹친다.</p>
+        <svg viewBox="0 0 160 100" aria-hidden="true"><rect x="76" y="8" width="8" height="84" fill="#9fb4c4" opacity=".7"/><path class="flow" d="M8 34H152M8 66L76 50L8 34" stroke="#ffe7b0" stroke-width="1.6" fill="none"/></svg>
+        <h3>겹침 · 둘이 포개진다</h3>
+        <p>투명한 면이 거울에 비치거나 거울 너머가 비쳐 보일 때, 투과와 반사가 한 면 위에 포개진다.</p>
+        <p class="src">댄 그레이엄 투웨이 미러 파빌리온 · 래리 벨 「Pacific Red II」(휘트니 비엔날레 2017)</p>
+        <p class="take">스밈에서는 거울 큐브 안에서 위의 빛과 아래의 땅이 사방 거울에 겹친다.</p>
       </div>
     </div>
   </div>
 </section>
-<section class="page" id="form" data-steps="5">
+<section class="page band" id="refimg" data-group="intro">
+  <div class="wrap">
+    <h2>레퍼런스 이미지 — 투명, 겹침, 반사</h2>
+    <div class="gal">
+      <div class="gcol"><p class="glab">투명 · 투과</p><div class="gg g1"><img src="img/ref/t1.jpg" alt="빗줄기처럼 반짝이는 유리 커튼으로 둘러싸인 파빌리온"><img src="img/ref/t2.jpg" alt="반투명 메시로 감싼 탑, 안쪽 구조와 빛이 비친다"></div></div>
+      <div class="gcol"><p class="glab">겹침 · 중첩</p><div class="gg g1"><img src="img/ref/o1.jpg" alt="옥상 테라스의 분홍색 적층 유리 큐브"><img src="img/ref/o2.jpg" alt="분홍 유리 큐브 안에 작은 큐브가 겹쳐 있다"><img src="img/ref/o3.jpg" alt="투명한 유리 상자 안에 주황과 분홍 색면이 번진다"></div></div>
+      <div class="gcol wide"><p class="glab">거울 · 반사</p><div class="gg g3"><img src="img/ref/m1.jpg" alt="알프스 초원에 선 거울 집, 하늘과 풀밭을 비춘다"><img src="img/ref/m2.jpg" alt="초원의 거울 집 정면"><img src="img/ref/m3.jpg" alt="사막에 선 거울 집"><img src="img/ref/m4.jpg" alt="미술관 정원의 주름진 거울 파빌리온"><img src="img/ref/m5.jpg" alt="거울 상자의 갈라진 틈 사이로 노란 천이 보인다"><img src="img/ref/m6.jpg" alt="접힌 거울 벽에 잔디밭이 일렁이며 비친다"></div></div>
+    </div>
+    <p class="note" style="margin-top:14px">겹침: 래리 벨 「Pacific Red II」(휘트니 비엔날레 2017) 등 · 반사: 더그 에이트킨 「Mirage」(사막 2017, 그슈타드 2019), 뷔로 베탁 디올 파빌리온(로댕 미술관) 등 · 그 밖은 출처 미상 무드 이미지</p>
+  </div>
+</section>
+<section class="page band" id="refs" data-group="intro">
+  <div class="wrap">
+    <h2>위 · 아래 · 사이 — 레퍼런스에서 가져온 것</h2>
+    <div class="reftab">
+      <div class="rhead"><span>자리</span><span>전략</span><span>레퍼런스</span><span>스밈이 가져온 것</span></div>
+      <div class="rrow"><span class="rk">위 · 지상</span><span class="rs">거울 — 지운다</span><span class="rr">더그 에이트킨 「Mirage」(2017)<br>폴 비릴리오 『사라짐의 미학』(1980)</span><span class="rt">늘 보이던 덩어리를 비춤으로 지운다. 땅에도 닿지 않게 2,200 위에 띄운다.</span></div>
+      <div class="rrow"><span class="rk">아래 · 지하</span><span class="rs">투명 — 드러낸다</span><span class="rr">안도 다다오 「지중 미술관」(2004)<br>마이클 하이저 「Double Negative」(1969–70)</span><span class="rt">땅을 파낸 빈자리 자체를 경험으로 삼는다. 흙의 단면을 1,500 틈 너머 유리 앞에 세운다.</span></div>
+      <div class="rrow"><span class="rk">사이</span><span class="rs">기둥과 빛 — 잇는다</span><span class="rr">제임스 터렐 「Roden Crater」 · 「Skyspace」</span><span class="rt">하늘의 빛을 프레임으로 끌어내린다. 조명판의 빛을 기둥을 따라 땅속까지 내린다.</span></div>
+    </div>
+  </div>
+</section>
+<section class="page band" id="research" data-group="intro">
+  <div class="wrap">
+    <h2>최신 연구 검토 — 네 가지 쟁점과 스밈의 대응</h2>
+    <div class="res">
+      <article>
+        <p class="rq">반사는 건축을 지울 수 있는가</p>
+        <p class="rc">Elmoghazy & Afify, 「Reflective Façades」, <i>Buildings</i> 13(11), 2023</p>
+        <p class="rf">모더니즘에서 부수적이던 반사가 지금은 핵심 개념 장치가 되었다. 열 개 사례의 의도를 ‘사라짐의 미학’, ‘시각적 착시’, ‘신비와 호기심’으로 묶고, 반사면이 열섬과 눈부심을 키울 수 있다고 경고한다.</p>
+        <p class="ra">거울 큐브는 사라짐의 미학을 따르되, 남쪽 반사광이 보행로로 향하는지 일조 단면으로 검토한다.</p>
+      </article>
+      <article>
+        <p class="rq">보이지 않는 건축은 새에게도 보이지 않는다</p>
+        <p class="rc">Życzkowska & Kalińska, 「Invisible Architecture」, <i>Teka KUiA PAN</i> 53, 2025 · Klem 외, <i>Wilson J. Ornithology</i> 136(1), 2024</p>
+        <p class="rf">‘보이지 않는 건축’ 24곳은 주로 반사 재료로 사라짐을 만들었지만, 조류 충돌 대책을 기록한 곳은 17%뿐이었다. 미국에서만 유리 충돌로 해마다 최소 12.8억~34.6억 마리의 새가 죽는 것으로 추산된다.</p>
+        <p class="ra">녹지를 비추는 거울은 가장 위험한 조건이다. 외부 면에 5×5cm 이하 간격의 버드세이프 점 패턴을 넣는다. 가까이서만 보이고 멀리서는 거울로 읽힌다.</p>
+      </article>
+      <article>
+        <p class="rq">땅속에서 사람은 무엇을 불안해하는가</p>
+        <p class="rc">Lee 외, 「Towards the Vertical City」, <i>Scientific Reports</i> 15, 7107, 2025</p>
+        <p class="rf">지하 공간에 대한 거부감은 통제감과 갇힌 느낌에 달려 있었다(1차 조사 1,093명). 연구진은 시야를 넓히는 조명, 명확한 길 찾기, 녹지, 넓은 통로, 광정이나 창을 권한다.</p>
+        <p class="ra">지하 큐브는 유리 바닥과 지붕으로 하늘까지 열려 있고, 흙의 단면이 사방에 보이며, 동선은 기둥을 감는 계단 하나뿐이라 길을 잃을 수 없다.</p>
+      </article>
+      <article>
+        <p class="rq">흙으로 공기를 식힐 수 있는가</p>
+        <p class="rc">Morales-Morales 외, <i>Mathematical and Computational Applications</i> 31(5), 205, 2026</p>
+        <p class="rf">흙관 열교환기와 태양 굴뚝을 함께 쓰면 환기가 시간당 2.01회에서 8.32회로 늘었다. 더운 날에는 공기를 5.75°C 식혔지만 추운 날에는 효과가 거의 없었다. 준2차원 모의실험이라는 한계가 있다.</p>
+        <p class="ra">1,500 토층 틈이 흙에 닿는 공기 통로, 계단 보이드가 굴뚝이다. 묻은 관이 아니라 열린 틈이므로 효과는 모의실험으로 확인하고, 겨울엔 댐퍼로 줄인다.</p>
+      </article>
+    </div>
+    <p class="note refsrc">출처: Elmoghazy & Afify (2023) doi.org/10.3390/buildings13112740 · Życzkowska & Kalińska (2025) journals.pan.pl/Content/138030 · Klem, Saenger & Brogle (2024) doi.org/10.1676/23-00045 · Lee 외 (2025) Scientific Reports 15:7107 · Morales-Morales 외 (2026) mdpi.com/2297-8747/31/5/205 · 버드세이프 간격 기준은 Lysyk 외(심사 전 원고)의 5×5cm 지침 충족 시 충돌 98.4% 감소 결과 참고</p>
+  </div>
+</section>
+<section class="page band" id="concept" data-group="intro">
+  <div class="wrap two cdiag">
+    <div class="sheet tall"><img src="img/concept.svg" alt="개념 단면: 조명판, 거울 큐브, 계단실 유리, 지하 유리 큐브, 토층과 1,500 틈"></div>
+    <div>
+      <h2>보이는 것을 지우고,<br>보이지 않던 것을 드러낸다</h2>
+      <p class="body">같은 크기의 큐브 두 개를 땅을 경계로 위아래에 놓는다.</p>
+      <ol class="pts">
+        <li><b>아래</b>투명 유리 큐브가 땅속에 묻혀 흙의 단면을 드러낸다.</li>
+        <li><b>위</b>거울 큐브가 지면 2,200 위에 떠서 하늘과 풍경을 비추고, 스스로는 사라진다.</li>
+        <li><b>가운데</b>□1,000 기둥을 계단이 땅속에서 큐브 상부 +5,200까지 감아 오르고, 조명판의 빛이 땅속까지 내려간다.</li>
+      </ol>
+      <p class="take">같은 6,000 외곽이 위아래로 반복되고, 기둥 하나가 모든 겹을 꿴다.</p>
+    </div>
+  </div>
+</section>
+<section class="page band" id="develop" data-steps="4" data-group="form">
+  <div class="wrap">
+    <h2>형태 발전 — 네 번의 판단</h2>
+    <p class="crit">판단 기준 <b>땅을 드러내는가</b><b>풍경에 스며드는가</b><b>실제로 지을 수 있는가</b></p>
+    <div class="devs" id="devs">
+      <figure class="on"><div class="sheet"><img src="img/devA.svg" alt="A 반복: 투명과 거울 박스의 수평 반복"></div><p class="lv">A · 반복</p><p>투명/거울 박스의 수평 반복과 떠 있는 한 줄.</p><p class="verdict">땅과 하늘을 만나지 못하고 지면 위에 흩어진다.</p></figure>
+      <figure><div class="sheet"><img src="img/devB.svg" alt="B 분리: 거울 상자는 위로, 유리방은 땅속으로"></div><p class="lv">B · 분리</p><p>거울 상자는 위로, 유리방은 땅속으로. 3m, 나선 계단.</p><p class="verdict">땅이 열리기 시작했지만 상자가 작고 계단이 좁다.</p></figure>
+      <figure><div class="sheet"><img src="img/devC.svg" alt="C 대칭: 6,000 큐브 두 개와 직선 계단 코어"></div><p class="lv">C · 대칭</p><p>6,000 큐브 두 개와 직선 계단 코어.</p><p class="verdict">위아래가 대칭이 되었으나 계단 코어가 공간을 차지한다.</p></figure>
+      <figure><div class="sheet"><img src="img/devD.svg" alt="D 수렴: 1,000 기둥에 계단을 감고 큐브를 매단 최종안"></div><p class="lv">D · 수렴 → 최종안</p><p>□1,000 기둥 하나에 계단을 감고 큐브를 매단다.</p><p class="verdict">공간을 비우고 빛을 땅속까지 보낸다.</p></figure>
+    </div>
+  </div>
+</section>
+<section class="page" id="form" data-steps="5" data-group="form">
   <div class="stage">
     <div class="split">
       <div class="copy">
@@ -688,6 +875,7 @@ function show(p, st){
   if (id === 'render') setHero(si);
   if (id === 'form') setForm(si);
   if (id === 'build') setBuild(si);
+  if (id === 'develop') [...document.querySelectorAll('#devs figure')].forEach((f, i) => { f.classList.toggle('on', i === si); f.classList.toggle('seen', i < si); });
   liveVisible = id === 'living'; if (liveVisible) drawLive();
   const fv = document.getElementById('filmv');
   if (id === 'film'){ if (pageChanged) fv.currentTime = 0; const pr = fv.play(); if (pr && pr.catch) pr.catch(() => {}); } else fv.pause();
@@ -696,7 +884,8 @@ function show(p, st){
   barEl.style.width = (100*(beat + 1)/total).toFixed(2) + '%';
   countEl.textContent = `${pi + 1} / ${pages.length}`;
   prevB.disabled = beat === 0; nextB.disabled = beat === total - 1;
-  navLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+  const grp = pages[pi].dataset.group;
+  navLinks.forEach(a => { const t = document.querySelector(a.getAttribute('href')); a.classList.toggle('on', a.getAttribute('href') === '#' + id || (grp && t && t.dataset.group === grp)); });
   nav.classList.toggle('solid', id !== 'render' && id !== 'end' && id !== 'film');
   if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
 }
