@@ -146,6 +146,14 @@ html,body{height:100%;overflow:hidden}
 .refsrc{margin-top:18px;font-size:12.5px !important;overflow-wrap:anywhere}
 @media(max-width:1100px){.res{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.gal{grid-template-columns:minmax(0,1fr)}.gg{height:auto}.g1{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:auto}.gg img{aspect-ratio:1/1;height:auto}.res{grid-template-columns:minmax(0,1fr)}}
+
+.sks{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2.4vw,36px);margin-top:26px}
+.sks figure{margin:0}
+.skp{background:#fff;border-radius:4px;height:min(58svh,540px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.skp img{max-width:100%;max-height:100%;object-fit:contain}
+.sks figcaption{margin-top:14px;font-size:15px;color:var(--mute)}
+.sks figcaption b{display:block;font-family:Hahmlet,serif;font-weight:400;font-size:19px;color:var(--ink);margin-bottom:4px}
+@media(max-width:900px){.sks{grid-template-columns:minmax(0,1fr)}.skp{height:auto}}
 /* form morph */
 #form{background:var(--bg2)}
 .split{height:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;padding:72px max(5vw,16px) 32px;max-width:1400px;margin:0 auto}
@@ -384,6 +392,15 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
         <li><b>가운데</b>□1,000 기둥을 계단이 땅속에서 큐브 상부 +5,200까지 감아 오르고, 조명판의 빛이 땅속까지 내려간다.</li>
       </ol>
       <p class="take">같은 6,000 외곽이 위아래로 반복되고, 기둥 하나가 모든 겹을 꿴다.</p>
+    </div>
+  </div>
+</section>
+<section class="page band" id="sketch" data-group="form">
+  <div class="wrap">
+    <h2>출발점 — 손 스케치</h2>
+    <div class="sks">
+      <figure><div class="skp"><img src="img/sketch_persp.jpg" alt="손 스케치 투시도: 조명판, 거울 큐브, 지하"></div><figcaption><b>투시 스케치</b>조명판 아래 거울 큐브, 그 밑으로 지하. 처음부터 위 · 사이 · 아래의 세 켜로 생각했다.</figcaption></figure>
+      <figure><div class="skp"><img src="img/sketch_section.jpg" alt="손 스케치 단면: 지면 위 2,200에 뜬 거울 큐브, 땅속 큐브와 흙, 계단"></div><figcaption><b>단면 스케치</b>지면 위 2,200에 거울 큐브를 띄우고 땅속 큐브 양옆에 흙을 둔다. 스케치의 3,000 큐브가 최종안에서 6,000으로 커졌다.</figcaption></figure>
     </div>
   </div>
 </section>
