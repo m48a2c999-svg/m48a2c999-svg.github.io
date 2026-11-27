@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>THE INVISIBLE — 예술 파빌리온</title>
+<title>THE INVISIBLE — 보이지 않는 건축으로서의 아트 파빌리온</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -87,7 +87,7 @@ html,body{height:100%;overflow:hidden}
 .kick{font-size:14px;color:var(--light);margin-bottom:18px}
 .body{margin-top:16px;color:#d8d0c3;max-width:36em}
 .pqs{margin:28px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
-.pqs div{display:grid;grid-template-columns:4.5em minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.pqs div{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
 .pqs dt{font-family:Hahmlet,serif;color:var(--light)}
 .pqs dd{margin:0;color:var(--ink)}
 .introfig svg{width:100%;height:auto;max-height:calc(100svh - 200px);display:block;border-radius:6px}
@@ -265,13 +265,42 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
   .page,.shot{transition:none}
   #end img{transition:none;transform:none}
 }
+
+/* paper structure */
+.defn{margin:22px 0 0;max-width:52em;font-family:Hahmlet,serif;font-size:clamp(17px,1.5vw,21px);line-height:1.7;color:var(--ink);border-left:2px solid var(--light);padding:6px 0 6px 18px}
+.defn em{font-style:normal;color:var(--light)}
+.cn{display:block;font-size:12px;letter-spacing:.04em;color:var(--light);margin-bottom:4px;font-family:inherit}
+.fk{display:block;font-size:13px;color:#efe9df;opacity:.8;margin-bottom:6px}
+.vtab{margin-top:30px;border-top:1px solid var(--line)}
+.vhead,.vrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,3fr) minmax(0,2.4fr) minmax(0,.9fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.vhead{font-size:13px;color:var(--mute);padding:10px 0}
+.vrow span{font-size:15px;color:var(--mute)}
+.vrow .vk{font-family:Hahmlet,serif;font-size:17px;color:var(--ink)}
+.vrow em{font-style:normal;font-size:14px;justify-self:start;padding:3px 10px;border-radius:99px;border:1px solid var(--line)}
+.vrow em.ok{color:#9fd3a8;border-color:rgba(159,211,168,.4)}
+.vrow em.cond{color:#f0c987;border-color:rgba(240,201,135,.4)}
+.limits{margin-top:28px;border-top:1px solid var(--line);padding-top:18px;max-width:60em}
+.lh{font-size:13px;color:var(--light);margin:0 0 10px}
+.limits ol,.bib ol{margin:0;padding-left:1.3em;display:grid;gap:6px;font-size:14.5px;color:var(--mute);line-height:1.6}
+.bib{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:26px;border-top:1px solid var(--line);padding-top:22px}
+.bib i{color:var(--ink);font-style:italic}
+@media(max-width:900px){.vhead{display:none}.vhead,.vrow{grid-template-columns:minmax(0,1fr);gap:6px}.bib{grid-template-columns:minmax(0,1fr)}}
+
+.ptitle{font-family:Hahmlet,serif;font-size:clamp(15px,1.25vw,18px);color:var(--light);margin:14px 0 10px;max-width:34em;line-height:1.55}
+.abs,.kw{font-size:14.5px;color:var(--mute);line-height:1.7;max-width:46em;margin:0 0 10px}
+.abs b,.kw b{display:inline-block;color:var(--ink);font-weight:600;margin-right:10px}
+.sub{font-family:Hahmlet,serif;color:var(--light);font-weight:500;font-size:15px}
+b.sub{margin-right:8px}
+.toc{list-style:none;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px}
+.toc a{color:var(--mute);text-decoration:none}.toc a:hover{color:var(--ink)}
+.pqs.ans{margin-top:18px}.pqs.ans dd{font-size:15px;color:var(--mute)}
 </style>
 </head>
 <body>
 <nav class="nav" id="nav">
   <a class="brand" href="#intro"><b>THE INVISIBLE</b></a>
   <div class="links">
-    <a href="#intro">개념</a><a href="#develop">형태</a><a href="#living">빛과 바람</a><a href="#walk">경험</a><a href="#build">구조</a><a href="#numbers">규모</a><a href="#check">검토</a><a href="#film">영상</a><a href="#render">렌더</a>
+    <a href="#rq">Ⅰ 서론</a><a href="#artpav">Ⅱ 개념</a><a href="#theory">Ⅲ 이론</a><a href="#refimg">Ⅳ 사례</a><a href="#concept">Ⅴ 설계</a><a href="#living">Ⅵ 검증</a><a href="#concl">Ⅶ 결론</a><a href="#bib">참고문헌</a>
   </div>
 </nav>
 
@@ -280,13 +309,9 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     <div>
       <p class="kick">THE INVISIBLE · 공원 속 예술 파빌리온</p>
       <h2>건축이<br>사라져 보이도록</h2>
-      <p class="body">공원에 놓이는 파빌리온은 대개 풍경 위에 하나 더 세운 상자로 남는다. 반대로 잔디 아래 켜켜이 쌓인 흙의 단면은 늘 거기 있지만 아무도 보지 못한다.</p>
-      <p class="body">예술 파빌리온은 공원에 잠시 세워져 사람의 지각을 실험하는 건축과 조각 사이의 구조다. 이 제안의 목적은 하나다. 보이던 것은 안 보이게, 안 보이던 것은 보이게. 공중의 상자는 거울로 풍경 속에 지우고, 땅속의 상자는 유리로 비워 흙을 드러낸다. 남는 것은 덩어리가 아니라 땅과 하늘, 그 사이를 지나는 빛이다.</p>
-      <dl class="pqs">
-        <div><dt>문제</dt><dd>상자는 풍경을 가리고, 땅은 늘 덮여 있다.</dd></div>
-        <div><dt>질문</dt><dd>건축이 풍경 속에서 사라져 보이면서, 숨은 땅은 드러낼 수 있을까?</dd></div>
-        <div><dt>제안</dt><dd>위는 거울로 지우고, 아래는 유리로 비우고, 그 사이를 빛으로 잇는다.</dd></div>
-      </dl>
+      <p class="ptitle">보이지 않는 건축으로서의 아트 파빌리온 — 반사 · 투명 · 매몰 전략의 수직 배치와 설계 적용</p>
+      <p class="abs"><b>요약</b>공원의 파빌리온은 풍경 위에 더해지는 덩어리로 남기 쉽다. 이 연구는 아트 파빌리온을 임시성 · 혼성성 · 지각성으로 정의하고, 건축을 지각적으로 지우는 세 전략(반사 · 투명 · 매몰)을 선행 이론과 사례에서 도출한다. 세 전략을 위 · 아래 · 사이에 배치한 설계안을 환경 · 구조 · 법규로 검증하고 정의의 세 기준으로 평가한다. 지움과 드러냄은 하나의 형태가 아니라 배치로 동시에 성립하며, 임시성은 지하부 때문에 부분적으로만 충족된다.</p>
+      <p class="kw"><b>주제어</b>아트 파빌리온 · 보이지 않는 건축 · 반사 · 현상적 투명성 · 지하 지각 · 연구 기반 설계</p>
     </div>
     <div class="introfig" aria-hidden="true">
       <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet">
@@ -310,35 +335,56 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="artpav" data-group="intro">
+<section class="page band" id="rq" data-group="intro">
   <div class="wrap">
-    <h2>왜 예술 파빌리온인가</h2>
-    <p class="body" style="max-width:48em">파빌리온은 공원과 정원에 세우는 가볍고 열린 임시 구조다. 오래 남는 건물이 하기 어려운 실험, 곧 지각을 바꾸는 일을 할 수 있다는 점이 이 형식의 근거다.</p>
+    <p class="kick">Ⅰ. 서론</p>
+    <h2>하나의 질문에서 출발한다</h2>
+    <p class="body" style="max-width:54em"><b class="sub">1. 문제 제기</b> 공원에 놓이는 파빌리온은 대개 풍경 위에 하나 더 세운 상자로 남는다. 반대로 잔디 아래 켜켜이 쌓인 흙의 단면은 늘 거기 있지만 아무도 보지 못한다. 보여야 할 것은 덮여 있고, 없어도 될 것은 서 있다.</p>
+    <p class="sub" style="margin-top:22px">2. 연구 질문</p>
+    <dl class="pqs">
+      <div><dt>RQ1</dt><dd>아트 파빌리온은 무엇으로 정의되며, ‘보이지 않음’은 그 정의와 어떤 관계에 있는가?</dd></div>
+      <div><dt>RQ2</dt><dd>반사 · 투명 · 매몰은 선행 사례에서 어떻게 작동하며, 각 전략의 조건과 한계는 무엇인가?</dd></div>
+      <div><dt>RQ3</dt><dd>세 전략을 위 · 아래 · 사이로 배치하면, 환경 · 구조 · 법규의 조건 안에서 덩어리를 지우면서 숨은 땅을 드러내는 파빌리온이 성립하는가?</dd></div>
+    </dl>
+    <p class="sub" style="margin-top:22px">3. 논문의 구성과 방법</p>
+    <p class="body" style="max-width:58em">개념 분석, 사례 분석, 연구 기반 설계를 결합한다. Ⅱ장은 아트 파빌리온을 조작적으로 정의하고(RQ1), Ⅲ장은 보이지 않는 건축의 이론에서 분석 틀을 세운다. Ⅳ장은 사례에서 전략별 조건과 한계를 도출하고(RQ2), Ⅴ장은 그 틀을 THE INVISIBLE에 적용한다. Ⅵ장은 환경 · 구조 · 법규 · 경험으로 검증하며(RQ3), Ⅶ장에서 세 질문에 답하고 정의의 기준으로 평가한 뒤 한계를 밝힌다.</p>
+    <ol class="toc">
+      <li><a href="#artpav">Ⅱ 아트 파빌리온의 개념</a></li><li><a href="#theory">Ⅲ 보이지 않는 건축의 이론</a></li><li><a href="#refimg">Ⅳ 사례 분석</a></li><li><a href="#concept">Ⅴ 설계 적용: THE INVISIBLE</a></li><li><a href="#living">Ⅵ 검증</a></li><li><a href="#concl">Ⅶ 결론</a></li><li><a href="#bib">참고문헌 · 부록</a></li>
+    </ol>
+  </div>
+</section>
+<section class="page band" id="artpav" data-group="def">
+  <div class="wrap">
+    <p class="kick">Ⅱ. 아트 파빌리온의 개념 — 1. 조작적 정의</p>
+    <h2>아트 파빌리온이란</h2>
+    <p class="body" style="max-width:52em">‘파빌리온’은 전시관, 정자, 휴게 시설까지 넓게 쓰인다. 무엇을 기준으로 이 제안을 평가할지 먼저 정하기 위해, 선행 연구에서 세 조건을 뽑아 조작적 정의로 삼는다.</p>
+    <p class="defn">이 글에서 <b>아트 파빌리온</b>은 공원이나 정원에 <em>한시적으로</em> 세우는, <em>건축과 조각 사이의</em>, <em>관람자의 지각 경험을 목적으로 하는</em> 구조물을 뜻한다.</p>
     <div class="skins">
       <div>
-        <h3>실험의 장 · 임시 건축</h3>
+        <h3><span class="cn">기준 ①</span> 임시성 — 실험의 장</h3>
         <p>서펜타인 갤러리는 2000년부터 켄싱턴 가든의 잔디 위에 해마다 임시 파빌리온을 세워 왔고, 이 커미션은 예술과 현대 건축의 결합을 목표로 하는 건축 실험의 장이 되었다. 정혜진 · 박소람은 파빌리온이라는 특수한 임시 형식이 현대의 장소성 담론의 바탕이 될 수 있다고 주장했다.</p>
         <p class="src">Jung & Park, 「Pavilion as an architecture of new placeness」, <i>JAABE</i> 22(1), 2023 · IStructE, <i>The Structural Engineer</i> 94(5), 2016 · Tunçbilek, 「Temporary Architecture: The Serpentine Gallery Pavilions」, METU, 2013</p>
-        <p class="take">공원 잔디 위에 전시 기간 동안 세우는 임시 구조로 계획한다.</p>
+        <p class="take">판정 질문: 전시 뒤 해체하고 땅을 되돌릴 수 있는가?</p>
       </div>
       <div>
-        <h3>조각과 건축 사이 · 거울 파빌리온</h3>
+        <h3><span class="cn">기준 ②</span> 혼성성 — 조각과 건축 사이</h3>
         <p>댄 그레이엄의 파빌리온은 유리와 금속으로 만든 시각예술과 건축의 혼성이다. 그는 투명하면서 동시에 반사하는 투웨이 미러로 관람자가 자신과 타인을 보고, 또 보이게 만들었다. 알메이다와 로페스는 그레이엄의 작업을 예술과 건축 사이의 비평적 관점으로 읽었다.</p>
         <p class="src">Almeida & Lopes, 「Critical perspectives between Art and Architecture: Dan Graham's investigations」, <i>V!RUS</i> 12, 2016 · 댄 그레이엄 「Pavilion/Sculpture for Argonne」(1978)</p>
-        <p class="take">거울 큐브는 관람자와 풍경을 함께 비추는 조각이자 지붕이다.</p>
+        <p class="take">판정 질문: 쓰임을 담는 방이면서 그 자체로 보이는 대상인가?</p>
       </div>
       <div>
-        <h3>지각의 장치 · 보는 사람이 완성한다</h3>
+        <h3><span class="cn">기준 ③</span> 지각성 — 보는 사람이 완성한다</h3>
         <p>그레이엄은 사람이 없으면 파빌리온이 미니멀 조각처럼 보일 뿐이라고 했다. 그의 파빌리온은 자신과 타인을 바라보는 사람들에게서 의미를 얻는다. 예술 파빌리온의 완성은 형태가 아니라 그 안에서 일어나는 보기와 보이기다.</p>
         <p class="src">Whitney Museum, 「Dan Graham: Portal」 해설, 2023 · De Pont Museum, 「Dan Graham: Pavilion」 소장품 설명</p>
-        <p class="take">관람자는 거울 속 풍경에서 상자가 사라지는 것을, 땅속에서 흙이 드러나는 것을 직접 겪는다.</p>
+        <p class="take">판정 질문: 관람자가 들어가 몸으로 겪어야 완성되는가?</p>
       </div>
     </div>
   </div>
 </section>
-<section class="page band" id="theory" data-group="intro">
+<section class="page band" id="theory" data-group="theory">
   <div class="wrap">
-    <h2>개념의 근거 — 안 보이게 하는 세 가지 방법</h2>
+    <p class="kick">Ⅲ. 보이지 않는 건축의 이론 — 분석 틀: 전략 × 자리</p>
+    <h2>안 보이게 하는 세 가지 방법</h2>
     <p class="body" style="max-width:48em">'보이지 않는 건축'은 형태를 더하는 대신 지각을 지운다. 연구가 정리한 방법 가운데 셋을 가져와 위 · 아래 · 사이에 나눠 썼다.</p>
     <div class="skins">
       <div>
@@ -365,9 +411,10 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="refimg" data-group="intro">
+<section class="page band" id="refimg" data-group="prior">
   <div class="wrap">
-    <h2>레퍼런스 이미지 — 투명, 겹침, 반사</h2>
+    <p class="kick">Ⅳ. 사례 분석 — 1. 대상: 투명 · 겹침 · 반사</p>
+    <h2>투명, 겹침, 반사</h2>
     <div class="gal">
       <div class="gcol"><p class="glab">투명 · 투과</p><div class="gg g1"><img src="img/ref/t1.jpg" alt="빗줄기처럼 반짝이는 유리 커튼으로 둘러싸인 파빌리온"><img src="img/ref/t2.jpg" alt="반투명 메시로 감싼 탑, 안쪽 구조와 빛이 비친다"></div></div>
       <div class="gcol"><p class="glab">겹침 · 중첩</p><div class="gg g1"><img src="img/ref/o1.jpg" alt="옥상 테라스의 분홍색 적층 유리 큐브"><img src="img/ref/o2.jpg" alt="분홍 유리 큐브 안에 작은 큐브가 겹쳐 있다"><img src="img/ref/o3.jpg" alt="투명한 유리 상자 안에 주황과 분홍 색면이 번진다"></div></div>
@@ -376,9 +423,10 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     <p class="note" style="margin-top:14px">겹침: 래리 벨 「Pacific Red II」(휘트니 비엔날레 2017) 등 · 반사: 더그 에이트킨 「Mirage」(사막 2017, 그슈타드 2019), 뷔로 베탁 디올 파빌리온(로댕 미술관) 등 · 그 밖은 출처 미상 무드 이미지</p>
   </div>
 </section>
-<section class="page band" id="refs" data-group="intro">
+<section class="page band" id="refs" data-group="prior">
   <div class="wrap">
-    <h2>위 · 아래 · 사이 — 레퍼런스에서 가져온 것</h2>
+    <p class="kick">Ⅳ. 사례 분석 — 2. 분석표: 위 · 아래 · 사이</p>
+    <h2>위 · 아래 · 사이</h2>
     <div class="reftab">
       <div class="rhead"><span>자리</span><span>전략</span><span>레퍼런스</span><span>이 제안이 가져온 것</span></div>
       <div class="rrow"><span class="rk">위 · 지상</span><span class="rs">거울 — 지운다</span><span class="rr">더그 에이트킨 「Mirage」(2017)<br>폴 비릴리오 『사라짐의 미학』(1980)</span><span class="rt">늘 보이던 덩어리를 비춤으로 지운다. 땅에도 닿지 않게 2,200 위에 띄운다.</span></div>
@@ -387,9 +435,10 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="research" data-group="intro">
+<section class="page band" id="research" data-group="prior">
   <div class="wrap">
-    <h2>최신 연구 검토 — 네 가지 쟁점과 이 제안의 대응</h2>
+    <p class="kick">Ⅳ. 사례 분석 — 3. 전략별 조건과 한계</p>
+    <h2>네 가지 쟁점과 이 설계의 대응</h2>
     <div class="res">
       <article>
         <p class="rq">반사는 건축을 지울 수 있는가</p>
@@ -419,10 +468,11 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     <p class="note refsrc">출처: Elmoghazy & Afify (2023) doi.org/10.3390/buildings13112740 · Życzkowska & Kalińska (2025) journals.pan.pl/Content/138030 · Klem, Saenger & Brogle (2024) doi.org/10.1676/23-00045 · Lee 외 (2025) Scientific Reports 15:7107 · Morales-Morales 외 (2026) mdpi.com/2297-8747/31/5/205 · 버드세이프 간격 기준은 Lysyk 외(심사 전 원고)의 5×5cm 지침 충족 시 충돌 98.4% 감소 결과 참고</p>
   </div>
 </section>
-<section class="page band" id="concept" data-group="intro">
+<section class="page band" id="concept" data-group="design">
   <div class="wrap two cdiag">
     <div class="sheet tall"><img src="img/concept.svg" alt="개념 단면: 조명판, 거울 큐브, 유리 없이 열린 GL, 지하 유리 큐브, 토층과 1,500 틈"></div>
     <div>
+      <p class="kick">Ⅴ. 설계 적용 — 1. 설계 개념</p>
       <h2>보이는 것은 지우고,<br>보이지 않던 것은 드러낸다</h2>
       <p class="body">같은 크기의 큐브 두 개를 땅을 경계로 위아래에 놓는다. 하나는 사라지고, 하나는 비워진다.</p>
       <ol class="pts">
@@ -434,19 +484,21 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="sketch" data-group="form">
+<section class="page band" id="sketch" data-group="design">
   <div class="wrap">
-    <h2>출발점 — 손 스케치</h2>
+    <p class="kick">Ⅴ. 설계 적용 — 2. 출발점</p>
+    <h2>손 스케치</h2>
     <div class="sks">
       <figure><div class="skp"><img src="img/sketch_persp.jpg" alt="손 스케치 투시도: 조명판, 거울 큐브, 지하"></div><figcaption><b>투시 스케치</b>조명판 아래 거울 큐브, 그 밑으로 지하. 처음부터 위 · 사이 · 아래의 세 켜로 생각했다.</figcaption></figure>
       <figure><div class="skp"><img src="img/sketch_section.jpg" alt="손 스케치 단면: 지면 위 2,200에 뜬 거울 큐브, 땅속 큐브와 흙, 계단"></div><figcaption><b>단면 스케치</b>지면 위 2,200에 거울 큐브를 띄우고 땅속 큐브 양옆에 흙을 둔다. 스케치의 3,000 큐브가 최종안에서 6,000으로 커졌다.</figcaption></figure>
     </div>
   </div>
 </section>
-<section class="page band" id="develop" data-steps="4" data-group="form">
+<section class="page band" id="develop" data-steps="4" data-group="design">
   <div class="wrap">
-    <h2>형태 발전 — 네 번의 판단</h2>
-    <p class="crit">판단 기준 <b>땅을 드러내는가</b><b>풍경에 스며드는가</b><b>실제로 지을 수 있는가</b></p>
+    <p class="kick">Ⅴ. 설계 적용 — 3. 형태 발전 A–D</p>
+    <h2>네 번의 판단</h2>
+    <p class="crit">판단 기준 <b>땅을 드러내는가</b><b>풍경 속에서 사라져 보이는가</b><b>실제로 지을 수 있는가</b></p>
     <div class="devs" id="devs">
       <figure class="on"><div class="sheet"><img src="img/devA.svg" alt="A 반복: 투명과 거울 박스의 수평 반복"></div><p class="lv">A · 반복</p><p>투명/거울 박스의 수평 반복과 떠 있는 한 줄.</p><p class="verdict">땅과 하늘을 만나지 못하고 지면 위에 흩어진다.</p></figure>
       <figure><div class="sheet"><img src="img/devB.svg" alt="B 분리: 거울 상자는 위로, 유리방은 땅속으로"></div><p class="lv">B · 분리</p><p>거울 상자는 위로, 유리방은 땅속으로. 3m, 나선 계단.</p><p class="verdict">땅이 열리기 시작했지만 상자가 작고 계단이 좁다.</p></figure>
@@ -455,11 +507,12 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page" id="form" data-steps="5" data-group="form">
+<section class="page" id="form" data-steps="5" data-group="design">
   <div class="stage">
     <div class="split">
       <div class="copy">
-        <h2>형태 프로세스</h2>
+        <p class="kick">Ⅴ. 설계 적용 — 4. 최종안의 구성</p>
+        <h2>두 상자에서 하나의 수직으로</h2>
         <p class="mute" style="margin-top:10px">같은 크기의 두 상자에서 하나의 수직으로. 클릭할 때마다 한 단계씩 진행된다.</p>
         <ol class="steps" id="steps">
           <li class="on"><b>1 · 재료</b><span>6,000 큐브 두 개. 하나는 유리, 하나는 거울.</span></li>
@@ -474,8 +527,39 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     <div class="pips" id="pips" aria-hidden="true"><b class="on"></b><b></b><b></b><b></b><b></b></div>
   </div>
 </section>
-<section class="page band" id="living">
+<section class="page" id="film" data-group="design">
+  <div class="stage filmstage">
+    <video id="filmv" src="img/seep_orbit.mp4" poster="img/orbit_poster.jpg" muted loop playsinline preload="auto" aria-label="공원 속 파빌리온 주위를 한 바퀴 도는 영상"></video>
+    <p class="filmcap"><span class="fk">Ⅴ. 설계 적용 — 5. 최종안 장면 ① 영상</span>공원 속에서 사라지는 상자, 한 바퀴</p>
+    <span class="credit">영상: AI 생성 (Gemini) · 초기안 기준 — GL 계단실 유리가 남아 있음 (도면 v9에서 삭제)</span>
+  </div>
+</section>
+<section class="page" id="render" data-steps="3" data-group="design">
+  <div class="stage">
+    <img class="shot on" src="img/day.jpg" alt="낮의 공원 속, 조명판을 인 거울 큐브가 지면 위에 떠 있다">
+    <img class="shot" src="img/night.jpg" alt="밤, 하얗게 켜진 조명판과 빛나는 지면 유리 격자">
+    <img class="shot" src="img/under.jpg" alt="땅속 유리 큐브 안, 흙의 단면 사이로 기둥과 계단이 올라간다">
+    <div class="veil"></div>
+    <div class="say on" data-say="0">
+      <p class="kick" style="color:#efe9df">Ⅴ. 설계 적용 — 5. 최종안 장면 ② 이미지</p>
+      <h1 style="font-size:clamp(36px,6.2vw,96px);white-space:nowrap">THE INVISIBLE<span style="white-space:normal">공원 속 예술 파빌리온</span></h1>
+      <p>보이던 상자는 지우고, 보이지 않던 땅은 드러낸다. 6,000 유리 큐브는 땅속에, 6,000 거울 큐브는 하늘에. 1,000 기둥 하나가 둘을 꿰고, 그 위에서 빛의 판이 켜진다.</p>
+    </div>
+    <div class="say" data-say="1">
+      <h2>밤이 되면, 빛이 땅속까지 내려간다</h2>
+      <p>조명판의 빛이 유리 지붕과 거울 사이를 지나 지면의 유리 격자를 밝히고, 그 아래 흙의 단면까지 닿는다.</p>
+    </div>
+    <div class="say" data-say="2">
+      <h2>흙의 단면 앞에 선다</h2>
+      <p>기둥을 감아 6m를 내려가면 유리벽 너머 1,500 틈에 흙의 층이 서 있다. 머리 위로는 하늘과 거울 큐브가 열린다.</p>
+    </div>
+    <div class="dots" aria-hidden="true"><b class="on"></b><b></b><b></b></div>
+    <span class="credit">이미지: AI 렌더링 (Gemini) · 초기안 기준 — GL 계단실 유리가 남아 있음 (도면 v9에서 삭제)</span>
+  </div>
+</section>
+<section class="page band" id="living" data-group="verify">
   <div class="wrap">
+    <p class="kick">Ⅵ. 검증 — 1. 빛과 바람</p>
     <h2>하루 동안, 빛과 바람이 스며든다</h2>
     <p class="mute" style="margin-top:10px;max-width:52em;font-size:15px">남북 단면 위에서 서울(북위 37.6°)의 해를 시간대로 따라간다. 거울 벽은 빛을 되비추고, 조명판이 유리 지붕을 덮어 낮의 해는 옆에서 땅속으로 든다. 해가 지면 조명판이 켜진다.</p>
     <div class="live">
@@ -511,23 +595,11 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="walk">
-  <div class="wrap">
-    <h2>경험 · 세 장면</h2>
-    <div class="trio">
-      <figure><div class="sheet"><img src="img/seq1.svg" alt="단면: 지면 유리 위에 선 사람"></div>
-        <p class="lv">GL ±0</p><h3>유리 위에 선다</h3><p>발아래로 땅속의 유리 큐브와 흙의 단면이 열린다. 머리 위엔 거울 큐브가 떠 있다.</p></figure>
-      <figure><div class="sheet"><img src="img/seq2.svg" alt="단면: 땅속 유리 큐브로 내려간 사람"></div>
-        <p class="lv">−6,000</p><h3>땅속으로 내려간다</h3><p>기둥을 감아 6m를 내려가면 유리 너머 1,500 틈에 흙의 층이 서 있다.</p></figure>
-      <figure><div class="sheet"><img src="img/seq3.svg" alt="단면: 거울 큐브 안 상부 전망참에 선 사람"></div>
-        <p class="lv">+2,600 ~ +5,200</p><h3>빛 속으로 오른다</h3><p>거울 큐브 안 상부 전망참에 서면 사방의 거울과 위의 빛, 아래의 땅이 한 장면에 겹친다.</p></figure>
-    </div>
-  </div>
-</section>
-<section class="page" id="build" data-steps="6">
+<section class="page" id="build" data-steps="6" data-group="verify">
   <div class="stage">
     <div class="split">
       <div class="copy">
+        <p class="kick">Ⅵ. 검증 — 2. 구조</p>
         <h2>기둥 하나가<br>큐브를 매단다</h2>
         <p class="mute" style="margin-top:14px">거울 큐브는 땅을 딛지 않는다. 기둥 머리에서 8방향으로 뻗은 지붕보에 행거 포스트 16개로 매달린다.</p>
         <ol class="steps" id="bsteps">
@@ -545,8 +617,9 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page band" id="numbers">
+<section class="page band" id="numbers" data-group="verify">
   <div class="wrap">
+    <p class="kick">Ⅵ. 검증 — 3. 규모</p>
     <h2>규모</h2>
     <div class="specs">
       <div><strong>6,000³ × 2</strong><span>유리 큐브(지하) · 거울 큐브(공중)</span></div>
@@ -561,20 +634,21 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     <p class="note" style="margin-top:28px">단위 mm. 부재 치수는 계획 단계 가정값으로, 구조 검토로 확정한다.</p>
   </div>
 </section>
-<section class="page band" id="check">
+<section class="page band" id="check" data-group="verify">
   <div class="wrap chk">
     <figure class="chkfig">
       <img src="img/sect_v9.png" alt="단면도 A-A: 지하 −6,000에서 상부 전망참 +5,200까지 기둥을 감는 계단, GL은 유리 없이 열려 있고 개구부에 강재 난간">
       <figcaption class="note">단면도 A-A (1:50 원도 축소) · <a href="img/SEEP_drawings_v9.pdf" target="_blank" rel="noopener">도면 10장 PDF</a></figcaption>
     </figure>
     <div class="chkcopy">
+      <p class="kick">Ⅵ. 검증 — 4. 시공 · 법규</p>
       <h2>지을 수 있는가</h2>
       <p class="mute">평면 · 입면 · 단면 · 구조 · 상세 10장에 법규를 대조하고 개략 계산을 했다.</p>
       <ul class="chklist">
         <li><b>계단</b><span>13런 65단 · 단 171.4 / 173.3 · 너비 250 · 손잡이 Ø34 양측 H850 · 난간 1,200</span><em>적합</em></li>
         <li><b>머리 위 여유</b><span>상부 전망참 2,378 · 계단 3,149 (기준 2,100)</span><em>적합</em></li>
         <li><b>지붕보 H-600</b><span>강도 18% 사용 · 끝 처짐 2.2 mm</span><em>적합</em></li>
-        <li><b>중앙 기둥 □1,000</b><span>축력과 휨을 합쳐 9% 사용</span><em>적합</em></li>
+        <li><b>중앙 기둥 □1,000</b><span>축력과 휨을 합쳐 8% 사용</span><em>적합</em></li>
         <li><b>유리 바닥 12+12+12</b><span>응력 8.8 MPa · 처짐 3.7 mm · 한 장이 깨져도 13.2 MPa</span><em>적합</em></li>
         <li><b>방수 · 배수</b><span>틈 바닥 −6,300 (방수턱 300) · GL 개방으로 들이친 비 약 5 L/min은 지하 트렌치로 · 집수정 · 펌프 2대 교번</span><em>적합</em></li>
         <li><b>GL 4면 개방</b><span>계단을 감싼 유리 없음 · 개구부 강재 난간 H1,200 · 북측 진입 900</span><em>적합</em></li>
@@ -586,46 +660,125 @@ footer{padding:28px max(5vw,16px);display:flex;flex-wrap:wrap;gap:8px 24px;justi
     </div>
   </div>
 </section>
-<section class="page" id="film">
-  <div class="stage filmstage">
-    <video id="filmv" src="img/seep_orbit.mp4" poster="img/orbit_poster.jpg" muted loop playsinline preload="auto" aria-label="공원 속 파빌리온 주위를 한 바퀴 도는 영상"></video>
-    <p class="filmcap">공원 속에서 사라지는 상자, 한 바퀴</p>
-    <span class="credit">영상: AI 생성 (Gemini)</span>
+<section class="page band" id="walk" data-group="verify">
+  <div class="wrap">
+    <p class="kick">Ⅵ. 검증 — 5. 경험 시나리오</p>
+    <h2>세 장면</h2>
+    <div class="trio">
+      <figure><div class="sheet"><img src="img/seq1.svg" alt="단면: 지면 유리 위에 선 사람"></div>
+        <p class="lv">GL ±0</p><h3>유리 위에 선다</h3><p>발아래로 땅속의 유리 큐브와 흙의 단면이 열린다. 머리 위엔 거울 큐브가 떠 있다.</p></figure>
+      <figure><div class="sheet"><img src="img/seq2.svg" alt="단면: 땅속 유리 큐브로 내려간 사람"></div>
+        <p class="lv">−6,000</p><h3>땅속으로 내려간다</h3><p>기둥을 감아 6m를 내려가면 유리 너머 1,500 틈에 흙의 층이 서 있다.</p></figure>
+      <figure><div class="sheet"><img src="img/seq3.svg" alt="단면: 거울 큐브 안 상부 전망참에 선 사람"></div>
+        <p class="lv">+2,600 ~ +5,200</p><h3>빛 속으로 오른다</h3><p>거울 큐브 안 상부 전망참에 서면 사방의 거울과 위의 빛, 아래의 땅이 한 장면에 겹친다.</p></figure>
+    </div>
   </div>
 </section>
-<section class="page" id="render" data-steps="3">
-  <div class="stage">
-    <img class="shot on" src="img/day.jpg" alt="낮의 공원 속, 조명판을 인 거울 큐브가 지면 위에 떠 있다">
-    <img class="shot" src="img/night.jpg" alt="밤, 하얗게 켜진 조명판과 빛나는 지면 유리 격자">
-    <img class="shot" src="img/under.jpg" alt="땅속 유리 큐브 안, 흙의 단면 사이로 기둥과 계단이 올라간다">
-    <div class="veil"></div>
-    <div class="say on" data-say="0">
-      <h1 style="font-size:clamp(36px,6.2vw,96px);white-space:nowrap">THE INVISIBLE<span style="white-space:normal">공원 속 예술 파빌리온</span></h1>
-      <p>보이던 상자는 지우고, 보이지 않던 땅은 드러낸다. 6,000 유리 큐브는 땅속에, 6,000 거울 큐브는 하늘에. 1,000 기둥 하나가 둘을 꿰고, 그 위에서 빛의 판이 켜진다.</p>
+<section class="page band" id="concl" data-group="concl">
+  <div class="wrap">
+    <p class="kick">Ⅶ. 결론 — 1. 연구 질문에 대한 답</p>
+    <h2>지우고, 드러내고, 잇는다</h2>
+    <dl class="pqs ans">
+      <div><dt>RQ1</dt><dd>아트 파빌리온은 한시적으로 세우는, 건축과 조각 사이의, 지각 경험을 목적으로 하는 구조물이다. ‘보이지 않음’은 그 지각성을 끝까지 밀어붙인 경우다. 형태를 보여 주는 대신 보는 행위 자체를 대상으로 삼는다.</dd></div>
+      <div><dt>RQ2</dt><dd>반사는 덩어리를 지우지만 조류 충돌과 반사광을, 투명은 땅을 드러내지만 지하의 불안을, 매몰은 높이를 낮추지만 갇힌 느낌을 남긴다. 세 전략은 각자의 조건(버드세이프 패턴, 반사광 검토, 하늘로 열린 지하)을 갖출 때만 성립한다.</dd></div>
+      <div><dt>RQ3</dt><dd>성립한다. 다만 하나의 형태가 아니라 배치로, 그리고 아래 표의 조건 안에서다.</dd></div>
+    </dl>
+    <div class="vtab">
+      <div class="vhead"><span>RQ3 · 가설</span><span>설계에서 확인한 것</span><span>성립 조건</span><span>판정</span></div>
+      <div class="vrow"><span class="vk">위 · 반사로 지운다</span><span>지면 2,200 위의 거울 큐브가 숲과 하늘을 비춰 상자가 풍경의 이미지가 된다. (Ⅴ.1, Ⅴ.5)</span><span>버드세이프 점 패턴, 남쪽 반사광의 보행로 검토 (Ⅳ.3)</span><em class="ok">성립</em></div>
+      <div class="vrow"><span class="vk">아래 · 투명으로 드러낸다</span><span>땅속 6,000 유리 큐브와 1,500 토층 틈이 흙의 단면을 사방에 세운다. (Ⅵ.5)</span><span>지하수위가 지면 아래 3.76 m보다 낮을 것 — 지반조사로 확인, 집수정·배수 (Ⅵ.4)</span><em class="cond">조건부 성립</em></div>
+      <div class="vrow"><span class="vk">사이 · 기둥과 빛으로 잇는다</span><span>□1,000 기둥 하나가 큐브를 매달고, 65단 계단이 −6,000에서 +5,200까지 잇는다. GL은 유리 없이 네 면이 열려 바람과 사람이 지난다. (Ⅵ.1, Ⅵ.2)</span><span>기둥 사용률 8%, 지붕보 18% — 계획 단계 개략치 (Ⅵ.4)</span><em class="ok">성립</em></div>
     </div>
-    <div class="say" data-say="1">
-      <h2>밤이 되면, 빛이 땅속까지 내려간다</h2>
-      <p>조명판의 빛이 유리 지붕과 거울 사이를 지나 지면의 유리 격자를 밝히고, 그 아래 흙의 단면까지 닿는다.</p>
-    </div>
-    <div class="say" data-say="2">
-      <h2>흙의 단면 앞에 선다</h2>
-      <p>기둥을 감아 6m를 내려가면 유리벽 너머 1,500 틈에 흙의 층이 서 있다. 머리 위로는 하늘과 거울 큐브가 열린다.</p>
-    </div>
-    <div class="dots" aria-hidden="true"><b class="on"></b><b></b><b></b></div>
-    <span class="credit">이미지: AI 렌더링 (Gemini)</span>
   </div>
 </section>
-<section class="page" id="end">
+<section class="page band" id="concl2" data-group="concl">
+  <div class="wrap">
+    <p class="kick">Ⅶ. 결론 — 2. 정의에 비춘 평가 · 3. 한계와 후속 과제</p>
+    <h2>이것은 아트 파빌리온인가</h2>
+    <div class="skins">
+      <div>
+        <h3><span class="cn">기준 ①</span> 임시성</h3>
+        <p>지상부인 기둥, 지붕보, 거울 큐브, 조명판은 강재 조립식이라 해체와 이설을 전제로 계획할 수 있다. 그러나 6m 굴착과 기초는 남는다.</p>
+        <p class="take">부분 충족 — 전시 뒤 지하를 되메우는 안과, 공원의 ‘흙 전망대’로 남기는 안을 함께 제시한다.</p>
+      </div>
+      <div>
+        <h3><span class="cn">기준 ②</span> 혼성성</h3>
+        <p>거울 큐브는 비와 빛을 다루는 지붕이면서, 공원을 비추는 조각으로 먼저 보인다. 조명판은 구조물의 머리이자 밤의 광원이다.</p>
+        <p class="take">충족 — 방이면서 그 자체로 보이는 대상이다.</p>
+      </div>
+      <div>
+        <h3><span class="cn">기준 ③</span> 지각성</h3>
+        <p>상자의 사라짐과 땅의 드러남은 멀리서 보는 것만으로는 반쯤만 일어난다. 유리 위에 서고, 땅속으로 내려가고, 빛 속으로 올라야 완성된다.</p>
+        <p class="take">충족 — 관람자의 몸이 마지막 재료다.</p>
+      </div>
+    </div>
+    <div class="limits">
+      <p class="lh">한계</p>
+      <ol>
+        <li>구조·환기 수치는 계획 단계의 개략 계산이며, 실시설계 전 구조기술사가 확정해야 한다.</li>
+        <li>지반조사 전이라 지하수위와 부력 대책이 미정이다.</li>
+        <li>승강기가 없어 지하와 상부 전망참의 무장애 접근을 풀지 못했다. 지상 조망과 영상으로 보완한다.</li>
+        <li>렌더 이미지와 영상은 GL 계단실 유리가 있던 초기안 기준이다. 도면과 다이어그램(v9)이 최종안이다.</li>
+        <li>흙 틈을 지나는 공기의 냉각 효과는 선행 모의실험에 기댄 추정이며, 직접 모의실험으로 확인해야 한다.</li>
+      </ol>
+      <p class="lh" style="margin-top:16px">후속 과제</p>
+      <p class="note" style="max-width:60em">실제 대지를 정해 반사면에 비친 하늘 · 녹지 비율과 지하 채광을 수치로 검증하고, 반사 외피로 덩어리를 지우는 전략을 기존 건물의 파사드 리모델링에 적용하는 연구로 잇는다.</p>
+    </div>
+  </div>
+</section>
+<section class="page" id="end" data-group="concl">
   <img src="img/night0.jpg" alt="밤의 파빌리온, 조명판 아래 빛나는 지면 유리">
   <div class="veil"></div>
   <div class="endtext">
+    <p class="kick" style="color:#efe9df">Ⅶ. 결론 — 4. 남은 질문</p>
     <h2>이 파빌리온은 보이지 않던 땅을 보이게 하고, 보이던 상자를 지운다.</h2>
     <div class="qs">
       <p>땅을 드러내는 투명과 풍경을 지우는 거울, 어느 쪽이 더 '안 보이는' 것일까?</p>
       <p>땅에 닿지 않고 떠 있는 거울 상자는 땅에 속할까, 하늘에 속할까?</p>
       <p>빛이 땅속까지 내려갈 때, 땅은 '아래'일까 또 하나의 '하늘'일까?</p>
     </div>
-    <p class="fine">THE INVISIBLE · 예술 파빌리온 제안 · 2026 · 렌더 이미지: AI 렌더링 (Gemini) · 도면과 다이어그램은 계획안 기준</p>
+    <p class="fine">THE INVISIBLE · 예술 파빌리온 제안 · 2026 · 렌더 이미지: AI 렌더링 (Gemini, 초기안) · 도면과 다이어그램은 v9 기준</p>
+  </div>
+</section>
+<section class="page band" id="bib" data-group="bib">
+  <div class="wrap">
+    <p class="kick">참고문헌 · 부록</p>
+    <h2>참고문헌</h2>
+    <div class="bib">
+      <div>
+        <p class="lh">논문 · 연구</p>
+        <ol>
+          <li>Almeida, P., &amp; Lopes, D. (2016). Critical perspectives between art and architecture: Dan Graham’s investigations. <i>V!RUS</i>, 12.</li>
+          <li>Dikhanov-Juswigg &amp; Imae (2024). Entangled thresholds. <i>Dimensions of Architectural Knowledge</i>.</li>
+          <li>Elmoghazy &amp; Afify (2023). Reflective façades. <i>Buildings</i>, 13(11), 2740. doi.org/10.3390/buildings13112740</li>
+          <li>IStructE (2016). 2015 Serpentine Gallery Pavilion: challenges. <i>The Structural Engineer</i>, 94(5).</li>
+          <li>Jung &amp; Park (2023). Pavilion as an architecture of new placeness. <i>Journal of Asian Architecture and Building Engineering</i>, 22(1).</li>
+          <li>Klem, Saenger &amp; Brogle (2024). <i>The Wilson Journal of Ornithology</i>, 136(1). doi.org/10.1676/23-00045</li>
+          <li>Lee 외 (2025). Towards the vertical city. <i>Scientific Reports</i>, 15, 7107.</li>
+          <li>Lysyk 외 (심사 전 원고). 버드세이프 패턴 5×5 cm 간격과 충돌 감소.</li>
+          <li>Morales-Morales 외 (2026). <i>Mathematical and Computational Applications</i>, 31(5), 205.</li>
+          <li>Rowe, C., &amp; Slutzky, R. (1963). Transparency: Literal and phenomenal. <i>Perspecta</i>, 8.</li>
+          <li>Tunçbilek (2013). <i>Temporary architecture: The Serpentine Gallery Pavilions</i>. METU.</li>
+          <li>Virilio, P. (1980). <i>Esthétique de la disparition</i> [사라짐의 미학]. Paris: Balland.</li>
+          <li>Życzkowska &amp; Kalińska (2025). Invisible architecture. <i>Teka Komisji Urbanistyki i Architektury PAN</i>, 53.</li>
+        </ol>
+      </div>
+      <div>
+        <p class="lh">작품 · 사례</p>
+        <ol>
+          <li>Graham, D. (1978). Pavilion/Sculpture for Argonne. · Whitney Museum (2023), 「Dan Graham: Portal」 해설 · De Pont Museum, 「Dan Graham: Pavilion」 소장품 설명.</li>
+          <li>Serpentine Galleries. Serpentine Pavilion (2000–). 런던 켄싱턴 가든.</li>
+          <li>Aitken, D. Mirage. Desert X (2017) · 그슈타드 (2019).</li>
+          <li>Bell, L. Pacific Red II. 휘트니 비엔날레, 2017.</li>
+          <li>Bureau Betak. 디올 파빌리온, 로댕 미술관, 파리.</li>
+          <li>Ando, T. (2004). 지중 미술관. 나오시마.</li>
+          <li>Heizer, M. (1969–70). Double Negative. 네바다.</li>
+          <li>Turrell, J. Roden Crater · Skyspace 연작.</li>
+        </ol>
+        <p class="lh" style="margin-top:22px">부록</p>
+        <p class="note">A. <a href="img/SEEP_drawings_v9.pdf" target="_blank" rel="noopener">도면 10장 v9 (2026.11.27) PDF</a> — 평면 · 입면 · 단면 · 축측 · 구조 · 상세 · 일반사항(법규 검토 · 개략 계산 포함)<br>B. 이미지와 영상: AI 생성 (Gemini), 초기안 기준 — GL 계단실 유리가 남아 있음</p>
+      </div>
+    </div>
   </div>
 </section>
 <nav class="pager" aria-label="페이지 넘기기"><button type="button" id="prev" aria-label="이전">←</button><span class="count" id="count">1 / 8</span><button type="button" id="next" aria-label="다음">→</button><button type="button" id="fs" aria-label="전체 화면">⤢</button></nav>
